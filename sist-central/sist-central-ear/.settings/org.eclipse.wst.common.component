@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
     <wb-module deploy-name="sist-central">
+                
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+                
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
         <dependent-module archiveName="sist-central-ejb.jar" deploy-path="/" handle="module:/resource/sist-central-ejb/sist-central-ejb">
             <dependency-type>uses</dependency-type>
@@ -8,5 +11,7 @@
         <dependent-module archiveName="sist-central-web.war" deploy-path="/" handle="module:/resource/sist-central-web/sist-central-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+            
     </wb-module>
+    
 </project-modules>
