@@ -1,6 +1,11 @@
 package datos.entidades;
 
 import java.io.Serializable;
+import java.util.Map;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import datos.entidades.Laboratorio;
 @Entity
 public class Vacuna implements Serializable{

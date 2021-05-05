@@ -3,7 +3,9 @@ package datos.entidades;
 import javax.persistence.Entity;
 
 @Entity
-public class AsignacionPuestoVacunacion {
+public class PuestoVacunacion {
+	private Vacunatorio vacunatorio;
+	private Asignacion asignacion;
+	
 	private String nombrePuesto;
-	private Date 
 }
