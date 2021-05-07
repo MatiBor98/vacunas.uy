@@ -1,6 +1,7 @@
 package datos.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -14,13 +15,10 @@ public class Vacuna implements Serializable{
 	
 	@Id
 	private String nombre;
-	private Map<String, Laboratorio> laboratorios;
+	private List<Laboratorio> laboratorios;
 	private int cantDosis;
 	private int inmunidadMeses;
-	
-	public Vacuna() {
-		
-	}
+
 	
 	public String getNombre() {
 		return nombre;
@@ -28,12 +26,15 @@ public class Vacuna implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getLaboratorio() {
-		return laboratorio;
+	
+	public List<Laboratorio> getLaboratorios() {
+		return laboratorios;
 	}
-	public void setLaboratorio(String laboratorio) {
-		this.laboratorio = laboratorio;
+
+	public void setLaboratorios(List<Laboratorio> laboratorios) {
+		this.laboratorios = laboratorios;
 	}
+
 	public int getCantDosis() {
 		return cantDosis;
 	}
@@ -45,5 +46,16 @@ public class Vacuna implements Serializable{
 	}
 	public void setInmunidadMeses(int inmMeses) {
 		this.inmunidadMeses = inmMeses;
+	}
+
+	public Vacuna(List<Laboratorio> laboratorios, int cantDosis, int inmunidadMeses) {
+		super();
+		this.laboratorios = laboratorios;
+		this.cantDosis = cantDosis;
+		this.inmunidadMeses = inmunidadMeses;
+	}
+
+	public Vacuna() {
+		super();
 	}
 }

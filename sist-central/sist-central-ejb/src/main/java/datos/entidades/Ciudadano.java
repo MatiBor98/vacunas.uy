@@ -1,6 +1,8 @@
 package datos.entidades;
 
 
+import java.util.Map;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,6 +24,8 @@ public class Ciudadano {
 	private String nombre;
 	private String email;
 
+	private Map<String, Reserva> reservas;//
+	
 	public Ciudadano() {}
 
 	public Ciudadano(String ci, String nombre, String email) {

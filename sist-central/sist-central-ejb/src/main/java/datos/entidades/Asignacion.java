@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class Asignacion {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="asigId")
 	@SequenceGenerator(name="asigId",sequenceName="asigId", allocationSize=1)
 	private long id;
 	
