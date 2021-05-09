@@ -45,6 +45,15 @@ public class Agenda {
 
     public Agenda() {}
 
+    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Map<DayOfWeek, HoraInicioFin> horarioPorDia) {
+        this.id = id;
+        this.nombre = nombre;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.etapa = etapa;
+        this.horarioPorDia = horarioPorDia;
+    }
+
     public long getId() {
         return id;
     }
