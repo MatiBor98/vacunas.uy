@@ -3,13 +3,7 @@ package datos.entidades;
 
 import java.util.Map;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.DiscriminatorType;
+import javax.persistence.*;
 
 
 @Entity
@@ -24,7 +18,9 @@ public class Ciudadano {
 	private String nombre;
 	private String email;
 
-	private Map<String, Reserva> reservas;//
+	@OneToMany(cascade = CascadeType.ALL)
+	@MapKey(name = "codigo")
+	private Map<String, Reserva> reservas;
 	
 	public Ciudadano() {}
 

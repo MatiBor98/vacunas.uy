@@ -2,10 +2,7 @@ package datos.entidades;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Lote{
@@ -22,7 +19,8 @@ public class Lote{
 	private LocalDate fechaEntrega;
 	@Column
 	private LocalDate fechaDespacho;
-	@Column
+	@ManyToOne
+	@JoinColumn(name="vacunatorio_id", nullable=false)
 	private Vacunatorio vacunatorio;
 		
     /**

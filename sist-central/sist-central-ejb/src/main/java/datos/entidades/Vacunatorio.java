@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,7 +24,11 @@ public class Vacunatorio implements Serializable {
 	private List<PuestoVacunacion> puestosVacunacion;
 	@ManyToMany
 	private List<Vacuna> vacunasDisponibles;
+
+	@ElementCollection
+	@CollectionTable(name = "turno_por_vacunatorio")
 	private List<Turno> turnos;
+
 	private List<Lote> lotes;
 	
 	public String getNombre() {

@@ -40,7 +40,6 @@ public class Agenda {
     @CollectionTable(name = "horario_por_dia")
     @MapKeyColumn(name = "dia")
     @MapKeyEnumerated(EnumType.ORDINAL)
-    @Column(name = "horario")
     private Map<DayOfWeek, HoraInicioFin> horarioPorDia;
 
     public Agenda() {}

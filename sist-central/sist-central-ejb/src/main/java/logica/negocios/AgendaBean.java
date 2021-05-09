@@ -3,8 +3,6 @@ package logica.negocios;
 import datos.dtos.AgendaDTO;
 import datos.entidades.Agenda;
 import datos.repositorios.AgendaRepositoryLocal;
-import logica.creacion.AgendaConverter;
-import logica.creacion.AgendaDTOConverter;
 import logica.creacion.Converter;
 import logica.servicios.local.AgendaServiceLocal;
 
