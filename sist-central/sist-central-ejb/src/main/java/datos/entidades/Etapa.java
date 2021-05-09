@@ -29,7 +29,7 @@ public class Etapa {
     private LocalDate fin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="plan_id", nullable=false)
+    @JoinColumn(name="planId", nullable=false)
     private PlanVacunacion planVacunacion;
 
     @OneToMany(mappedBy = "etapa")

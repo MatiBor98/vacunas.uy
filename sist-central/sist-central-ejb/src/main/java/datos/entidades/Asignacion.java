@@ -14,17 +14,19 @@ public class Asignacion {
 	private LocalDate fechaFin;
 
 	@ManyToOne
-	@JoinColumn(name="etapa_id", nullable=false)
+	@JoinColumn(name="planVacunacionId", nullable=false)
 	private PuestoVacunacion puestoVacunacion;
 
 	@ManyToOne
-	@JoinColumn(name="ci_vacunador", nullable=false)
+	@JoinColumn(name="ciVacunador", nullable=false)
 	private Vacunador vacunador;
 
 	@ManyToOne
-	@JoinColumn(name="vacunatorio_id", nullable=false)
+	@JoinColumn(name="vacunatorioId", nullable=false)
 	private Vacunatorio vacunatorio;
 
+	@Embedded
+	@AttributeOverride(name="nombre", column=@Column(name="nombreTurno"))
 	private Turno turno;
 
 	public Asignacion() {}
@@ -59,6 +61,14 @@ public class Asignacion {
 
 	public void setPuestoVacunacion(PuestoVacunacion puestoVacunacion) {
 		this.puestoVacunacion = puestoVacunacion;
+	}
+
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 
 	public Turno getTurno() {

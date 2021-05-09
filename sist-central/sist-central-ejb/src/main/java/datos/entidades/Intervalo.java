@@ -23,7 +23,7 @@ public class Intervalo implements Serializable{
 	private LocalDate fecha;
 	private LocalTime horaInicio;
 	@ManyToOne
-	@JoinColumn(name="agenda_id", nullable=false)
+	@JoinColumn(name="agendaId", nullable=false)
 	private Agenda agenda;
 
 	@OneToMany(mappedBy = "intervalo")

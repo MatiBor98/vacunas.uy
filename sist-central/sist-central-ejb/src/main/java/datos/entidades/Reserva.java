@@ -12,11 +12,11 @@ public class Reserva {
 	private Estado estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ci_ciudadano", nullable=false)
+	@JoinColumn(name="ciCiudadano", nullable=false)
 	private Ciudadano ciudadano;
 
 	@ManyToOne
-	@JoinColumn(name="intervalo_id", nullable=false)
+	@JoinColumn(name="intervaloId", nullable=false)
 	private Intervalo intervalo;
 
 	public long getCodigo() {

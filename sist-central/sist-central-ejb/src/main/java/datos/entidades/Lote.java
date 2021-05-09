@@ -20,7 +20,7 @@ public class Lote{
 	@Column
 	private LocalDate fechaDespacho;
 	@ManyToOne
-	@JoinColumn(name="vacunatorio_id", nullable=false)
+	@JoinColumn(name="vacunatorioId", nullable=false)
 	private Vacunatorio vacunatorio;
 		
     /**

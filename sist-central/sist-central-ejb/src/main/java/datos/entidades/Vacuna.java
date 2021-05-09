@@ -14,7 +14,7 @@ public class Vacuna implements Serializable{
 	@Id
 	private String nombre;
 	@ManyToMany
-	@JoinColumn(name="vacunatorio_id", nullable=false)
+	@JoinColumn(name="vacunatorioId", nullable=false)
 	private List<Laboratorio> laboratorios;
 	private int cantDosis;
 	private int inmunidadMeses;

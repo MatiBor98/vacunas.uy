@@ -32,11 +32,11 @@ public class Agenda {
     private LocalDate fin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="etapa_id", nullable=false)
+    @JoinColumn(name="etapaId", nullable=false)
     private Etapa etapa;
 
     @ElementCollection
-    @CollectionTable(name = "horario_por_dia")
+    @CollectionTable(name = "horarioPorDia")
     @MapKeyColumn(name = "dia")
     @MapKeyEnumerated(EnumType.ORDINAL)
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;

@@ -30,7 +30,7 @@ public class PlanVacunacion {
     private List<Etapa> etapas;
 
     @ManyToOne
-    @JoinColumn(name="enfermedad_id", nullable=false)
+    @JoinColumn(name="enfermedadId", nullable=false)
     private Enfermedad enfermedad;
 
     public PlanVacunacion() {

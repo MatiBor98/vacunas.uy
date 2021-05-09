@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Ciudadano {
 
 	@Id
-	private String ci;
+	private long ci;
 	private String nombre;
 	private String email;
 
@@ -24,17 +24,17 @@ public class Ciudadano {
 	
 	public Ciudadano() {}
 
-	public Ciudadano(String ci, String nombre, String email) {
+	public Ciudadano(long ci, String nombre, String email) {
 		this.ci = ci;
 		this.nombre = nombre;
 		this.email = email;
 	}
 
-	public String getCi() {
+	public long getCi() {
 		return ci;
 	}
 
-	public void setCi(String ci) {
+	public void setCi(long ci) {
 		this.ci = ci;
 	}
 

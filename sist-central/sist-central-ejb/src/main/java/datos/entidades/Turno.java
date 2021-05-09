@@ -1,12 +1,10 @@
 package datos.entidades;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import java.time.LocalTime;
 
 @Embeddable
 public class Turno {
-	@Id
 	private String nombre;
 	private LocalTime inicio;
 	private LocalTime fin;
