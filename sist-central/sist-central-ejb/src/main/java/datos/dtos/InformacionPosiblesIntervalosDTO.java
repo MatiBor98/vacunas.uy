@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-public class HoraInicioFinDTO implements Serializable {
+public class InformacionPosiblesIntervalosDTO implements Serializable {
     private final LocalTime inicio;
     private final LocalTime fin;
     private final int capasidadPorTurno;
     private final int minutosTurno;
 
     @JsonCreator
-    public HoraInicioFinDTO(
+    public InformacionPosiblesIntervalosDTO(
             @JsonProperty("inicio")LocalTime inicio,
             @JsonProperty("fin")LocalTime fin,
             @JsonProperty("capasidadPorTurno")int capasidadPorTurno,

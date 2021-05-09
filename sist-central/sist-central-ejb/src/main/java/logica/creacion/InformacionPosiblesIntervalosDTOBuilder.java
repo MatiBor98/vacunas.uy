@@ -1,6 +1,6 @@
 package logica.creacion;
 
-import datos.dtos.HoraInicioFinDTO;
+import datos.dtos.InformacionPosiblesIntervalosDTO;
 
 import java.time.LocalTime;
 
@@ -30,7 +30,7 @@ public class InformacionPosiblesIntervalosDTOBuilder {
         return this;
     }
 
-    public HoraInicioFinDTO createHoraInicioFinDTO() {
-        return new HoraInicioFinDTO(inicio, fin, capasidadPorTurno, minutosTurno);
+    public InformacionPosiblesIntervalosDTO createHoraInicioFinDTO() {
+        return new InformacionPosiblesIntervalosDTO(inicio, fin, capasidadPorTurno, minutosTurno);
     }
 }

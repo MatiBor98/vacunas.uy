@@ -42,20 +42,19 @@ public class Agenda {
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
     @ManyToOne
-    private Vacunatorio vacunatorio;
-
-    @ManyToOne
     private Turno turno;
 
     public Agenda() {}
 
-    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
+    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa,
+                  Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia, Turno turno) {
         this.id = id;
         this.nombre = nombre;
         this.inicio = inicio;
         this.fin = fin;
         this.etapa = etapa;
         this.horarioPorDia = horarioPorDia;
+        this.turno = turno;
     }
 
     public long getId() {
@@ -108,14 +107,6 @@ public class Agenda {
 
     public InformacionPosiblesIntervalos addHorarioPorDia(DayOfWeek dia, InformacionPosiblesIntervalos horario) {
         return horarioPorDia.put(dia, horario);
-    }
-
-    public Vacunatorio getVacunatorio() {
-        return vacunatorio;
-    }
-
-    public void setVacunatorio(Vacunatorio vacunatorio) {
-        this.vacunatorio = vacunatorio;
     }
 
     public Turno getTurno() {

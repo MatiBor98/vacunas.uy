@@ -3,6 +3,7 @@ package logica.creacion;
 import datos.entidades.Agenda;
 import datos.entidades.Etapa;
 import datos.entidades.InformacionPosiblesIntervalos;
+import datos.entidades.Turno;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class AgendaBuilder {
     private LocalDate inicio;
     private LocalDate fin;
     private Etapa etapa;
+    private Turno turno;
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
     public AgendaBuilder setId(long id) {
@@ -46,7 +48,17 @@ public class AgendaBuilder {
         return this;
     }
 
+    public AgendaBuilder setTurno(Turno turno) {
+        this.turno = turno;
+        return this;
+    }
+
     public Agenda createAgenda() {
-        return new Agenda(id, nombre, inicio, fin, etapa, horarioPorDia);
+        validar();
+        return new Agenda(id, nombre, inicio, fin, etapa, horarioPorDia, turno);
+    }
+
+    private void validar() {
+        //TODO: Agregar Validaciones
     }
 }
