@@ -1,13 +1,11 @@
 package datos.entidades;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import datos.entidades.Laboratorio;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import java.io.Serializable;
+import java.util.List;
 @Entity
 public class Vacuna implements Serializable{
 	
@@ -15,6 +13,8 @@ public class Vacuna implements Serializable{
 	
 	@Id
 	private String nombre;
+	@ManyToMany
+	@JoinColumn(name="vacunatorio_id", nullable=false)
 	private List<Laboratorio> laboratorios;
 	private int cantDosis;
 	private int inmunidadMeses;

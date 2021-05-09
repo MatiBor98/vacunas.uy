@@ -2,7 +2,7 @@ package logica.creacion;
 
 import datos.entidades.Agenda;
 import datos.entidades.Etapa;
-import datos.entidades.HoraInicioFin;
+import datos.entidades.InformacionPosiblesIntervalos;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ public class AgendaBuilder {
     private LocalDate inicio;
     private LocalDate fin;
     private Etapa etapa;
-    private Map<DayOfWeek, HoraInicioFin> horarioPorDia;
+    private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
     public AgendaBuilder setId(long id) {
         this.id = id;
@@ -41,7 +41,7 @@ public class AgendaBuilder {
         return this;
     }
 
-    public AgendaBuilder setHorarioPorDia(Map<DayOfWeek, HoraInicioFin> horarioPorDia) {
+    public AgendaBuilder setHorarioPorDia(Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
         this.horarioPorDia = horarioPorDia;
         return this;
     }

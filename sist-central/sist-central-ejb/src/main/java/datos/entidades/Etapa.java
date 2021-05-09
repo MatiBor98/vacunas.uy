@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 public class Etapa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaEtapaId")
-    @SequenceGenerator(name="sequenciaEtapaId",sequenceName="seq_etapa_id", allocationSize=1)
+    @SequenceGenerator(name="sequenciaEtapaId",sequenceName="sequenciaEtapaId", allocationSize=1)
     private long id;
 
     private String restricciones;
@@ -29,8 +29,7 @@ public class Etapa {
     private LocalDate fin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    (name="plan_id", nullable=false)
+    @JoinColumn(name="plan_id", nullable=false)
     private PlanVacunacion planVacunacion;
 
     @OneToMany(mappedBy = "etapa")

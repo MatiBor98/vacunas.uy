@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 public class PlanVacunacion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaPlanId")
-    @SequenceGenerator(name="sequenciaPlanId",sequenceName="seq_plan_id", allocationSize=1)
+    @SequenceGenerator(name="sequenciaPlanId",sequenceName="sequenciaPlanId", allocationSize=1)
     private long id;
 
     private String nombre;

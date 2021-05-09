@@ -1,15 +1,15 @@
 package logica.creacion;
 
 import datos.dtos.HoraInicioFinDTO;
-import datos.entidades.HoraInicioFin;
+import datos.entidades.InformacionPosiblesIntervalos;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class HorarioInicioFinConverter implements Converter<HoraInicioFin, HoraInicioFinDTO> {
+public class InformacionPosiblesIntervalosConverter implements Converter<InformacionPosiblesIntervalos, HoraInicioFinDTO> {
     @Override
-    public HoraInicioFinDTO convert(HoraInicioFin source) {
-        HoraInicioFinDTOBuilder builder = new HoraInicioFinDTOBuilder();
+    public HoraInicioFinDTO convert(InformacionPosiblesIntervalos source) {
+        InformacionPosiblesIntervalosDTOBuilder builder = new InformacionPosiblesIntervalosDTOBuilder();
         return builder.setFin(source.getFin())
                 .setInicio(source.getInicio())
                 .setCapasidadPorTurno(source.getCapasidadPorTurno())

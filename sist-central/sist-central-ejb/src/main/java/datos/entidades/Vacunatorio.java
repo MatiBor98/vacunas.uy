@@ -29,6 +29,7 @@ public class Vacunatorio implements Serializable {
 	@CollectionTable(name = "turno_por_vacunatorio")
 	private List<Turno> turnos;
 
+	@OneToMany(mappedBy = "vacunatorio")
 	private List<Lote> lotes;
 	
 	public String getNombre() {

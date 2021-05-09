@@ -2,11 +2,8 @@ package datos.entidades;
 
 import java.io.Serializable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import datos.entidades.Laboratorio;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,9 +22,13 @@ public class Intervalo implements Serializable{
 	private Long id;
 	private LocalDate fecha;
 	private LocalTime horaInicio;
-
+	@ManyToOne
+	@JoinColumn(name="agenda_id", nullable=false)
 	private Agenda agenda;
+
+	@OneToMany(mappedBy = "intervalo")
 	private List<Reserva> reservas;
+
 	public Long getId() {
 		return id;
 	}

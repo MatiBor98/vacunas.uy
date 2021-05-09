@@ -15,6 +15,10 @@ public class Reserva {
 	@JoinColumn(name="ci_ciudadano", nullable=false)
 	private Ciudadano ciudadano;
 
+	@ManyToOne
+	@JoinColumn(name="intervalo_id", nullable=false)
+	private Intervalo intervalo;
+
 	public long getCodigo() {
 		return codigo;
 	}

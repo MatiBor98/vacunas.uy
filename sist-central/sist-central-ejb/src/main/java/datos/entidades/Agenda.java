@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,7 +22,7 @@ import javax.persistence.SequenceGenerator;
 public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
-    @SequenceGenerator(name="sequenciaAgendaId",sequenceName="seq_agenda_id", allocationSize=1)
+    @SequenceGenerator(name="sequenciaAgendaId",sequenceName="sequenciaAgendaId", allocationSize=1)
     private long id;
 
     private String nombre;
@@ -40,11 +39,11 @@ public class Agenda {
     @CollectionTable(name = "horario_por_dia")
     @MapKeyColumn(name = "dia")
     @MapKeyEnumerated(EnumType.ORDINAL)
-    private Map<DayOfWeek, HoraInicioFin> horarioPorDia;
+    private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
     public Agenda() {}
 
-    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Map<DayOfWeek, HoraInicioFin> horarioPorDia) {
+    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
         this.id = id;
         this.nombre = nombre;
         this.inicio = inicio;
@@ -93,15 +92,15 @@ public class Agenda {
         this.etapa = etapa;
     }
 
-    public Map<DayOfWeek, HoraInicioFin> getHorarioPorDia() {
+    public Map<DayOfWeek, InformacionPosiblesIntervalos> getHorarioPorDia() {
         return horarioPorDia;
     }
 
-    public void setHorarioPorDia(Map<DayOfWeek, HoraInicioFin> horarioPorDia) {
+    public void setHorarioPorDia(Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
         this.horarioPorDia = horarioPorDia;
     }
 
-    public HoraInicioFin addHorarioPorDia(DayOfWeek dia, HoraInicioFin horario) {
+    public InformacionPosiblesIntervalos addHorarioPorDia(DayOfWeek dia, InformacionPosiblesIntervalos horario) {
         return horarioPorDia.put(dia, horario);
     }
 }

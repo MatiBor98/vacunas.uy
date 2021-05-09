@@ -4,28 +4,28 @@ import datos.dtos.HoraInicioFinDTO;
 
 import java.time.LocalTime;
 
-public class HoraInicioFinDTOBuilder {
+public class InformacionPosiblesIntervalosDTOBuilder {
     private LocalTime inicio;
     private LocalTime fin;
     private int capasidadPorTurno;
     private int minutosTurno;
 
-    public HoraInicioFinDTOBuilder setInicio(LocalTime inicio) {
+    public InformacionPosiblesIntervalosDTOBuilder setInicio(LocalTime inicio) {
         this.inicio = inicio;
         return this;
     }
 
-    public HoraInicioFinDTOBuilder setFin(LocalTime fin) {
+    public InformacionPosiblesIntervalosDTOBuilder setFin(LocalTime fin) {
         this.fin = fin;
         return this;
     }
 
-    public HoraInicioFinDTOBuilder setCapasidadPorTurno(int capasidadPorTurno) {
+    public InformacionPosiblesIntervalosDTOBuilder setCapasidadPorTurno(int capasidadPorTurno) {
         this.capasidadPorTurno = capasidadPorTurno;
         return this;
     }
 
-    public HoraInicioFinDTOBuilder setMinutosTurno(int minutosTurno) {
+    public InformacionPosiblesIntervalosDTOBuilder setMinutosTurno(int minutosTurno) {
         this.minutosTurno = minutosTurno;
         return this;
     }

@@ -9,6 +9,9 @@ import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+
 import datos.entidades.Laboratorio;
 
 @Entity
@@ -19,8 +22,11 @@ public class Vacunador extends Ciudadano implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@OneToMany
 	private List<Mensaje> mensajesEnviados;
-	private Map<LocalDate, Asignacion> asignaciones; // map por fechaInicio
+	@OneToMany(mappedBy = "vacunador")
+	@MapKey(name = "fechaInicio")
+	private Map<LocalDate, Asignacion> asignaciones;
 	public List<Mensaje> getMensajesEnviados() {
 		return mensajesEnviados;
 	}
