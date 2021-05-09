@@ -1,15 +1,30 @@
 package datos.entidades;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.time.LocalTime;
 
-@Embeddable
+@Entity
 public class Turno {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaTurnoId")
+	@SequenceGenerator(name="sequenciaTurnoId",sequenceName="sequenciaTurnoId", allocationSize=1)
+	private long id;
 	private String nombre;
 	private LocalTime inicio;
 	private LocalTime fin;
 
+	@ManyToOne
+	private Vacunatorio vacunatorio;
+
 	public Turno() {}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public LocalTime getInicio() {
 		return inicio;
@@ -33,5 +48,13 @@ public class Turno {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 }

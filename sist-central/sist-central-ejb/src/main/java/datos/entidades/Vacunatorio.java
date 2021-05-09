@@ -26,8 +26,7 @@ public class Vacunatorio implements Serializable {
 	@ManyToMany
 	private List<Vacuna> vacunasDisponibles;
 
-	@ElementCollection
-	@CollectionTable(name = "turnoPorVacunatorio", joinColumns = @JoinColumn(name = "vacunatorioId"))
+	@OneToMany(mappedBy = "vacunatorio")
 	private List<Turno> turnos;
 
 	@OneToMany(mappedBy = "vacunatorio")

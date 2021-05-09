@@ -41,6 +41,12 @@ public class Agenda {
     @MapKeyEnumerated(EnumType.ORDINAL)
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
+    @ManyToOne
+    private Vacunatorio vacunatorio;
+
+    @ManyToOne
+    private Turno turno;
+
     public Agenda() {}
 
     public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
@@ -102,5 +108,21 @@ public class Agenda {
 
     public InformacionPosiblesIntervalos addHorarioPorDia(DayOfWeek dia, InformacionPosiblesIntervalos horario) {
         return horarioPorDia.put(dia, horario);
+    }
+
+    public Vacunatorio getVacunatorio() {
+        return vacunatorio;
+    }
+
+    public void setVacunatorio(Vacunatorio vacunatorio) {
+        this.vacunatorio = vacunatorio;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
     }
 }

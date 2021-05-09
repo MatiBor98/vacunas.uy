@@ -22,11 +22,7 @@ public class Asignacion {
 	private Vacunador vacunador;
 
 	@ManyToOne
-	@JoinColumn(name="vacunatorioId", nullable=false)
-	private Vacunatorio vacunatorio;
-
-	@Embedded
-	@AttributeOverride(name="nombre", column=@Column(name="nombreTurno"))
+	@JoinColumn(name="turnoId", nullable=false)
 	private Turno turno;
 
 	public Asignacion() {}
@@ -61,14 +57,6 @@ public class Asignacion {
 
 	public void setPuestoVacunacion(PuestoVacunacion puestoVacunacion) {
 		this.puestoVacunacion = puestoVacunacion;
-	}
-
-	public Vacunatorio getVacunatorio() {
-		return vacunatorio;
-	}
-
-	public void setVacunatorio(Vacunatorio vacunatorio) {
-		this.vacunatorio = vacunatorio;
 	}
 
 	public Turno getTurno() {
