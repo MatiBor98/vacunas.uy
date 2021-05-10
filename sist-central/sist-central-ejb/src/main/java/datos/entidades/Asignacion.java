@@ -14,7 +14,7 @@ public class Asignacion {
 	private LocalDate fechaFin;
 
 	@ManyToOne
-	@JoinColumn(name="planVacunacionId", nullable=false)
+	@JoinColumn(name="puestoVacunacion", nullable=false)
 	private PuestoVacunacion puestoVacunacion;
 
 	@ManyToOne

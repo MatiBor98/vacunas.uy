@@ -2,6 +2,7 @@ package datos.entidades;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 public class Turno {
@@ -15,7 +16,9 @@ public class Turno {
 
 	@ManyToOne
 	private Vacunatorio vacunatorio;
-
+	@OneToMany(mappedBy="turno")
+	private List<Asignacion> asignaciones;
+	
 	public Turno() {}
 
 	public long getId() {
@@ -57,4 +60,13 @@ public class Turno {
 	public void setVacunatorio(Vacunatorio vacunatorio) {
 		this.vacunatorio = vacunatorio;
 	}
+
+	public List<Asignacion> getAsignaciones() {
+		return asignaciones;
+	}
+
+	public void setAsignaciones(List<Asignacion> asignaciones) {
+		this.asignaciones = asignaciones;
+	}
+	
 }

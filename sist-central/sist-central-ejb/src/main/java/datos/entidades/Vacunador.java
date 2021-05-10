@@ -19,19 +19,19 @@ import datos.entidades.Laboratorio;
 public class Vacunador extends Ciudadano implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	@OneToMany
-	private List<Mensaje> mensajesEnviados;
+	/*@OneToMany
+	private List<Mensaje> mensajesEnviados;*/
 	@OneToMany(mappedBy = "vacunador")
 	@MapKey(name = "fechaInicio")
 	private Map<LocalDate, Asignacion> asignaciones;
 
-	public List<Mensaje> getMensajesEnviados() {
+	/*public List<Mensaje> getMensajesEnviados() {
 		return mensajesEnviados;
 	}
 
 	public void setMensajesEnviados(List<Mensaje> mensajesEnviados) {
 		this.mensajesEnviados = mensajesEnviados;
-	}
+	}*/
 
 	public Map<LocalDate, Asignacion> getAsignaciones() {
 		return asignaciones;

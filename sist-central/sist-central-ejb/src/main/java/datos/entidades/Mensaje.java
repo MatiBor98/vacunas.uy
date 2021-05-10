@@ -3,11 +3,7 @@ package datos.entidades;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 
 @Entity
@@ -23,6 +19,9 @@ public class Mensaje implements Serializable {
     @SequenceGenerator(name="mensajeId",sequenceName="mensajeId", allocationSize=1)
     private long id;
 	
+	@ManyToOne
+    @JoinColumn(name="vacunadorCI", nullable=false)
+	private Vacunador vacunador;
 	private LocalDateTime fechaHora;
 	private String mensaje;
 	public long getId() {
@@ -43,11 +42,18 @@ public class Mensaje implements Serializable {
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	public Mensaje(long id, LocalDateTime fechaHora, String mensaje) {
+	public Vacunador getVacunador() {
+		return this.vacunador;
+	}
+	public void setVacunador(Vacunador vac) {
+		this.vacunador = vac;
+	}
+	public Mensaje(long id, LocalDateTime fechaHora, String mensaje, Vacunador vac) {
 		super();
 		this.id = id;
 		this.fechaHora = fechaHora;
 		this.mensaje = mensaje;
+		this.vacunador = vac;
 	}
 	public Mensaje() {
 		super();

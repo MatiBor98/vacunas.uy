@@ -26,11 +26,11 @@ public class PlanVacunacion {
 
     private LocalDate fin;
 
-    @OneToMany(mappedBy = "planVacunacion")
+    @OneToMany
     private List<Etapa> etapas;
 
     @ManyToOne
-    @JoinColumn(name="enfermedadId", nullable=false)
+    @JoinColumn(name="enfermedadNombre", nullable=false)
     private Enfermedad enfermedad;
 
     public PlanVacunacion() {
@@ -74,5 +74,13 @@ public class PlanVacunacion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+	
+	public Enfermedad getEnfermedad() {
+        return this.enfermedad;
+    }
+
+    public void setEnfermedad(Enfermedad enf) {
+        this.enfermedad = enf;
     }
 }

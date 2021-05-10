@@ -18,7 +18,7 @@ public class Ciudadano {
 	private String nombre;
 	private String email;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
 	@MapKey(name = "codigo")
 	private Map<String, Reserva> reservas;
 	

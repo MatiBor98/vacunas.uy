@@ -21,16 +21,18 @@ public class Vacunatorio implements Serializable {
 	private String ciudad;
 	private String direccion;
 	private Departamento departamento;
-	@OneToMany
+	@OneToMany(mappedBy = "vacunatorio")
 	private List<PuestoVacunacion> puestosVacunacion;
-	@ManyToMany
-	private List<Vacuna> vacunasDisponibles;
+
 
 	@OneToMany(mappedBy = "vacunatorio")
 	private List<Turno> turnos;
 
-	@OneToMany(mappedBy = "vacunatorio")
+	@OneToMany
 	private List<Lote> lotes;
+	
+	@OneToMany
+	private List<DosisVacunatorio> dosisVacunatorios;
 
 	public long getId() {
 		return id;
@@ -80,13 +82,6 @@ public class Vacunatorio implements Serializable {
 		this.puestosVacunacion = puestosVacunacion;
 	}
 
-	public List<Vacuna> getVacunasDisponibles() {
-		return vacunasDisponibles;
-	}
-
-	public void setVacunasDisponibles(List<Vacuna> vacunasDisponibles) {
-		this.vacunasDisponibles = vacunasDisponibles;
-	}
 
 	public List<Turno> getTurnos() {
 		return turnos;

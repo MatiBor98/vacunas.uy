@@ -1,6 +1,7 @@
 package datos.entidades;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class PuestoVacunacion {
@@ -14,6 +15,9 @@ public class PuestoVacunacion {
 	private Vacunatorio vacunatorio;
 
 	private String nombrePuesto;
+	
+	@OneToMany(mappedBy="puestoVacunacion")
+	private List<Asignacion> asignaciones;
 
 	public Vacunatorio getVacunatorio() {
 		return vacunatorio;
