@@ -2,10 +2,7 @@ package datos.entidades;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Lote{
@@ -22,8 +19,11 @@ public class Lote{
 	private LocalDate fechaEntrega;
 	@Column
 	private LocalDate fechaDespacho;
-	@Column
-	private Vacunatorio vacunatorio;
+	@ManyToOne
+	private SocioLogistico socioLogistico;
+	/*@ManyToOne
+	@JoinColumn(name="vacunatorioId", nullable=false)
+	private Vacunatorio vacunatorio;*/
 		
     /**
      * Default constructor. 
@@ -32,13 +32,13 @@ public class Lote{
         super();
     }
     
-    public Lote(int dosisDisponibles, int numeroLote, LocalDate fechaVencimiento, Vacuna vacuna) {
+    public Lote(int dosisDisponibles, int numeroLote, LocalDate fechaVencimiento, Vacuna vacuna, SocioLogistico socioLogistico) {
     	super();
     	this.dosisDisponibles = dosisDisponibles;
     	this.numeroLote = numeroLote;
     	this.fechaVencimiento = fechaVencimiento;
     	this.vacuna = vacuna;
-    			
+    	this.socioLogistico = socioLogistico;		
     }
     
     public int getDosisDisponibles() {
@@ -66,8 +66,12 @@ public class Lote{
 		return fechaDespacho;
 	}
 	
-	public Vacunatorio getVacunatorio(){
+	/*public Vacunatorio getVacunatorio(){
 		return vacunatorio;
+	}*/
+	
+	public SocioLogistico getSocioLogistico(){
+		return socioLogistico;
 	}
 
 
@@ -95,8 +99,12 @@ public class Lote{
 		this.fechaDespacho = fechaDespacho;
 	}
 	
-	public void setVacunatorio(Vacunatorio vacunatorio) {
-		this.vacunatorio = vacunatorio;
+	public void setSocioLogistico(SocioLogistico socioLogistico){
+		this.socioLogistico = socioLogistico;
 	}
+	
+	/*public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
+	}*/
 
 }

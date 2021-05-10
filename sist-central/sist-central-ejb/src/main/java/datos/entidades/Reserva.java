@@ -1,29 +1,29 @@
 package datos.entidades;
 
-import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 public class Reserva {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
     @SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
-	private String codigo;
+	private long codigo;
 	
 	private Estado estado;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="ciCiudadano", nullable=false)
 	private Ciudadano ciudadano;
+
+	@ManyToOne
+	@JoinColumn(name="intervaloId", nullable=false)
 	private Intervalo intervalo;
-	
-	public String getCodigo() {
+
+	public long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
 
@@ -43,19 +43,10 @@ public class Reserva {
 		this.ciudadano = ciudadano;
 	}
 
-	public Intervalo getIntervalo() {
-		return intervalo;
-	}
-
-	public void setIntervalo(Intervalo intervalo) {
-		this.intervalo = intervalo;
-	}
-
-	public Reserva(Estado estado, Ciudadano ciudadano, Intervalo intervalo) {
+	public Reserva(Estado estado, Ciudadano ciudadano) {
 		super();
 		this.estado = estado;
 		this.ciudadano = ciudadano;
-		this.intervalo = intervalo;
 	}
 
 	public Reserva() {

@@ -1,10 +1,7 @@
 package datos.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class PuestoVacunacion {
@@ -12,11 +9,15 @@ public class PuestoVacunacion {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
 	@SequenceGenerator(name="puestoId",sequenceName="puestoId", allocationSize=1)
 	private long id;
-	
+
+	@ManyToOne
+	@JoinColumn(name="vacunatorioId", nullable=false)
 	private Vacunatorio vacunatorio;
-	private Asignacion asignacion;
-	
+
 	private String nombrePuesto;
+	
+	@OneToMany(mappedBy="puestoVacunacion")
+	private List<Asignacion> asignaciones;
 
 	public Vacunatorio getVacunatorio() {
 		return vacunatorio;
@@ -24,14 +25,6 @@ public class PuestoVacunacion {
 
 	public void setVacunatorio(Vacunatorio vacunatorio) {
 		this.vacunatorio = vacunatorio;
-	}
-
-	public Asignacion getAsignacion() {
-		return asignacion;
-	}
-
-	public void setAsignacion(Asignacion asignacion) {
-		this.asignacion = asignacion;
 	}
 
 	public String getNombrePuesto() {
@@ -42,10 +35,9 @@ public class PuestoVacunacion {
 		this.nombrePuesto = nombrePuesto;
 	}
 
-	public PuestoVacunacion(Vacunatorio vacunatorio, Asignacion asignacion, String nombrePuesto) {
+	public PuestoVacunacion(Vacunatorio vacunatorio, String nombrePuesto) {
 		super();
 		this.vacunatorio = vacunatorio;
-		this.asignacion = asignacion;
 		this.nombrePuesto = nombrePuesto;
 	}
 

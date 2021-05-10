@@ -1,44 +1,72 @@
 package datos.entidades;
 
+import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
 
+@Entity
 public class Turno {
-	private LocalTime inicio, fin;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaTurnoId")
+	@SequenceGenerator(name="sequenciaTurnoId",sequenceName="sequenciaTurnoId", allocationSize=1)
+	private long id;
+	private String nombre;
+	private LocalTime inicio;
+	private LocalTime fin;
+
+	@ManyToOne
 	private Vacunatorio vacunatorio;
-	private List<Agenda> agendas;
+	@OneToMany(mappedBy="turno")
+	private List<Asignacion> asignaciones;
+	
+	public Turno() {}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public LocalTime getInicio() {
 		return inicio;
 	}
+
 	public void setInicio(LocalTime inicio) {
 		this.inicio = inicio;
 	}
+
 	public LocalTime getFin() {
 		return fin;
 	}
+
 	public void setFin(LocalTime fin) {
 		this.fin = fin;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public Vacunatorio getVacunatorio() {
 		return vacunatorio;
 	}
+
 	public void setVacunatorio(Vacunatorio vacunatorio) {
 		this.vacunatorio = vacunatorio;
 	}
-	public List<Agenda> getAgendas() {
-		return agendas;
+
+	public List<Asignacion> getAsignaciones() {
+		return asignaciones;
 	}
-	public void setAgendas(List<Agenda> agendas) {
-		this.agendas = agendas;
+
+	public void setAsignaciones(List<Asignacion> asignaciones) {
+		this.asignaciones = asignaciones;
 	}
-	public Turno(LocalTime inicio, LocalTime fin) {
-		super();
-		this.inicio = inicio;
-		this.fin = fin;
-	}
-	public Turno() {
-		super();
-	}
-	
 	
 }

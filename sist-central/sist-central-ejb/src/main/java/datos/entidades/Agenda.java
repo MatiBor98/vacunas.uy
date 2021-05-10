@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,7 +22,7 @@ import javax.persistence.SequenceGenerator;
 public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
-    @SequenceGenerator(name="sequenciaAgendaId",sequenceName="seq_agenda_id", allocationSize=1)
+    @SequenceGenerator(name="sequenciaAgendaId",sequenceName="sequenciaAgendaId", allocationSize=1)
     private long id;
 
     private String nombre;
@@ -33,17 +32,30 @@ public class Agenda {
     private LocalDate fin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="etapa_id", nullable=false)
+    @JoinColumn(name="etapaId", nullable=false)
     private Etapa etapa;
 
     @ElementCollection
-    @CollectionTable(name = "horario_por_dia")
+    @CollectionTable(name = "horarioPorDia")
     @MapKeyColumn(name = "dia")
     @MapKeyEnumerated(EnumType.ORDINAL)
-    @Column(name = "horario")
-    private Map<DayOfWeek, HoraInicioFin> horarioPorDia;
+    private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
+
+    @ManyToOne
+    private Turno turno;
 
     public Agenda() {}
+
+    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa,
+                  Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia, Turno turno) {
+        this.id = id;
+        this.nombre = nombre;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.etapa = etapa;
+        this.horarioPorDia = horarioPorDia;
+        this.turno = turno;
+    }
 
     public long getId() {
         return id;
@@ -85,15 +97,23 @@ public class Agenda {
         this.etapa = etapa;
     }
 
-    public Map<DayOfWeek, HoraInicioFin> getHorarioPorDia() {
+    public Map<DayOfWeek, InformacionPosiblesIntervalos> getHorarioPorDia() {
         return horarioPorDia;
     }
 
-    public void setHorarioPorDia(Map<DayOfWeek, HoraInicioFin> horarioPorDia) {
+    public void setHorarioPorDia(Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {
         this.horarioPorDia = horarioPorDia;
     }
 
-    public HoraInicioFin addHorarioPorDia(DayOfWeek dia, HoraInicioFin horario) {
+    public InformacionPosiblesIntervalos addHorarioPorDia(DayOfWeek dia, InformacionPosiblesIntervalos horario) {
         return horarioPorDia.put(dia, horario);
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
     }
 }

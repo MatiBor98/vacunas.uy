@@ -5,20 +5,20 @@ import java.time.LocalTime;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class HoraInicioFin {
+public class InformacionPosiblesIntervalos {
     private LocalTime inicio;
     private LocalTime fin;
     private int capasidadPorTurno;
     private int minutosTurno;
 
-    public HoraInicioFin(LocalTime inicio, LocalTime fin, int capasidadPorTurno, int minutosTurno) {
+    public InformacionPosiblesIntervalos(LocalTime inicio, LocalTime fin, int capasidadPorTurno, int minutosTurno) {
         this.inicio = inicio;
         this.fin = fin;
         this.capasidadPorTurno = capasidadPorTurno;
         this.minutosTurno = minutosTurno;
     }
 
-    public HoraInicioFin() {
+    public InformacionPosiblesIntervalos() {
 
     }
 
