@@ -13,7 +13,6 @@ public class Enfermedad implements Serializable {
 	private String nombre;
 	private String descripcion;
 	@ManyToMany(mappedBy = "enfermedades")
-	@JoinColumn(name="vacunaNombre", nullable=false)
 	private List<Vacuna> vacunas;
 	@OneToMany(mappedBy="enfermedad")
 	private List<PlanVacunacion> planesVacunacion;
