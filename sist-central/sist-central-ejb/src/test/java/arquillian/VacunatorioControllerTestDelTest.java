@@ -47,5 +47,6 @@ public class VacunatorioControllerTestDelTest {
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
         assertEquals(vac.getDireccion(), "Calle Facultad 3027");
         assertEquals(vac.getPuestosVacunacion().isEmpty(), true);
+
     }
 }

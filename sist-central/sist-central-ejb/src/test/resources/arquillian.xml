@@ -20,7 +20,7 @@
 
 <container qualifier="wildfly-managed" default="true">
 		<configuration>
-            <property name="jbossHome">/home/agus/Documents/WildFly/wildfly-lab-tse</property>
+            <property name="jbossHome">C:/Program Files/wildfly-21.0.0.Final</property>
 			 <property name="outputToConsole">true</property>
 		</configuration>
 	</container>

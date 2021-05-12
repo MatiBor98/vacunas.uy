@@ -12,12 +12,9 @@ import java.util.Optional;
 
 @Singleton
 public class TurnoRepository {
-<<<<<<< HEAD
-	@PersistenceContext(name="sist-centralPersistenceUnit")
-=======
+
 
     @PersistenceContext(unitName = "sist-centralPersistenceUnit")
->>>>>>> branch 'nico_vacunatorios' of https://gitlab.fing.edu.uy/nicolas.san.martin/laboratorio-tse-2021.git
     private EntityManager entityManager;
 
     public TurnoRepository() {
