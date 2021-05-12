@@ -4,12 +4,15 @@ import datos.entidades.PlanVacunacion;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 import java.util.Optional;
 
 @Singleton()
 public class PlanVacunacionRepository {
-    @Inject
+
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public PlanVacunacionRepository() {

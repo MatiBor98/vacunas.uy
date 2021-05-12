@@ -124,6 +124,23 @@
 			<version>30.1.1-jre</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-7.0</artifactId>
+			<version>1.0.3.Final</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-bom</artifactId>
+			<version>1.4.0.Final</version>
+			<scope>import</scope>
+			<type>pom</type>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

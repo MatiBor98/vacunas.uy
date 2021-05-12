@@ -5,11 +5,14 @@ import datos.entidades.Agenda;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 
 @Singleton
 public class AgendaRepository implements AgendaRepositoryLocal {
-    @Inject
+	
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public AgendaRepository() {

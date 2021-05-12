@@ -17,7 +17,8 @@ import datos.entidades.PuestoVacunacion;
 @Singleton
 @LocalBean
 public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLocal {
-	@PersistenceContext(name="sist-centralPersistenceUnit")
+	
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
 	
     /**
