@@ -19,7 +19,7 @@ import datos.entidades.PlanVacunacion;
 @LocalBean
 public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 
-	@PersistenceContext(name="sist-centralPersistenceUnit")
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public VacunatorioRepository() {

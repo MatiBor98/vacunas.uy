@@ -144,8 +144,7 @@
 				<scope>import</scope>
 			</dependency>
 			
-				<!-- AGUS ARREGLO -->
-		<dependency>
+			<dependency>
 			<groupId>org.wildfly</groupId>
 			<artifactId>
 				wildfly-arquillian-container-managed
@@ -186,13 +185,10 @@
 				</configuration>
 			</plugin>
 			
-			<!-- AGUS ARREGLO -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.17</version>
 			</plugin>
-			
-			
 		</plugins>
 	</build>
 
@@ -280,6 +276,19 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		<profile>
+		   <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+		   <id>arq-wildfly-managed</id>
+		   <dependencies>
+		      <dependency>
+		         <groupId>org.wildfly.arquillian</groupId>
+		         <artifactId>wildfly-arquillian-container-managed</artifactId>
+		         <scope>test</scope>
+		      </dependency>
+		   </dependencies>
+		</profile>
 	</profiles>
 
 </project>
+

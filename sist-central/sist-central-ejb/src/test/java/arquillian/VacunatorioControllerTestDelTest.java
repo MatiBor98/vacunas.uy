@@ -23,13 +23,11 @@ import logica.negocios.VacunatorioBean;
 import logica.servicios.local.VacunatorioControllerLocal;
 
 @RunWith(Arquillian.class)
-public class VacunatorioControllerTest {
+public class VacunatorioControllerTestDelTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap
-        	//.create(WebArchive.class, "test.war")
-        	.create(JavaArchive.class)
+        return ShrinkWrap.create(WebArchive.class, "test.war")
         	.addAsResource("META-INF/persistence.xml")
         	.addPackages(true, "datos", "logica")
             //.addClasses(Vacunatorio.class, PuestoVacunacion.class, VacunatorioControllerLocal.class, VacunatorioBean.class)
@@ -43,7 +41,7 @@ public class VacunatorioControllerTest {
     @Test
     public void should_create_vacunatorio() {
     	String nombreVacPrueba = "VacunatorioPrueba";
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Canelones);
+        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas);
         Vacunatorio vac = vacunatorioControllerLocal.find(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);

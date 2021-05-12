@@ -12,8 +12,14 @@ import java.util.Optional;
 
 @Singleton()
 public class EtapaRepository {
+<<<<<<< HEAD
 	@PersistenceContext(name="sist-centralPersistenceUnit")
     private EntityManager entityManager;
+=======
+
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
+	private EntityManager entityManager;
+>>>>>>> branch 'nico_vacunatorios' of https://gitlab.fing.edu.uy/nicolas.san.martin/laboratorio-tse-2021.git
 
     public EtapaRepository() {
     }
