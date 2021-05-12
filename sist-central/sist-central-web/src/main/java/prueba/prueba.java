@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.entidades.Departamento;
-import negocio.VacunatorioControllerLocal;
+import logica.servicios.local.VacunatorioControllerLocal;
 
 
 /**

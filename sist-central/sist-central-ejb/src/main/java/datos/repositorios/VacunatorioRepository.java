@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import datos.entidades.Vacunatorio;
 import datos.entidades.PlanVacunacion;
@@ -18,7 +19,7 @@ import datos.entidades.PlanVacunacion;
 @LocalBean
 public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 
-	@Inject
+	@PersistenceContext(name="sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public VacunatorioRepository() {

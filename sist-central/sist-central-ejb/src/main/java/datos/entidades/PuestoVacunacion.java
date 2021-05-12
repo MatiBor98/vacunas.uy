@@ -1,10 +1,14 @@
 package datos.entidades;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class PuestoVacunacion {
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
 	@SequenceGenerator(name="puestoId",sequenceName="puestoId", allocationSize=1)
@@ -39,11 +43,27 @@ public class PuestoVacunacion {
 		super();
 		this.vacunatorio = vacunatorio;
 		this.nombrePuesto = nombrePuesto;
+		this.asignaciones = new ArrayList<Asignacion>();
 	}
 
 	public PuestoVacunacion() {
 		super();
+		this.asignaciones = new ArrayList<Asignacion>();
 	}
 	
-	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Asignacion> getAsignaciones() {
+		return asignaciones;
+	}
+
+	public void setAsignaciones(List<Asignacion> asignaciones) {
+		this.asignaciones = asignaciones;
+	}
 }

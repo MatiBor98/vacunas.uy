@@ -74,6 +74,7 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 
 		<!-- Declare the APIs we depend on and need for compilation. All of them 
 			are provided by WildFly / JBoss EAP -->

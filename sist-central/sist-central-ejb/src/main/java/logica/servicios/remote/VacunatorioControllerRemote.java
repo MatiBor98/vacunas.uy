@@ -1,4 +1,4 @@
-package negocio;
+package logica.servicios.remote;
 
 import javax.ejb.Remote;
 
