@@ -5,12 +5,14 @@ import datos.entidades.PlanVacunacion;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 import java.util.Optional;
 
 @Singleton()
 public class EtapaRepository {
-    @Inject
+	@PersistenceContext(name="sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public EtapaRepository() {

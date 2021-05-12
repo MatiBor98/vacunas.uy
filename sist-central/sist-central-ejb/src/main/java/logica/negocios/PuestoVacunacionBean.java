@@ -6,18 +6,17 @@ import javax.ejb.Stateless;
 
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacunatorio;
+import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.PuestoVacunacionRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryLocal;
-import exceptions.VacunatorioNoExistenteException;
 import logica.servicios.local.PuestoVacunacionBeanLocal;
-import logica.servicios.remote.PuestoVacunacionBeanRemote;
 
 /**
  * Session Bean implementation class PuestoVacunacionBean
  */
 @Stateless
 @LocalBean
-public class PuestoVacunacionBean implements PuestoVacunacionBeanRemote, PuestoVacunacionBeanLocal {
+public class PuestoVacunacionBean implements  PuestoVacunacionBeanLocal {
 
 	@EJB
 	PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;

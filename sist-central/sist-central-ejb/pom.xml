@@ -74,7 +74,6 @@
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 
 		<!-- Declare the APIs we depend on and need for compilation. All of them 
 			are provided by WildFly / JBoss EAP -->
@@ -123,6 +122,8 @@
 			<artifactId>guava</artifactId>
 			<version>30.1.1-jre</version>
 		</dependency>
+	
+		
 
 	</dependencies>
 

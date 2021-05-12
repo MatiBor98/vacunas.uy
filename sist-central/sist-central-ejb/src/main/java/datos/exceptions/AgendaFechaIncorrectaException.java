@@ -1,4 +1,4 @@
-package exceptions;
+package datos.exceptions;
 
 public class AgendaFechaIncorrectaException extends IllegalArgumentException {
     /**

@@ -1,8 +1,8 @@
-package exceptions;
+package datos.exceptions;
 
 import java.util.NoSuchElementException;
 
-public class PuestoVacunacionNoExistenteException extends NoSuchElementException {
+public class VacunatorioNoExistenteException extends NoSuchElementException {
 
 	/**
 	 * 
@@ -11,15 +11,15 @@ public class PuestoVacunacionNoExistenteException extends NoSuchElementException
 
 	@Override
 	public String getMessage() {
-		return "No existe un puesto de vacunación con la id especificada.";
+		return "No existe un vacunatorio con el nombre especificado.";
 	}
 
-	public PuestoVacunacionNoExistenteException() {
+	public VacunatorioNoExistenteException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PuestoVacunacionNoExistenteException(String s) {
+	public VacunatorioNoExistenteException(String s) {
 		super(s);
 		// TODO Auto-generated constructor stub
 	}

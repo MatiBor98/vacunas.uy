@@ -28,17 +28,20 @@
 			the JBOSS_HOME environment variable, alternatively you can uncomment the 
 			following `jbossHome` property and replace EAP_HOME with the path to your 
 			WildFly / JBoss EAP installation. -->
-		<!--<configuration> <property name="jbossHome">EAP_HOME</property> </configuration> -->
+		<configuration> <property name="jbossHome">C:/Program Files/wildfly-21.0.0.Final/</property>
+		<property name="outputToConsole">true</property>
+		 </configuration> 
 	</container>
 
 	<!-- Example configuration for a remote WildFly / JBoss EAP instance -->
 	<container qualifier="remote">
 		<!-- Arquillian will deploy to this WildFly server. -->
 		<configuration>
-
 			<property name="managementAddress">127.0.0.1</property>
 			<property name="managementPort">9990</property>
 			
+			<property name="username">nico</property>
+            <property name="password">nico</property>
 			<!-- If deploying to a remote server, you have to specify username/password 
 				here -->
 			<!-- <property name="username">admin</property> <property name="password">admin</property> -->
