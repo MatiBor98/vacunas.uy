@@ -122,7 +122,16 @@
 			<artifactId>guava</artifactId>
 			<version>30.1.1-jre</version>
 		</dependency>
-
+		<dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-jms-client-bom</artifactId>
+            <type>pom</type>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Vacunas.uy</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+
+  	
+    <style>
+
+.navbar {
+  color: #ffffff;
+ }
+.div_list-group-item {
+   background-color: #43516c;
+ }
+ .dropdown-menu {
+   background-color: #43516c !important;
+   color: #ffffff;
+ }
+ .dropdown-item {
+   color: #ffffff;
+ }
+ .dropdown-menu a:hover {
+   background: #014464 !important;
+   background: linear-gradient(left, #ebd254, #c4b489);
+   background: -moz-linear-gradient(left, #ebd254, #c4b489) !important;
+   background: -webkit-gradient(
+linear,
+100% 100%,
+0% 0%,
+from(#ebd254),
+to(#c4b489)
+   ) !important;
+   color: #f8f9fa !important;
+   -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+ }
+ .nav-link.dropdown-toggle {
+   color: #ffffff;
+ }
+ a > img {
+   border-width: 1px;
+   border-color: #ffffff;
+ }
+ li > a {
+   color: #ffffff;
+ }
+ .btn-primary.custom-btn {
+   background-color: #dba531;
+   border-color: #dba531;
+   color: #43516c;
+ }
+ .navbar-nav.navbar-center {
+   position: absolute;
+   left: 50%;
+   transform: translatex(-50%);
+ }
+ .form-control:focus {
+   box-shadow: none;
+ }
+
+ .form-control-underlined {
+   border-width: 0;
+   border-bottom-width: 1px;
+   border-radius: 0;
+   padding-left: 0;
+   background-color: transparent;
+ }
+ .form-control-underlined:focus {
+   border-width: 0;
+   border-bottom-width: 1px;
+   border-radius: 0;
+   padding-left: 0;
+   background-color: transparent;
+   box-shadow: none;
+   color: #ffffff;
+ }
+
+
+    </style>
+
+</head> 
+
+<nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
+     style="background: #222938"
+>
+    <div class="dropdown">
+    	<a
+         class="navbar-brand nav-link dropdown-toggle media align-items-center"
+         href="#"
+         role="button"
+         data-toggle="dropdown"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+        	<img
+              src="Logo.png"
+              alt="logo"
+              style="width: 8vw"
+            />
+        </a>
+          <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="">Inicio</a></li>
+            <li><a class="dropdown-item" href="">Opcion 1</a></li>
+            <li><a class="dropdown-item" href="">Opcion 2</a></li>
+          </ul>
+        </div>
+      <div class="collapse navbar-collapse">
+        <h:form class="form-inline" style="width: 60vw; font-size: 1.5vw; margin-left: 7vw" action="" method="post">
+          <input
+            style="width: 90%; margin: auto"
+            class="form-control form-control-underlined"
+            type="text"
+            placeholder="Planes, vacunas, enfermdedades..."
+            aria-label="Search"
+            name="busqueda"
+          />
+		
+		 <button type="button" class="btn btn-primary">
+    	<i class="fas fa-search"></i>
+ 		 </button>
+
+
+        </h:form>
+        
+        <ul class='nav navbar-nav ml-auto'>
+      			<li class='nav-tie mx-2'><a href=''>Iniciar Sesion</a></li>
+     	   </ul>
+        
+      </div>
+    </nav>
+</html>
