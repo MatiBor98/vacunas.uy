@@ -12,6 +12,7 @@ import datos.entidades.Vacunatorio;
 public interface VacunatorioControllerLocal {
 	public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento);
 	public Optional<Vacunatorio> find(String nombre);
+	public Optional<Vacunatorio> findWithEverything(String nombre);
 	public List<Vacunatorio> find();
 	public void addPuestoAlVacunatorio(String nombreVacunaotorio, long idPuesto);
 }

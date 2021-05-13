@@ -8,6 +8,7 @@ import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import datos.entidades.Vacunatorio;
 import datos.entidades.PlanVacunacion;
@@ -42,6 +43,14 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
                 .setMaxResults(1)
                 .getResultList();
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+    }
+    
+    @Transactional
+    public Optional<Vacunatorio> findWithEverything(String nombre) {
+        Vacunatorio vac = entityManager.find(Vacunatorio.class, nombre);
+        vac.getPuestosVacunacion().size();
+        vac.getTurnos().size();
+        return vac == null ? Optional.empty() : Optional.of(vac);
     }
 }
 

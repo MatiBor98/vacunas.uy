@@ -9,7 +9,8 @@ import datos.entidades.Vacunatorio;
 
 @Local
 public interface VacunatorioRepositoryLocal {
-	 public List<Vacunatorio> find();
-	 public void save(Vacunatorio vac);
-	 public Optional<Vacunatorio> find(String nombre);
+	public List<Vacunatorio> find();
+	public void save(Vacunatorio vac);
+	public Optional<Vacunatorio> find(String nombre);
+	public Optional<Vacunatorio> findWithEverything(String nombre);
 }

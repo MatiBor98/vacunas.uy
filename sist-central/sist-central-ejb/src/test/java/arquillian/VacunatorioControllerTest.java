@@ -5,8 +5,11 @@ import static org.junit.Assert.fail;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -20,6 +23,7 @@ import datos.entidades.Departamento;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacunatorio;
 import logica.negocios.VacunatorioBean;
+import logica.servicios.local.PuestoVacunacionBeanLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
 @RunWith(Arquillian.class)
@@ -27,9 +31,7 @@ public class VacunatorioControllerTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap
-        	//.create(WebArchive.class, "test.war")
-        	.create(JavaArchive.class)
+        return ShrinkWrap.create(WebArchive.class, "test.war")
         	.addAsResource("META-INF/persistence.xml")
         	.addPackages(true, "datos", "logica")
             //.addClasses(Vacunatorio.class, PuestoVacunacion.class, VacunatorioControllerLocal.class, VacunatorioBean.class)
@@ -39,15 +41,31 @@ public class VacunatorioControllerTest {
 
     @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
+   
+    
+    String nombreVacPrueba = "VacunatorioPrueba";
 
     @Test
+    @InSequence(1)
     public void should_create_vacunatorio() {
-    	String nombreVacPrueba = "VacunatorioPrueba";
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Canelones);
-        Vacunatorio vac = vacunatorioControllerLocal.find(nombreVacPrueba).get();
+        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas);
+        Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
         assertEquals(vac.getDireccion(), "Calle Facultad 3027");
         assertEquals(vac.getPuestosVacunacion().isEmpty(), true);
+        System.out.print("xd");
     }
+    @EJB
+    PuestoVacunacionBeanLocal puestoVacunacionBeanLocal;
+    
+    @Test
+    @InSequence(2)
+    public void should_add_puestoVacunacion() {
+    	String nombrePuestoPrueba = "Puesto 1";
+    	puestoVacunacionBeanLocal.addPuestoVacunacion(nombrePuestoPrueba, nombreVacPrueba);
+        Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
+        assertEquals(nombrePuestoPrueba, vac.getPuestosVacunacion().get(0).getNombrePuesto());
+    }
+
 }

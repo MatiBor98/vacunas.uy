@@ -23,6 +23,8 @@ import logica.servicios.local.VacunatorioControllerLocal;
 @LocalBean
 public class VacunatorioBean implements  VacunatorioControllerLocal {
 
+	
+
 	@EJB
 	VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
 	
@@ -41,7 +43,14 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     
     public Optional<Vacunatorio> find(String nombre) {
     	return vacunatorioRepositoryLocal.find(nombre);
+
     }
+    
+	public Optional<Vacunatorio> findWithEverything(String nombre) {
+    	return vacunatorioRepositoryLocal.findWithEverything(nombre);
+
+	}
+    
     public List<Vacunatorio> find() {
     	return vacunatorioRepositoryLocal.find();
     }
