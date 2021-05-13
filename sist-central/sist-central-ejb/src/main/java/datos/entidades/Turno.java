@@ -2,6 +2,7 @@ package datos.entidades;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -68,5 +69,16 @@ public class Turno {
 	public void setAsignaciones(List<Asignacion> asignaciones) {
 		this.asignaciones = asignaciones;
 	}
+
+	public Turno(String nombre, LocalTime inicio, LocalTime fin, Vacunatorio vacunatorio) {
+		super();
+		this.nombre = nombre;
+		this.inicio = inicio;
+		this.fin = fin;
+		this.vacunatorio = vacunatorio;
+		this.asignaciones = new ArrayList<Asignacion>();
+	}
+	
+	
 	
 }

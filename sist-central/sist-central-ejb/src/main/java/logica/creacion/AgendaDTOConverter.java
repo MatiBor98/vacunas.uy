@@ -7,7 +7,7 @@ import datos.entidades.Etapa;
 import datos.entidades.InformacionPosiblesIntervalos;
 import datos.entidades.Turno;
 import datos.repositorios.EtapaRepository;
-import datos.repositorios.TurnoRepository;
+import datos.repositorios.TurnoRepositoryLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -22,7 +22,7 @@ public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
     private EtapaRepository etapaRepository;
 
     @EJB
-    private TurnoRepository turnoRepository;
+    private TurnoRepositoryLocal turnoRepository;
 
     @Inject
     private Converter<InformacionPosiblesIntervalosDTO, InformacionPosiblesIntervalos> informacionPosiblesIntervalosDTOConverter;

@@ -1,5 +1,6 @@
 package logica.servicios.local;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,5 @@ public interface VacunatorioControllerLocal {
 	public Optional<Vacunatorio> findWithEverything(String nombre);
 	public List<Vacunatorio> find();
 	public void addPuestoAlVacunatorio(String nombreVacunaotorio, long idPuesto);
+	public long addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio);
 }

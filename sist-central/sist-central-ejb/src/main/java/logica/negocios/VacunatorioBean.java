@@ -1,5 +1,6 @@
 package logica.negocios;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,10 +10,12 @@ import javax.ejb.Stateless;
 
 import datos.entidades.Departamento;
 import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
 import datos.entidades.Vacunatorio;
 import datos.exceptions.PuestoVacunacionNoExistenteException;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.PuestoVacunacionRepositoryLocal;
+import datos.repositorios.TurnoRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
@@ -30,6 +33,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 	@EJB
 	PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;
+	
+	@EJB
+	TurnoRepositoryLocal turnoRepositoryLocal;
     /**
      * Default constructor. 
      */
@@ -61,4 +67,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		vac.getPuestosVacunacion().add(puesto);
 	}
     
+	
+	
+	@Override
+	public long addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio) {
+		Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
+		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
+		turnoRepositoryLocal.save(turno);
+		return turno.getId();
+	}
 }

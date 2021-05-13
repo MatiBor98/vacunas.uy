@@ -1,10 +1,13 @@
 package logica.negocios;
 
+import java.time.LocalTime;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
 import datos.entidades.Vacunatorio;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.PuestoVacunacionRepositoryLocal;
@@ -37,5 +40,7 @@ public class PuestoVacunacionBean implements  PuestoVacunacionBeanLocal {
     public PuestoVacunacionBean() {
         // TODO Auto-generated constructor stub
     }
+
+
 
 }

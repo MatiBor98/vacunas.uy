@@ -3,6 +3,8 @@ package arquillian;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.time.LocalTime;
+
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -72,4 +74,15 @@ public class VacunatorioControllerTest {
         assertEquals(2, vacMasTarde.getPuestosVacunacion().size());
     }
 
+    @Test
+    @InSequence(2)
+    public void should_add_Turno() {
+    	vacunatorioControllerLocal.addTurno("Matutino", LocalTime.of(8, 0), LocalTime.of(14, 0), nombreVacPrueba);
+    	vacunatorioControllerLocal.addTurno("Vespertino", LocalTime.of(16, 0), LocalTime.of(20, 0), nombreVacPrueba);
+    	
+        Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
+        assertEquals(2, vac.getPuestosVacunacion().size());
+
+    }
+    
 }
