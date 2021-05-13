@@ -43,7 +43,7 @@ public class VacunatorioControllerTest {
     VacunatorioControllerLocal vacunatorioControllerLocal;
    
     
-    String nombreVacPrueba = "VacunatorioPrueba";
+    String nombreVacPrueba = "VacunatorioPruebaXYZ0123";
 
     @Test
     @InSequence(1)
@@ -66,6 +66,10 @@ public class VacunatorioControllerTest {
     	puestoVacunacionBeanLocal.addPuestoVacunacion(nombrePuestoPrueba, nombreVacPrueba);
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(nombrePuestoPrueba, vac.getPuestosVacunacion().get(0).getNombrePuesto());
+        
+    	puestoVacunacionBeanLocal.addPuestoVacunacion("Puesto 2", nombreVacPrueba);
+        Vacunatorio vacMasTarde = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
+        assertEquals(2, vacMasTarde.getPuestosVacunacion().size());
     }
 
 }
