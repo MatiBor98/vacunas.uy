@@ -9,5 +9,5 @@ import java.util.List;
 public interface CiudadanoServiceLocal {
     List<CiudadanoDTO> find();
     void save(CiudadanoDTO ciudadano);
-    List<CiudadanoDTO> findByNombreCi(long criterio);
+    List<CiudadanoDTO> findByNombreCi(int criterio);
 }

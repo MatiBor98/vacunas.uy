@@ -1,7 +1,11 @@
-package exceptions;
+package datos.exceptions;
 
 public class AgendaFechaIncorrectaException extends IllegalArgumentException {
-    private final boolean fechaSolapan;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final boolean fechaSolapan;
     private final boolean iniciaAntesQueEtapa;
     private final boolean terminaDespuesQueEtapa;
 

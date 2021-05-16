@@ -3,11 +3,11 @@ package logica.creacion;
 import datos.entidades.Ciudadano;
 
 public class CiudadanoBuilder {
-    private long ci;
+    private int ci;
     private String nombre;
     private String email;
 
-    public CiudadanoBuilder setCi(long ci) {
+    public CiudadanoBuilder setCi(int ci) {
         this.ci = ci;
         return this;
     }

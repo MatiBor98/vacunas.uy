@@ -5,11 +5,14 @@ import datos.entidades.Agenda;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class AgendaRepository implements AgendaRepositoryLocal {
-    @Inject
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
 
     public AgendaRepository() {
@@ -23,6 +26,17 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                     "join fetch e.planVacunacion p", Agenda.class)
                 .getResultList();
     }
+
+    @Override
+    public Optional<Agenda> find(int id) {
+        List<Agenda> resultado = entityManager.createQuery(
+                "select a from Agenda a where a.id = :id", Agenda.class)
+                .setParameter("id", id)
+                .setMaxResults(1)
+                .getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
     @Override
     public List<Agenda> findByNombrePlan(String criterio) {
         return entityManager.createQuery(

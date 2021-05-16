@@ -2,6 +2,7 @@ package datos.entidades;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,23 +10,24 @@ public class Turno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaTurnoId")
 	@SequenceGenerator(name="sequenciaTurnoId",sequenceName="sequenciaTurnoId", allocationSize=1)
-	private long id;
+	private int id;
 	private String nombre;
 	private LocalTime inicio;
 	private LocalTime fin;
 
 	@ManyToOne
 	private Vacunatorio vacunatorio;
+
 	@OneToMany(mappedBy="turno")
 	private List<Asignacion> asignaciones;
 	
 	public Turno() {}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -68,5 +70,16 @@ public class Turno {
 	public void setAsignaciones(List<Asignacion> asignaciones) {
 		this.asignaciones = asignaciones;
 	}
+
+	public Turno(String nombre, LocalTime inicio, LocalTime fin, Vacunatorio vacunatorio) {
+		super();
+		this.nombre = nombre;
+		this.inicio = inicio;
+		this.fin = fin;
+		this.vacunatorio = vacunatorio;
+		this.asignaciones = new ArrayList<Asignacion>();
+	}
+	
+	
 	
 }

@@ -22,12 +22,13 @@ public class AgendaConverter implements Converter<Agenda, AgendaDTO> {
 
         Map<DayOfWeek, InformacionPosiblesIntervalosDTO> horarioPorDia = agenda.getHorarioPorDia()
                 .entrySet()
-                .stream()
+                .parallelStream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> informacionPosiblesIntervalosConverter.convert(entry.getValue())));
 
         return builder.setInicio(agenda.getInicio())
+                .setId(agenda.getId())
                 .setFin(agenda.getFin())
                 .setHorarioPorDia(horarioPorDia)
                 .setEtapaId(agenda.getEtapa().getId())

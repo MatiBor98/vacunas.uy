@@ -7,7 +7,7 @@ import datos.entidades.Etapa;
 import datos.entidades.InformacionPosiblesIntervalos;
 import datos.entidades.Turno;
 import datos.repositorios.EtapaRepository;
-import datos.repositorios.TurnoRepository;
+import datos.repositorios.TurnoRepositoryLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -22,7 +22,7 @@ public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
     private EtapaRepository etapaRepository;
 
     @EJB
-    private TurnoRepository turnoRepository;
+    private TurnoRepositoryLocal turnoRepository;
 
     @Inject
     private Converter<InformacionPosiblesIntervalosDTO, InformacionPosiblesIntervalos> informacionPosiblesIntervalosDTOConverter;
@@ -34,11 +34,12 @@ public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
         Turno turno = turnoRepository.findById(agendaDTO.getTurnoId()).orElseThrow(this::noSeEncontroTurnoRuntimeException);
         Map<DayOfWeek, InformacionPosiblesIntervalos> horariosPorDia = agendaDTO.getHorarioPorDia()
                 .entrySet()
-                .stream()
+                .parallelStream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         horarioEnDia -> informacionPosiblesIntervalosDTOConverter.convert(horarioEnDia.getValue())));
         return builder.setInicio(agendaDTO.getInicio())
+                .setId(agendaDTO.getId())
                 .setFin(agendaDTO.getFin())
                 .setHorarioPorDia(horariosPorDia)
                 .setTurno(turno)

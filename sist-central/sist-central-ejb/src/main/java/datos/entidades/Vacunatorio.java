@@ -14,12 +14,10 @@ public class Vacunatorio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaVacunatorioId")
-	@SequenceGenerator(name="sequenciaVacunatorioId",sequenceName="sequenciaVacunatorioId", allocationSize=1)
-	private long id;
 	private String nombre;
 	private String ciudad;
 	private String direccion;
+	@Enumerated(EnumType.STRING)
 	private Departamento departamento;
 	@OneToMany(mappedBy = "vacunatorio")
 	private List<PuestoVacunacion> puestosVacunacion;
@@ -34,13 +32,6 @@ public class Vacunatorio implements Serializable {
 	@OneToMany
 	private List<DosisVacunatorio> dosisVacunatorios;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;

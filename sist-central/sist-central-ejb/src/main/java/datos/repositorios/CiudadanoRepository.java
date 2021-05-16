@@ -6,13 +6,16 @@ import datos.entidades.Ciudadano;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 
 @Singleton
 public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
-    @Inject
-    private EntityManager entityManager;
+
+    @PersistenceContext(unitName = "sist-centralPersistenceUnit")
+	private EntityManager entityManager;
 
     public CiudadanoRepository() {
     }
@@ -28,7 +31,7 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     }
 
     @Override
-    public List<Ciudadano> findByNombreCi(long criterio) {
+    public List<Ciudadano> findByNombreCi(int criterio) {
 
         return entityManager.createQuery(
                 "select c from Ciudadano c where c.ci = :cedula")

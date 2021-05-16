@@ -17,17 +17,17 @@ public class Mensaje implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaEtapaId")
     @SequenceGenerator(name="mensajeId",sequenceName="mensajeId", allocationSize=1)
-    private long id;
+    private int id;
 	
 	@ManyToOne
     @JoinColumn(name="vacunadorCI", nullable=false)
 	private Vacunador vacunador;
 	private LocalDateTime fechaHora;
 	private String mensaje;
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public LocalDateTime getFechaHora() {
@@ -48,7 +48,7 @@ public class Mensaje implements Serializable {
 	public void setVacunador(Vacunador vac) {
 		this.vacunador = vac;
 	}
-	public Mensaje(long id, LocalDateTime fechaHora, String mensaje, Vacunador vac) {
+	public Mensaje(int id, LocalDateTime fechaHora, String mensaje, Vacunador vac) {
 		super();
 		this.id = id;
 		this.fechaHora = fechaHora;

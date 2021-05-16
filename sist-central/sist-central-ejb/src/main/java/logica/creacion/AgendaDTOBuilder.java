@@ -8,9 +8,10 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class AgendaDTOBuilder {
+    private int id;
     private Map<DayOfWeek, InformacionPosiblesIntervalosDTO> horarioPorDia;
-    private long turnoId;
-    private long etapaId;
+    private int turnoId;
+    private int etapaId;
     private LocalDate inicio;
     private LocalDate fin;
 
@@ -19,12 +20,12 @@ public class AgendaDTOBuilder {
         return this;
     }
 
-    public AgendaDTOBuilder setEtapaId(long etapaId) {
+    public AgendaDTOBuilder setEtapaId(int etapaId) {
         this.etapaId = etapaId;
         return this;
     }
 
-    public AgendaDTOBuilder setTurnoId(long turnoId) {
+    public AgendaDTOBuilder setTurnoId(int turnoId) {
         this.turnoId = turnoId;
         return this;
     }
@@ -39,7 +40,12 @@ public class AgendaDTOBuilder {
         return this;
     }
 
+    public AgendaDTOBuilder setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public AgendaDTO createAgendaDTO() {
-        return new AgendaDTO(horarioPorDia, turnoId, etapaId, inicio, fin);
+        return new AgendaDTO(id, horarioPorDia, turnoId, etapaId, inicio, fin);
     }
 }

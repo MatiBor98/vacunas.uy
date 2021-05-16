@@ -7,7 +7,7 @@ import java.time.LocalTime;
 public class InformacionPosiblesIntervalosBuilder {
     private LocalTime inicio;
     private LocalTime fin;
-    private int capasidadPorTurno;
+    private int capacidadPorTurno;
     private int minutosTurno;
 
     public InformacionPosiblesIntervalosBuilder setInicio(LocalTime inicio) {
@@ -20,8 +20,8 @@ public class InformacionPosiblesIntervalosBuilder {
         return this;
     }
 
-    public InformacionPosiblesIntervalosBuilder setCapasidadPorTurno(int capasidadPorTurno) {
-        this.capasidadPorTurno = capasidadPorTurno;
+    public InformacionPosiblesIntervalosBuilder setCapacidadPorTurno(int capacidadPorTurno) {
+        this.capacidadPorTurno = capacidadPorTurno;
         return this;
     }
 
@@ -31,6 +31,6 @@ public class InformacionPosiblesIntervalosBuilder {
     }
 
     public InformacionPosiblesIntervalos createHoraInicioFin() {
-        return new InformacionPosiblesIntervalos(inicio, fin, capasidadPorTurno, minutosTurno);
+        return new InformacionPosiblesIntervalos(inicio, fin, capacidadPorTurno, minutosTurno);
     }
 }

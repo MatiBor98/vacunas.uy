@@ -23,7 +23,7 @@ public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
     @SequenceGenerator(name="sequenciaAgendaId",sequenceName="sequenciaAgendaId", allocationSize=1)
-    private long id;
+    private int id;
 
     private String nombre;
 
@@ -31,7 +31,7 @@ public class Agenda {
 
     private LocalDate fin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="etapaId", nullable=false)
     private Etapa etapa;
 
@@ -46,7 +46,7 @@ public class Agenda {
 
     public Agenda() {}
 
-    public Agenda(long id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa,
+    public Agenda(int id, String nombre, LocalDate inicio, LocalDate fin, Etapa etapa,
                   Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia, Turno turno) {
         this.id = id;
         this.nombre = nombre;
@@ -57,11 +57,11 @@ public class Agenda {
         this.turno = turno;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

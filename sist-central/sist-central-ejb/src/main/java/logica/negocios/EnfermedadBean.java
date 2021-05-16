@@ -2,6 +2,7 @@ package logica.negocios;
 
 import datos.entidades.Enfermedad;
 
+
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
 import datos.repositorios.EnfermedadRepositoryLocal;
@@ -38,4 +39,8 @@ public class EnfermedadBean implements EnfermedadServiceLocal {
     public void eliminar(String nombre) {
     	enfermedadRepository.eliminar(nombre);
     }
+    public List<Enfermedad> findPage(int primerResultado, int limiteResultados) {
+        return enfermedadRepository.find(primerResultado, limiteResultados);
+    }
 }
+

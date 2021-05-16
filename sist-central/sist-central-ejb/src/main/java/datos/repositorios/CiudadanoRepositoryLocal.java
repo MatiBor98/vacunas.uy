@@ -12,9 +12,9 @@ import java.util.List;
 public interface CiudadanoRepositoryLocal {
     List<Ciudadano> find();
     void save(Ciudadano ciudadano);
-    List<Ciudadano> findByNombreCi(long criterio);
+    List<Ciudadano> findByNombreCi(int criterio);
 
-    //public CiudadanoDTO getCiudadano(long ci) throws CiudadanoNoExisteException ;
+    //public CiudadanoDTO getCiudadano(int ci) throws CiudadanoNoExisteException ;
     //public List<CiudadanoDTO> getCiudadanos();
 }
 

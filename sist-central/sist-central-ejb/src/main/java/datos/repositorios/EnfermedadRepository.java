@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class EnfermedadRepository implements EnfermedadRepositoryLocal {
@@ -27,6 +28,22 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
     	List<Enfermedad> enfs = query.getResultList();
     	return enfs;
     }
+    
+    public Optional<Enfermedad> find(String nombre) {
+        List<Enfermedad> resultado = entityManager.createQuery("select e from Enfermedad e where e.nombre = :nombre", Enfermedad.class)
+                .setParameter("nombre", nombre)
+                .setMaxResults(1)
+                .getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
+    public List<Enfermedad> find(int primerResultado, int limiteResultados) {
+        return entityManager.createQuery("select e from Enfermedad e order by e.id", Enfermedad.class)
+                .setFirstResult(primerResultado)
+                .setMaxResults(limiteResultados)
+                .getResultList();
+    }
+    
     @Override
     public List<Enfermedad> findByNombreEnfermedad(String nombreEnf) {
     	Query query = entityManager.createQuery("SELECT e FROM Enfermedad e WHERE lower(e.nombre) like :nombreEnf").setParameter("nombreEnf", "%" + nombreEnf.toLowerCase() + "%");
@@ -47,3 +64,6 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
     	entityManager.remove(enf);
     }
 }
+
+
+

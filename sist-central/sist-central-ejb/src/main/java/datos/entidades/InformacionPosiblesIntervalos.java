@@ -8,13 +8,13 @@ import javax.persistence.Embeddable;
 public class InformacionPosiblesIntervalos {
     private LocalTime inicio;
     private LocalTime fin;
-    private int capasidadPorTurno;
+    private int capacidadPorTurno;
     private int minutosTurno;
 
-    public InformacionPosiblesIntervalos(LocalTime inicio, LocalTime fin, int capasidadPorTurno, int minutosTurno) {
+    public InformacionPosiblesIntervalos(LocalTime inicio, LocalTime fin, int capacidadPorTurno, int minutosTurno) {
         this.inicio = inicio;
         this.fin = fin;
-        this.capasidadPorTurno = capasidadPorTurno;
+        this.capacidadPorTurno = capacidadPorTurno;
         this.minutosTurno = minutosTurno;
     }
 
@@ -30,8 +30,8 @@ public class InformacionPosiblesIntervalos {
         return fin;
     }
 
-    public int getCapasidadPorTurno() {
-        return capasidadPorTurno;
+    public int getCapacidadPorTurno() {
+        return capacidadPorTurno;
     }
 
     public int getMinutosTurno() {
@@ -46,8 +46,8 @@ public class InformacionPosiblesIntervalos {
         this.fin = fin;
     }
 
-    public void setCapasidadPorTurno(int capasidadPorTurno) {
-        this.capasidadPorTurno = capasidadPorTurno;
+    public void setCapacidadPorTurno(int capacidadPorTurno) {
+        this.capacidadPorTurno = capacidadPorTurno;
     }
 
     public void setMinutosTurno(int minutosTurno) {

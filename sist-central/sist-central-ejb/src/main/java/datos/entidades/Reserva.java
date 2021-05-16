@@ -7,7 +7,7 @@ public class Reserva {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
     @SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
-	private long codigo;
+	private int codigo;
 	
 	private Estado estado;
 
@@ -19,11 +19,11 @@ public class Reserva {
 	@JoinColumn(name="intervaloId", nullable=false)
 	private Intervalo intervalo;
 
-	public long getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 

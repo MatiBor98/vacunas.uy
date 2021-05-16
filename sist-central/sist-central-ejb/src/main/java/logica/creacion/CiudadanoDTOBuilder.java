@@ -1,14 +1,13 @@
 package logica.creacion;
 
 import datos.dtos.CiudadanoDTO;
-import datos.entidades.Ciudadano;
 
 public class CiudadanoDTOBuilder {
-    private long ci;
+    private int ci;
     private String nombre;
     private String email;
 
-    public CiudadanoDTOBuilder setCi(long ci) {
+    public CiudadanoDTOBuilder setCi(int ci) {
         this.ci = ci;
         return this;
     }
