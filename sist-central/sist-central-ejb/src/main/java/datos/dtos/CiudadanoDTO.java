@@ -3,23 +3,23 @@ package datos.dtos;
 import java.io.Serializable;
 
 public class CiudadanoDTO implements Serializable{
-    private long ci;
+    private int ci;
     private String nombre;
     private String email;
 
     public CiudadanoDTO() {}
 
-    public CiudadanoDTO(long ci, String nombre, String email) {
+    public CiudadanoDTO(int ci, String nombre, String email) {
         this.ci = ci;
         this.nombre = nombre;
         this.email = email;
     }
 
-    public long getCi() {
+    public int getCi() {
         return ci;
     }
 
-    public void setCi(long ci) {
+    public void setCi(int ci) {
         this.ci = ci;
     }
 

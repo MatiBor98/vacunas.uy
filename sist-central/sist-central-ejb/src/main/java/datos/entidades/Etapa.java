@@ -1,24 +1,18 @@
 package datos.entidades;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 public class Etapa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaEtapaId")
     @SequenceGenerator(name="sequenciaEtapaId",sequenceName="sequenciaEtapaId", allocationSize=1)
-    private long id;
+    private int id;
 
-    private String restricciones;
+    @Embedded
+    private RestriccionEtapa restricciones;
 
     private String descripcion;
 
@@ -29,28 +23,35 @@ public class Etapa {
 	@ManyToOne
 	private Vacuna vacuna;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="planId", nullable=false)
-    private PlanVacunacion planVacunacion;*/
-
-    @OneToMany(mappedBy = "etapa")
-    private List<Agenda> agendas;
+    @ManyToOne
+    @JoinColumn(name="planNombre", nullable=false)
+    private PlanVacunacion planVacunacion;
 
     public Etapa() { }
 
-    public long getId() {
+    public Etapa(int id, RestriccionEtapa restricciones, String descripcion, LocalDate inicio, LocalDate fin, Vacuna vacuna, PlanVacunacion planVacunacion) {
+        this.id = id;
+        this.restricciones = restricciones;
+        this.descripcion = descripcion;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.vacuna = vacuna;
+        this.planVacunacion = planVacunacion;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getRestricciones() {
+    public RestriccionEtapa getRestricciones() {
         return restricciones;
     }
 
-    public void setRestricciones(String restricciones) {
+    public void setRestricciones(RestriccionEtapa restricciones) {
         this.restricciones = restricciones;
     }
 
@@ -70,14 +71,6 @@ public class Etapa {
         this.fin = fin;
     }
 
-    /*public PlanVacunacion getPlanVacunacion() {
-        return planVacunacion;
-    }
-
-    public void setPlanVacunacion(PlanVacunacion planVacunacion) {
-        this.planVacunacion = planVacunacion;
-    }*/
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -94,7 +87,11 @@ public class Etapa {
 		this.vacuna = vacuna;
 	} 
 
-    public void addAgenda(Agenda agenda) {
-        agendas.add(agenda);
+    public PlanVacunacion getPlanVacunacion() {
+        return planVacunacion;
+    }
+
+    public void setPlanVacunacion(PlanVacunacion planVacunacion) {
+        this.planVacunacion = planVacunacion;
     }
 }

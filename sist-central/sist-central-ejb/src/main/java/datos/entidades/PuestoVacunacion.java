@@ -12,7 +12,7 @@ public class PuestoVacunacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
 	@SequenceGenerator(name="puestoId",sequenceName="puestoId", allocationSize=1)
-	private long id;
+	private int id;
 
 	@ManyToOne
 	@JoinColumn(name="vacunatorioId", nullable=false)
@@ -51,11 +51,11 @@ public class PuestoVacunacion {
 		this.asignaciones = new ArrayList<Asignacion>();
 	}
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

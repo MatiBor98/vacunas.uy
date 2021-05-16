@@ -10,23 +10,24 @@ public class Turno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaTurnoId")
 	@SequenceGenerator(name="sequenciaTurnoId",sequenceName="sequenciaTurnoId", allocationSize=1)
-	private long id;
+	private int id;
 	private String nombre;
 	private LocalTime inicio;
 	private LocalTime fin;
 
 	@ManyToOne
 	private Vacunatorio vacunatorio;
+
 	@OneToMany(mappedBy="turno")
 	private List<Asignacion> asignaciones;
 	
 	public Turno() {}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -31,7 +31,7 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     }
 
     @Override
-    public List<Ciudadano> findByNombreCi(long criterio) {
+    public List<Ciudadano> findByNombreCi(int criterio) {
 
         return entityManager.createQuery(
                 "select c from Ciudadano c where c.ci = :cedula")

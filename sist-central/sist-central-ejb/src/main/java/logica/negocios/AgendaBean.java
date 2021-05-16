@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -18,26 +19,33 @@ public class AgendaBean implements AgendaServiceLocal {
     private AgendaRepositoryLocal agendaRepository;
 
     @Inject
-    private Converter<AgendaDTO, Agenda> agendaDTOConverter;
+    private Converter<AgendaDTO, Agenda> agendaConverter;
 
     @Inject
-    private Converter<Agenda, AgendaDTO> agendaConverter;
+    private Converter<Agenda, AgendaDTO> agendaDTOConverter;
 
     public AgendaBean() {
     }
 
     @Override
     public List<AgendaDTO> find() {
-        return agendaRepository.find().stream().map(agendaConverter::convert).collect(Collectors.toList());
+        return agendaRepository.find().parallelStream().map(agendaDTOConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<AgendaDTO> find(int id) {
+        return agendaRepository.find(id).map(agendaDTOConverter::convert);
     }
 
     @Override
     public List<AgendaDTO> findByNombrePlan(String criterio) {
-        return agendaRepository.findByNombrePlan(criterio).stream().map(agendaConverter::convert)
+        return agendaRepository.findByNombrePlan(criterio).parallelStream().map(agendaDTOConverter::convert)
                 .collect(Collectors.toList());
     }
 
-    public void save(AgendaDTO agendaDTO) {
-        agendaRepository.save(agendaDTOConverter.convert(agendaDTO));
+    public AgendaDTO save(AgendaDTO agendaDTO) {
+        Agenda agendaCreada = agendaConverter.convert(agendaDTO);
+        agendaRepository.save(agendaCreada);
+        return agendaDTOConverter.convert(agendaCreada);
     }
 }

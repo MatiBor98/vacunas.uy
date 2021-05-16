@@ -8,5 +8,5 @@ import javax.ejb.Local;
 @Local
 public interface PuestoVacunacionBeanLocal {
 
-	public long addPuestoVacunacion(String nombrePuesto, String nombreVacunatorio);
+	int addPuestoVacunacion(String nombrePuesto, String nombreVacunatorio);
 }

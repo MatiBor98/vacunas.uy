@@ -19,7 +19,7 @@ public class DosisVacunatorio implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="dosisId")
 	@SequenceGenerator(name="dosisId",sequenceName="dosisId", allocationSize=1)
-	private long id;
+	private int id;
 	private int dosisDadas;
 	
 	@OneToOne
@@ -41,11 +41,11 @@ public class DosisVacunatorio implements Serializable {
 		this.vacuna = vacuna;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

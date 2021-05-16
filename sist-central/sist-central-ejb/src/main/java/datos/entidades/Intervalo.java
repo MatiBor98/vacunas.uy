@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import datos.entidades.Laboratorio;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Intervalo implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="intervaloId")
     @SequenceGenerator(name="intervaloId",sequenceName="intervaloId", allocationSize=1)
-	private Long id;
+	private Integer id;
 	private LocalDate fecha;
 	private LocalTime horaInicio;
 	@ManyToOne
@@ -29,10 +28,10 @@ public class Intervalo implements Serializable{
 	@OneToMany(mappedBy = "intervalo")
 	private List<Reserva> reservas;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public LocalDate getFecha() {

@@ -61,7 +61,7 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     	return vacunatorioRepositoryLocal.find();
     }
 
-	public void addPuestoAlVacunatorio(String nombreVacunatorio, long idPuesto) {
+	public void addPuestoAlVacunatorio(String nombreVacunatorio, int idPuesto) {
 		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);
 		vac.getPuestosVacunacion().add(puesto);
@@ -70,7 +70,7 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 	
 	@Override
-	public long addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio) {
+	public int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio) {
 		Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
 		turnoRepositoryLocal.save(turno);

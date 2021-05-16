@@ -7,7 +7,7 @@ import java.time.LocalTime;
 public class InformacionPosiblesIntervalosDTOBuilder {
     private LocalTime inicio;
     private LocalTime fin;
-    private int capasidadPorTurno;
+    private int capacidadPorTurno;
     private int minutosTurno;
 
     public InformacionPosiblesIntervalosDTOBuilder setInicio(LocalTime inicio) {
@@ -20,8 +20,8 @@ public class InformacionPosiblesIntervalosDTOBuilder {
         return this;
     }
 
-    public InformacionPosiblesIntervalosDTOBuilder setCapasidadPorTurno(int capasidadPorTurno) {
-        this.capasidadPorTurno = capasidadPorTurno;
+    public InformacionPosiblesIntervalosDTOBuilder setCapacidadPorTurno(int capacidadPorTurno) {
+        this.capacidadPorTurno = capacidadPorTurno;
         return this;
     }
 
@@ -31,6 +31,6 @@ public class InformacionPosiblesIntervalosDTOBuilder {
     }
 
     public InformacionPosiblesIntervalosDTO createHoraInicioFinDTO() {
-        return new InformacionPosiblesIntervalosDTO(inicio, fin, capasidadPorTurno, minutosTurno);
+        return new InformacionPosiblesIntervalosDTO(inicio, fin, capacidadPorTurno, minutosTurno);
     }
 }

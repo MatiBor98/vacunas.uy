@@ -9,7 +9,7 @@ public class Asignacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="asigId")
 	@SequenceGenerator(name="asigId",sequenceName="asigId", allocationSize=1)
-	private long id;
+	private int id;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
 
@@ -27,11 +27,11 @@ public class Asignacion {
 
 	public Asignacion() {}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

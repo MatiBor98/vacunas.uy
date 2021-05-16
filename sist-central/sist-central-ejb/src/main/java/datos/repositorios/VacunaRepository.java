@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class VacunaRepository implements VacunaRepositoryLocal {
@@ -26,6 +27,15 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	List<Vacuna> vacs = query.getResultList();
     	return vacs;
     }
+
+    public Optional<Vacuna> find(String nombre) {
+        List<Vacuna> resultado = entityManager.createQuery("select v from Vacuna v where v.nombre = :nombre", Vacuna.class)
+                .setParameter("nombre", nombre)
+                .setMaxResults(1)
+                .getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
     @Override
     public List<Vacuna> findByNombreVacuna(String nombreVac) {
     	Query query = entityManager.createQuery("SELECT v FROM Vacuna v WHERE lower(v.nombre) like :nombreVac").setParameter("nombreVac", "%" + nombreVac.toLowerCase() + "%");

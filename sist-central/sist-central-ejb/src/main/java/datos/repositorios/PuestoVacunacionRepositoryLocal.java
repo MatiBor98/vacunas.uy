@@ -9,7 +9,7 @@ import datos.entidades.PuestoVacunacion;
 
 @Local
 public interface PuestoVacunacionRepositoryLocal {
-	public List<PuestoVacunacion> find();
-	public void save(PuestoVacunacion puesto);
-	public Optional<PuestoVacunacion> find(long id);
+	List<PuestoVacunacion> find();
+	void save(PuestoVacunacion puesto);
+	Optional<PuestoVacunacion> find(int id);
 }

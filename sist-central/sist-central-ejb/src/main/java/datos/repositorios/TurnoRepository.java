@@ -23,14 +23,14 @@ public class TurnoRepository implements TurnoRepositoryLocal {
     @Override
 	public List<Turno> find() {
         return entityManager.createQuery(
-                "select t from Turno t join fetch t.vacunatorio v", Turno.class)
+                "select t from Turno t", Turno.class)
                 .getResultList();
     }
 
     @Override
-	public Optional<Turno> findById(long id) {
+	public Optional<Turno> findById(int id) {
         List<Turno> resultado = entityManager.createQuery(
-                "select t from Turno t join fetch t.vacunatorio v where t.id = :id", Turno.class)
+                "select t from Turno t where t.id = :id", Turno.class)
                 .setParameter("id", id)
                 .setMaxResults(1)
                 .getResultList();

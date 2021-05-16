@@ -17,6 +17,7 @@ public class Vacunatorio implements Serializable {
 	private String nombre;
 	private String ciudad;
 	private String direccion;
+	@Enumerated(EnumType.STRING)
 	private Departamento departamento;
 	@OneToMany(mappedBy = "vacunatorio")
 	private List<PuestoVacunacion> puestosVacunacion;

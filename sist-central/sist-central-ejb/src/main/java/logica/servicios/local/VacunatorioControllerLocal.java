@@ -11,10 +11,10 @@ import datos.entidades.Vacunatorio;
 
 @Local
 public interface VacunatorioControllerLocal {
-	public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento);
-	public Optional<Vacunatorio> find(String nombre);
-	public Optional<Vacunatorio> findWithEverything(String nombre);
-	public List<Vacunatorio> find();
-	public void addPuestoAlVacunatorio(String nombreVacunaotorio, long idPuesto);
-	public long addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio);
+	void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento);
+	Optional<Vacunatorio> find(String nombre);
+	Optional<Vacunatorio> findWithEverything(String nombre);
+	List<Vacunatorio> find();
+	void addPuestoAlVacunatorio(String nombreVacunaotorio, int idPuesto);
+	int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio);
 }

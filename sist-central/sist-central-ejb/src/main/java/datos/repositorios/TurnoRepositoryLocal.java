@@ -9,7 +9,7 @@ public interface TurnoRepositoryLocal {
 
 	List<Turno> find();
 
-	Optional<Turno> findById(long id);
+	Optional<Turno> findById(int id);
 
 	void save(Turno turno);
 

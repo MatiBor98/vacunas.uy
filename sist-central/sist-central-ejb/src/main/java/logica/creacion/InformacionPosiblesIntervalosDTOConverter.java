@@ -12,7 +12,7 @@ public class InformacionPosiblesIntervalosDTOConverter implements Converter<Info
         InformacionPosiblesIntervalosBuilder builder = new InformacionPosiblesIntervalosBuilder();
         return builder.setFin(source.getFin())
                 .setInicio(source.getInicio())
-                .setCapasidadPorTurno(source.getCapasidadPorTurno())
+                .setCapacidadPorTurno(source.getCapacidadPorTurno())
                 .setMinutosTurno(source.getMinutosTurno())
                 .createHoraInicioFin();
     }
