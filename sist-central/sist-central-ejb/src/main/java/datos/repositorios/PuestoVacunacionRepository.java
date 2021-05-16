@@ -39,7 +39,7 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
         entityManager.persist(puesto);
     }
 
-    public Optional<PuestoVacunacion> find(long id) {
+    public Optional<PuestoVacunacion> find(int id) {
         List<PuestoVacunacion> resultList = entityManager.createQuery(
                 "select e from PuestoVacunacion e where e.id = :id",
                 PuestoVacunacion.class)

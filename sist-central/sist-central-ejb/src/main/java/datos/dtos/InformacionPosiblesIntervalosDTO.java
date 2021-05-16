@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class InformacionPosiblesIntervalosDTO implements Serializable {
     private final LocalTime inicio;
     private final LocalTime fin;
-    private final int capasidadPorTurno;
+    private final int capacidadPorTurno;
     private final int minutosTurno;
 
-    @JsonCreator
     public InformacionPosiblesIntervalosDTO(
-            @JsonProperty("inicio")LocalTime inicio,
-            @JsonProperty("fin")LocalTime fin,
-            @JsonProperty("capasidadPorTurno")int capasidadPorTurno,
-            @JsonProperty("minutosTurno")int minutosTurno) {
+            LocalTime inicio,
+            LocalTime fin,
+            int capacidadPorTurno,
+            int minutosTurno) {
         this.inicio = inicio;
         this.fin = fin;
-        this.capasidadPorTurno = capasidadPorTurno;
+        this.capacidadPorTurno = capacidadPorTurno;
         this.minutosTurno = minutosTurno;
     }
 
@@ -32,8 +32,8 @@ public class InformacionPosiblesIntervalosDTO implements Serializable {
         return fin;
     }
 
-    public int getCapasidadPorTurno() {
-        return capasidadPorTurno;
+    public int getCapacidadPorTurno() {
+        return capacidadPorTurno;
     }
 
     public int getMinutosTurno() {
@@ -41,11 +41,24 @@ public class InformacionPosiblesIntervalosDTO implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InformacionPosiblesIntervalosDTO that = (InformacionPosiblesIntervalosDTO) o;
+        return getCapacidadPorTurno() == that.getCapacidadPorTurno() && getMinutosTurno() == that.getMinutosTurno() && getInicio().equals(that.getInicio()) && getFin().equals(that.getFin());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getInicio(), getFin(), getCapacidadPorTurno(), getMinutosTurno());
+    }
+
+    @Override
     public String toString() {
         return "HoraInicioFinDTO{" +
                 "inicio=" + inicio +
                 ", fin=" + fin +
-                ", capasidadPorTurno=" + capasidadPorTurno +
+                ", capacidadPorTurno=" + capacidadPorTurno +
                 ", minutosTurno=" + minutosTurno +
                 '}';
     }

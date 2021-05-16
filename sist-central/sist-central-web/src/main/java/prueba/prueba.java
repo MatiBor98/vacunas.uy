@@ -52,7 +52,7 @@ public class prueba extends HttpServlet {
         @SuppressWarnings("unused")
 		Vacunatorio vac = vacunatorioControllerLocal.find(nombreVacPrueba).get();
         
-        long idPuesto = puestoVacunacionBeanLocal.addPuestoVacunacion("Puesto 1", nombreVacPrueba);
+        int idPuesto = puestoVacunacionBeanLocal.addPuestoVacunacion("Puesto 1", nombreVacPrueba);
         
         vacunatorioControllerLocal.addPuestoAlVacunatorio(nombreVacPrueba, idPuesto);
         

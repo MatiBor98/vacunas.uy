@@ -1,11 +1,11 @@
 package datos.repositorios;
 import datos.entidades.Etapa;
-import datos.entidades.PlanVacunacion;
+import datos.entidades.Trabajos;
 
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +24,11 @@ public class EtapaRepository {
                 .getResultList();
     }
 
-    public void save(PlanVacunacion plan) {
-        entityManager.persist(plan);
+    public void save(Etapa etapa) {
+        entityManager.persist(etapa);
     }
 
-    public Optional<Etapa> find(long id) {
+    public Optional<Etapa> find(int id) {
         List<Etapa> resultList = entityManager.createQuery(
                 "select e from Etapa e where e.id = :id",
                 Etapa.class)
@@ -36,5 +36,26 @@ public class EtapaRepository {
                 .setMaxResults(1)
                 .getResultList();
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+    }
+
+    public List<Etapa> find(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
+        TypedQuery<Etapa> etapaTypedQuery = entityManager.createQuery(
+                "select e from Etapa e left join e.restricciones.filtroEmpleoEn f " +
+                    "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +
+                    //"and current_date between e.inicio and e.fin " +
+                    "and (e.restricciones.mayorIgual is null or :edadCiudadano >= e.restricciones.mayorIgual) " +
+                    "and (e.restricciones.mayorIgual is null or :edadCiudadano <= e.restricciones.menorIgual) " +
+                    "group  by e " +
+                    "having count(f) = 0 " +
+                        (trabajos != null ? "or :filtroPorEmpleo member of f " : "") +
+                    "order by e.id", Etapa.class)
+                .setParameter("nombreEnfermedad", nombreEnfermedad)
+                .setParameter("edadCiudadano", edadCiudadano);
+
+        if(trabajos != null) {
+            etapaTypedQuery.setParameter("filtroPorEmpleo", trabajos);
+        }
+
+        return etapaTypedQuery.getResultList();
     }
 }

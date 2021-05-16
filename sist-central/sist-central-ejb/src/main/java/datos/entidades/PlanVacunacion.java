@@ -1,33 +1,18 @@
 package datos.entidades;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 
 
 
 @Entity
 public class PlanVacunacion {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaPlanId")
-    @SequenceGenerator(name="sequenciaPlanId",sequenceName="sequenciaPlanId", allocationSize=1)
-    private long id;
-
     private String nombre;
 
     private LocalDate inicio;
 
     private LocalDate fin;
-
-    @OneToMany
-    private List<Etapa> etapas;
 
     @ManyToOne
     @JoinColumn(name="enfermedadNombre", nullable=false)
@@ -36,12 +21,11 @@ public class PlanVacunacion {
     public PlanVacunacion() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public PlanVacunacion(String nombre, LocalDate inicio, LocalDate fin, Enfermedad enfermedad) {
+        this.nombre = nombre;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.enfermedad = enfermedad;
     }
 
     public LocalDate getInicio() {
@@ -58,14 +42,6 @@ public class PlanVacunacion {
 
     public void setFin(LocalDate fin) {
         this.fin = fin;
-    }
-
-    public List<Etapa> getEtapas() {
-        return etapas;
-    }
-
-    public void setEtapas(List<Etapa> etapas) {
-        this.etapas = etapas;
     }
 
     public String getNombre() {

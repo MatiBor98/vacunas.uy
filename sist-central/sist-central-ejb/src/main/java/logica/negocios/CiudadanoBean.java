@@ -30,12 +30,12 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 
     @Override
     public List<CiudadanoDTO> find() {
-        return ciudadanoRepository.find().stream().map(ciudadanoConverter::convert).collect(Collectors.toList());
+        return ciudadanoRepository.find().parallelStream().map(ciudadanoConverter::convert).collect(Collectors.toList());
     }
 
     @Override
-    public List<CiudadanoDTO> findByNombreCi(long criterio){
-        return ciudadanoRepository.findByNombreCi(criterio).stream().map(ciudadanoConverter::convert).collect(Collectors.toList());
+    public List<CiudadanoDTO> findByNombreCi(int criterio){
+        return ciudadanoRepository.findByNombreCi(criterio).parallelStream().map(ciudadanoConverter::convert).collect(Collectors.toList());
     }
 
     public void save(CiudadanoDTO ciudadanoDTO) {

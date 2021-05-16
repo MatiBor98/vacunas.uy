@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class AgendaBuilder {
-    private long id;
+    private int id;
     private String nombre;
     private LocalDate inicio;
     private LocalDate fin;
@@ -18,7 +18,7 @@ public class AgendaBuilder {
     private Turno turno;
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
-    public AgendaBuilder setId(long id) {
+    public AgendaBuilder setId(int id) {
         this.id = id;
         return this;
     }

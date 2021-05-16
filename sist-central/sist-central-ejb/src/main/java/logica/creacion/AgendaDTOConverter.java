@@ -34,11 +34,12 @@ public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
         Turno turno = turnoRepository.findById(agendaDTO.getTurnoId()).orElseThrow(this::noSeEncontroTurnoRuntimeException);
         Map<DayOfWeek, InformacionPosiblesIntervalos> horariosPorDia = agendaDTO.getHorarioPorDia()
                 .entrySet()
-                .stream()
+                .parallelStream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         horarioEnDia -> informacionPosiblesIntervalosDTOConverter.convert(horarioEnDia.getValue())));
         return builder.setInicio(agendaDTO.getInicio())
+                .setId(agendaDTO.getId())
                 .setFin(agendaDTO.getFin())
                 .setHorarioPorDia(horariosPorDia)
                 .setTurno(turno)

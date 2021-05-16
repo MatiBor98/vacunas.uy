@@ -27,7 +27,7 @@ public class PuestoVacunacionBean implements  PuestoVacunacionBeanLocal {
 	VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
 	
     @Override
-	public long addPuestoVacunacion(String nombrePuesto, String nombreVacunatorio) {
+	public int addPuestoVacunacion(String nombrePuesto, String nombreVacunatorio) {
     	Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		PuestoVacunacion puesto = new PuestoVacunacion(vacunatorio, nombrePuesto);
 		puestoVacunacionRepositoryLocal.save(puesto);
