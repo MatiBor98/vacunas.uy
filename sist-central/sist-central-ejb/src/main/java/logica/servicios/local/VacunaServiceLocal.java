@@ -13,4 +13,5 @@ public interface VacunaServiceLocal {
     void save(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs);
     List<Vacuna> findByNombreVacuna(String nombre);
     void eliminar(String nombre);
+    void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs );
 }

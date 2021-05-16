@@ -2,6 +2,11 @@ package datos.entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -10,20 +15,20 @@ public class Laboratorio implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="laboratorioId")
-	@SequenceGenerator(name="laboratorioId",sequenceName="laboratorioId", allocationSize=1)
-	private long id;
-
 	private String nombre;
-
-	public Laboratorio() {}
-
-	public long getId() {
-		return id;
+	@ManyToMany(mappedBy = "laboratorios")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Vacuna> vacunas;
+	
+	public Laboratorio() {
+		super();
 	}
-
-	public void setId(long id) {
-		this.id = id;
+	
+	
+	public Laboratorio(String nombre, List<Vacuna> vacs) {
+		super();
+		this.nombre = nombre;
+		this.vacunas = vacs;
 	}
 
 	public String getNombre() {
@@ -31,5 +36,13 @@ public class Laboratorio implements Serializable{
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public List<Vacuna> getVacunas() {
+		return this.vacunas;
+	}
+	
+	public void setVacunas(List<Vacuna> vacs) {
+		this.vacunas = vacs;
 	}
 }

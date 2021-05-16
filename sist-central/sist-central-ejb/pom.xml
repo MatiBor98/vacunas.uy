@@ -51,6 +51,13 @@
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.4-Final</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
+				
 
 		<!-- Import the JPA API, we use provided scope as the API is included in 
 			WildFly / JBoss EAP -->

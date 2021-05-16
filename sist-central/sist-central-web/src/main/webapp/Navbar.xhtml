@@ -91,14 +91,22 @@ to(#c4b489)
    color: #ffffff;
  }
 
+.dropdown-submenu {
+  position: relative;
+}
 
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
     </style>
 
 </head> 
 
 <nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
      style="background: #222938"
->
+>	
     <div class="dropdown">
     	<a
          class="navbar-brand nav-link dropdown-toggle media align-items-center"
@@ -116,8 +124,12 @@ to(#c4b489)
         </a>
           <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="">Inicio</a></li>
-            <li><a class="dropdown-item" href="">Opcion 1</a></li>
-            <li><a class="dropdown-item" href="">Opcion 2</a></li>
+			<li><a class="dropdown-item" href="/sist-central-web/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
+			<li><a class="dropdown-item" href="/sist-central-web/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
+			<li><a class="dropdown-item" href="/sist-central-web/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
+            <li><a class="dropdown-item" href="/sist-central-web/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a></li>
+            <li><a class="dropdown-item" href="/sist-central-web/AgregarEnfermedad.xhtml">Agregar Enfermedad</a></li>
+            <li><a class="dropdown-item" href="/sist-central-web/ConsultaEnfermedades.xhtml">Consultar Enfermedades</a></li>
           </ul>
         </div>
       <div class="collapse navbar-collapse">

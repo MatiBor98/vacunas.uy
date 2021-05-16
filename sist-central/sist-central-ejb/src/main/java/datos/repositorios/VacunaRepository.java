@@ -44,4 +44,13 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	vac = entityManager.find(Vacuna.class, nombre);
     	entityManager.remove(vac);
     }
+    
+    public void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs) {
+    	Vacuna vacAModificar = findByNombreVacuna(nombre).get(0);
+    	vacAModificar.setCantDosis(cantDosis);
+    	vacAModificar.setInmunidadMeses(inmunidadMeses);
+    	vacAModificar.setDosisSeparacionDias(dosisSeparacion);
+    	vacAModificar.setLaboratorios(labs);
+    	vacAModificar.setEnfermedades(enfs);
+    }
 }

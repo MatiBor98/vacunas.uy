@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Enfermedad implements Serializable {
 	
@@ -13,8 +16,10 @@ public class Enfermedad implements Serializable {
 	private String nombre;
 	private String descripcion;
 	@ManyToMany(mappedBy = "enfermedades")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Vacuna> vacunas;
 	@OneToMany(mappedBy="enfermedad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PlanVacunacion> planesVacunacion;
 	
 	public Enfermedad() {

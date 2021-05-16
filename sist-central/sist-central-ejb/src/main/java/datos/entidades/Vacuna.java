@@ -1,9 +1,14 @@
 package datos.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,9 +21,11 @@ public class Vacuna implements Serializable{
 	private String nombre;
 	@ManyToMany
 	@JoinColumn(name="laboratorioNombre", nullable=false)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Laboratorio> laboratorios;
 	@ManyToMany
-	@JoinColumn(name="enfermedadNmobre", nullable=false)
+	@JoinColumn(name="enfermedadNombre", nullable=false)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Enfermedad> enfermedades;
 	private int cantDosis;
 	private int inmunidadMeses;
