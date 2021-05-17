@@ -67,13 +67,13 @@ public class VacunaBean implements Serializable{
 		this.cantDosis = cantDosis;
 	}
 	public String getInmunidadMeses() {
-		return cantDosis;
+		return inmunidadMeses;
 	}
 	public void setInmunidadMeses(String inmunidadMeses) {
 		this.inmunidadMeses = inmunidadMeses;
 	}
 	public String getDosisSeparacion() {
-		return inmunidadMeses;
+		return dosisSeparacion;
 	}
 	public void setDosisSeparacion(String dosisSeparacion) {
 		this.dosisSeparacion = dosisSeparacion;

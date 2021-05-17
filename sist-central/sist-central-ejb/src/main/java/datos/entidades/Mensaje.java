@@ -23,7 +23,7 @@ public class Mensaje implements Serializable {
     @JoinColumn(name="vacunadorCI", nullable=false)
 	private Vacunador vacunador;
 	private LocalDateTime fechaHora;
-	private String mensaje;
+	private String texto;
 	public int getId() {
 		return id;
 	}
@@ -37,10 +37,10 @@ public class Mensaje implements Serializable {
 		this.fechaHora = fechaHora;
 	}
 	public String getMensaje() {
-		return mensaje;
+		return texto;
 	}
 	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
+		this.texto = mensaje;
 	}
 	public Vacunador getVacunador() {
 		return this.vacunador;
@@ -52,7 +52,7 @@ public class Mensaje implements Serializable {
 		super();
 		this.id = id;
 		this.fechaHora = fechaHora;
-		this.mensaje = mensaje;
+		this.texto = mensaje;
 		this.vacunador = vac;
 	}
 	public Mensaje() {

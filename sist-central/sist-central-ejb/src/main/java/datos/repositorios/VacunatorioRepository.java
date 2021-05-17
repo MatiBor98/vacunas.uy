@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import datos.entidades.Vacunatorio;
+import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
 /**
@@ -47,10 +48,24 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
     
     @Transactional
     public Optional<Vacunatorio> findWithEverything(String nombre) {
-        Vacunatorio vac = entityManager.find(Vacunatorio.class, nombre);
-        vac.getPuestosVacunacion().size();
-        vac.getTurnos().size();
-        return vac == null ? Optional.empty() : Optional.of(vac);
+    	try {
+    		Vacunatorio vac = entityManager.find(Vacunatorio.class, nombre);
+            vac.getPuestosVacunacion().size();
+            vac.getTurnos().size();
+            return Optional.of(vac);
+		} catch (IllegalArgumentException e) {
+			return Optional.empty();
+		}
+        
     }
+
+	@Override
+	public List<Vacunatorio> find(int primerResultado, int maximosResultados) {
+		return entityManager.createQuery("select e from Vacunatorio e order by e.nombre", Vacunatorio.class)
+                .setFirstResult(primerResultado)
+                .setMaxResults(maximosResultados)
+                .getResultList();
+	}
+    
 }
 
