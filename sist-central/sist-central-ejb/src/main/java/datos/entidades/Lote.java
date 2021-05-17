@@ -1,11 +1,15 @@
 package datos.entidades;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
 
 @Entity
-public class Lote{
+public class Lote implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	
 	@Column(nullable=false)
 	private int dosisDisponibles;

@@ -1,5 +1,6 @@
 package datos.entidades;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Map;
@@ -19,8 +20,13 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Agenda {
-    @Id
+public class Agenda implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaAgendaId")
     @SequenceGenerator(name="sequenciaAgendaId",sequenceName="sequenciaAgendaId", allocationSize=1)
     private int id;

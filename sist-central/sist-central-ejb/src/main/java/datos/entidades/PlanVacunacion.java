@@ -1,13 +1,23 @@
 package datos.entidades;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
 
 @Entity
-public class PlanVacunacion {
-    @Id
+public class PlanVacunacion implements Serializable {
+	
+	
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private String nombre;
 
     private LocalDate inicio;

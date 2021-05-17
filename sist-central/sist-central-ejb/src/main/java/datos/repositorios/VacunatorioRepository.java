@@ -47,10 +47,15 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
     
     @Transactional
     public Optional<Vacunatorio> findWithEverything(String nombre) {
-        Vacunatorio vac = entityManager.find(Vacunatorio.class, nombre);
-        vac.getPuestosVacunacion().size();
-        vac.getTurnos().size();
-        return vac == null ? Optional.empty() : Optional.of(vac);
+    	try {
+    		Vacunatorio vac = entityManager.find(Vacunatorio.class, nombre);
+            vac.getPuestosVacunacion().size();
+            vac.getTurnos().size();
+            return Optional.of(vac);
+		} catch (IllegalArgumentException e) {
+			return Optional.empty();
+		}
+        
     }
 }
 
