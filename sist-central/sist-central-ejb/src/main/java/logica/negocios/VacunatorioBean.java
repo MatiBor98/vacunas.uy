@@ -67,6 +67,11 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		vac.getPuestosVacunacion().add(puesto);
 	}
     
+	public List<Vacunatorio> findByPage(int primerResultado, int limiteResultados) {
+		return vacunatorioRepositoryLocal.find(primerResultado, limiteResultados);
+		
+	}
+	
 	
 	
 	@Override

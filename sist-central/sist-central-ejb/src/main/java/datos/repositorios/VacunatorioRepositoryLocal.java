@@ -10,7 +10,9 @@ import datos.entidades.Vacunatorio;
 @Local
 public interface VacunatorioRepositoryLocal {
 	 List<Vacunatorio> find();
+	 List<Vacunatorio> find(int primerResultado, int maximosResultados);
 	 void save(Vacunatorio vac);
 	 Optional<Vacunatorio> find(String nombre);
 	 Optional<Vacunatorio> findWithEverything(String nombre);
+	 
 }

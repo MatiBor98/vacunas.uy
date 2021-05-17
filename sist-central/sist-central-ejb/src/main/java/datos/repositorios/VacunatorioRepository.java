@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import datos.entidades.Vacunatorio;
+import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
 /**
@@ -57,5 +58,14 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 		}
         
     }
+
+	@Override
+	public List<Vacunatorio> find(int primerResultado, int maximosResultados) {
+		return entityManager.createQuery("select e from Vacunatorio e order by e.nombre", Vacunatorio.class)
+                .setFirstResult(primerResultado)
+                .setMaxResults(maximosResultados)
+                .getResultList();
+	}
+    
 }
 
