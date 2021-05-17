@@ -7,5 +7,5 @@ import java.util.List;
 
 @Local
 public interface EnfermedadController {
-    List<Enfermedad> findPage(int primerResultado, int limiteResultados);
+    List<Enfermedad> findPage(int primerResultado, int limiteResultados, String criterio);
 }

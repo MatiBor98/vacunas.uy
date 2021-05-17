@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.ejb.Local;
 
-import datos.entidades.Departamento;
 import datos.entidades.Vacunatorio;
 
 @Local
@@ -17,5 +16,4 @@ public interface VacunatorioRepositoryLocal {
 	 void save(Vacunatorio vac);
 	 Optional<Vacunatorio> find(String nombre);
 	 Optional<Vacunatorio> findWithEverything(String nombre);
-	 
 }

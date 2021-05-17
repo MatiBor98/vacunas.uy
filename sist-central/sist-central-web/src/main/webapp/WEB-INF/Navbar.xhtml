@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
+         style="background: #222938"
+    >
+        <div class="dropdown">
+            <a
+                    class="navbar-brand nav-link dropdown-toggle media align-items-center"
+                    href="#"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+                <img
+                        src="Logo.png"
+                        alt="logo"
+                        style="width: 8vw"
+                />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="">Inicio</a></li>
+                <li><a class="dropdown-item" href="">Opcion 1</a></li>
+                <li><a class="dropdown-item" href="">Opcion 2</a></li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+            <h:form class="form-inline" style="width: 60vw; font-size: 1.5vw; margin-left: 7vw" action="" method="post">
+                <input
+                        style="width: 90%; margin: auto"
+                        class="form-control form-control-underlined"
+                        type="text"
+                        placeholder="Planes, vacunas, enfermdedades..."
+                        aria-label="Search"
+                        name="busqueda"
+                />
+
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+
+
+            </h:form>
+
+            <ul class='nav navbar-nav ml-auto'>
+                <li class='nav-tie mx-2'><a href=''>Iniciar Sesion</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</f:view>
+</html>

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -82,6 +84,20 @@ public class AgendaDTO implements Serializable {
         sb.append(", fin=").append(fin);
         sb.append(", id=").append(id);
         sb.append('}');
+        return sb.toString();
+    }
+
+    public String getHorariosString() {
+        final StringBuilder sb = new StringBuilder("");
+        horarioPorDia.forEach((dayOfWeek, informacionPosiblesIntervalosDTO) -> {
+            sb
+                .append("\n")
+                .append(dayOfWeek.getDisplayName(TextStyle.SHORT, new Locale("es", "UY")))
+                .append(" - ")
+                .append(informacionPosiblesIntervalosDTO.getInicio())
+                .append(" a ")
+                .append(informacionPosiblesIntervalosDTO.getFin());
+        });
         return sb.toString();
     }
 }

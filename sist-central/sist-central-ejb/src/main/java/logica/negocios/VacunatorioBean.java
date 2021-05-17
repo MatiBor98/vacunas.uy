@@ -65,6 +65,11 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     	return vacunatorioRepositoryLocal.find();
     }
 
+    @Override
+    public List<Vacunatorio> findByDepartamento(Departamento departamento) {
+    	return vacunatorioRepositoryLocal.findByDepartamento(departamento);
+	}
+
 	public void addPuestoAlVacunatorio(String nombreVacunatorio, int idPuesto) {
 		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);

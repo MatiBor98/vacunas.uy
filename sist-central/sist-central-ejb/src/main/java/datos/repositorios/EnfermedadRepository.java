@@ -37,8 +37,11 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
         return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
     }
 
-    public List<Enfermedad> find(int primerResultado, int limiteResultados) {
-        return entityManager.createQuery("select e from Enfermedad e order by e.id", Enfermedad.class)
+    public List<Enfermedad> find(int primerResultado, int limiteResultados, String criterio) {
+        return entityManager.createQuery("select e from Enfermedad e " +
+                "where lower(e.nombre) like lower(:criterio) " +
+                "order by e.id", Enfermedad.class)
+                .setParameter("criterio", "%" + criterio + "%")
                 .setFirstResult(primerResultado)
                 .setMaxResults(limiteResultados)
                 .getResultList();
