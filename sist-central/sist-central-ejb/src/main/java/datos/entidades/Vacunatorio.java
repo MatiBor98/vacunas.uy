@@ -2,10 +2,15 @@ package datos.entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 @Entity
@@ -27,7 +32,8 @@ public class Vacunatorio implements Serializable {
 	private List<Turno> turnos;
 
 	@OneToMany
-	private List<Lote> lotes;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Lote> lotes;
 	
 	@OneToMany
 	private List<DosisVacunatorio> dosisVacunatorios;
@@ -82,11 +88,11 @@ public class Vacunatorio implements Serializable {
 		this.turnos = turnos;
 	}
 
-	public List<Lote> getLotes() {
+	public Set<Lote> getLotes() {
 		return lotes;
 	}
 
-	public void setLotes(List<Lote> lotes) {
+	public void setLotes(Set<Lote> lotes) {
 		this.lotes = lotes;
 	}
 	public Vacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
@@ -97,7 +103,7 @@ public class Vacunatorio implements Serializable {
 		this.departamento = departamento;
 		this.puestosVacunacion = new ArrayList<PuestoVacunacion>();
 		this.dosisVacunatorios = new ArrayList<DosisVacunatorio>();
-		this.lotes = new ArrayList<Lote>();
+		this.lotes = new HashSet<Lote>();
 		this.turnos = new ArrayList<Turno>();
 				
 	}

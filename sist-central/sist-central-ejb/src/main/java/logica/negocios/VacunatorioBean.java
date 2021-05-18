@@ -57,6 +57,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 
 	}
     
+	
+	
+	
     public List<Vacunatorio> find() {
     	return vacunatorioRepositoryLocal.find();
     }
@@ -80,5 +83,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
 		turnoRepositoryLocal.save(turno);
 		return turno.getId();
+	}
+
+	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados) {
+		return vacunatorioRepositoryLocal.findByDepartamento(dep, primerResultado, maximosResultados);
+	}
+
+	public List<Vacunatorio> findByDepartamento(Departamento dep) {
+		return vacunatorioRepositoryLocal.findByDepartamento(dep);
 	}
 }
