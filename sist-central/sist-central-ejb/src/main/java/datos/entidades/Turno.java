@@ -1,12 +1,21 @@
 package datos.entidades;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Turno {
+public class Turno implements Serializable{
+	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequenciaTurnoId")
 	@SequenceGenerator(name="sequenciaTurnoId",sequenceName="sequenciaTurnoId", allocationSize=1)
