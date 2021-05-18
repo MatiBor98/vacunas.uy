@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+footer{
+	border-style: solid;
+	border-color: gray;
+	border-width: 2px;
+	background: #222938;
+	color: white; 
+}
+
+.container{
+	justify-content: center;
+}
+
+#escudo{
+	height: 50%;
+	width: auto;
+}
