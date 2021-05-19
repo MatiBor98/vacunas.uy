@@ -47,9 +47,10 @@ public class VacunatorioBean implements Serializable{
 	public List<String> getNombresDepartamentos() {
 		return ContVacunatorio.getNombresDepartamentos();
 	}
-	
 	public void agregarVacunatorio() {
-		if (!ContVacunatorio.find(nomVacunatorio).isEmpty()) {
+
+		
+		if (ContVacunatorio.find(nomVacunatorio).isPresent()) {
 			this.setVacunatorioYaExiste("block");
 			this.setVacunatorioAgregado("none");
 			this.setElegirDepartamento("none");
