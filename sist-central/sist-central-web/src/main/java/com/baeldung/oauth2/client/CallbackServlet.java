@@ -16,6 +16,7 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.Base64;
 
 @WebServlet(urlPatterns = "/")
 public class CallbackServlet extends AbstractServlet {
@@ -62,6 +63,15 @@ public class CallbackServlet extends AbstractServlet {
             JsonObject tokenResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .header(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue(clientId, clientSecret))
                     .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), JsonObject.class);
+            /////////
+            String a =tokenResponse.getString("id_token");
+            String[] chunks = a.split("\\.");
+            Base64.Decoder decoder = Base64.getDecoder();
+            String payload = new String(decoder.decode(chunks[1]));
+            String[] user = payload.split("nombre_completo\":\"");
+            user = user[1].split("\"");
+            request.getSession().setAttribute("user", user[0]);
+
             request.getSession().setAttribute("tokenResponse", tokenResponse);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

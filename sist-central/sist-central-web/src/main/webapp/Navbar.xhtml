@@ -151,11 +151,23 @@ to(#c4b489)
 
 
         </h:form>
-        
-        <ul class='nav navbar-nav ml-auto'>
-      			<li class='nav-tie mx-2'><a href=''>Iniciar Sesion</a></li>
+
+          <h:panelGroup rendered="#{empty user}">
+
+          <ul class='nav navbar-nav ml-auto' >
+      			<li class='nav-tie mx-2'><a href="/authorize" >Iniciar Sesion</a></li>
      	   </ul>
-        
+          </h:panelGroup>
+          <h:panelGroup rendered="#{not empty user}">
+
+              <ul class='nav navbar-nav ml-auto' >
+                  <li class='nav-tie mx-2'>#{user}</li>
+              </ul>
+
+              <ul class='nav navbar-nav ml-auto' >
+                  <li class='nav-tie mx-2'><a href="#" >Cerrar Sesion</a></li>
+              </ul>
+          </h:panelGroup>
       </div>
     </nav>
 </html>

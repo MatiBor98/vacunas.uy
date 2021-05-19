@@ -1,3 +1,10 @@
+.idea/
+sist-central-ear/sist-central-ear.iml
+sist-central-ejb/sist-central-ejb.iml
+sist-central-web/sist-central-web.iml
+sist-central.iml
+
+
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
