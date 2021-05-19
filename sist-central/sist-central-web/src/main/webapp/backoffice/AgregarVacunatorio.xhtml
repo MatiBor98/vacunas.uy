@@ -91,7 +91,7 @@
     
       <img
         class="mb-4"
-        src="../LogoVacunatorio.png"
+        src="/sist-central-web/src/main/webapp/resources/LogoVacunatorio.png"
         alt=""
         width="90"
         height="90"
@@ -129,7 +129,7 @@
       />
       
       <label class="form-label">Departamento:</label>
-      <h:selectOneMenu value="#{VacunatorioBean.depVacunatorio}" class="form-select form-select-lg mb-2">
+      <h:selectOneMenu value="#{VacunatorioBean.depVacunatorio}" class="form-control">
 				<f:selectItems value="#{VacunatorioBean.getNombresDepartamentos()}"/>
 	  </h:selectOneMenu>
       
