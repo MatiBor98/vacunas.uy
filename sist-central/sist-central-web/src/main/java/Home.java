@@ -39,7 +39,7 @@ public class Home extends HttpServlet {
 		}
 		
 		RequestDispatcher dispatcher = getServletContext()
-			      .getRequestDispatcher("/backoffice/AgregarEnfermedad.xhtml");
+			      .getRequestDispatcher("/index.xhtml");
 			    dispatcher.forward(request, response);
 	}
 
