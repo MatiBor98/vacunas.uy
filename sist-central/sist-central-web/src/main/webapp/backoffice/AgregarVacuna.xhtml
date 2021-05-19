@@ -12,7 +12,6 @@
     <meta charset="utf-8" />
     <title>Vacunas.uy - Agregar Vacuna</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    
   	
     <style>
       .bd-placeholder-img {
@@ -164,12 +163,12 @@
       </h:inputText>
       
       <label class="form-label">Laboratorios asociados:</label>
-      <h:selectManyListbox value="#{VacunaBean.laboratorios}" class="form-select form-select-lg mb-2">
+      <h:selectManyListbox value="#{VacunaBean.laboratorios}" class="form-control">
 				<f:selectItems value="#{LaboratorioBean.getNombresLaboratorios()}"/>
 	  </h:selectManyListbox>
 	
 	<label class="form-label">Enfermedades que combate:</label>
-      <h:selectManyListbox value="#{VacunaBean.enfermedades}" class="form-select form-select-lg mb-2">
+      <h:selectManyListbox value="#{VacunaBean.enfermedades}" class="form-control">
 	   		<f:selectItems value="#{EnfermedadBean.getNombresEnfermedades()}"/>	
 	</h:selectManyListbox>
       
