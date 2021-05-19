@@ -16,7 +16,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import javax.ejb.EJB;
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -191,9 +191,13 @@
 		    <artifactId>javax.interceptor-api</artifactId>
 		    <version>1.2.2</version>
 		</dependency>
-		
-		
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+
+    </dependencies>
 
 	<build>
 		<!-- Tell Maven that the resulting file should not have a file name containing 
