@@ -30,13 +30,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 
 	@EJB
-	VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+	private VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
 	
 	@EJB
-	PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;
+	private PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;
 	
 	@EJB
-	TurnoRepositoryLocal turnoRepositoryLocal;
+	private TurnoRepositoryLocal turnoRepositoryLocal;
     /**
      * Default constructor. 
      */
@@ -64,11 +64,6 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     public List<Vacunatorio> find() {
     	return vacunatorioRepositoryLocal.find();
     }
-
-    @Override
-    public List<Vacunatorio> findByDepartamento(Departamento departamento) {
-    	return vacunatorioRepositoryLocal.findByDepartamento(departamento);
-	}
 
 	public void addPuestoAlVacunatorio(String nombreVacunatorio, int idPuesto) {
 		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
