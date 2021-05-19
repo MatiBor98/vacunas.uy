@@ -1,6 +1,8 @@
 package logica.negocios;
 
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -33,7 +35,18 @@ public class PuestoVacunacionBean implements  PuestoVacunacionBeanLocal {
 		puestoVacunacionRepositoryLocal.save(puesto);
 		return puesto.getId();
 	}
+    
+    public Optional<PuestoVacunacion> find(int id) {
+    	return puestoVacunacionRepositoryLocal.find(id);
+    }
+    
+    public List<PuestoVacunacion> find() {
+    	return puestoVacunacionRepositoryLocal.find();
+    }
 
+    public List<PuestoVacunacion> find(String vac, String nombrePuesto) {
+    	return puestoVacunacionRepositoryLocal.find(vac, nombrePuesto);
+    }
 	/**
      * Default constructor. 
      */

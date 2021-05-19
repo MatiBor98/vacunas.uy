@@ -1,6 +1,7 @@
 package logica.negocios;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,5 +81,14 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
 		turnoRepositoryLocal.save(turno);
 		return turno.getId();
+	}
+	
+	public List<String> getNombresDepartamentos() {
+		List<String> res = new ArrayList<>();
+		Departamento[] deps = Departamento.values();
+		for(Departamento dep:deps) {
+			res.add(dep.toString());
+		}
+		return res;
 	}
 }

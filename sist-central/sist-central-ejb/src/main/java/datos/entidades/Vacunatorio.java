@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 @Entity
 @XmlRootElement
@@ -20,6 +23,7 @@ public class Vacunatorio implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Departamento departamento;
 	@OneToMany(mappedBy = "vacunatorio")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PuestoVacunacion> puestosVacunacion;
 
 

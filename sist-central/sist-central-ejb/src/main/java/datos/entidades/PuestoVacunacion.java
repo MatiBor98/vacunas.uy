@@ -15,7 +15,7 @@ public class PuestoVacunacion {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name="vacunatorioId", nullable=false)
+	@JoinColumn(name="vacunatorioNombre", nullable=false)
 	private Vacunatorio vacunatorio;
 
 	private String nombrePuesto;
