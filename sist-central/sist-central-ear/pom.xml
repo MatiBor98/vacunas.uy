@@ -58,8 +58,8 @@
 						<!-- Default context root of the web app is /sist-central-web. If a 
 							custom context root is needed, uncomment the following snippet to register 
 							our War as a web module and set the contextRoot property -->
-						<!-- <webModule> <groupId>${project.groupId}</groupId> <artifactId>sist-central-web</artifactId> 
-							<contextRoot>/sist-central</contextRoot> </webModule> -->
+						<webModule> <groupId>${project.groupId}</groupId> <artifactId>sist-central-web</artifactId> 
+							<contextRoot>/</contextRoot> </webModule> 
 					</modules>
 					<outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
 				</configuration>
