@@ -1,12 +1,20 @@
 package logica.negocios;
 
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+
+import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import datos.entidades.Administrador;
 import datos.entidades.UsuarioBO;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import logica.servicios.local.AutenticacionBackOfficeBeanLocal;
 
 /**
@@ -18,6 +26,11 @@ public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanL
 	@EJB
 	UsuariosBackOfficeRepositoryLocal usuariosBO;
 	
+	
+	String password = "secretKeyforJwt.secretKeyForJwt.secretKeyforJwt";
+	SecretKey key = Keys.hmacShaKeyFor(password.getBytes(StandardCharsets.UTF_8));
+	
+	
     /**
      * Default constructor. 
      */	
@@ -25,7 +38,7 @@ public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanL
         // TODO Auto-generated constructor stub
     }
 
-    public UsuarioBO auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException{
+    public String auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException{
     	
     	UsuarioBO usuario = usuariosBO.find(email);
     	if(usuario == null) {
@@ -34,7 +47,23 @@ public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanL
     	if(!usuario.getPassword().equals(password)){
     		throw new PasswordIncorrectaException();
     	}
-    	return usuario;
+    	String rol;
+    	if(usuario instanceof Administrador) {
+    		rol = "administrador";
+    	}
+    	else {
+    		rol = "autoridad";
+    	}
+    	long timestamp = System.currentTimeMillis();
+    	String jwt = Jwts.builder()
+    			.setIssuedAt(new Date(timestamp))
+    			.setExpiration(new Date(timestamp+60000))
+    			.claim("email", usuario.getEmail())
+    			.claim("password", usuario.getPassword())
+    			.claim("rol", rol)
+    			.signWith(key).compact();
+    	
+    	return jwt;
     }
     
 }

@@ -2,6 +2,7 @@ package beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Base64;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
@@ -10,6 +11,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
+import org.json.JSONObject;
 
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
@@ -67,15 +70,20 @@ public class LoginBackOfficeBean implements Serializable{
 	public void login() {
 		wrongEmail = wrongPassword = false;
 		try {
-			UsuarioBO usuarioBO = usuarios.auntenticarUsuario(email, password);
-			if(usuarioBO instanceof Administrador) {
+			String jwt = usuarios.auntenticarUsuario(email, password);
+			String[] tokenParts = jwt.split("\\.");
+			Base64.Decoder decoder = Base64.getDecoder();
+			String header = new String (decoder.decode(tokenParts[0]));
+			String playload = new String (decoder.decode(tokenParts[1]));
+			JSONObject body = new JSONObject(playload);
+			if(body.getString("rol").equals("administrador")) {
 				rol = "admin";
 			}
-			else if(usuarioBO instanceof Autoridad){
+			else if(body.get("rol").equals("autoridad")){
 				rol = "auth";
 			}
 			loggedIn = true;
-			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("logueado.xhtml");
 		} catch (EmailNoRegistradoException e) {
 			wrongEmail = true;
 		} catch (PasswordIncorrectaException e) {
@@ -90,5 +98,7 @@ public class LoginBackOfficeBean implements Serializable{
 	
 	public void logout() {
 		loggedIn = false;
+		wrongPassword= false;
+		wrongEmail = false;
 	}
 }

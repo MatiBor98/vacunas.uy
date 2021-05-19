@@ -9,6 +9,6 @@ import datos.exceptions.PasswordIncorrectaException;
 @Local
 public interface AutenticacionBackOfficeBeanLocal {
 
-    public UsuarioBO auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException;
+    public String auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException;
 
 }
