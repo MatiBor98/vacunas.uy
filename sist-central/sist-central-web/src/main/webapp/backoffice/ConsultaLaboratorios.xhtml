@@ -19,16 +19,17 @@
 								p:height="90"
 				/>
 				<h1 class="h2 mb-3 font-weight-normal">Laboratorios disponibles</h1>
-				<h:form class="form-inline my-4 my-lg-0 mr-auto">
+				<h:form class="form-inline my-4 my-lg-0 mr-auto" style="display:inline">
 					<h:inputText
 						value="#{LaboratorioBean.busqueda}"
 						class="form-control col-10 mr-sm-2"
+						style="width:650px"
 						type="search"
 						p:placeholder="Buscar laboratorio"
 						aria-label="Search"
 						name="busquedaLaboratorios"
 						/>
-					<h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938" action="#{LaboratorioBean.setRealizarBusqueda(true)}"/>
+					<h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938; color:white" action="#{LaboratorioBean.setRealizarBusqueda(true)}"/>
 				</h:form>
 				<p></p>
 				<div class="dropdown">
