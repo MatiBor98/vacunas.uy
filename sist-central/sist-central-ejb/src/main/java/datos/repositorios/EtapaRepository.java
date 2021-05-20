@@ -1,4 +1,5 @@
 package datos.repositorios;
+import datos.entidades.Departamento;
 import datos.entidades.Etapa;
 import datos.entidades.Trabajos;
 
@@ -42,7 +43,7 @@ public class EtapaRepository {
         TypedQuery<Etapa> etapaTypedQuery = entityManager.createQuery(
                 "select e from Etapa e left join e.restricciones.filtroEmpleoEn f " +
                     "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +
-                    //"and current_date between e.inicio and e.fin " +
+                    "and current_date between e.inicio and e.fin " +
                     "and (e.restricciones.mayorIgual is null or :edadCiudadano >= e.restricciones.mayorIgual) " +
                     "and (e.restricciones.mayorIgual is null or :edadCiudadano <= e.restricciones.menorIgual) " +
                     "group  by e " +

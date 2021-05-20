@@ -43,4 +43,10 @@ public class EtapaBean  implements EtapaController {
         List<Etapa> etapas = etapaRepository.find(nombreEnfermedad, edadCiudadano, trabajos);
         return etapas.parallelStream().map(etapaEtapaDTOConverter::convert).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean habilidadoCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
+        //TODO: hacer esto en la consulta para mejorar
+        return !etapaRepository.find(nombreEnfermedad, edadCiudadano, trabajos).isEmpty();
+    }
 }

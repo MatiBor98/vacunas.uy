@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui">
+<ui:composition template="WEB-INF/appTemplate.xhtml">
+    <ui:define name="content">
+        <h1 class="h2 mb-3 font-weight-normal">Agendar Reserva</h1>
+        <h:form>
+            <div class="form-row dropdown">
+                <h:panelGroup rendered="#{AgendarBean.entrada.enfermedad == null}">
+                    <h:inputText id="search"
+                                 styleClass="form-control"
+                                 p:placeholder="Escriba para seleccionar una enfermedad..."
+                                 value="#{AgendarBean.enfermedaNombre}">
+                        <f:ajax execute="@form" render="dropdown-menu" event="keyup"/>
+                        <f:ajax render="@form" event="blur" listener="#{AgendarBean.onBlur}" delay="300"/>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{AgendarBean.entrada.enfermedad != null}">
+                    <div class="input-group">
+                        <input class="form-control" type="text"
+                               placeholder="#{AgendarBean.entrada.enfermedad.nombre} - #{AgendarBean.entrada.enfermedad.descripcion}"
+                               readonly="readonly"/>
+                        <div class="input-group-append">
+                            <h:commandLink styleClass="input-group-text"
+                                           value="&times;">
+                                <f:ajax event="click" render="@form postEnfermedadSelect" listener="#{AgendarBean.limpiarEntrada}"/>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup id="dropdown-menu">
+                    <div class="dropdown-menu #{AgendarBean.enfermedades.isEmpty() ? '' : 'show'}">
+                        <ui:repeat value="#{AgendarBean.enfermedades}" var="enfermedad">
+                            <h:commandButton styleClass="dropdown-item"
+                                           value="#{enfermedad.nombre} - #{enfermedad.descripcion}">
+                                <f:ajax event="click" render="@form postEnfermedadSelect" listener="#{AgendarBean.elegirEnfermedad(enfermedad)}"/>
+                            </h:commandButton>
+                        </ui:repeat>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </h:form>
+        <h:panelGroup id="postEnfermedadSelect">
+            <h:panelGroup rendered="#{(AgendarBean.entrada.enfermedad != null) and !AgendarBean.ciudadanoHabilitado}">
+                <div class="form-row">
+                    <div class="alert alert-danger col-md-12" role="alert">
+                        No esta habilitado para esta enfermedad.
+                    </div>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{(AgendarBean.entrada.enfermedad != null) and AgendarBean.ciudadanoHabilitado}">
+                <div class="form-row">
+                    <h:form>
+                        <o:importConstants type="datos.entidades.Departamento" />
+                        <h:selectOneMenu styleClass="form-control" value="#{AgendarBean.entrada.departamento}" >
+                            <f:selectItem itemLabel="Eliga un departamento" itemValue="" />
+                            <f:selectItems value="#{Departamento}" />
+                            <f:ajax execute="@form" render="vacunatorios" event="change"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup id="vacunatorios">
+                <h:panelGroup rendered="#{AgendarBean.entrada.departamento != null}">
+                    <h:form>
+                        <h:dataTable id="tablaVacunatorios"
+                                     value="#{AgendarBean.agendas}"
+                                     var="vacunatorioAgneda"
+                                     styleClass = "table">
+                            <h:column>
+                                <f:facet name = "header">Nombre</f:facet>
+                                #{vacunatorioAgneda.vacunatorio.nombre}
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header">Direccion</f:facet>
+                                #{vacunatorioAgneda.vacunatorio.direccion}
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header">Horarios</f:facet>
+                                #{vacunatorioAgneda.agendaDTO.getHorariosString()}
+                            </h:column>
+                            <h:column>
+                                <f:facet name = "header">-</f:facet>
+                                <h:commandButton styleClass="input-group-text #{AgendarBean.entrada.vacunatorioAgneda != null ?  'd-none' : ''}"
+                                                 value="Seleccionar">
+                                    <f:ajax event="click" render="postEnfermedadSelect" listener="#{AgendarBean.elegirVacunatorioAgneda(vacunatorioAgneda)}"/>
+                                </h:commandButton>
+                                <h:commandButton styleClass="input-group-text #{AgendarBean.entrada.vacunatorioAgneda == null ?  'd-none' : ''}"
+                                                 value="&times;">
+                                    <f:ajax event="click" render="postEnfermedadSelect" listener="#{AgendarBean.elegirVacunatorioAgneda(null)}"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                    <h:panelGroup rendered="#{AgendarBean.entrada.vacunatorioAgneda != null}">
+                        <h:form>
+                            <div class="form-row dropdown">
+                                <div class="dropdown-menu show">
+                                    <ui:repeat value="#{AgendarBean.intervalos}" var="intervalo">
+                                        <h:commandButton styleClass="dropdown-item"
+                                                         value="#{intervalo.fechayHora}">
+                                        </h:commandButton>
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
+</html>

@@ -3,26 +3,28 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
-
-<h:head></h:head> 
-<body styleclass="login-body"> 
-	<h:form id="login">
-		<p:messages id="errores" closable="true"/>
-		<div class="login-panel ui-fluid">
-			<div class="iu-g-12">
-				<p:outputLabel value="email"/>
-				<p:inputText value="#{LoginBO.email}" class="login-input" id="email"/>
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Login
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="login">
+			<p:messages id="errores" closable="true"/>
+			<div class="login-panel ui-fluid">
+				<div class="iu-g-12">
+					<p:outputLabel value="email"/>
+					<p:inputText value="#{LoginBO.email}" class="login-input" id="email"/>
+				</div>
+				<div class="uy-g-12">
+					<p:outputLabel value="password"/>
+					<p:password value="#{LoginBO.password}" class="login-input" id="password"/>
+				</div>
+				<div class="ui-g-12 button-container">
+					<p:commandButton process="login @this" value="log-in" type="submit" action="#{LoginBO.login()}"/>
+				</div>
 			</div>
-			<div class="uy-g-12">
-				<p:outputLabel value="password"/>
-				<p:password value="#{LoginBO.password}" class="login-input" id="password"/>
-			</div>
-			<div class="ui-g-12 button-container">
-				<p:commandButton process="login @this" value="log-in" type="submit" action="#{LoginBO.login()}"/>
-			</div>
-		</div>
-	</h:form>
-
-</body> 
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

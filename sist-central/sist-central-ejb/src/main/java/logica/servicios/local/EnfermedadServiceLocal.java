@@ -13,4 +13,5 @@ public interface EnfermedadServiceLocal {
     void save(String nombre, String descripcion, List<Vacuna> vacunas, List<PlanVacunacion> planesVacunacion);
     List<Enfermedad> findByNombreEnfermedad(String nombre);
     void eliminar(String nombre);
+    List<Enfermedad> findPage(int primerResultado, int limiteResultados, String criterio);
 }

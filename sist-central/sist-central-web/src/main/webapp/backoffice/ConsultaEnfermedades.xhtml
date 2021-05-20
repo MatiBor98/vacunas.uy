@@ -1,172 +1,112 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pr="http://primefaces.org/ui"> 
-
-<head>
-
-    <meta charset="utf-8" />
-    <title>Vacunas.uy - Consulta Enfermedades</title>
-    
-<style>
-        .bodytype {
-            align-items: center;
-            padding-top: 30px;
-            padding-bottom: 30px;
-        }
-
-        tr:nth-child(even) {
-            background-color: white;
-        }
-		 tr:nth-child(odd) {
-            background-color: #c4b489;
-        }
-		
-        .question-listed-metadata {
-            font-size: 12px !important;
-        }
-
-        .question-listed-stats button {
-            font-size: 13px !important;
-        }
-
-        .answer-description p {
-            font-size: 12px;
-            font-weight: normal !important;
-        }
-
-        #header {
-            border-top: 3px solid Dodgerblue;
-            border-bottom: 1px solid #e4e6e8;
-        }
-
-        .left-menu {
-            border-right: 1px solid #dee2e6;
-        }
-
-        .content {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .btn-group {
-            width: 60%;
-            margin: 0 auto;
-        }
-
-        .btn-group button {
-            border: 1px solid white;
-            padding: 10px 45px;
-            cursor: pointer;
-            float: center;
-            text-align: center;
-        }
-
-        p {
-            line-height: 10px;
-            margin-bottom: 10px;
-        }
-
-</style>
-
-</head> 
-
-<ui:include src="/Navbar.xhtml" />
-
-<h:body class= "text-center" style="background-color: white">
-
-	    
-    <div class="bodytype">
-        <div class="content">
-            <img class="mb-4" src="../LogoEnfermedad.png" alt="" width="90" height="90"/>
-            <h1 class="h2 mb-3 font-weight-normal">Enfermedades activas</h1>
-            <h:form class="form-inline my-4 my-lg-0 mr-auto">
-                <h:inputText 
-                	value="#{EnfermedadBean.busqueda}"
-                	class="form-control col-10 mr-sm-2" 
-                	type="search" 
-                	p:placeholder="Buscar enfermedad"
-                    aria-label="Search" 
-                    name="busquedaEnfermedades"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Consulta Enfermedades
+    </ui:define>
+    <ui:define name="content">
+        <div class="bodytype">
+            <div class="content">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoEnfermedad.png"
+                                t:alt="LogoEnfermedad.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <img class="mb-4" src="../LogoEnfermedad.png" alt="" width="90" height="90"/>
+                <h1 class="h2 mb-3 font-weight-normal">Enfermedades activas</h1>
+                <h:form class="form-inline my-4 my-lg-0 mr-auto">
+                    <h:inputText
+                            value="#{EnfermedadBean.busqueda}"
+                            class="form-control col-10 mr-sm-2"
+                            type="search"
+                            t:placeholder="Buscar enfermedad"
+                            aria-label="Search"
+                            name="busquedaEnfermedades"
                     />
-                <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938" action="#{EnfermedadBean.setRealizarBusqueda(true)}"/>
-            </h:form>
-            <p></p>
-            <div class="dropdown">
-		            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#" href="/page.html">
-		                Ordenar Por: <span class="caret"></span>
-		            </a>
-		    		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-		              <li><a href="">Alfabeticamente</a></li>
-		              <p> </p>
-		              <li><a href="">Fecha</a></li>
-		            </ul>
-		        </div>		     
-		       	
-		       	<div id="busq" style="margin-top: 20px; display:#{EnfermedadBean.hayBusqueda}">
-					<div class="alert alert-secondary">
-						Resultado de la busqueda "#{EnfermedadBean.busqueda}"
-					</div>	
-				</div>
-		       	 
-				<div id="eliminado" style="margin-top: 20px; display:#{EnfermedadBean.enfermedadEliminada}">
-					<div class="alert alert-success">
-				  		La enfermedad fue eleiminada.
-					</div>	
-				</div>
-						
-				<div id="eliminado" style="margin-top: 20px; display:#{EnfermedadBean.enfermedadNoEliminada}">
-					<div class="alert alert-danger">
-				  		No se pudo eliminar la enfermedad.
-					</div>	
-				</div>
-			
-				<div id="errores" style="margin-top: 20px; display:#{EnfermedadBean.hayEnfermedades()}">
-					<div class="alert alert-danger">
-				  		No hay nignuna enfermedad disponible.
-					</div>	
-				</div>	
-			<ul class="list-group" style="margin-top: 30px">
-				<ui:repeat value="#{EnfermedadBean.getEnfs()}" var="enf">
+                    <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
+                                     style="background-color:#222938; border:#222938"
+                                     action="#{EnfermedadBean.setRealizarBusqueda(true)}"/>
+                </h:form>
+                <p></p>
+                <div class="dropdown">
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#"
+                       href="/page.html">
+                        Ordenar Por: <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="">Alfabeticamente</a></li>
+                        <p></p>
+                        <li><a href="">Fecha</a></li>
+                    </ul>
+                </div>
 
-					  <li class="list-group-item" style="background-color:#{EnfermedadBean.getColor()}">
-					  <h2 style="color:#{EnfermedadBean.colorSecundario}">#{enf.nombre}</h2>
-					  <p style="color:#{EnfermedadBean.colorSecundario}"> Descripcion: #{enf.descripcion}</p>
-					  <h:form rendered="#{enf.getVacunas().isEmpty()}">
-					  	<p style="color:#{EnfermedadBean.colorSecundario}"> Aun no hay vacunas para esta enfermedad.</p>
-					  </h:form>
-					  <h:form rendered="#{!enf.getVacunas().isEmpty()}">
-					  <p style="color:#{EnfermedadBean.colorSecundario}"> Vacunas que la combaten:</p>
-						  <ui:repeat value="#{enf.getVacunas()}" var="vac">
-						  		<p style="color:#{EnfermedadBean.colorSecundario}"> #{vac.nombre}</p>
-						  </ui:repeat>
-					  </h:form>
-					  <h:form rendered="#{enf.getPlanesVacunacion().isEmpty()}">
-					  	<p style="color:#{EnfermedadBean.colorSecundario}"> No hay planes de vacunacion asociados.</p>
-					  </h:form>
-					  <h:form rendered="#{!enf.getPlanesVacunacion().isEmpty()}">
-					  <p style="color:#{EnfermedadBean.colorSecundario}"> Planes de vacunacion asociados:</p>
-					  <ui:repeat value="#{enf.getPlanesVacunacion()}" var="planVac">
-					  		<p style="color:#{EnfermedadBean.colorSecundario}"> #{planVac.getNombre()}</p>
-					  </ui:repeat>
-					  </h:form>
-					  <h:form rendered="#{enf.getVacunas().isEmpty()}">
-					  	<h:commandButton value="Eliminar" type="submit" class="btn btn-danger" style="padding: 2px 6px" action="#{EnfermedadBean.eliminarEnfermedad(enf.nombre)}" /> 
-					  </h:form>
-					  <p></p>
-					  </li> 
-					  
-   			 	</ui:repeat>
-				
-   			</ul>
+                <div id="busq" style="margin-top: 20px; display:#{EnfermedadBean.hayBusqueda}">
+                    <div class="alert alert-secondary">
+                        Resultado de la busqueda "#{EnfermedadBean.busqueda}"
+                    </div>
+                </div>
 
+                <div id="eliminado" style="margin-top: 20px; display:#{EnfermedadBean.enfermedadEliminada}">
+                    <div class="alert alert-success">
+                        La enfermedad fue eleiminada.
+                    </div>
+                </div>
+
+                <div id="eliminado" style="margin-top: 20px; display:#{EnfermedadBean.enfermedadNoEliminada}">
+                    <div class="alert alert-danger">
+                        No se pudo eliminar la enfermedad.
+                    </div>
+                </div>
+
+                <div id="errores" style="margin-top: 20px; display:#{EnfermedadBean.hayEnfermedades()}">
+                    <div class="alert alert-danger">
+                        No hay nignuna enfermedad disponible.
+                    </div>
+                </div>
+                <ul class="list-group" style="margin-top: 30px">
+                    <ui:repeat value="#{EnfermedadBean.getEnfs()}" var="enf">
+
+                        <li class="list-group-item" style="background-color:#{EnfermedadBean.getColor()}">
+                            <h2 style="color:#{EnfermedadBean.colorSecundario}">#{enf.nombre}</h2>
+                            <p style="color:#{EnfermedadBean.colorSecundario}"> Descripcion: #{enf.descripcion}</p>
+                            <h:form rendered="#{enf.getVacunas().isEmpty()}">
+                                <p style="color:#{EnfermedadBean.colorSecundario}"> Aun no hay vacunas para esta enfermedad.</p>
+                            </h:form>
+                            <h:form rendered="#{!enf.getVacunas().isEmpty()}">
+                                <p style="color:#{EnfermedadBean.colorSecundario}"> Vacunas que la combaten:</p>
+                                <ui:repeat value="#{enf.getVacunas()}" var="vac">
+                                    <p style="color:#{EnfermedadBean.colorSecundario}"> #{vac.nombre}</p>
+                                </ui:repeat>
+                            </h:form>
+                            <h:form rendered="#{enf.getPlanesVacunacion().isEmpty()}">
+                                <p style="color:#{EnfermedadBean.colorSecundario}"> No hay planes de vacunacion asociados.</p>
+                            </h:form>
+                            <h:form rendered="#{!enf.getPlanesVacunacion().isEmpty()}">
+                                <p style="color:#{EnfermedadBean.colorSecundario}"> Planes de vacunacion asociados:</p>
+                                <ui:repeat value="#{enf.getPlanesVacunacion()}" var="planVac">
+                                    <p style="color:#{EnfermedadBean.colorSecundario}"> #{planVac.getNombre()}</p>
+                                </ui:repeat>
+                            </h:form>
+                            <h:form rendered="#{enf.getVacunas().isEmpty()}">
+                                <h:commandButton value="Eliminar" type="submit" class="btn btn-danger"
+                                                 style="padding: 2px 6px"
+                                                 action="#{EnfermedadBean.eliminarEnfermedad(enf.nombre)}"/>
+                            </h:form>
+                            <p></p>
+                        </li>
+
+                    </ui:repeat>
+
+                </ul>
+
+            </div>
         </div>
-    </div>
+    </ui:define>
+</ui:composition>
 
-  </h:body>
- 
 </html>

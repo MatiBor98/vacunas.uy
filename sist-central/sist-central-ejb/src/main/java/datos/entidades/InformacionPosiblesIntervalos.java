@@ -4,6 +4,8 @@ import java.time.LocalTime;
 
 import javax.persistence.Embeddable;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 @Embeddable
 public class InformacionPosiblesIntervalos {
     private LocalTime inicio;
@@ -52,5 +54,9 @@ public class InformacionPosiblesIntervalos {
 
     public void setMinutosTurno(int minutosTurno) {
         this.minutosTurno = minutosTurno;
+    }
+
+    public long calcularCantidadIntervalos() {
+        return (MINUTES.between(inicio, fin) / minutosTurno)* capacidadPorTurno;
     }
 }

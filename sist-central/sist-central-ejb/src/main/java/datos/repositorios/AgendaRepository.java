@@ -1,12 +1,15 @@
 package datos.repositorios;
 
 import datos.entidades.Agenda;
+import datos.entidades.Departamento;
+import datos.entidades.Intervalo;
+import datos.entidades.Trabajos;
 
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +49,34 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                         "where lower(p.nombre) like :criterio", Agenda.class)
                 .setParameter("criterio", "%" + criterio.toLowerCase() + "%")
                 .getResultList();
+    }
+
+    @Override
+    public List<Agenda> findAgendasParaCiudadanoPorDepartamento(String nombreEnfermedad, int edadCiudadano,
+                                                                Trabajos trabajos, Departamento departamento) {
+        TypedQuery<Agenda> etapaTypedQuery = entityManager.createQuery(
+                "select a " +
+                        "from Agenda a " +
+                        "inner join a.etapa e " +
+                        "left join e.restricciones.filtroEmpleoEn f " +
+                        "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +
+                        "and current_date between a.inicio and a.fin " +
+                        "and (e.restricciones.mayorIgual is null or :edadCiudadano >= e.restricciones.mayorIgual) " +
+                        "and (e.restricciones.mayorIgual is null or :edadCiudadano <= e.restricciones.menorIgual) " +
+                        "and a.cantidadCuposDisponbiles > 0 " +
+                        "and a.turno.vacunatorio.departamento = :departamento " +
+                        "group by a " +
+                        "having count(f) = 0 " +
+                        (trabajos != null ? "or :filtroPorEmpleo member of f " : ""), Agenda.class)
+                .setParameter("nombreEnfermedad", nombreEnfermedad)
+                .setParameter("edadCiudadano", edadCiudadano)
+                .setParameter("departamento", departamento);
+
+        if(trabajos != null) {
+            etapaTypedQuery.setParameter("filtroPorEmpleo", trabajos);
+        }
+
+        return etapaTypedQuery.getResultList();
     }
 
     @Override
