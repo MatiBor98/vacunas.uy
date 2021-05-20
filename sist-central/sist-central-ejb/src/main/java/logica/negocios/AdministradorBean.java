@@ -42,8 +42,4 @@ public class AdministradorBean implements AdministradorBeanLocal {
     	usuarios.save(nuevoUsuario);
     }
     
-    public void addVacunatorio() {
-    	
-    }
-    
 }

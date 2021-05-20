@@ -19,7 +19,7 @@ import datos.entidades.Autoridad;
 import datos.entidades.UsuarioBO;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
-import logica.servicios.local.AutenticacionBackOfficeBeanLocal;
+import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
 @Named("LoginBO")
 @SessionScoped
@@ -31,7 +31,7 @@ public class LoginBackOfficeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	AutenticacionBackOfficeBeanLocal usuarios;
+	UsuariosBackOfficeBeanLocal usuarios;
 
 	String email = null;
 	String password = null;

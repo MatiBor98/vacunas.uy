@@ -8,20 +8,22 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import datos.entidades.Administrador;
+import datos.entidades.Autoridad;
 import datos.entidades.UsuarioBO;
 import datos.exceptions.EmailNoRegistradoException;
+import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import logica.servicios.local.AutenticacionBackOfficeBeanLocal;
+import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
 /**
  * Session Bean implementation class AutenticacionBackOfficeBean
  */
 @Stateless
-public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanLocal {
+public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
 
 	@EJB
 	UsuariosBackOfficeRepositoryLocal usuariosBO;
@@ -34,7 +36,7 @@ public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanL
     /**
      * Default constructor. 
      */	
-    public AutenticacionBackOfficeBean() {
+    public UsuariosBackOfficeBean() {
         // TODO Auto-generated constructor stub
     }
 
@@ -65,5 +67,19 @@ public class AutenticacionBackOfficeBean implements AutenticacionBackOfficeBeanL
     	
     	return jwt;
     }
+    
+    public void addBOUser(String email, String password, String rol) throws EmailRegistradoException {
+    	UsuarioBO nuevoUsuario;
+    	if(rol.equals("administrador")) {
+    		nuevoUsuario = new Administrador();
+    	}
+    	else{
+    		nuevoUsuario = new Autoridad();
+    	}
+    	nuevoUsuario.setEmail(email);
+    	nuevoUsuario.setPassword(password);
+    	usuariosBO.save(nuevoUsuario);
+    }
+    
     
 }
