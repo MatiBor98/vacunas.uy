@@ -40,7 +40,7 @@ public class EnfermedadBean implements EnfermedadServiceLocal {
     	enfermedadRepository.eliminar(nombre);
     }
 
-    public List<Enfermedad> findPage(int primerResultado, int limiteResultados) {
-        return enfermedadRepository.find(primerResultado, limiteResultados);
+    public List<Enfermedad> findPage(int primerResultado, int limiteResultados, String criterio) {
+        return enfermedadRepository.find(primerResultado, limiteResultados, criterio);
     }
 }

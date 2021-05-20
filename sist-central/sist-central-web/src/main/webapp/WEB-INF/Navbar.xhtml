@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
@@ -18,22 +18,24 @@
                     aria-haspopup="true"
                     aria-expanded="false"
             >
-                <img
-                        src="../resources/Logo.png"
-                        alt="logo"
-                        style="width: 8vw"
+                <h:graphicImage name="Logo.png"
+                                p:alt="Logo.png"
+                                style="width: 6vw; height: auto;"
                 />
             </a>
             <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="">Inicio</a></li>
-                <li><a class="dropdown-item" href="/backoffice/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
-                <li><a class="dropdown-item" href="/backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
-                <li><a class="dropdown-item" href="/backoffice/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
-                <li><a class="dropdown-item" href="/backoffice/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a></li>
-                <li><a class="dropdown-item" href="/backoffice/AgregarEnfermedad.xhtml">Agregar Enfermedad</a></li>
-                <li><a class="dropdown-item" href="/backoffice/ConsultaEnfermedades.xhtml">Consultar Enfermedades</a></li>
-                <li><a class="dropdown-item" href="/backoffice/AgregarVacunatorio.xhtml">Agregar Vacunatorio</a></li>
-                <li><a class="dropdown-item" href="/backoffice/ConsultaVacunatorios.xhtml">Consultar Vacunatorios</a></li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a>
+                </li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarEnfermedad.xhtml">Agregar Enfermedad</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaEnfermedades.xhtml">Consultar Enfermedades</a>
+                </li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarVacunatorio.xhtml">Agregar Vacunatorio</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunatorios.xhtml">Consultar Vacunatorios</a>
+                </li>
             </ul>
         </div>
         <div class="collapse navbar-collapse">
@@ -56,18 +58,18 @@
 
             <h:panelGroup rendered="#{empty user}">
 
-                <ul class='nav navbar-nav ml-auto' >
-                    <li class='nav-tie mx-2'><a href="/authorize" >Iniciar Sesion</a></li>
+                <ul class='nav navbar-nav ml-auto'>
+                    <li class='nav-tie mx-2'><a href="/authorize">Iniciar Sesion</a></li>
                 </ul>
             </h:panelGroup>
             <h:panelGroup rendered="#{not empty user}">
 
-                <ul class='nav navbar-nav ml-auto' >
+                <ul class='nav navbar-nav ml-auto'>
                     <li class='nav-tie mx-2'>#{user}</li>
                 </ul>
 
-                <ul class='nav navbar-nav ml-auto' >
-                    <li class='nav-tie mx-2'><a href="/Logout" >Cerrar Sesion</a></li>
+                <ul class='nav navbar-nav ml-auto'>
+                    <li class='nav-tie mx-2'><a href="/Logout">Cerrar Sesion</a></li>
                 </ul>
             </h:panelGroup>
         </div>

@@ -1,156 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pr="http://primefaces.org/ui"> 
+      xmlns:pr="http://primefaces.org/ui">
 
-<head>
-
-    <meta charset="utf-8" />
-    <title>Vacunas.uy - Consulta Vacunatorios</title>
-    
-<style>
-        .bodytype {
-            align-items: center;
-            padding-top: 30px;
-            padding-bottom: 30px;
-        }
-
-        tr:nth-child(even) {
-            background-color: white;
-        }
-		 tr:nth-child(odd) {
-            background-color: #c4b489;
-        }
-		
-        .question-listed-metadata {
-            font-size: 12px !important;
-        }
-
-        .question-listed-stats button {
-            font-size: 13px !important;
-        }
-
-        .answer-description p {
-            font-size: 12px;
-            font-weight: normal !important;
-        }
-
-        #header {
-            border-top: 3px solid Dodgerblue;
-            border-bottom: 1px solid #e4e6e8;
-        }
-
-        .left-menu {
-            border-right: 1px solid #dee2e6;
-        }
-
-        .content {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .btn-group {
-            width: 60%;
-            margin: 0 auto;
-        }
-
-        .btn-group button {
-            border: 1px solid white;
-            padding: 10px 45px;
-            cursor: pointer;
-            float: center;
-            text-align: center;
-        }
-
-        p {
-            line-height: 10px;
-            margin-bottom: 10px;
-        }
-
-</style>
-
-</head> 
-
-<ui:include src="../WEB-INF/Navbar.xhtml" />
-
-<h:body class= "text-center" style="background-color: white">
-
-	    
-    <div class="bodytype">
-        <div class="content">
-            <img class="mb-4" src="../LogoVacunatorio.png" alt="" width="90" height="90"/>
-            <h1 class="h2 mb-3 font-weight-normal">Vacunatorios disponibles</h1>
-            <h:form class="form-inline my-4 my-lg-0 mr-auto">
-                <h:inputText 
-                	value="#{VacunatorioBean.busqueda}"
-                	class="form-control col-10 mr-sm-2" 
-                	type="search" 
-                	p:placeholder="Buscar vacunatorio"
-                    aria-label="Search" 
-                    name="busquedaVacunatorios"
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Consulta Vacunatorios
+    </ui:define>
+    <ui:define name="content">
+        <div class="bodytype">
+            <div class="content">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoVacunatorio.png"
+                                p:alt="LogoVacunatorio.png"
+                                p:width="90"
+                                p:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Vacunatorios disponibles</h1>
+                <h:form class="form-inline my-4 my-lg-0 mr-auto">
+                    <h:inputText
+                            value="#{VacunatorioBean.busqueda}"
+                            class="form-control col-10 mr-sm-2"
+                            type="search"
+                            p:placeholder="Buscar vacunatorio"
+                            aria-label="Search"
+                            name="busquedaVacunatorios"
                     />
-                <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938" action="#{VacunatorioBean.setRealizarBusqueda(true)}"/>
-            </h:form>
-            <p></p>
-            <div class="dropdown">
-		            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#" href="/page.html">
-		                Ordenar Por: <span class="caret"></span>
-		            </a>
-		    		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-		              <li><a href="">Alfabeticamente</a></li>
-		              <p> </p>
-		              <li><a href="">Fecha</a></li>
-		            </ul>
-		        </div>		     
-		       	
-		       	<div id="busq" style="margin-top: 20px; display:#{VacunatorioBean.hayBusqueda}">
-					<div class="alert alert-secondary">
-						Resultado de la busqueda "#{VacunatorioBean.busqueda}"
-					</div>	
-				</div>
-		       	 
-				<div id="eliminado" style="margin-top: 20px; display:#{VacunatorioBean.vacunatorioEliminado}">
-					<div class="alert alert-success">
-				  		El vacunatorio fue eleiminado.
-					</div>	
-				</div>
-						
-				<div id="eliminado" style="margin-top: 20px; display:#{VacunatorioBean.vacunatorioNoEliminado}">
-					<div class="alert alert-danger">
-				  		No se pudo eliminar el vacunatorio.
-					</div>	
-				</div>
-			
-				<div id="errores" style="margin-top: 20px; display:#{VacunatorioBean.hayVacunatorios()}">
-					<div class="alert alert-danger">
-				  		No hay nignun vacunatorio.
-					</div>	
-				</div>	
-			<ul class="list-group" style="margin-top: 30px">
-				<ui:repeat value="#{VacunatorioBean.getVacunatorios()}" var="vac">
+                    <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
+                                     style="background-color:#222938; border:#222938"
+                                     action="#{VacunatorioBean.setRealizarBusqueda(true)}"/>
+                </h:form>
+                <p></p>
+                <div class="dropdown">
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#"
+                       href="/page.html">
+                        Ordenar Por: <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="">Alfabeticamente</a></li>
+                        <p></p>
+                        <li><a href="">Fecha</a></li>
+                    </ul>
+                </div>
 
-					  <li class="list-group-item" style="background-color:#{VacunatorioBean.getColor()}">
-					  <h2 style="color:#{VacunatorioBean.colorSecundario}">#{vac.nombre}</h2>
-					  <p style="color:#{VacunatorioBean.colorSecundario}"> Departamento: #{vac.departamento.toString()}</p>
-					  <p style="color:#{VacunatorioBean.colorSecundario}"> Ciudad: #{vac.ciudad}</p>
-					  <p style="color:#{VacunatorioBean.colorSecundario}"> Direccion: #{vac.direccion}</p>
-					  <h:form>
-					  	<h:commandButton value="Consultar" type="submit" class="btn btn-info" style="padding: 2px 6px; display: inline; margin-left: 3px" action="#{ConsultaBean.setConsultaVacunatorio(vac.nombre)}" />
-					  </h:form>
-					  <p></p>
-					  </li> 
-					  
-   			 	</ui:repeat>
-				
-   			</ul>
+                <div id="busq" style="margin-top: 20px; display:#{VacunatorioBean.hayBusqueda}">
+                    <div class="alert alert-secondary">
+                        Resultado de la busqueda "#{VacunatorioBean.busqueda}"
+                    </div>
+                </div>
 
+                <div id="eliminado" style="margin-top: 20px; display:#{VacunatorioBean.vacunatorioEliminado}">
+                    <div class="alert alert-success">
+                        El vacunatorio fue eleiminado.
+                    </div>
+                </div>
+
+                <div id="eliminado" style="margin-top: 20px; display:#{VacunatorioBean.vacunatorioNoEliminado}">
+                    <div class="alert alert-danger">
+                        No se pudo eliminar el vacunatorio.
+                    </div>
+                </div>
+
+                <div id="errores" style="margin-top: 20px; display:#{VacunatorioBean.hayVacunatorios()}">
+                    <div class="alert alert-danger">
+                        No hay nignun vacunatorio.
+                    </div>
+                </div>
+                <ul class="list-group" style="margin-top: 30px">
+                    <ui:repeat value="#{VacunatorioBean.getVacunatorios()}" var="vac">
+
+                        <li class="list-group-item" style="background-color:#{VacunatorioBean.getColor()}">
+                            <h2 style="color:#{VacunatorioBean.colorSecundario}">#{vac.nombre}</h2>
+                            <p style="color:#{VacunatorioBean.colorSecundario}"> Departamento: #{vac.departamento.toString()}</p>
+                            <p style="color:#{VacunatorioBean.colorSecundario}"> Ciudad: #{vac.ciudad}</p>
+                            <p style="color:#{VacunatorioBean.colorSecundario}"> Direccion: #{vac.direccion}</p>
+                            <h:form>
+                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+                                                 action="#{ConsultaBean.setConsultaVacunatorio(vac.nombre)}"/>
+                            </h:form>
+                            <p></p>
+                        </li>
+
+                    </ui:repeat>
+
+                </ul>
+
+            </div>
         </div>
-    </div>
+    </ui:define>
+</ui:composition>
 
-  </h:body>
- 
 </html>

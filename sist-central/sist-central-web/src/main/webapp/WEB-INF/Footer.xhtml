@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head>
@@ -53,7 +55,10 @@
 	<div class="container justify-content-center">
 		<div class="row">
 			<div class="col-3">
-				<img src="../resources/escudo.png" id="escudo"/>
+				<h:graphicImage name="escudo.png"
+								p:alt="escudo.png"
+								p:id="escudo"
+				/>
 				<h3>Vacunas.uy</h3>
 			</div>
 			<div class="col-2">

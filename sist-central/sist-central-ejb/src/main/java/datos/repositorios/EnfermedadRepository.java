@@ -30,7 +30,6 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
     @Override
     public List<Enfermedad> find(int primerResultado, int limiteResultados) {
         return entityManager.createQuery("select e from Enfermedad e " +
-                "where lower(e.nombre) like lower(:criterio) " +
                 "order by e.id", Enfermedad.class)
                 .setFirstResult(primerResultado)
                 .setMaxResults(limiteResultados)

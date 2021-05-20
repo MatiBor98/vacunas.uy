@@ -3,104 +3,26 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
     <meta charset="utf-8" />
-    <title>Vacunas.uy</title>
+    <title>Vacunas.uy <ui:insert name = "titulo"/></title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
-
-
-    <style>
-
-        .navbar {
-            color: #ffffff;
-        }
-        .div_list-group-item {
-            background-color: #43516c;
-        }
-        .dropdown-menu {
-            background-color: #43516c !important;
-            color: #ffffff;
-        }
-        .dropdown-item {
-            color: #ffffff;
-        }
-        .dropdown-menu a:hover {
-            background: #014464 !important;
-            background: linear-gradient(left, #ebd254, #c4b489);
-            background: -moz-linear-gradient(left, #ebd254, #c4b489) !important;
-            background: -webkit-gradient(
-                    linear,
-                    100% 100%,
-                    0% 0%,
-                    from(#ebd254),
-                    to(#c4b489)
-            ) !important;
-            color: #f8f9fa !important;
-            -webkit-transition: all 0.2s ease-in-out;
-            -moz-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-        }
-        .nav-link.dropdown-toggle {
-            color: #ffffff;
-        }
-        a > img {
-            border-width: 1px;
-            border-color: #ffffff;
-        }
-        li > a {
-            color: #ffffff;
-        }
-        .btn-primary.custom-btn {
-            background-color: #dba531;
-            border-color: #dba531;
-            color: #43516c;
-        }
-        .navbar-nav.navbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translatex(-50%);
-        }
-        .form-control:focus {
-            box-shadow: none;
-        }
-
-        .form-control-underlined {
-            border-width: 0;
-            border-bottom-width: 1px;
-            border-radius: 0;
-            padding-left: 0;
-            background-color: transparent;
-        }
-        .form-control-underlined:focus {
-            border-width: 0;
-            border-bottom-width: 1px;
-            border-radius: 0;
-            padding-left: 0;
-            background-color: transparent;
-            box-shadow: none;
-            color: #ffffff;
-        }
-
-
-    </style>
+    <h:outputStylesheet name="css/styles.css" />
 </h:head>
-<h:body>
+<h:body styleClass="text-center">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <h:outputScript src="js/main.js"/>
     <ui:include src="Navbar.xhtml">
     </ui:include>
-    <div class="div_body" style="background-color: white">
-        <div class="container" style="padding: 15px 0">
-            <ui:insert name = "content" >
-            </ui:insert>
-        </div>
-    </div>
+    <ui:insert name = "content" >
+    </ui:insert>
+    <ui:include src="Footer.xhtml"/>
 </h:body>
 </html>

@@ -1,212 +1,124 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Agregar Vacuna
+    </ui:define>
+    <ui:define name="content">
+        <div class="div_body" style="background-color: white">
+            <h:form class="form-signin">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoVacuna.png"
+                                t:alt="LogoVacun.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Agregar una vacuna</h1>
 
-<head>
+                <div id="errores" style="display:#{VacunaBean.vacunaYaExiste}">
+                    <div class="alert alert-danger">
+                        Ya existe una vacuna con ese nombre.
+                    </div>
+                </div>
 
-    <meta charset="utf-8" />
-    <title>Vacunas.uy - Agregar Vacuna</title>
-  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  	
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.4rem;
-        text-anchor: big;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+                <div id="errores" style="display:#{VacunaBean.vacunaAgregada}">
+                    <div class="alert alert-success">
+                        La vacuna fue agregada con exito.
+                    </div>
+                </div>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      
-      body {
-  height: 100%;
-}
+                <div id="errores" style="display:#{VacunaBean.completarCampos}">
+                    <div class="alert alert-danger">
+                        Complete todos los campos.
+                    </div>
+                </div>
 
-.div_body {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  background-color: #E5E8C7;
-  align-items: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+                <div id="errores" style="display:#{VacunaBean.elegirLaboratorio}">
+                    <div class="alert alert-danger">
+                        La vacuna debe estar asociada con al menos un laboratorio.
+                    </div>
+                </div>
 
-.form-signin {
-  width: 100%;
-  max-width: 500px;
-  padding: 0px;
-  margin: auto;
-}
-
-.form-label {
-  margin-bottom: 0rem;
-  text-align: left;
-  display: block;
-  font-size: 18px;
-}
-
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="text"] {
-  margin-bottom: 5px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-.form-signin input[type="number"] {
-  margin-bottom: 5px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+                <div id="errores" style="display:#{VacunaBean.elegirEnfermedad}">
+                    <div class="alert alert-danger">
+                        La vacuna debe estar asociada con al menos una enfermedad.
+                    </div>
+                </div>
 
 
-    </style>
+                <label class="form-label">Nombre:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{VacunaBean.nomVacuna}"
+                        id="inputNombre"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el nomrbe"
+                        required="true"
+                />
 
-	    <script type="text/javascript">
-		 	function MasCampos() {
-		  		var checkBox = document.getElementById("Check");
-		  		var input = document.getElementById("camposExtra");
-		  		if (checkBox.checked == true){
-		    		input.style.display = "block";
-		  		} else {
-		   		 input.style.display = "none";
-		 		 }
-			}
-	 	</script>
-</head> 
+                <label class="form-label">Cantidad meses de inmunidad:</label>
+                <h:inputText
+                        onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                        value="#{VacunaBean.inmunidadMeses}"
+                        id="inputInmunidadMeses"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse la cantidad de meses"
+                        required="true"
+                >
+                    <f:validateLongRange minimum="1"/>
+                </h:inputText>
 
-<ui:include src="../WEB-INF/Navbar.xhtml" />
-<h:body class="text-center" style="background-color: white">
-  
-  <div class="div_body" style="background-color: white">
-  <h:form class="form-signin">
-    
-      <img
-        class="mb-4"
-        src="../LogoVacuna.png"
-        alt=""
-        width="90"
-        height="90"
-      />
-      <h1 class="h2 mb-3 font-weight-normal">Agregar una vacuna</h1>
-      
-		<div id="errores" style="display:#{VacunaBean.vacunaYaExiste}">
-			<div class="alert alert-danger">
-				  Ya existe una vacuna con ese nombre.
-			</div>	
-		</div>	
+                <label class="form-label">Laboratorios asociados:</label>
+                <h:selectManyListbox value="#{VacunaBean.laboratorios}" class="form-control">
+                    <f:selectItems value="#{LaboratorioBean.getNombresLaboratorios()}"/>
+                </h:selectManyListbox>
 
-      	<div id="errores" style="display:#{VacunaBean.vacunaAgregada}">
-			<div class="alert alert-success">
-				 	La vacuna fue agregada con exito.
-			</div>	
-		</div>
-		
-		<div id="errores" style="display:#{VacunaBean.completarCampos}">
-			<div class="alert alert-danger">
-				 	Complete todos los campos.
-			</div>	
-		</div>
-		
-		<div id="errores" style="display:#{VacunaBean.elegirLaboratorio}">
-			<div class="alert alert-danger">
-				 	La vacuna debe estar asociada con al menos un laboratorio.
-			</div>	
-		</div>
-		
-		<div id="errores" style="display:#{VacunaBean.elegirEnfermedad}">
-			<div class="alert alert-danger">
-				 	La vacuna debe estar asociada con al menos una enfermedad.
-			</div>	
-		</div>
+                <label class="form-label">Enfermedades que combate:</label>
+                <h:selectManyListbox value="#{VacunaBean.enfermedades}" class="form-control">
+                    <f:selectItems value="#{EnfermedadBean.getNombresEnfermedades()}"/>
+                </h:selectManyListbox>
 
-      
-      <label class="form-label">Nombre:</label>
-      <h:inputText 
-      	stlyeClsss="text-input" 
-        value="#{VacunaBean.nomVacuna}"
-        id="inputNombre"
-        class="form-control text-center"
-        t:placeholder="Ingerse el nomrbe"
-        required="true"
-      />
-      
-      <label class="form-label">Cantidad meses de inmunidad:</label>
-      <h:inputText
-      	onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
-     	value="#{VacunaBean.inmunidadMeses}"
-        id="inputInmunidadMeses"
-        class="form-control text-center"
-        t:placeholder="Ingerse la cantidad de meses"
-        required="true"
-      >
-      <f:validateLongRange minimum="1" />
-      </h:inputText>
-      
-      <label class="form-label">Laboratorios asociados:</label>
-      <h:selectManyListbox value="#{VacunaBean.laboratorios}" class="form-control">
-				<f:selectItems value="#{LaboratorioBean.getNombresLaboratorios()}"/>
-	  </h:selectManyListbox>
-	
-	<label class="form-label">Enfermedades que combate:</label>
-      <h:selectManyListbox value="#{VacunaBean.enfermedades}" class="form-control">
-	   		<f:selectItems value="#{EnfermedadBean.getNombresEnfermedades()}"/>	
-	</h:selectManyListbox>
-      
-      <input type="checkbox" id="Check" onclick="MasCampos()"> La vacuna requiere de mas de una dosis. </input>
-	
-      <div id="camposExtra" style="display:none">
-	      <label class="form-label" id="labelDosis">Cantidad de dosis necesarias:</label>
-	      <h:inputText
-	      	onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
-	     	value="#{VacunaBean.cantDosis}"
-	        id="inputDosis"
-	        class="form-control text-center"
-	        t:placeholder="Ingerse la cantidad de dosis"
-	      >
+                <input type="checkbox" id="Check"
+                       onclick="MasCampos()"> La vacuna requiere de mas de una dosis. </input>
 
-	      </h:inputText>
-	      
-	      <label class="form-label" id="labelDosisSeparacionDias">Cantidad de dias entre dosis:</label>
-	      <h:inputText
-	      	onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
-	     	value="#{VacunaBean.dosisSeparacion}"
-	        id="inputDosisSeparacionDias"
-	        class="form-control text-center"
-	        t:placeholder="Ingerse la cantidad de dias"
-	      >
+                <div id="camposExtra" style="display:none">
+                    <label class="form-label" id="labelDosis">Cantidad de dosis necesarias:</label>
+                    <h:inputText
+                            onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                            value="#{VacunaBean.cantDosis}"
+                            id="inputDosis"
+                            class="form-control text-center"
+                            t:placeholder="Ingerse la cantidad de dosis"
+                    >
 
-	      </h:inputText>
-	  </div>
-		
-      <h:commandButton value="Crear"
-        class="btn btn-lg btn-primary btn-block"
-        type="submit"
-        style="background-color:#222938; border:#222938; margin-top: 30px"
-        action="#{VacunaBean.agregarVacuna()}"
-      />
-    </h:form>
-    </div>
-    
-  </h:body>
-  
+                    </h:inputText>
+
+                    <label class="form-label" id="labelDosisSeparacionDias">Cantidad de dias entre dosis:</label>
+                    <h:inputText
+                            onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                            value="#{VacunaBean.dosisSeparacion}"
+                            id="inputDosisSeparacionDias"
+                            class="form-control text-center"
+                            t:placeholder="Ingerse la cantidad de dias"
+                    >
+
+                    </h:inputText>
+                </div>
+
+                <h:commandButton value="Crear"
+                                 class="btn btn-lg btn-primary btn-block"
+                                 type="submit"
+                                 style="background-color:#222938; border:#222938; margin-top: 30px"
+                                 action="#{VacunaBean.agregarVacuna()}"
+                />
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+
 </html>

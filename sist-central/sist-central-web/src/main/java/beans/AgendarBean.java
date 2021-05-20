@@ -6,7 +6,7 @@ import datos.entidades.Enfermedad;
 import datos.entidades.Intervalo;
 import datos.entidades.Vacunatorio;
 import logica.servicios.local.AgendaServiceLocal;
-import logica.servicios.local.EnfermedadController;
+import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
 
 import javax.ejb.EJB;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @SessionScoped
 public class AgendarBean implements Serializable {
     @EJB
-    private EnfermedadController enfermedadController;
+    private EnfermedadServiceLocal enfermedadController;
 
     @EJB
     private AgendaServiceLocal agendaServiceLocal;

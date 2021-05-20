@@ -1,167 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pr="http://primefaces.org/ui"> 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Consulta Vacunas
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+			<div class="content">
+				<h:graphicImage styleClass="mb-4"
+								name="LogoVacuna.png"
+								p:alt="LogoVacuna.png"
+								p:width="90"
+								p:height="90"
+				/>
+				<h1 class="h2 mb-3 font-weight-normal">Vacunas disponibles</h1>
+				<h:form class="form-inline my-4 my-lg-0 mr-auto">
+					<h:inputText
+						value="#{VacunaBean.busqueda}"
+						class="form-control col-10 mr-sm-2"
+						type="search"
+						p:placeholder="Buscar vacuna"
+						aria-label="Search"
+						name="busquedaVacunas"
+						/>
+					<h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938" action="#{VacunaBean.setRealizarBusqueda(true)}"/>
+				</h:form>
+				<p></p>
+				<div class="dropdown">
+						<a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#" href="/page.html">
+							Ordenar Por: <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+						  <li><a href="">Alfabeticamente</a></li>
+						  <p> </p>
+						  <li><a href="">Fecha</a></li>
+						</ul>
+					</div>
 
-<head>
+					<div id="busq" style="margin-top: 20px; display:#{VacunaBean.hayBusqueda}">
+						<div class="alert alert-secondary">
+							Resultado de la busqueda "#{VacunaBean.busqueda}"
+						</div>
+					</div>
 
-    <meta charset="utf-8" />
-    <title>Vacunas.uy - Consulta Vacuna</title>
-    
-<style>
-        .bodytype {
-            align-items: center;
-            padding-top: 30px;
-            padding-bottom: 30px;
-        }
+					<div id="eliminado" style="margin-top: 20px; display:#{VacunaBean.vacunaEliminada}">
+						<div class="alert alert-success">
+							La vacuna fue eleiminada.
+						</div>
+					</div>
 
-        tr:nth-child(even) {
-            background-color: white;
-        }
-		 tr:nth-child(odd) {
-            background-color: #c4b489;
-        }
-		
-        .question-listed-metadata {
-            font-size: 12px !important;
-        }
+					<div id="eliminado" style="margin-top: 20px; display:#{VacunaBean.vacunaNoEliminada}">
+						<div class="alert alert-danger">
+							No se pudo eliminar la vacuna.
+						</div>
+					</div>
 
-        .question-listed-stats button {
-            font-size: 13px !important;
-        }
+					<div id="errores" style="margin-top: 20px; display:#{VacunaBean.hayVacunas()}">
+						<div class="alert alert-danger">
+							No hay nignuna vacuna disponible.
+						</div>
+					</div>
+				<ul class="list-group" style="margin-top: 30px">
+					<ui:repeat value="#{VacunaBean.getVacs()}" var="vac">
 
-        .answer-description p {
-            font-size: 12px;
-            font-weight: normal !important;
-        }
+						  <li class="list-group-item" style="background-color:#{VacunaBean.getColor()}">
+						  <h2 style="color:#{VacunaBean.colorSecundario}">#{vac.nombre}</h2>
+						  <p style="color:#{VacunaBean.colorSecundario}"> Cantidad de meses de inmunidad: #{vac.inmunidadMeses}</p>
+						  <p style="color:#{VacunaBean.colorSecundario}"> Cantidad de dosis necesarias: #{vac.cantDosis}</p>
+						  <h:form rendered="#{vac.dosisSeparacionDias gt 0}">
+							<p style="color:#{VacunaBean.colorSecundario}"> Cantidad de dias entre dosis: #{vac.dosisSeparacionDias}</p>
+						  </h:form>
+						  <p style="color:#{VacunaBean.colorSecundario}"> Laboratorios asociados:</p>
+						  <ui:repeat value="#{vac.getLaboratorios()}" var="lab">
+								<p style="color:#{VacunaBean.colorSecundario}"> #{lab.nombre}</p>
+						  </ui:repeat>
+						  <p style="color:#{VacunaBean.colorSecundario}"> Enfermedades que combate:</p>
+						  <ui:repeat value="#{vac.getEnfermedades()}" var="enf">
+								<p style="color:#{VacunaBean.colorSecundario}"> #{enf.nombre}</p>
+						  </ui:repeat>
+						  <h:form>
+							<h:commandButton value="Eliminar" type="submit" class="btn btn-danger" style="padding: 2px 6px; display: inline; margin-right: 3px" action="#{VacunaBean.eliminarVacuna(vac.nombre)}" />
+							<h:commandButton value="Modificar" type="submit" class="btn btn-info" style="padding: 2px 6px; display: inline; margin-left: 3px" action="#{ModificarBean.setModificarVacuna(vac.nombre)}" />
+						  </h:form>
+						  <p></p>
+						  </li>
 
-        #header {
-            border-top: 3px solid Dodgerblue;
-            border-bottom: 1px solid #e4e6e8;
-        }
+					</ui:repeat>
 
-        .left-menu {
-            border-right: 1px solid #dee2e6;
-        }
+				</ul>
 
-        .content {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .btn-group {
-            width: 60%;
-            margin: 0 auto;
-        }
-
-        .btn-group button {
-            border: 1px solid white;
-            padding: 10px 45px;
-            cursor: pointer;
-            float: center;
-            text-align: center;
-        }
-
-        p {
-            line-height: 10px;
-            margin-bottom: 10px;
-        }
-
-</style>
-
-</head> 
-
-<ui:include src="../WEB-INF/Navbar.xhtml" />
-
-<h:body class= "text-center" style="background-color: white">
-
-	    
-    <div class="bodytype">
-        <div class="content">
-            <img class="mb-4" src="../LogoVacuna.png" alt="" width="90" height="90"/>
-            <h1 class="h2 mb-3 font-weight-normal">Vacunas disponibles</h1>
-            <h:form class="form-inline my-4 my-lg-0 mr-auto">
-                <h:inputText 
-                	value="#{VacunaBean.busqueda}"
-                	class="form-control col-10 mr-sm-2" 
-                	type="search" 
-                	p:placeholder="Buscar vacuna"
-                    aria-label="Search" 
-                    name="busquedaVacunas"
-                    />
-                <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938" action="#{VacunaBean.setRealizarBusqueda(true)}"/>
-            </h:form>
-            <p></p>
-            <div class="dropdown">
-		            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#" href="/page.html">
-		                Ordenar Por: <span class="caret"></span>
-		            </a>
-		    		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-		              <li><a href="">Alfabeticamente</a></li>
-		              <p> </p>
-		              <li><a href="">Fecha</a></li>
-		            </ul>
-		        </div>		     
-		       	
-		       	<div id="busq" style="margin-top: 20px; display:#{VacunaBean.hayBusqueda}">
-					<div class="alert alert-secondary">
-						Resultado de la busqueda "#{VacunaBean.busqueda}"
-					</div>	
-				</div>
-		       	 
-				<div id="eliminado" style="margin-top: 20px; display:#{VacunaBean.vacunaEliminada}">
-					<div class="alert alert-success">
-				  		La vacuna fue eleiminada.
-					</div>	
-				</div>
-						
-				<div id="eliminado" style="margin-top: 20px; display:#{VacunaBean.vacunaNoEliminada}">
-					<div class="alert alert-danger">
-				  		No se pudo eliminar la vacuna.
-					</div>	
-				</div>
-			
-				<div id="errores" style="margin-top: 20px; display:#{VacunaBean.hayVacunas()}">
-					<div class="alert alert-danger">
-				  		No hay nignuna vacuna disponible.
-					</div>	
-				</div>	
-			<ul class="list-group" style="margin-top: 30px">
-				<ui:repeat value="#{VacunaBean.getVacs()}" var="vac">
-
-					  <li class="list-group-item" style="background-color:#{VacunaBean.getColor()}">
-					  <h2 style="color:#{VacunaBean.colorSecundario}">#{vac.nombre}</h2>
-					  <p style="color:#{VacunaBean.colorSecundario}"> Cantidad de meses de inmunidad: #{vac.inmunidadMeses}</p>
-					  <p style="color:#{VacunaBean.colorSecundario}"> Cantidad de dosis necesarias: #{vac.cantDosis}</p>
-					  <h:form rendered="#{vac.dosisSeparacionDias gt 0}">
-					  	<p style="color:#{VacunaBean.colorSecundario}"> Cantidad de dias entre dosis: #{vac.dosisSeparacionDias}</p>
-					  </h:form>
-					  <p style="color:#{VacunaBean.colorSecundario}"> Laboratorios asociados:</p>
-					  <ui:repeat value="#{vac.getLaboratorios()}" var="lab">
-					  		<p style="color:#{VacunaBean.colorSecundario}"> #{lab.nombre}</p>
-					  </ui:repeat>
-					  <p style="color:#{VacunaBean.colorSecundario}"> Enfermedades que combate:</p>
-					  <ui:repeat value="#{vac.getEnfermedades()}" var="enf">
-					  		<p style="color:#{VacunaBean.colorSecundario}"> #{enf.nombre}</p>
-					  </ui:repeat>
-					  <h:form>
-					  	<h:commandButton value="Eliminar" type="submit" class="btn btn-danger" style="padding: 2px 6px; display: inline; margin-right: 3px" action="#{VacunaBean.eliminarVacuna(vac.nombre)}" /> 
-					  	<h:commandButton value="Modificar" type="submit" class="btn btn-info" style="padding: 2px 6px; display: inline; margin-left: 3px" action="#{ModificarBean.setModificarVacuna(vac.nombre)}" />
-					  </h:form>
-					  <p></p>
-					  </li> 
-					  
-   			 	</ui:repeat>
-				
-   			</ul>
-
-        </div>
-    </div>
-
-  </h:body>
- 
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>
