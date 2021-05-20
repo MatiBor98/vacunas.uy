@@ -24,11 +24,18 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
 
     @Override
     public List<Enfermedad> find() {
-    	Query query = entityManager.createQuery("SELECT e FROM Enfermedad e");
-    	List<Enfermedad> enfs = query.getResultList();
-    	return enfs;
+    	return entityManager.createQuery("SELECT e FROM Enfermedad e", Enfermedad.class).getResultList();
     }
-    
+
+    @Override
+    public List<Enfermedad> find(int primerResultado, int limiteResultados) {
+        return entityManager.createQuery("select e from Enfermedad e " +
+                "order by e.id", Enfermedad.class)
+                .setFirstResult(primerResultado)
+                .setMaxResults(limiteResultados)
+                .getResultList();
+    }
+
     public Optional<Enfermedad> find(String nombre) {
         List<Enfermedad> resultado = entityManager.createQuery("select e from Enfermedad e where e.nombre = :nombre", Enfermedad.class)
                 .setParameter("nombre", nombre)
@@ -37,8 +44,11 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
         return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
     }
 
-    public List<Enfermedad> find(int primerResultado, int limiteResultados) {
-        return entityManager.createQuery("select e from Enfermedad e order by e.id", Enfermedad.class)
+    public List<Enfermedad> find(int primerResultado, int limiteResultados, String criterio) {
+        return entityManager.createQuery("select e from Enfermedad e " +
+                "where lower(e.nombre) like lower(:criterio) " +
+                "order by e.id", Enfermedad.class)
+                .setParameter("criterio", "%" + criterio + "%")
                 .setFirstResult(primerResultado)
                 .setMaxResults(limiteResultados)
                 .getResultList();

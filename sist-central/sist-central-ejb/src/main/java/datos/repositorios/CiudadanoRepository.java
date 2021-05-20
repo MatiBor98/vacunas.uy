@@ -1,13 +1,10 @@
 package datos.repositorios;
 
-import datos.entidades.Agenda;
 import datos.entidades.Ciudadano;
 
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
 
 @Singleton
@@ -22,7 +19,7 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
     @Override
     public List<Ciudadano> find() {
-        return entityManager.createQuery("SELECT c FROM Ciudadano c").getResultList();
+        return entityManager.createQuery("SELECT c FROM Ciudadano c", Ciudadano.class).getResultList();
     }
 
     @Override
@@ -34,7 +31,7 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     public List<Ciudadano> findByNombreCi(int criterio) {
 
         return entityManager.createQuery(
-                "select c from Ciudadano c where c.ci = :cedula")
+                "select c from Ciudadano c where c.ci = :cedula", Ciudadano.class)
                 .setParameter("cedula",criterio)
                 .getResultList();
     }

@@ -12,4 +12,6 @@ public interface EtapaController {
     EtapaDTO save(EtapaDTO etapaDTO);
     Optional<EtapaDTO> find(int id);
     List<EtapaDTO> find(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
+
+    boolean habilidadoCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
 }

@@ -30,13 +30,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 
 	@EJB
-	VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+	private VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
 	
 	@EJB
-	PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;
+	private PuestoVacunacionRepositoryLocal puestoVacunacionRepositoryLocal;
 	
 	@EJB
-	TurnoRepositoryLocal turnoRepositoryLocal;
+	private TurnoRepositoryLocal turnoRepositoryLocal;
     /**
      * Default constructor. 
      */

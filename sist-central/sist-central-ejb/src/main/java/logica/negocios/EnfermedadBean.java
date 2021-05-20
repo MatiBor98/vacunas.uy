@@ -35,12 +35,12 @@ public class EnfermedadBean implements EnfermedadServiceLocal {
     public void save(String nombre, String descripcion, List<Vacuna> vacunas, List<PlanVacunacion> planesVacunacion) {
     	enfermedadRepository.save(nombre, descripcion, vacunas, planesVacunacion);
     }
-    
+
     public void eliminar(String nombre) {
     	enfermedadRepository.eliminar(nombre);
     }
-    public List<Enfermedad> findPage(int primerResultado, int limiteResultados) {
-        return enfermedadRepository.find(primerResultado, limiteResultados);
+
+    public List<Enfermedad> findPage(int primerResultado, int limiteResultados, String criterio) {
+        return enfermedadRepository.find(primerResultado, limiteResultados, criterio);
     }
 }
-

@@ -23,7 +23,6 @@ import datos.entidades.PlanVacunacion;
  * Session Bean implementation class VacunatorioRepository
  */
 @Singleton
-@LocalBean
 public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 
     @PersistenceContext(unitName = "sist-centralPersistenceUnit")
@@ -74,42 +73,12 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 	
 	
 	public List<Vacunatorio> findByDepartamento(Departamento dep) {
-		/*
-		List<Lote> lotes = entityManager.createQuery(
-				"select distinct l from Lote l" 
-						+ " left join fetch l.vacuna vacuna"
-						+ " join fetch vacuna.enfermedades"
-						, Lote.class)
-				.setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
-				.getResultList();
-		
-
-		return entityManager.createQuery(
-				"select distinct v from Vacunatorio v" 
-						+ " left join fetch v.lotes l"
-						+ " where v.departamento like :departamento AND v.lotes in :lotes"
-						, Vacunatorio.class)
-				.setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
-				.setParameter("departamento", dep)
-				.setParameter("lotes", lotes)
-				.getResultList();
-		
-		vacunatorios = entityManager.createQuery(
-				"select distinct v from Vacunatorio v" 
-						+ " join fetch v.lotes.vacuna"
-						+ " where v in :vacunatorios"
-						, Vacunatorio.class)
-				.setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
-				.setParameter("vacunatorios", vacunatorios)
-				.getResultList();
-		return vacunatorios;*/
-
 		return entityManager.createQuery(
 				"select v from Vacunatorio v" 
 						+ " left join fetch v.lotes lot"
 						+ " left join fetch lot.vacuna vacuna"
 						+ " left join fetch vacuna.enfermedades"
-						+ " where v.departamento like :departamento"
+						+ " where v.departamento = :departamento"
 						, Vacunatorio.class)
 				.setParameter("departamento", dep)
 				.getResultList();
@@ -120,7 +89,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 						+ " left join fetch v.lotes lot"
 						+ " left join fetch lot.vacuna vacuna"
 						+ " left join fetch vacuna.enfermedades"
-						+ " where v.departamento like :departamento"
+						+ " where v.departamento = :departamento"
 						, Vacunatorio.class)
 				.setParameter("departamento", dep)
 				.setFirstResult(primerResultado)

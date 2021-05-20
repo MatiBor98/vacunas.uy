@@ -1,0 +1,236 @@
+.navbar {
+    color: #ffffff;
+}
+
+.div_list-group-item {
+    background-color: #43516c;
+}
+
+.dropdown-menu {
+    background-color: #43516c !important;
+    color: #ffffff;
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-menu a:hover {
+    background: #014464 !important;
+    background: linear-gradient(left, #ebd254, #c4b489);
+    background: -moz-linear-gradient(left, #ebd254, #c4b489) !important;
+    background: -webkit-gradient(
+            linear,
+            100% 100%,
+            0% 0%,
+            from(#ebd254),
+            to(#c4b489)
+    ) !important;
+    color: #f8f9fa !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-link.dropdown-toggle {
+    color: #ffffff;
+}
+
+a > img {
+    border-width: 1px;
+    border-color: #ffffff;
+}
+
+li > a {
+    color: #ffffff;
+}
+
+.btn-primary.custom-btn {
+    background-color: #dba531;
+    border-color: #dba531;
+    color: #43516c;
+}
+
+.navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form-control-underlined {
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-radius: 0;
+    padding-left: 0;
+    background-color: transparent;
+}
+
+.form-control-underlined:focus {
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-radius: 0;
+    padding-left: 0;
+    background-color: transparent;
+    box-shadow: none;
+    color: #ffffff;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 500px;
+    padding: 0;
+    margin: auto;
+}
+
+.div-body{
+    padding-right: 8vw;
+    padding-left: 8vw;
+}
+
+.container{
+    justify-content: center;
+}
+
+.row{
+    justify-content: center;
+    padding-bottom: 8vh;
+    padding-top: 5vh;
+    text-align: center;
+}
+
+#monitor-boton{
+    width: 200px;
+}
+
+.card{
+    width: 15vw;
+    transition: box-shadow .3s;
+}
+
+.card:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+.bodytype {
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: #c4b489;
+}
+
+.question-listed-metadata {
+    font-size: 12px !important;
+}
+
+.question-listed-stats button {
+    font-size: 13px !important;
+}
+
+.answer-description p {
+    font-size: 12px;
+    font-weight: normal !important;
+}
+
+#header {
+    border-top: 3px solid Dodgerblue;
+    border-bottom: 1px solid #e4e6e8;
+}
+
+.left-menu {
+    border-right: 1px solid #dee2e6;
+}
+
+.content {
+    max-width: 600px;
+    margin: auto;
+}
+
+.btn-group {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.btn-group button {
+    border: 1px solid white;
+    padding: 10px 45px;
+    cursor: pointer;
+    float: center;
+    text-align: center;
+}
+
+p {
+    line-height: 10px;
+    margin-bottom: 10px;
+}
+
+.bd-placeholder-img {
+    font-size: 1.4rem;
+    text-anchor: big;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    height: 100%;
+}
+
+.div_body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    background-color: #E5E8C7;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+
+}
+
+.form-label {
+    margin-bottom: 0;
+    text-align: left;
+    display: block;
+    font-size: 18px;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="number"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
