@@ -6,6 +6,10 @@ footer{
 	border-width: 2px;
 	background: #222938;
 	color: white; 
+	clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: -200px;
 }
 
 .container{

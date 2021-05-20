@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Login
+	</ui:define>
+	<ui:define name="content">
+		<div class="div-body pt-5" style="height: 100%; min-height: 100%; padding-bottom: 30vh; position: relative;">
+			<div class="container d-flex">
+				<div class="flex-row justify-content-center pb-3">
+					<div class="col-6">
+						<div class="card">
+							<div class="card-title"><h2>Iniciar Sesion</h2></div>
+							<div class="card-body">
+								<h:form id="login">
+								<p:messages id="errores" closable="true"/>
+								<div class="login-panel ui-fluid">
+									<div class="iu-g-12">
+										<p:outputLabel value="email"/>
+										<p:inputText value="#{LoginBO.email}" class="login-input" id="email"/>
+									</div>
+									<div class="uy-g-12">
+										<p:outputLabel value="password"/>
+										<p:password value="#{LoginBO.password}" class="login-input" id="password"/>
+									</div>
+									<div class="pt-3 button-container mx-auto" style="width: 5vw;">
+										<p:commandButton process="login @this" value="log-in" type="submit" action="#{LoginBO.login()}"/>
+									</div>
+								</div>
+							</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

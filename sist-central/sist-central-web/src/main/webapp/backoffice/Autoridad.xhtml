@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Home
+	</ui:define>
+	<ui:define name="content">
+		<div class="div-body">
+			<div class="container justify-content-center">
+			<!-- gestion de Enfermedades -->
+				<div class="row">
+					<h3>Gestion de enfermedades</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Alta de enfermedad</h5>
+								<a href="/backoffice/AgregarEnfermedad.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Lista de enfermedades</h5>
+								<a href="/backoffice/ConsultaEnfermedades.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+				<!-- gestion de Laboratorios -->
+				<div class="row">
+					<h3>Gestion de laboratorios</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Alta de laboratorio</h5>
+								<a href="/backoffice/AgregarLaboratorio.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Lista de laboratorios</h5>
+								<a href="/backoffice/ConsultaLaboratorios.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			<!-- gestion de Vacunas -->
+				<div class="row">
+					<h3>Gestion de vacunas</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Alta de vacuna</h5>
+								<a href="/backoffice/AgregarVacuna.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Lista de vacunas</h5>
+								<a href="/backoffice/ConsultaVacunas.xhtml" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+				<!-- gestion de dosis, tomalo con pinzas pq depende de como implementemos el socio logistico -->
+				<div class="row">
+					<h3>Gestion logistica de dosis</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Coordinar envio</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Registro de recepcion de vacunas</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			<!-- gestion de Planes de vacunacion -->
+				<div class="row">
+					<h3>Planes de vacunacion</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Alta de plan de vacunacion</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Lista de planes de vacunacion</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			<!-- gestion de Enfermedades -->
+				<div class="row">
+					<h3>Reportes de stock</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Lista de stock de vacunatorios</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			<!-- gestion de Enfermedades -->
+				<div class="row">
+					<h3>Actos vacunales</h3>
+				</div>
+				<div class="row">
+					<div class="col4-">
+						<div class="card">
+							<div class="card-body">
+								<h5>Ver estadisticas</h5>
+								<a href="#" class="stretched-link"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

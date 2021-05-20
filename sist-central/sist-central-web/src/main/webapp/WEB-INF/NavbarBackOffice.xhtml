@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
+         style="background: #222938"
+    >
+        <div class="dropdown">
+            <a
+                    class="navbar-brand nav-link dropdown-toggle media align-items-center"
+                    href="#"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+                <h:graphicImage name="Logo.png"
+                                p:alt="Logo.png"
+                                style="width: 6vw; height: auto;"
+                />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="">Inicio</a></li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a>
+                </li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarEnfermedad.xhtml">Agregar Enfermedad</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaEnfermedades.xhtml">Consultar Enfermedades</a>
+                </li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarVacunatorio.xhtml">Agregar Vacunatorio</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunatorios.xhtml">Consultar Vacunatorios</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+            <h:form class="form-inline" style="width: 60vw; font-size: 1.5vw; margin-left: 7vw" action="" method="post">
+                <input
+                        style="width: 90%; margin: auto"
+                        class="form-control form-control-underlined"
+                        type="text"
+                        placeholder="Planes, vacunas, enfermdedades..."
+                        aria-label="Search"
+                        name="busqueda"
+                />
+
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+
+
+            </h:form>
+            <h:form>
+				<p:commandButton type="button" value="Cerrar sesion" styleClass="rounded-button ui-button-info" action="#{LoginBO.logout()}"/>
+			</h:form>
+        </div>
+    </nav>
+</f:view>
+</html>

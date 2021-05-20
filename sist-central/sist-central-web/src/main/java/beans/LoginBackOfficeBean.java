@@ -78,12 +78,14 @@ public class LoginBackOfficeBean implements Serializable{
 			JSONObject body = new JSONObject(playload);
 			if(body.getString("rol").equals("administrador")) {
 				rol = "admin";
+				loggedIn = true;
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/Administrador.xhtml");
 			}
 			else if(body.get("rol").equals("autoridad")){
 				rol = "auth";
+				loggedIn = true;
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/Autoridad.xhtml");
 			}
-			loggedIn = true;
-			FacesContext.getCurrentInstance().getExternalContext().redirect("logueado.xhtml");
 		} catch (EmailNoRegistradoException e) {
 			wrongEmail = true;
 		} catch (PasswordIncorrectaException e) {
@@ -92,7 +94,7 @@ public class LoginBackOfficeBean implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 			
 	}
 	
