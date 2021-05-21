@@ -118,7 +118,19 @@
                 />
             </h:form>
         </div>
+    <script type="text/javascript">
+		 	function MasCampos() {
+		  		var checkBox = document.getElementById("Check");
+		  		var input = document.getElementById("camposExtra");
+		  		if (checkBox.checked == true){
+		    		input.style.display = "block";
+		  		} else {
+		   		 input.style.display = "none";
+		 		 }
+			}
+	 	</script>
     </ui:define>
+    
 </ui:composition>
 
 </html>
