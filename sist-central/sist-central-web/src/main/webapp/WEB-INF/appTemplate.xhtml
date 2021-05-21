@@ -13,16 +13,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
     <h:outputStylesheet name="css/styles.css" />
+    <h:outputStylesheet name="css/footer.css" />
+    <h:outputStylesheet name="css/index.css" />
 </h:head>
 <h:body styleClass="text-center">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <h:outputScript src="js/main.js"/>
-    <ui:include src="Navbar.xhtml">
-    </ui:include>
-    <ui:insert name = "content" >
-    </ui:insert>
-    <ui:include src="Footer.xhtml"/>
+    <div class="page-container">
+        <ui:include src="Navbar.xhtml">
+        </ui:include>
+        <div class="content-wrapper">
+            <ui:insert name = "content" >
+            </ui:insert>
+        </div>
+        <ui:include src="Footer.xhtml"/>
+    </div>
 </h:body>
 </html>

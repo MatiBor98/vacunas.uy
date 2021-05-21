@@ -1,22 +1,42 @@
 @charset "UTF-8";
-
 footer{
 	border-style: solid;
 	border-color: gray;
 	border-width: 2px;
 	background: #222938;
-	color: white; 
-	clear: both;
-    position: relative;
-    height: 200px;
-    margin-top: -200px;
+	color: white;
+	overflow: hidden;
+	height: 30vh;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
-.container{
+footer .container{
+	justify-content: center;
+	overflow: hidden;
+}
+
+footer #escudo{
+	height: 30%;
+	width: auto;
+	margin-right: 15%;
+}
+
+footer .col{
 	justify-content: center;
 }
 
-#escudo{
-	height: 50%;
-	width: auto;
+footer .col-2 {
+	text-align: left;
+	white-space: nowrap;
+}
+
+footer .row{
+	justify-content: center;
+}
+
+footer .row div:first-child {
+	text-align: right;
 }
