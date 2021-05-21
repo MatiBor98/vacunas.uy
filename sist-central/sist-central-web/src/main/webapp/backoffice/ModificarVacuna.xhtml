@@ -11,6 +11,7 @@
 		- Modificar Vacuna
 	</ui:define>
 	<ui:define name="content">
+	<div class="bodytype">
 	  <h:form class="form-signin">
 
 		  <h:graphicImage styleClass="mb-4"
@@ -113,6 +114,18 @@
 			action="#{VacunaBean.modificarVacuna(ModificarBean.modificarVacuna)}"
 		  />
 		</h:form>
+		</div>
+		<script type="text/javascript">
+		 	function MasCampos() {
+		  		var checkBox = document.getElementById("Check");
+		  		var input = document.getElementById("camposExtra");
+		  		if (checkBox.checked == true){
+		    		input.style.display = "block";
+		  		} else {
+		   		 input.style.display = "none";
+		 		 }
+			}
+	 	</script>
 	</ui:define>
 </ui:composition>
 </html>

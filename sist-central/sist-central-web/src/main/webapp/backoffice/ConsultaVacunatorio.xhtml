@@ -12,7 +12,7 @@
 	</ui:define>
 	<ui:define name="content">
 		<div class="bodytype">
-			<div class="content">
+			<div>
 				<h:graphicImage styleClass="mb-4"
 								name="LogoVacunatorio.png"
 								p:alt="LogoVacunatorio.png"
@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col-sm-3"/>
 					<div class="col-sm-6">
-						<div class="card" style="background-color:#c6c6c6">
+						<div class="card" style="background-color:#c6c6c6; width:50vw">
 						  <div class="card-body text-center">
 								<div  class="bodytype" id="info" style="display:block">
 									<div class="card-header" style="background-color:#222938; color:white">
@@ -92,6 +92,84 @@
 				</div>
 			</div>
 		</div>
+		<scripts>
+	<script type="text/javascript">
+		function mostrarInfo() {
+			document.getElementById("info").style.display = "block";
+			document.getElementById("puestos").style.display = "none";
+			document.getElementById("turnos").style.display = "none";
+			document.getElementById("lotes").style.display = "none";
+			document.getElementById("dosis").style.display = "none";
+			document.getElementById("botonInfo").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonPuestos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonLotes").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonDosis").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+	
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarPuestos() {
+			document.getElementById("info").style.display = "none";
+			document.getElementById("puestos").style.display = "block";
+			document.getElementById("turnos").style.display = "none";
+			document.getElementById("lotes").style.display = "none";
+			document.getElementById("dosis").style.display = "none";
+			document.getElementById("botonInfo").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonPuestos").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonLotes").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonDosis").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+	
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarTurnos() {
+			document.getElementById("info").style.display = "none";
+			document.getElementById("puestos").style.display = "none";
+			document.getElementById("turnos").style.display = "block";
+			document.getElementById("lotes").style.display = "none";
+			document.getElementById("dosis").style.display = "none";
+			document.getElementById("botonInfo").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonPuestos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonLotes").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonDosis").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+	
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarLotes() {
+			document.getElementById("info").style.display = "none";
+			document.getElementById("puestos").style.display = "none";
+			document.getElementById("turnos").style.display = "none";
+			document.getElementById("lotes").style.display = "block";
+			document.getElementById("dosis").style.display = "none";
+			document.getElementById("botonInfo").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonPuestos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonLotes").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonDosis").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+	
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarDosis() {
+			document.getElementById("info").style.display = "none";
+			document.getElementById("puestos").style.display = "none";
+			document.getElementById("turnos").style.display = "none";
+			document.getElementById("lotes").style.display = "none";
+			document.getElementById("dosis").style.display = "block";
+			document.getElementById("botonInfo").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonPuestos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonLotes").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonDosis").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+	
+		}
+	</script>
+</scripts>
+		
 	</ui:define>
 </ui:composition>
 </html>
