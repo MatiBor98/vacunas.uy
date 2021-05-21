@@ -1,9 +1,12 @@
 package beans;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import datos.dtos.UsuarioBackOfficeDTO;
 import datos.exceptions.EmailRegistradoException;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
@@ -68,5 +71,7 @@ public class UsuarioBackOfficeBean {
 		}
 	}
 	
-	
+	public List<UsuarioBackOfficeDTO> listarUsuarios(){
+		return usuarios.usersList();
+	}
 }

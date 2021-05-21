@@ -1,5 +1,7 @@
 package datos.repositorios;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.persistence.EntityExistsException;
@@ -36,6 +38,10 @@ public class UsuariosBackOfficeRepository implements UsuariosBackOfficeRepositor
 		}
     }
 
+    public List<UsuarioBO> find(){
+    	return entityManager.createQuery("select u from UsuarioBO u").getResultList();
+    }
+    
     public UsuarioBO find(String email) {
     	return entityManager.find(UsuarioBO.class, email);
     }

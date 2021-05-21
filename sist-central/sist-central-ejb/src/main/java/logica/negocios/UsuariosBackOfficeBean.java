@@ -2,11 +2,15 @@ package logica.negocios;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
 import datos.entidades.UsuarioBO;
@@ -17,6 +21,8 @@ import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import logica.creacion.Converter;
+import logica.creacion.UsuarioBackOfficeConverter;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
 /**
@@ -28,6 +34,8 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
 	@EJB
 	UsuariosBackOfficeRepositoryLocal usuariosBO;
 	
+	@Inject
+	private Converter<UsuarioBO, UsuarioBackOfficeDTO> usuarioBackOfficeConverter;
 	
 	String password = "secretKeyforJwt.secretKeyForJwt.secretKeyforJwt";
 	SecretKey key = Keys.hmacShaKeyFor(password.getBytes(StandardCharsets.UTF_8));
@@ -81,5 +89,8 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	usuariosBO.save(nuevoUsuario);
     }
     
-    
+    public List<UsuarioBackOfficeDTO> usersList(){
+        return usuariosBO.find().parallelStream().map(usuarioBackOfficeConverter::convert).collect(Collectors.toList());
+
+    }
 }
