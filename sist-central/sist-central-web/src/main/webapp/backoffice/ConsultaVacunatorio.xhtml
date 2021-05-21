@@ -72,6 +72,29 @@
 									<div class="card-header" style="background-color:#222938; color:white">
 										<h2>Turnos</h2>
 									</div>
+									<h:form rendered="#{VacunatorioBean.getTurnos(ConsultaBean.consultaVacunatorio).isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										<li class="list-group-item">No hay turnos asignados a este vacunatorio.</li>
+									  </ul>
+									</h:form>
+									<h:form rendered="#{!VacunatorioBean.getTurnos(ConsultaBean.consultaVacunatorio).isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										  <ui:repeat value="#{VacunatorioBean.getTurnos(ConsultaBean.consultaVacunatorio)}" var="turno">
+										  		<div class="card" style="width:47.8vw">
+													<div class="card-header" style="background-color:#222938; color:#222938">
+														<h4>
+															<li class="list-group-item">#{turno.nombre}</li>
+														</h4>
+													</div>
+													<li class="list-group-item">Inicio: #{turno.inicio}</li>
+													<li class="list-group-item">Fin: #{turno.fin}</li>
+												</div>
+										  </ui:repeat>
+									  </ul>
+									</h:form>
+									<h:form>
+										<h:button value="Agregar turno" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarTurno.xhtml" />
+									</h:form>
 								</div>
 
 								<div class="bodytype"  id="lotes" style="display:none">

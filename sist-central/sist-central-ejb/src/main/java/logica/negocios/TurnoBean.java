@@ -1,0 +1,60 @@
+package logica.negocios;
+
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
+import datos.entidades.Vacunatorio;
+import datos.exceptions.VacunatorioNoExistenteException;
+import datos.repositorios.PuestoVacunacionRepositoryLocal;
+import datos.repositorios.TurnoRepositoryLocal;
+import datos.repositorios.VacunatorioRepositoryLocal;
+import logica.servicios.local.PuestoVacunacionBeanLocal;
+import logica.servicios.local.TurnoServiceLocal;
+
+/**
+ * Session Bean implementation class PuestoVacunacionBean
+ */
+@Stateless
+@LocalBean
+public class TurnoBean implements  TurnoServiceLocal {
+
+	@EJB
+	TurnoRepositoryLocal turnoRepositoryLocal;
+	@EJB
+	VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+	
+	public int addTurno(String nombreTurno, String nomVac, LocalTime inicio, LocalTime fin) {
+    	Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nomVac).orElseThrow(VacunatorioNoExistenteException::new);
+		Turno turn = new Turno(nombreTurno, inicio, fin, vacunatorio);
+		turnoRepositoryLocal.save(turn);
+		return turn.getId();
+	}
+    
+    public Optional<Turno> findById(int id) {
+    	return turnoRepositoryLocal.findById(id);
+    }
+    
+    public List<Turno> find() {
+    	return turnoRepositoryLocal.find();
+    }
+    
+    public List<Turno> find(String vac, String nombreTurno) {
+    	return turnoRepositoryLocal.find(vac, nombreTurno);
+    }
+	/**
+     * Default constructor. 
+     */
+    public TurnoBean() {
+        // TODO Auto-generated constructor stub
+    }
+
+
+
+}

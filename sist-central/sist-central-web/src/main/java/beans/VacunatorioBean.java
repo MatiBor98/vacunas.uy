@@ -17,6 +17,7 @@ import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
 import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
 import datos.entidades.Vacuna;
 import datos.entidades.Vacunatorio;
 
@@ -233,6 +234,11 @@ public class VacunatorioBean implements Serializable{
 	public List<PuestoVacunacion> getPuestos(String nombre) {
 		Optional<Vacunatorio> vac = ContVacunatorio.find(nombre);
 		return vac.get().getPuestosVacunacion();
+	}
+	
+	public List<Turno> getTurnos(String nombre) {
+		Optional<Vacunatorio> vac = ContVacunatorio.find(nombre);
+		return vac.get().getTurnos();
 	}
 	
 }

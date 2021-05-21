@@ -27,6 +27,7 @@ public class Vacunatorio implements Serializable {
 
 
 	@OneToMany(mappedBy = "vacunatorio")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Turno> turnos;
 
 	@OneToMany
