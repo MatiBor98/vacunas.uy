@@ -1,9 +1,12 @@
 package logica.creacion;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Administrador;
 import datos.entidades.UsuarioBO;
 
+@ApplicationScoped
 public class UsuarioBackOfficeConverter implements Converter<UsuarioBO, UsuarioBackOfficeDTO> {
 
 	@Override
