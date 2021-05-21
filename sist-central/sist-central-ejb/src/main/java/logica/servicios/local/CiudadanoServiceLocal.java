@@ -10,4 +10,6 @@ public interface CiudadanoServiceLocal {
     List<CiudadanoDTO> find();
     void save(CiudadanoDTO ciudadano);
     List<CiudadanoDTO> findByNombreCi(int criterio);
+    void updateFirebaseTokenMovil(int ci, String firebaseToken);
+	void notificar(int ci);
 }

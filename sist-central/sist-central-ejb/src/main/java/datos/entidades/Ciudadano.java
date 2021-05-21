@@ -17,6 +17,8 @@ public class Ciudadano {
 	private int ci;
 	private String nombre;
 	private String email;
+	
+	private String firebaseTokenMovil;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
 	@MapKey(name = "codigo")
@@ -52,6 +54,14 @@ public class Ciudadano {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFirebaseTokenMovil() {
+		return firebaseTokenMovil;
+	}
+
+	public void setFirebaseTokenMovil(String firebaseTokenMovil) {
+		this.firebaseTokenMovil = firebaseTokenMovil;
 	}
 
 
