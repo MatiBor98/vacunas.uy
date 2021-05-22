@@ -34,9 +34,6 @@ public class Agenda implements Serializable {
     @MapKeyEnumerated(EnumType.ORDINAL)
     private Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia;
 
-    //Campo calculado, se mantiene aca porque es mas fail que calcularlo cada vez que se necesita.
-    private long cantidadCuposDisponbiles;
-
     @ManyToOne
     private Turno turno;
 
@@ -51,7 +48,6 @@ public class Agenda implements Serializable {
         this.etapa = etapa;
         this.horarioPorDia = horarioPorDia;
         this.turno = turno;
-        this.cantidadCuposDisponbiles = calcularIntervalosDisponbilesPorSemana(horarioPorDia);
     }
 
     public int getId() {
@@ -112,18 +108,6 @@ public class Agenda implements Serializable {
 
     public void setTurno(Turno turno) {
         this.turno = turno;
-    }
-
-    public long getCantidadCuposDisponbiles() {
-        return cantidadCuposDisponbiles;
-    }
-
-    public void setCantidadCuposDisponbiles(long cantidadCuposDisponbiles) {
-        this.cantidadCuposDisponbiles = cantidadCuposDisponbiles;
-    }
-
-    public void decrementarCantidadCuposDisponbiles() {
-        cantidadCuposDisponbiles--;
     }
 
     private long calcularIntervalosDisponbilesPorSemana(Map<DayOfWeek, InformacionPosiblesIntervalos> horarioPorDia) {

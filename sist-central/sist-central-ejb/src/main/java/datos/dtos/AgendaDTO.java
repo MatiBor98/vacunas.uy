@@ -1,7 +1,6 @@
 package datos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
@@ -66,7 +65,7 @@ public class AgendaDTO implements Serializable {
         AgendaDTO agendaDTO = (AgendaDTO) o;
         return getEtapaId() == agendaDTO.getEtapaId() && getTurnoId() == agendaDTO.getTurnoId() &&
                 getId() == agendaDTO.getId() && getHorarioPorDia().equals(agendaDTO.getHorarioPorDia()) &&
-                getInicio().equals(agendaDTO.getInicio()) && getFin().equals(agendaDTO.getFin());
+                getInicio().equals(agendaDTO.getInicio()) && Objects.equals(getFin(), agendaDTO.getFin());
     }
 
     @Override
