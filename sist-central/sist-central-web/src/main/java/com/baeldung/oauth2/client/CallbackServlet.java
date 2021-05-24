@@ -1,7 +1,11 @@
 package com.baeldung.oauth2.client;
 
+import datos.dtos.CiudadanoDTO;
+import logica.servicios.local.CiudadanoServiceLocal;
+import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 import org.eclipse.microprofile.config.Config;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -20,6 +24,8 @@ import java.util.Base64;
 
 @WebServlet(urlPatterns = "/")
 public class CallbackServlet extends AbstractServlet {
+    @EJB
+    CiudadanoServiceLocal usuarios;
 
     @Inject
     private Config config;
@@ -68,9 +74,12 @@ public class CallbackServlet extends AbstractServlet {
             String[] chunks = a.split("\\.");
             Base64.Decoder decoder = Base64.getDecoder();
             String payload = new String(decoder.decode(chunks[1]));
-            String[] user = payload.split("nombre_completo\":\"");
-            user = user[1].split("\"");
-            request.getSession().setAttribute("user", user[0]);
+            String userName = getAtributeFromJWTString(payload, "nombre_completo");
+            String email = getAtributeFromJWTString(payload, "email");
+            String cid = getAtributeFromJWTString(payload, "numero_documento");
+            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email);
+            usuarios.save(ciud);
+            request.getSession().setAttribute("user", userName);
             request.getSession().setAttribute("id_token", a);
 
             request.getSession().setAttribute("tokenResponse", tokenResponse);
@@ -79,5 +88,10 @@ public class CallbackServlet extends AbstractServlet {
             request.setAttribute("error", ex.getMessage());
         }
         dispatch("/index.xhtml", request, response);
+    }
+    String getAtributeFromJWTString(String payload, String param){
+        String[] user = payload.split(param+"\":\"");
+        user = user[1].split("\"");
+        return user[0];
     }
 }

@@ -24,7 +24,8 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
     @Override
     public void save(Ciudadano ciudadano) {
-        entityManager.persist(ciudadano);
+        if (findByNombreCi(ciudadano.getCi()).isEmpty())
+            entityManager.persist(ciudadano);
     }
 
     @Override
