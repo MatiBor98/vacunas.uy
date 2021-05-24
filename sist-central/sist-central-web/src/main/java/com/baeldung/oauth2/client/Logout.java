@@ -35,8 +35,20 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        request.getSession().removeAttribute("tokenResponse");
-        request.getSession().removeAttribute("user");
+        if(request.getSession().getAttribute("tokenResponse") != null){
+            String end_session_endpoint = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout";
+            String redirect_uri = "http://localhost:8080/logout";
+            String token = request.getSession().getAttribute("id_token").toString();
+            String logoutURL = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout?id_token_hint="
+                    + token + "&post_logout_redirect_uri=" + redirect_uri;
+
+            request.getSession().removeAttribute("tokenResponse");
+            request.getSession().removeAttribute("user");
+            request.getSession().removeAttribute("id_token");
+
+
+            response.sendRedirect(logoutURL);
+        }
 
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/index.xhtml");

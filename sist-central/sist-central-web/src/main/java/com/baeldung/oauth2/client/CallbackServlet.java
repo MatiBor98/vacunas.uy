@@ -71,6 +71,7 @@ public class CallbackServlet extends AbstractServlet {
             String[] user = payload.split("nombre_completo\":\"");
             user = user[1].split("\"");
             request.getSession().setAttribute("user", user[0]);
+            request.getSession().setAttribute("id_token", a);
 
             request.getSession().setAttribute("tokenResponse", tokenResponse);
         } catch (Exception ex) {
