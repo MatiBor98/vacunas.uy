@@ -77,6 +77,8 @@ public class PlanVacunacionBean implements Serializable{
 		}
 		this.setNomPlanVacunacion("");
 		this.setEnfermedad("");
+		this.setFechaFin(null);
+		this.setFechaInicio(null);
 	}
 	/*public void eliminarVacuna(String nom) {
 		if (!vacService.findByNombreVacuna(nom).isEmpty()) {
