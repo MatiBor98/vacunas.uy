@@ -1,8 +1,13 @@
 package datos.dtos;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
-public class MensajeDTO implements Serializable{
+public class MensajeDTO implements Serializable, Comparable<MensajeDTO>{
 
 	/**
 	 * 
@@ -46,6 +51,19 @@ public class MensajeDTO implements Serializable{
 		this.vacunadorCi = vacunadorCi;
 	}
 
-	
+	public String getFechaHoraFormatoLegible() {
+		LocalDateTime fechaHoraGMT = LocalDateTime.parse(fechaHora);
+		LocalDateTime fechaHoraLocal = fechaHoraGMT.minusHours(3);
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+		return fechaHoraLocal.format(formatter);
+	}
+
+	@Override
+	public int compareTo(MensajeDTO other) {
+		if (getFechaHora() == null || other.getFechaHora() == null) {
+		      return 0;
+		    }	
+		return getFechaHora().compareTo(other.getFechaHora());
+	}
 	
 }

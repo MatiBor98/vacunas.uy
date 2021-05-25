@@ -2,6 +2,7 @@ package logica.negocios;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,10 @@ public class MensajeBean implements MensajeBeanLocal {
     			try {
     				GenericTypeIndicator<Map<String,MensajeDTO>> tLista = new GenericTypeIndicator<Map<String,MensajeDTO>>() {};
         			List<MensajeDTO> mensajes = new ArrayList<MensajeDTO>( dataSnapshot.getValue(tLista).values());
-        		    aux.add(mensajes);
+      
+        		    Collections.sort(mensajes);
+
+        			aux.add(mensajes);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

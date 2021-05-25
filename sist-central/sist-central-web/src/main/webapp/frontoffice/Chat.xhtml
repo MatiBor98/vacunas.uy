@@ -1,57 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
-
-<h:head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-</h:head> 
-<h:body>
-
-
-<h:outputScript name="js/chat.js" target="head" />
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+        - Agregar Plan de Vacunacion
+    </ui:define>
+	<ui:define name="content">
 
 
-	<div class="container d-flex mx-auto">
-	
-		<div class="d-flex flex-row justify-content-between p-3 adiv text-white">
-		 	<span class="pb-3">Live chat</span>
-		</div>
-		
-	
-		<!-- lista de mensajes -->
-		<div class="d-flex flex-row ml-2 p-2">
-			<div class="chat">
-				<div class="d-flex flex-row">
-					<!-- aca va "*nombre*(*CI*))" -->
-					Roberto Rodriguez(1234567-8)
-				</div>
-				<div class="d-flex flex-row">
-					<!-- aca va el contedio del texto -->
-					agendate en vacunas.uy
-				</div>
+		<h:outputStylesheet library="css" name="chat.css" />
+
+
+		<div class="mesgs">
+			<div class="msg_history">
+
+				<h:form>
+
+					<p:remoteCommand name="borrarmsg" update="mensajesTabla"
+						action="#{MensajeBeanView.borrarMensajes}" />
+					<p:remoteCommand name="addMensaje" update="mensajesTabla"
+						action="#{MensajeBeanView.addMensajeDTO}" />
+
+
+					<p:dataScroller id="mensajesTabla" class="mensajesTabla"
+						value="#{MensajeBeanView.mensajes}" var="mensaje" chunkSize="10"
+						mode="inline" scrollHeight="400" startAtBottom="True">
+
+
+						<f:facet name="header">
+                			Chat General
+            			</f:facet>
+
+						<div
+							class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? 'outgoing_msg' :'incoming_msg'}">
+							<div class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? 'sent_msg' :'received_msg'}">
+
+								<div class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? '' :'received_withd_msg'}">
+									<span class="nombreVacunadorColor">
+									<p style="#{MensajeBeanView.colorUsuario(mensaje.vacunadorCi)}"><b>#{mensaje.vacunadorNombre}</b></p>
+									</span>
+									<p>#{mensaje.texto}</p>
+									<span class="time_date">#{mensaje.fechaHoraFormatoLegible}</span>
+
+								</div>
+							</div>
+						</div>
+
+					</p:dataScroller>
+
+
+					<h:outputScript name="js/chat.js" target="head" />
+
+				</h:form>
 			</div>
 		</div>
+
 		<!-- cuadro de texto -->
 		<div class="row">
-		<h:form>
-		
-		
-		<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}"/>
-   		<p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-outlined" 
-   		action="#{MensajeBeanView.send}"
-   		
-   		/>
-   			
-    	<p:button value="button"  onclick="return sendMensaje('Muy bueno!',12345671,'Rafael Vacunador', '123');"
-    	type="button" 
-    	>
-    	</p:button>
-</h:form>
+			<h:form>
+
+
+
+				<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}" />
+				<p:commandButton icon="pi pi-check"
+					styleClass="rounded-button ui-button-outlined"
+					action="#{MensajeBeanView.send}" />
+			</h:form>
 		</div>
-	</div>
-</h:body> 
+
+
+
+
+	</ui:define>
+</ui:composition>
+
+
 </html>
