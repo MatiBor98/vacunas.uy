@@ -1,10 +1,14 @@
 package logica.negocios;
 
 import datos.dtos.PlanVacunacionDTO;
+import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 import datos.repositorios.PlanVacunacionRepository;
 import logica.creacion.Converter;
 import logica.servicios.local.PlanVacunacionServiceLocal;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,5 +31,13 @@ public class PlanVacunacionBean implements PlanVacunacionServiceLocal {
         PlanVacunacion planVacunacion = planVacunacionDTOPlanVacunacionConverter.convert(planVacunacionDTO);
         planVacunacionRepository.save(planVacunacion);
         return planVacunacionPlanVacunacionDTOConverter.convert(planVacunacion);
+    }
+    
+    public void save(String nombre, LocalDate inicio, LocalDate fin, Enfermedad enfermedad) {
+    	planVacunacionRepository.save(nombre, inicio, fin, enfermedad);
+    }
+    
+    public Optional<PlanVacunacion> find(String nombre) {
+    	return planVacunacionRepository.find(nombre);
     }
 }
