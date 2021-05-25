@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Base64;
 
-@WebServlet(urlPatterns = "/")
+@WebServlet("/")
 public class CallbackServlet extends AbstractServlet {
 
     @Inject

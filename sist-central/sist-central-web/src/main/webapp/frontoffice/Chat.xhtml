@@ -9,7 +9,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </h:head> 
-<body>
+<h:body>
+
+
+<h:outputScript name="js/chat.js" target="head" />
+
+
 	<div class="container d-flex mx-auto">
 	
 		<div class="d-flex flex-row justify-content-between p-3 adiv text-white">
@@ -32,8 +37,21 @@
 		</div>
 		<!-- cuadro de texto -->
 		<div class="row">
-
+		<h:form>
+		
+		
+		<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}"/>
+   		<p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-outlined" 
+   		action="#{MensajeBeanView.send}"
+   		
+   		/>
+   			
+    	<p:button value="button"  onclick="return sendMensaje('Muy bueno!',12345671,'Rafael Vacunador', '123');"
+    	type="button" 
+    	>
+    	</p:button>
+</h:form>
 		</div>
 	</div>
-</body> 
+</h:body> 
 </html>
