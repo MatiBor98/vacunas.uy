@@ -16,7 +16,7 @@ public class CiudadanoConverter implements Converter<Ciudadano, CiudadanoDTO> {
         if(ciudadano instanceof Vacunador) {
         	vacunador = true;
         }
-        builder.setCi(ciudadano.getCi()).setNombre(ciudadano.getNombre()).setEmail(ciudadano.getEmail()).setVacunador(vacunador);
-        return builder.createCiudadanoDTO();
+        return builder.setCi(ciudadano.getCi()).setNombre(ciudadano.getNombre()).setEmail(ciudadano.getEmail()).setVacunador(vacunador).createCiudadanoDTO();
+        
     }
 }

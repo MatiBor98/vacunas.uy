@@ -14,13 +14,13 @@ import javax.persistence.*;
 public class Ciudadano {
 
 	@Id
-	private int ci;
-	private String nombre;
-	private String email;
+	protected int ci;
+	protected String nombre;
+	protected String email;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
 	@MapKey(name = "codigo")
-	private Map<String, Reserva> reservas;
+	protected Map<String, Reserva> reservas;
 	
 	public Ciudadano() {}
 
@@ -54,5 +54,8 @@ public class Ciudadano {
 		this.email = email;
 	}
 
+	public void addReserva(String codigo, Reserva reserva) {
+		reservas.put(codigo, reserva);
+	}
 
 }

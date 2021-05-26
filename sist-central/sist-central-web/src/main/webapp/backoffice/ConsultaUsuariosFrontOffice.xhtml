@@ -11,15 +11,19 @@
 		<div class="div-body" >
 			<div class="content">			
 				<ul class="list-group pt-5 pb-5" style="margin-top: 30px">
-                    <ui:repeat value="#{usuarioBackOfficeBean.listarUsuarios()}" var="usu">
+                    <ui:repeat value="#{usuarioFrontOfficeBean.listarUsuarios()}" var="usu">
 
-                        <li class="list-group-item" style="background-color:#{usuarioBackOfficeBean.getColor()}">
-                            <h2 style="color:#{usuarioBackOfficeBean.colorSecundario}">Email: #{usu.email}</h2>
-                            <p style="color:#{usuarioBackOfficeBean.colorSecundario}"> Rol: #{usu.rol}</p>
+                        <li class="list-group-item" style="background-color:#{usuarioFrontOfficeBean.getColor()}">
+                            <h2 style="color:#{usuarioFrontOfficeBean.colorSecundario}">#{usu.ci}-#{usu.nombre}</h2>
+                            <p style="color:#{usuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p>
+                            <p style="color:#{usuarioFrontOfficeBean.colorSecundario}"> Vacunador:
+                            	<h:i rendered="#{usu.vacunador}" class="pi pi-check"/>
+                            	<h:i rendered="#{not usu.vacunador}" class="pi pi-times"/>
+                            </p>                            
                              <h:form>
                                 <h:commandButton value="Consultar" type="submit" class="btn btn-info"
                                                  style="padding: 2px 6px; display: inline; margin-left: 3px"
-                                                 action="#{ConsultaUsuarioBackOfficeBean.setConsultaUsuarioBackOffice(usu.email)}"/>
+                                                 action="#{ConsultaUsuarioFrontOfficeBean.setConsultaUsuarioFrontOffice(usu.ci)}"/>
                             </h:form>
                             <p></p>
                         </li>

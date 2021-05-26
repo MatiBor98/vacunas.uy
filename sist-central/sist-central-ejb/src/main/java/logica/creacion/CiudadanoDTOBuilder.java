@@ -28,12 +28,11 @@ public class CiudadanoDTOBuilder {
         return new CiudadanoDTO(ci, nombre, email, vacunador);
     }
 
-    public boolean isVacunador() {
-		return vacunador;
-	}
 
-	public void setVacunador(boolean vacunador) {
+
+	public CiudadanoDTOBuilder setVacunador(boolean vacunador) {
 		this.vacunador = vacunador;
+		return this;
 	}
 
 	private void validar() {

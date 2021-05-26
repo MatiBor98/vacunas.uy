@@ -18,6 +18,7 @@ import datos.exceptions.EmailRegistradoException;
 import datos.repositorios.CiudadanoRepositoryLocal;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import logica.servicios.filter.BackOfficeInterceptor;
+import logica.servicios.local.AdministradorServiceLocal;
 
 /**
  * Session Bean implementation class AdministradorBean
@@ -25,7 +26,7 @@ import logica.servicios.filter.BackOfficeInterceptor;
 //@Interceptors({BackOfficeInterceptor.class})
 @Stateless
 @LocalBean
-public class AdministradorBean implements AdministradorBeanLocal {
+public class AdministradorBean implements AdministradorServiceLocal {
 
 	@EJB
 	UsuariosBackOfficeRepositoryLocal usuariosBO;
@@ -52,16 +53,6 @@ public class AdministradorBean implements AdministradorBeanLocal {
     	usuariosBO.save(nuevoUsuario);
     }
     
-    public void addVacunador(int ci) {
-    	Ciudadano ciudadano = (Ciudadano) usuariosFO.findByNombreCi(ci);
-    	Vacunador vacunador = new Vacunador();
-    	vacunador.setCi(ciudadano.getCi());
-    	vacunador.setEmail(ciudadano.getEmail());
-    	vacunador.setNombre(ciudadano.getNombre());
-    	vacunador.setAsignaciones(new HashMap<LocalDate, Asignacion>());
-    	usuariosFO.deleteCiudadano(ciudadano);
-    	usuariosFO.saveVacunador(vacunador);
-    }
     
     
     

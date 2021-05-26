@@ -13,6 +13,6 @@ public class CiudadanoDTOConverter implements Converter<CiudadanoDTO, Ciudadano>
         CiudadanoBuilder builder = new CiudadanoBuilder();
 
 
-        return builder.setCi(ciudadanoDTO.getCi()).setNombre(ciudadanoDTO.getNombre()).setEmail(ciudadanoDTO.getEmail()).createCiudadano();
+        return builder.setCi(ciudadanoDTO.getCi()).setNombre(ciudadanoDTO.getNombre()).setEmail(ciudadanoDTO.getEmail()).setVacunador(ciudadanoDTO.getVacunador()).createCiudadano();
     }
 }

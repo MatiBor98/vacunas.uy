@@ -17,23 +17,24 @@
 						<div class="card">
 							<div class="card-title"> <h2>Alta de usuario backoffice</h2> </div>
 							<div class="card-body">
+								<p:staticMessage severity="error" summary="ERROR" detail="Este email ya esta registrado" style="width: 100%" rendered = "#{usuarioBackOfficeBean.emailRegistrado}"/>
 								<h:form id="altaUsuario">
 									<p:messages id="errores" closable="true"/>
 									<div class="login-panel ui-fluid">
 										<div class="iu-g-12">
 											<p:outputLabel value="Email"/>
-											<p:inputText value="#{LoginBO.email}" class="login-input" id="email"/>
+											<p:inputText value="#{usuarioBackOfficeBean.email}" class="login-input" id="email"/>
 										</div>
 										<div class="uy-g-12">
 											<p:outputLabel value="Password"/>
-											<p:password value="#{LoginBO.password}" class="login-input" id="password"/>
+											<p:password value="#{usuarioBackOffices.password}" class="login-input" id="password"/>
 										</div>
 										<div class="uy-g-12">
 											<p:outputLabel value="Repetir Password"/>
-											<p:password value="#{LoginBO.password}" class="login-input" id="re-password"/>
+											<p:password value="#{usuarioBackOfficeBean.password}" class="login-input" id="re-password"/>
 										</div>
 										<div class="pt-3 button-container mx-auto" style="width: 5vw;">
-											<p:commandButton process="login @this" value="log-in" type="submit" action="#{LoginBO.login()}"/>
+											<p:commandButton process="login @this" value="log-in" type="submit" action="#{usuarioBackOfficeBean.registrarUsuario)}"/>
 										</div>
 									</div>
 								</h:form>

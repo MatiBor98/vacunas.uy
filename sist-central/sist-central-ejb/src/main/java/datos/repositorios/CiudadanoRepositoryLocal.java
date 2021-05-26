@@ -13,10 +13,12 @@ import java.util.List;
 public interface CiudadanoRepositoryLocal {
     List<Ciudadano> find();
     void save(Ciudadano ciudadano);
-    List<Ciudadano> findByNombreCi(int criterio);
+    Ciudadano findByNombreCi(int criterio);
 	void saveVacunador(Vacunador vacunador);
     public void deleteCiudadano(Ciudadano ciudadano);
-
+    public void refreshCiudadano(Ciudadano ciudadano);
+    public void ciudadanoToVacunador(String ci);
+    public void vacunadorToCiudadano(String ci);
 
     //public CiudadanoDTO getCiudadano(int ci) throws CiudadanoNoExisteException ;
     //public List<CiudadanoDTO> getCiudadanos();
