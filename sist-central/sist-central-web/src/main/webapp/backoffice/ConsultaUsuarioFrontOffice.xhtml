@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Consulta Vacunatorio
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+			<div>
+				<h1 class="h2 mb-3 font-weight-normal">Ciudadano: #{ConsultaUsuarioFrontOfficeBean.consultaUsuario}</h1>
+				
+				<div class="row">
+					<div class="col-sm-3"/>
+					<div class="col-sm-6">
+						<div class="card" style="background-color:#c6c6c6; width:50vw">
+							<div class="card-body text-center">
+								<div  class="bodytype" id="info" style="display:block">
+									<div class="card-header" style="background-color:#222938; color:white">
+										<h2>Informacion</h2>
+									</div>
+									<h:form>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item"><p:inputText id = "nombreCiudadano" disabled ="true" value="Nombre: #{ConsultaUsuarioFrontOfficeBean.nombre}"/></li>
+											<li class="list-group-item"><p:inputText id = "emailCiudadano" disabled = "true" value = "Email: #{ConsultaUsuarioFrontOfficeBean.email}"/></li>
+											<li class="list-group-item">Vacunador:
+												<h:i id = "vacunadorSi" rendered="#{ConsultaUsuarioFrontOfficeBean.vacunador}" class="pi pi-check"/>
+	                            				<h:i id = "vacunadorNo" rendered="#{not ConsultaUsuarioFrontOfficeBean.vacunador}" class="pi pi-times"/>
+	                            				<p:selectBooleanCheckbox id="checkVacunador" style="display: none;" value="#{ConsultaUsuarioFrontOfficeBean.vacunador}" itemLabel="Basic"/>
+	                            			</li>
+										</ul>
+									</h:form>
+									<p:commandButton id="editarUsuario" type="button" icon="pi pi-user-edit"></p:commandButton>
+									<p:commandButton id="modificarUsuario" type="button" icon="pi pi-check" action=""></p:commandButton> 
+								</div>
+						  	</div>
+						</div>
+					</div>
+					<div class="col-sm-3"/>
+				</div>
+			</div>
+		</div>
+		<script>
+			document.getElementById("editarUsuario").addEventListener("click", editarUsuario);
+			document.getElementById("modificarUsuario").addEventListener("click", editarUsuario);
+			
+	
+			function editarUsuario() {
+			  document.getElementById("vacunadorSi").style.display = "none";
+			  document.getElementById("vacunadorNo").style.display = "none";
+			  document.getElementById("nombreCiudadano").disabled = "false";
+			  document.getElementById("emailCiudadano").disabled = "false";
+			  document.getElementById("checkVacunador").style.display = "inline";
+			  document.getElementById("modificarUsuario").style.display = "inline";
+			  
+			}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>
