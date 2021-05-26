@@ -138,3 +138,12 @@ body .ui-datascroller .ui-datascroller-content{
 	margin: 0 !important;
 	color: lightslategray !important;
 }
+
+.ui-datascroller-content::-webkit-scrollbar {
+  width: 5px;
+} 
+.ui-datascroller-content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
+
