@@ -128,9 +128,13 @@ body .ui-datascroller .ui-datascroller-content{
 	scrollbar-color: lightgray rgba(255, 255, 255, 0);
 	scrollbar-width: thin;
 }
-.ui-datascroller-header{
-	text-align: start;
-margin: 0;
-padding: 10px;
-color: lightslategray;
+
+.ui-datascroller-header {
+	padding: 8px !important;
+}
+
+.tituloChat {
+	text-align: start !important;
+	margin: 0 !important;
+	color: lightslategray !important;
 }
