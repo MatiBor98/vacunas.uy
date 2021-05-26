@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+<ui:composition template="WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Lista usuarios backoffice
+	</ui:define>
+	<ui:define name="content">
+		<div class="div-body" >
+			<div class="content">			
+				<ul class="list-group pt-5 pb-5" style="margin-top: 30px">
+                    <ui:repeat value="#{usuarioBackOfficeBean.listarUsuarios()}" var="usu">
+
+                        <li class="list-group-item" style="background-color:#{usuarioBackOfficeBean.getColor()}">
+                            <h2 style="color:#{usuarioBackOfficeBean.colorSecundario}">Email: #{usu.email}</h2>
+                            <p style="color:#{usuarioBackOfficeBean.colorSecundario}"> Rol: #{usu.rol}</p>
+                             <h:form>
+                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+                                                 action="#{ConsultaUsuarioBackOfficeBean.setConsultaUsuarioBackOffice(usu.email)}"/>
+                            </h:form>
+                            <p></p>
+                        </li>
+
+                    </ui:repeat>
+
+                </ul>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

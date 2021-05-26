@@ -1,6 +1,7 @@
 package datos.repositorios;
 
 import datos.entidades.Ciudadano;
+import datos.entidades.Vacunador;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -26,6 +27,16 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     public void save(Ciudadano ciudadano) {
         if (findByNombreCi(ciudadano.getCi()).isEmpty())
             entityManager.persist(ciudadano);
+    }
+    
+    public void deleteCiudadano(Ciudadano ciudadano) {
+    	entityManager.remove(ciudadano);
+    }
+    
+    @Override
+    public void saveVacunador(Vacunador vacunador) {
+    	if (findByNombreCi(vacunador.getCi()).isEmpty())
+            entityManager.persist(vacunador);
     }
 
     @Override

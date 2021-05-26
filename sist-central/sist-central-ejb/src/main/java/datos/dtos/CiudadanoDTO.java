@@ -6,13 +6,23 @@ public class CiudadanoDTO implements Serializable{
     private int ci;
     private String nombre;
     private String email;
+    private boolean vacunador;
 
-    public CiudadanoDTO() {}
+    public boolean getVacunador() {
+		return vacunador;
+	}
 
-    public CiudadanoDTO(int ci, String nombre, String email) {
+	public void setVacunador(boolean vacunador) {
+		this.vacunador = vacunador;
+	}
+
+	public CiudadanoDTO() {}
+
+    public CiudadanoDTO(int ci, String nombre, String email, boolean vacunador) {
         this.ci = ci;
         this.nombre = nombre;
         this.email = email;
+        this.vacunador = vacunador;
     }
 
     public int getCi() {
@@ -41,6 +51,9 @@ public class CiudadanoDTO implements Serializable{
 
     @Override
     public String toString() {
+    	if (vacunador) {
+            return String.valueOf(ci) + " " + nombre + " " + email + " vacunador";
+    	}
         return String.valueOf(ci) + " " + nombre + " " + email;
     }
 

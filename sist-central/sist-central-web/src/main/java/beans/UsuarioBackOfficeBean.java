@@ -21,6 +21,8 @@ public class UsuarioBackOfficeBean {
 	private String password = null;
 	private String rol;
 	private boolean emailRegistrado = false;
+	private String color = "white";
+	private String colorSecundario = "#222938";
 	
 	public UsuarioBackOfficeBean() {
 		email = null;
@@ -60,6 +62,29 @@ public class UsuarioBackOfficeBean {
 
 	public void setEmailRegistrado(boolean emailRegistrado) {
 		this.emailRegistrado = emailRegistrado;
+	}
+	
+	public String getColor() {
+		if (this.color.equals("white")) {
+			this.color = "#222938";
+			this.colorSecundario = "white";
+		} else {
+			this.color = "white";
+			this.colorSecundario = "#222938";
+		}
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public String getColorSecundario() {
+		return colorSecundario;
+	}
+	
+	public void setColorSecundario(String colorSecundario) {
+		this.colorSecundario = colorSecundario;
 	}
 	
 	public void registrarUsuario() {
