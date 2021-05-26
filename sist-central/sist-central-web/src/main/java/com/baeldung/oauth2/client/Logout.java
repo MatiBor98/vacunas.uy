@@ -4,15 +4,14 @@ package com.baeldung.oauth2.client;
 
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
-        import javax.json.JsonObject;
-        import javax.servlet.RequestDispatcher;
-        import javax.servlet.ServletException;
-        import javax.servlet.annotation.WebServlet;
-        import javax.servlet.http.HttpServlet;
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
-        import javax.servlet.http.HttpSession;
+import javax.json.JsonObject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 
 /**
  * Servlet implementation class Home
@@ -34,18 +33,18 @@ public class Logout extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        if(request.getSession().getAttribute("tokenResponse") != null){
+        Optional<String> cookie =  readCookie("JWT", request);
+        if(cookie != null){
             String end_session_endpoint = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout";
             String redirect_uri = "http://localhost:8080/logout";
-            String token = request.getSession().getAttribute("id_token").toString();
+            String token = getAtributeFromCookie(cookie,"id_token");
             String logoutURL = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout?id_token_hint="
                     + token + "&post_logout_redirect_uri=" + redirect_uri;
 
-            request.getSession().removeAttribute("tokenResponse");
-            request.getSession().removeAttribute("user");
-            request.getSession().removeAttribute("id_token");
-
+            //Hay que hacerlo asi porque servlet no probe una manera directa de eliminar cookies
+            Cookie newCookie = new Cookie("JWT", "");
+            newCookie.setMaxAge(0);
+            response.addCookie(newCookie);
 
             response.sendRedirect(logoutURL);
         }
@@ -61,6 +60,19 @@ public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         doGet(request, response);
+    }
+
+    public Optional<String> readCookie(String key,HttpServletRequest request) {
+        return Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();
+    }
+
+    String getAtributeFromCookie(Optional<String>  cookie, String param){
+        String[] user = cookie.get().split(param+"\":\"");
+        user = user[1].split("\"");
+        return user[0];
     }
 
 }

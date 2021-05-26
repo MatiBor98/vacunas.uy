@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
@@ -24,8 +25,7 @@ import java.util.Base64;
 
 @WebServlet("/")
 public class CallbackServlet extends AbstractServlet {
-    @EJB
-    CiudadanoServiceLocal usuarios;
+
 
     @Inject
     private Config config;
@@ -70,28 +70,20 @@ public class CallbackServlet extends AbstractServlet {
                     .header(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue(clientId, clientSecret))
                     .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), JsonObject.class);
             /////////
-            String a =tokenResponse.getString("id_token");
-            String[] chunks = a.split("\\.");
-            Base64.Decoder decoder = Base64.getDecoder();
-            String payload = new String(decoder.decode(chunks[1]));
-            String userName = getAtributeFromJWTString(payload, "nombre_completo");
-            String email = getAtributeFromJWTString(payload, "email");
-            String cid = getAtributeFromJWTString(payload, "numero_documento");
-            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email);
-            usuarios.save(ciud);
-            request.getSession().setAttribute("user", userName);
-            request.getSession().setAttribute("id_token", a);
+            Cookie jwtCookie = new Cookie("JWT", tokenResponse.toString());
+            jwtCookie.setMaxAge(36000); //expire could be 60 (seconds)
+            jwtCookie.setHttpOnly(true);
+            jwtCookie.setPath("/");
+            response.addCookie(jwtCookie);
 
-            request.getSession().setAttribute("tokenResponse", tokenResponse);
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             request.setAttribute("error", ex.getMessage());
         }
-        dispatch("/index.xhtml", request, response);
+        response.sendRedirect("/index.xhtml");
+
+        //dispatch("/index.xhtml", request, response);
     }
-    String getAtributeFromJWTString(String payload, String param){
-        String[] user = payload.split(param+"\":\"");
-        user = user[1].split("\"");
-        return user[0];
-    }
+
 }
