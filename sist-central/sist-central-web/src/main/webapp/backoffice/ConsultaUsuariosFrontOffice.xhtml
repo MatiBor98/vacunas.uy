@@ -3,7 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"> 
-<ui:composition template="WEB-INF/appTemplate.xhtml">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
 	<ui:define name="titulo">
 		- Lista usuarios backoffice
 	</ui:define>
@@ -17,13 +17,13 @@
                             <h2 style="color:#{usuarioFrontOfficeBean.colorSecundario}">#{usu.ci}-#{usu.nombre}</h2>
                             <p style="color:#{usuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p>
                             <p style="color:#{usuarioFrontOfficeBean.colorSecundario}"> Vacunador:
-                            	<h:i rendered="#{usu.vacunador}" class="pi pi-check"/>
-                            	<h:i rendered="#{not usu.vacunador}" class="pi pi-times"/>
+                            	<h:panelGroup rendered="#{usu.vacunador}"><i class="pi pi-check"/></h:panelGroup>
+                            	<h:panelGroup rendered="#{not usu.vacunador}"><i class="pi pi-times"/></h:panelGroup>
                             </p>                            
                              <h:form>
                                 <h:commandButton value="Consultar" type="submit" class="btn btn-info"
                                                  style="padding: 2px 6px; display: inline; margin-left: 3px"
-                                                 action="#{ConsultaUsuarioFrontOfficeBean.setConsultaUsuarioFrontOffice(usu.ci)}"/>
+                                                 action="#{consultaUsuarioFrontOfficeBean.setConsultaUsuario(usu.ci)}"/>
                             </h:form>
                             <p></p>
                         </li>

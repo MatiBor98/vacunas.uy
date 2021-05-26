@@ -19,25 +19,29 @@
 				<div class="flex-row justify-content-center pb-3">
 					<div class="col-6">
 						<div class="card">
-							<div class="card-title"><h2>Alta de usuario</h2></div>
+							<div class="card-title"><h2>Alta de usuario front office</h2></div>
 							<div class="card-body">
 								<h:form id="altaUsuario">
 								<p:messages id="errores" closable="true"/>
 								<div class="login-panel ui-fluid">
 									<div class="iu-g-12">
+										<p:outputLabel value="CI"/>
+										<p:inputText value="#{usuarioFrontOfficeBean.ci}" id="ci"/>
+									</div>
+									<div class="uy-g-12">
+										<p:outputLabel value="Nombre"/>
+										<p:inputText value="#{usuarioFrontOfficeBean.nombre}" id="nombre"/>
+									</div>
+									<div class="uy-g-12">
 										<p:outputLabel value="Email"/>
-										<p:inputText value="#{LoginBO.email}" class="login-input" id="email"/>
+										<p:inputText value="#{usuarioBackOfficeBean.email}" id="email"/>
 									</div>
 									<div class="uy-g-12">
-										<p:outputLabel value="Password"/>
-										<p:password value="#{LoginBO.password}" class="login-input" id="password"/>
-									</div>
-									<div class="uy-g-12">
-										<p:outputLabel value="Repetir Password"/>
-										<p:password value="#{LoginBO.password}" class="login-input" id="re-password"/>
+										<p:outputLabel value="Vacunador"/>
+										<p:selectBooleanCheckbox id="checkVacunador" value="#{usuarioFrontOfficeBean.vacunador}" itemLabel="Basic"/>
 									</div>
 									<div class="pt-3 button-container mx-auto" style="width: 5vw;">
-										<p:commandButton process="login @this" value="log-in" type="submit" action="#{LoginBO.login()}"/>
+										<p:commandButton value="Registrar" type="submit" action="#{usuarioFrontOfficeBean.registrarUsuario()}"/>
 									</div>
 								</div>
 							</h:form>

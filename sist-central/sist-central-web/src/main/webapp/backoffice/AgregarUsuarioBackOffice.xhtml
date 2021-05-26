@@ -27,14 +27,14 @@
 										</div>
 										<div class="uy-g-12">
 											<p:outputLabel value="Password"/>
-											<p:password value="#{usuarioBackOffices.password}" class="login-input" id="password"/>
+											<p:password value="#{usuarioBackOfficeBean.password}" class="login-input" id="password"/>
 										</div>
 										<div class="uy-g-12">
 											<p:outputLabel value="Repetir Password"/>
 											<p:password value="#{usuarioBackOfficeBean.password}" class="login-input" id="re-password"/>
 										</div>
 										<div class="pt-3 button-container mx-auto" style="width: 5vw;">
-											<p:commandButton process="login @this" value="log-in" type="submit" action="#{usuarioBackOfficeBean.registrarUsuario)}"/>
+											<p:commandButton value="log-in" type="submit" action="#{usuarioBackOfficeBean.registrarUsuario()}"/>
 										</div>
 									</div>
 								</h:form>
