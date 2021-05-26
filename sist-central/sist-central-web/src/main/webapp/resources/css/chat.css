@@ -1,89 +1,31 @@
-.container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
-.inbox_people {
-  background: #f8f8f8 none repeat scroll 0 0;
-  float: left;
-  overflow: hidden;
-  width: 40%; border-right:1px solid #c4c4c4;
-}
-.inbox_msg {
-  border: 1px solid #c4c4c4;
-  clear: both;
-  overflow: hidden;
-}
-.top_spac{ margin: 20px 0 0;}
 
-
-.recent_heading {float: left; width:40%;}
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%;
-}
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
-
-.recent_heading h4 {
-  color: #05728f;
-  font-size: 21px;
-  margin: auto;
-}
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
-}
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
-.chat_img {
-  float: left;
-  width: 11%;
-}
-.chat_ib {
-  float: left;
-  padding: 0 0 0 15px;
-  width: 88%;
-}
-
-.chat_people{ overflow:hidden; clear:both;}
-.chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
-.inbox_chat { height: 550px; overflow-y: scroll;}
-
-.active_chat{ background:#ebebeb;}
-
-.incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
 .received_msg {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
   width: 92%;
  }
- .received_withd_msg p {
+ .received_withd_msg {
   background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
   color: #646464;
   font-size: 14px;
   margin: 0;
   padding: 5px 10px 5px 12px;
   width: 100%;
+  text-align: left;
+  border-radius: 8px;
 }
 .time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
+  color: #adadad;
+  font-size: 10px;
+  text-align: right;
+  margin: 0 8px 0 8px;
+}
+.time_date_outgoing{
+  color: #ebebeb;
+  font-size: 10px;
+  text-align: right;
+  margin: 0 8px 0 8px;
 }
 .received_withd_msg { width: 57%;}
 .mesgs {
@@ -93,17 +35,26 @@ img{ max-width:100%;}
 }
 
  .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;
   padding: 5px 10px 5px 12px;
   width:100%;
 }
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.outgoing_msg{ overflow:hidden; margin:16px 0 16px;
+
+    
+  }
+  
+  
+  
 .sent_msg {
   float: right;
   width: 46%;
+
+  border-radius: 8px;
+  background: #05728f none repeat scroll 0 0;
+  text-align: left;
+  padding-top: 5px;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -140,5 +91,46 @@ img{ max-width:100%;}
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+     margin-top: 0;
+	margin-bottom: 4px;
 }
-
+.nombreVacunador{
+	margin-top: 2px;
+	margin-bottom: 10px;
+}
+.mensajeBorder{
+	margin: 4px;
+}
+.pocoMargen {
+	margin-top: 2px;
+	margin-bottom: 4px;
+	line-height: 1em;
+	padding-bottom: 0px;
+}
+.fechaHoraMsj{
+	margin-top: 2px;
+	margin-bottom: 4px;
+	text-align: right;
+}
+body .ui-datascroller .ui-datascroller-content{
+	background-image: url(https://image.freepik.com/vector-gratis/patron-estrellas-negras-sobre-fondo-blanco_1110-366.jpg);
+}
+#j_idt35\:float-input{
+	width: 50%;
+}
+#j_idt35{
+	width: 100%;
+}
+#j_idt35\:j_idt36{
+	margin: 25px;
+}
+.ui-datascroller-content{
+	scrollbar-color: lightgray rgba(255, 255, 255, 0);
+	scrollbar-width: thin;
+}
+.ui-datascroller-header{
+	text-align: start;
+margin: 0;
+padding: 10px;
+color: lightslategray;
+}

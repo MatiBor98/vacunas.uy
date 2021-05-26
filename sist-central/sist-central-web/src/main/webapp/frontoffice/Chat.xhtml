@@ -15,9 +15,8 @@
 
 
 		<div class="mesgs">
-			<div class="msg_history">
 
-				<h:form>
+				<h:form >
 
 					<p:remoteCommand name="borrarmsg" update="mensajesTabla"
 						action="#{MensajeBeanView.borrarMensajes}" />
@@ -27,35 +26,36 @@
 
 					<p:dataScroller id="mensajesTabla" class="mensajesTabla"
 						value="#{MensajeBeanView.mensajes}" var="mensaje" chunkSize="10"
-						mode="inline" scrollHeight="400" startAtBottom="True">
+						mode="inline" scrollHeight="400" startAtBottom="true" >
 
 
 						<f:facet name="header">
                 			Chat General
             			</f:facet>
 
+					<div class="mensajeBorder">
 						<div
 							class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? 'outgoing_msg' :'incoming_msg'}">
 							<div class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? 'sent_msg' :'received_msg'}">
 
 								<div class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? '' :'received_withd_msg'}">
-									<span class="nombreVacunadorColor">
-									<p style="#{MensajeBeanView.colorUsuario(mensaje.vacunadorCi)}"><b>#{mensaje.vacunadorNombre}</b></p>
-									</span>
-									<p>#{mensaje.texto}</p>
-									<span class="time_date">#{mensaje.fechaHoraFormatoLegible}</span>
+
+									<p style="#{MensajeBeanView.colorUsuario(mensaje.vacunadorCi)}" class="nombreVacunador"><b>#{mensaje.vacunadorNombre}</b></p>
+
+									<p class="pocoMargen">#{mensaje.texto}</p>
+									<p class="fechaHoraMsj"><span class="#{mensaje.vacunadorCi == MensajeBeanView.ciUsuario ? 'time_date_outgoing' :'time_date'}">
+									#{mensaje.fechaHoraFormatoLegible}</span></p>
 
 								</div>
 							</div>
 						</div>
-
+					</div>
 					</p:dataScroller>
 
 
 					<h:outputScript name="js/chat.js" target="head" />
 
 				</h:form>
-			</div>
 		</div>
 
 		<!-- cuadro de texto -->
@@ -64,7 +64,9 @@
 
 
 
-				<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}" />
+				<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}" required="true" requiredMessage="No puedes enviar un mensaje vacío"
+				class=""
+				/>
 				<p:commandButton icon="pi pi-check"
 					styleClass="rounded-button ui-button-outlined"
 					action="#{MensajeBeanView.send}" />

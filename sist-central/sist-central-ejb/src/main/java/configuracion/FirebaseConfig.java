@@ -1,8 +1,9 @@
 package configuracion;
 
-import java.io.FileInputStream;
+
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -10,7 +11,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -19,10 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
-
-import datos.dtos.CiudadanoDTO;
 import datos.dtos.MensajeDTO;
 import datos.dtos.MensajesChangedEvent;
 import logica.creacion.CiudadanoDTOBuilder;
@@ -35,25 +31,31 @@ public class FirebaseConfig {
 	 @Inject
 	 private BeanManager beanManager;
 
-	private static final String PATH_TO_SERVICE_ACCOUNT_KEY_JSON = "C:/vacunas-uy-firebase-adminsdk.json";
 
 	public FirebaseConfig() {
 
+	}
+	@PostConstruct
+	private void initFirebase() {
 		try {
-
-			FileInputStream serviceAccount = new FileInputStream(PATH_TO_SERVICE_ACCOUNT_KEY_JSON);
+			ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+			InputStream inputStream = classloader.getResourceAsStream("META-INF/vacunas-uy-firebase-adminsdk.json");
+			
+			
+			//FileInputStream serviceAccount = new FileInputStream(PATH_TO_SERVICE_ACCOUNT_KEY_JSON);
 			FirebaseOptions options = FirebaseOptions.builder()
-					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
+					.setCredentials(GoogleCredentials.fromStream(inputStream))
 					.setDatabaseUrl("https://vacunas-uy-default-rtdb.firebaseio.com/")
 					.build();
 			FirebaseApp.initializeApp(options);
 
 			initializeDatabase();
 			
+			prueba();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	
@@ -75,14 +77,7 @@ public class FirebaseConfig {
 			  }
 
 			  @Override
-			  public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-				  
-				  
-				  MensajeDTO mensaje = dataSnapshot.getValue(MensajeDTO.class);
-				  beanManager.fireEvent(new MensajesChangedEvent(mensaje));
-
-				  
-			  }
+			  public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
 
 			  @Override
 			  public void onChildRemoved(DataSnapshot dataSnapshot) {}
@@ -92,25 +87,7 @@ public class FirebaseConfig {
 
 			  @Override
 			  public void onCancelled(DatabaseError databaseError) {}
-			});
-		
-		/*
-			ref.addValueEventListener(new ValueEventListener() {
-			  @Override
-			  public void onDataChange(DataSnapshot dataSnapshot) {
-				GenericTypeIndicator<List<MensajeDTO>> tListaMensajes = new GenericTypeIndicator<List<MensajeDTO>>() {};
-			    List<MensajeDTO> mensajes = dataSnapshot.getValue(tListaMensajes);
-			    beanManager.fireEvent(new MensajesChangedEvent(mensajes));
-			    
-			    //System.out.print(mensajes);
-			  }
-
-			  @Override
-			  public void onCancelled(DatabaseError error) {
-				  error.toException().printStackTrace();
-			  }
-			});*/
-		
+			});		
 	}
 
 
@@ -118,7 +95,6 @@ public class FirebaseConfig {
 
 	@EJB
 	CiudadanoServiceLocal ciudadanoServiceLocal;
-	@PostConstruct
 	public void prueba() {
 		
 		ciudadanoServiceLocal.save(new CiudadanoDTOBuilder()

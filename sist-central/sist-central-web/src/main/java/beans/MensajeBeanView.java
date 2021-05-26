@@ -32,7 +32,7 @@ public class MensajeBeanView implements Serializable{
     private int ciUsuario;
     
     private static final ArrayList<String> colores = new ArrayList<String>(Arrays.asList(
-    		"#ffad84", "#84d6ff", "#d684ff", "#ffeb84", "#ff9bee", "#eeff9b", "#9bffbc", "#ffa39b"
+    		"#db5ec2", "#84d6ff", "#c291db", "#e69f73", "#ff9bee", "#35cd96", "#91ab01", "#b87b76"
     		));
     
     

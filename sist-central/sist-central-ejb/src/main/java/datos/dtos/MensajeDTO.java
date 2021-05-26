@@ -54,7 +54,7 @@ public class MensajeDTO implements Serializable, Comparable<MensajeDTO>{
 	public String getFechaHoraFormatoLegible() {
 		LocalDateTime fechaHoraGMT = LocalDateTime.parse(fechaHora);
 		LocalDateTime fechaHoraLocal = fechaHoraGMT.minusHours(3);
-		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
 		return fechaHoraLocal.format(formatter);
 	}
 
