@@ -17,7 +17,9 @@ import javax.inject.Named;
 
 import datos.dtos.PlanVacunacionDTO;
 import datos.entidades.Enfermedad;
+import datos.entidades.Etapa;
 import datos.entidades.Laboratorio;
+import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
 
 @Named("PlanVacunacionBean")
@@ -80,35 +82,24 @@ public class PlanVacunacionBean implements Serializable{
 		this.setFechaFin(null);
 		this.setFechaInicio(null);
 	}
-	/*public void eliminarVacuna(String nom) {
-		if (!vacService.findByNombreVacuna(nom).isEmpty()) {
-			vacService.eliminar(nom);
-			this.setVacunaEliminada("block");
-			this.setVacunaNoEliminada("none");
-		} else {
-			this.setVacunaEliminada("none");
-			this.setVacunaNoEliminada("block");
-
-		}
-	}*/
 	
-	/*public List<Vacuna> getVacs() {
-		List<Vacuna> res = new ArrayList<>();
-		List<Vacuna> vacs = (List<Vacuna>) vacService.find();
+	public List<PlanVacunacion> getPlanes() {
+		List<PlanVacunacion> res = new ArrayList<>();
+		List<PlanVacunacion> planes = (List<PlanVacunacion>) planVacService.find();
 		if (this.realizarBusqueda) {
 			Pattern pattern = Pattern.compile(this.busqueda.trim(), Pattern.CASE_INSENSITIVE);
-			for (Vacuna vac : vacs) {
-				Matcher match = pattern.matcher(vac.getNombre());
+			for (PlanVacunacion plan : planes) {
+				Matcher match = pattern.matcher(plan.getNombre());
 				boolean matchNombre = match.find();
 				if (matchNombre) {
-					res.add(vac);
+					res.add(plan);
 				}
 			}
 		} else {
-			res = vacs;
+			res = planes;
 		}
 		return res;
-	}*/
+	}
 	
 	public String getColor() {
 		if (this.color.equals("white")) {
@@ -129,9 +120,9 @@ public class PlanVacunacionBean implements Serializable{
 	public void setColorSecundario(String colorSecundario) {
 		this.colorSecundario = colorSecundario;
 	}
-	/*public String hayVacunas() {
+	public String hayPlanesVacunacion() {
 		String res;
-		List<Vacuna> vacs = (List<Vacuna>) vacService.find();
+		List<PlanVacunacion> vacs = (List<PlanVacunacion>) planVacService.find();
 		if (vacs.isEmpty()) {
 			res = "block";
 			
@@ -139,7 +130,7 @@ public class PlanVacunacionBean implements Serializable{
 			res = "none";
 		}
 		return res;
-	}*/
+	}
 	public String getBusqueda() {
 		return busqueda;
 	}
@@ -235,5 +226,19 @@ public class PlanVacunacionBean implements Serializable{
 		this.fechaIncorrecta = fechaIncorrecta;
 	}
 	
+	public LocalDate getInicio(String nombre) {
+		return planVacService.find(nombre).get().getInicio();
+	}
 	
+	public LocalDate getFin(String nombre) {
+		return planVacService.find(nombre).get().getFin();
+	}
+	
+	public String getEnfermedad(String nombre) {
+		return planVacService.find(nombre).get().getEnfermedad().getNombre();
+	}
+	
+	public List<Etapa> getEtapas(String nombre) {
+		return planVacService.find(nombre).get().getEtapas();
+	}
 }

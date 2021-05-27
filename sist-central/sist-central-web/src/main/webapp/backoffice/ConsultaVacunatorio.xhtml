@@ -33,10 +33,10 @@
 				
 				<p:datePicker style="display:none"></p:datePicker>
 
-				<div class="row">
+				<div class="row" style="display:block; padding-top: 0vh;">
 					<div class="col-sm-3"/>
 					<div class="col-sm-6">
-						<div class="card" style="background-color:#c6c6c6; width:50vw">
+						<div class="card" style="background-color:#c6c6c6; width:1000px">
 						  <div class="card-body text-center">
 								<div  class="bodytype" id="info" style="display:block">
 									<div class="card-header" style="background-color:#222938; color:white">
@@ -82,7 +82,7 @@
 									<h:form rendered="#{!VacunatorioBean.getTurnos(ConsultaBean.consultaVacunatorio).isEmpty()}">
 									  <ul class="list-group list-group-flush">
 										  <ui:repeat value="#{VacunatorioBean.getTurnos(ConsultaBean.consultaVacunatorio)}" var="turno">
-										  		<div class="card" style="width:47.8vw">
+										  		<div class="card" style="width:960px">
 													<div class="card-header" style="background-color:#222938; color:#222938">
 														<h4>
 															<li class="list-group-item">#{turno.nombre}</li>

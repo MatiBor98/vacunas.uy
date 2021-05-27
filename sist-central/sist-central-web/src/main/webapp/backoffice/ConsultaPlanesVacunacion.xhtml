@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Consulta Planes de Vacunacion
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+			<div class="content" style="margin:initial">
+				<h:graphicImage styleClass="mb-4"
+								name="LogoPlanVacunacion.png"
+								p:alt="LogoPlanVacunacion.png"
+								p:width="90"
+								p:height="90"
+				/>
+				<h1 class="h2 mb-3 font-weight-normal">Planes disponibles</h1>
+				<h:form class="form-inline my-4 my-lg-0 mr-auto">
+					<h:inputText
+						value="#{PlanVacunacionBean.busqueda}"
+						class="form-control col-10 mr-sm-2"
+						style="width:650px"
+						type="search"
+						p:placeholder="Buscar plan"
+						aria-label="Search"
+						name="busquedaVacunas"
+						/>
+					<h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938; color:white" action="#{PlanVacunacionBean.setRealizarBusqueda(true)}"/>
+				</h:form>
+				<p></p>
+				<div class="dropdown">
+						<a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#" href="/page.html">
+							Ordenar Por: <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+						  <li><a href="">Alfabeticamente</a></li>
+						  <p> </p>
+						  <li><a href="">Fecha</a></li>
+						</ul>
+					</div>
+
+					<div id="busq" style="margin-top: 20px; display:#{PlanVacunacionBean.hayBusqueda}">
+						<div class="alert alert-secondary">
+							Resultado de la busqueda "#{PlanVacunacionBean.busqueda}"
+						</div>
+					</div>
+
+					<div id="eliminado" style="margin-top: 20px; display:#{PlanVacunacionBean.planVacunacionEliminado}">
+						<div class="alert alert-success">
+							El plan de vacunacion fue eleiminado.
+						</div>
+					</div>
+
+					<div id="eliminado" style="margin-top: 20px; display:#{PlanVacunacionBean.planVacunacionNoEliminado}">
+						<div class="alert alert-danger">
+							No se pudo eliminar el plan de vacunacion.
+						</div>
+					</div>
+
+					<div id="errores" style="margin-top: 20px; display:#{PlanVacunacionBean.hayPlanesVacunacion()}">
+						<div class="alert alert-danger">
+							No hay nignun plan de vacunacion disponible.
+						</div>
+					</div>
+					
+					<p:datePicker style="display:none"></p:datePicker>
+					
+				<ul class="list-group" style="margin-top: 30px">
+					<ui:repeat value="#{PlanVacunacionBean.getPlanes()}" var="plan">
+
+						  <li class="list-group-item" style="background-color:#{PlanVacunacionBean.getColor()}">
+						  <h2 style="color:#{PlanVacunacionBean.colorSecundario}">#{plan.nombre}</h2>
+						  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fehca de inicio: #{plan.inicio}</p>
+						  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fecha de fin: #{plan.fin}</p>
+						  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Enfermedad que combate: #{plan.enfermedad.nombre}</p>
+						  <h:form>
+                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+                                                 action="#{ConsultaBean.setConsultaPlanVacunacion(plan.nombre)}"/>
+                           </h:form>
+						  <p></p>
+						  </li>
+
+					</ui:repeat>
+
+				</ul>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

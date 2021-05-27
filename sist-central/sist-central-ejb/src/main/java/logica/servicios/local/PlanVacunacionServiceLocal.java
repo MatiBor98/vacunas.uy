@@ -5,6 +5,7 @@ import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.Local;
@@ -14,4 +15,5 @@ public interface PlanVacunacionServiceLocal {
     PlanVacunacionDTO save(PlanVacunacionDTO planVacunacionDTO);
     Optional<PlanVacunacion> find(String nombre);
     void save(String nombre, LocalDate inicio, LocalDate fin, Enfermedad enfermedad);
+    List<PlanVacunacion> find();
 }

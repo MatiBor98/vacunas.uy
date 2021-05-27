@@ -8,6 +8,7 @@ import logica.creacion.Converter;
 import logica.servicios.local.PlanVacunacionServiceLocal;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.EJB;
@@ -39,5 +40,9 @@ public class PlanVacunacionBean implements PlanVacunacionServiceLocal {
     
     public Optional<PlanVacunacion> find(String nombre) {
     	return planVacunacionRepository.find(nombre);
+    }
+    
+    public List<PlanVacunacion> find() {
+    	return planVacunacionRepository.find();
     }
 }
