@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@WebServlet(urlPatterns = "/authorize")
+@WebServlet("/authorize")
 public class AuthorizationCodeServlet extends HttpServlet {
 
     @Inject
