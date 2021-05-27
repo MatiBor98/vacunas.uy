@@ -77,7 +77,7 @@ public class CallbackServlet extends AbstractServlet {
             String userName = getAtributeFromJWTString(payload, "nombre_completo");
             String email = getAtributeFromJWTString(payload, "email");
             String cid = getAtributeFromJWTString(payload, "numero_documento");
-            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email);
+            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
             usuarios.save(ciud);
             request.getSession().setAttribute("user", userName);
             request.getSession().setAttribute("id_token", a);
