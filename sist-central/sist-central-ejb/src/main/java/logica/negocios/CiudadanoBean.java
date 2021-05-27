@@ -53,13 +53,9 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
         return ciudadanoConverter.convert(buscado);
     }
 
-    @Override
-    public List<CiudadanoDTO> findByNombreCi(int criterio){
-        return ciudadanoRepository.findByNombreCi(criterio).parallelStream().map(ciudadanoConverter::convert).collect(Collectors.toList());
-    }
 
     public void updateFirebaseTokenMovil(int ci, String firebaseToken) {
-    	ciudadanoRepository.findByNombreCi(ci).get(0).setFirebaseTokenMovil(firebaseToken);;
+    	ciudadanoRepository.findByNombreCi(ci).setFirebaseTokenMovil(firebaseToken);;
     }
 
     public void save(CiudadanoDTO ciudadanoDTO) {
@@ -83,7 +79,7 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 
 	@Override
 	public void notificar(int ci) {
-		Ciudadano Ciudadano = ciudadanoRepository.findByNombreCi(ci).get(0);
+		Ciudadano Ciudadano = ciudadanoRepository.findByNombreCi(ci);
     	if (Ciudadano.getFirebaseTokenMovil() != null) {
     		// This registration token comes from the client FCM SDKs.
     		String registrationToken = Ciudadano.getFirebaseTokenMovil();
