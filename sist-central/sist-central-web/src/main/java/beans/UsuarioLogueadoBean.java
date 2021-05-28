@@ -2,6 +2,7 @@ package beans;
 
 import datos.dtos.CiudadanoDTO;
 import datos.exceptions.CiudadanoNoEncontradoException;
+import datos.exceptions.CiudadanoRegistradoException;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.annotation.PostConstruct;
@@ -42,7 +43,11 @@ public class UsuarioLogueadoBean implements Serializable {
                 CiudadanoDTO ciud = usuarios.findByNombreCi(Integer.parseInt(cid));
             } catch (CiudadanoNoEncontradoException e) {
                 CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
-                usuarios.save(ciud);
+                try {
+					usuarios.save(ciud);
+				} catch (CiudadanoRegistradoException e1) {
+					e1.printStackTrace();
+				}
             }
         } else {
             email = null;
