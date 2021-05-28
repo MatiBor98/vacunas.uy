@@ -1,6 +1,7 @@
 package beans;
 
 import datos.dtos.CiudadanoDTO;
+import datos.exceptions.CiudadanoNoEncontradoException;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.annotation.PostConstruct;
@@ -37,18 +38,29 @@ public class UsuarioLogueadoBean implements Serializable {
             userName = getAtributeFromJWTString(payload, "nombre_completo");
             email = getAtributeFromJWTString(payload, "email");
             cid = getAtributeFromJWTString(payload, "numero_documento");
-            //preguntarle a agus si iria false o que
-            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
-            usuarios.save(ciud);
-        } else
+            try {
+                CiudadanoDTO ciud = usuarios.findByNombreCi(Integer.parseInt(cid));
+            } catch (CiudadanoNoEncontradoException e) {
+                CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
+                usuarios.save(ciud);
+            }
+        } else {
             email = null;
             userName = null;
             cid = null;
+        }
 
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+    public String getCid() {
+        return cid;
     }
 
     String getAtributeFromJWTString(String payload, String param){

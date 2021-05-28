@@ -58,16 +58,16 @@
 
             </h:form>
 
-            <h:panelGroup rendered="#{empty UsuarioLogueadoBean.email}">
+            <h:panelGroup rendered="#{empty UsuarioLogueadoBean.userName}">
 
                 <ul class='nav navbar-nav ml-auto'>
                     <li class='nav-tie mx-2'><a href="/authorize">Iniciar Sesion</a></li>
                 </ul>
             </h:panelGroup>
-            <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.email}">
+            <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.userName}">
 
                 <ul class='nav navbar-nav ml-auto'>
-                    <li class='nav-tie mx-2'>#{UsuarioLogueadoBean.email}</li>
+                    <li class='nav-tie mx-2'>#{UsuarioLogueadoBean.userName}</li>
                 </ul>
 
                 <ul class='nav navbar-nav ml-auto'>
