@@ -7,6 +7,7 @@ import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunatorioEnfermedadesDTO;
 import datos.entidades.*;
 import datos.exceptions.CiudadanoNoEncontradoException;
+import datos.exceptions.CiudadanoRegistradoException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import logica.creacion.CiudadanoDTOBuilder;
@@ -123,7 +124,11 @@ public class RestMovil {
                 .setNombre(nombre)
                 .setVacunador(false).setEmail(email).createCiudadanoDTO();
 
-        ciudadanoServiceLocal.save(ciudadanoDTO);
+        try {
+			ciudadanoServiceLocal.save(ciudadanoDTO);
+		} catch (CiudadanoRegistradoException e) {
+			e.printStackTrace();
+		}
 
     }
 
