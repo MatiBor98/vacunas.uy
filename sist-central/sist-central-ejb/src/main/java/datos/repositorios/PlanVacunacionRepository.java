@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton()
-public class PlanVacunacionRepository{
+public class PlanVacunacionRepository implements PlanVacunacionRepositoryLocal{
 
 
     @PersistenceContext(unitName = "sist-centralPersistenceUnit")

@@ -12,6 +12,15 @@ public class RestriccionEtapa {
     private Integer mayorIgual;
     private Integer menorIgual;
 
+    public RestriccionEtapa(List<Trabajos> trabajos, int edadMin, int edadMax) {
+    	this.filtroEmpleoEn = trabajos;
+    	this.mayorIgual = edadMin;
+    	this.menorIgual = edadMax;
+    }
+    
+    public RestriccionEtapa() {
+    }
+    
     public List<Trabajos> getFiltroEmpleoEn() {
         return filtroEmpleoEn;
     }
