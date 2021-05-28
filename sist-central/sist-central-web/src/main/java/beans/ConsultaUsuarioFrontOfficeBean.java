@@ -100,7 +100,6 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 		usuarios.overwriteCiudadano(ciudadanoDTO);
 		modificando = false;
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Ciudadano modificado con exito"));
-
 	}
 	
 	public String getBusqueda() {

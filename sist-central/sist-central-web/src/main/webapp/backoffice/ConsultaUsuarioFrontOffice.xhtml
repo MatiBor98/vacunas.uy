@@ -35,7 +35,7 @@
 										</ul>
 										<p:commandButton id="editarUsuario" type="submit" update="form" icon="pi pi-user-edit" action="#{consultaUsuarioFrontOfficeBean.setModificandoTrue()}" rendered="#{not consultaUsuarioFrontOfficeBean.modificando}"><p:autoUpdate/></p:commandButton>
 										<p:commandButton id="modificarUsuario" type="submit" update="form" icon="pi pi-check" action="#{consultaUsuarioFrontOfficeBean.overwriteCiudadano()}" rendered="#{consultaUsuarioFrontOfficeBean.modificando}"><p:autoUpdate/></p:commandButton>
-										<p:messages showDetail="true" closable="true" infoStyle="color:darkgreen"><p:autoUpdate/></p:messages>
+										<p:messages showDetail="true" closable="true"><p:autoUpdate/></p:messages>
 									</h:form>
 								</div>
 						  	</div>

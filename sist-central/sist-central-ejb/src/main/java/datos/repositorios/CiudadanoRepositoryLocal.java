@@ -17,7 +17,6 @@ public interface CiudadanoRepositoryLocal {
     Ciudadano findByNombreCi(int criterio);
 	void saveVacunador(Vacunador vacunador);
     public void deleteCiudadano(Ciudadano ciudadano);
-    public void refreshCiudadano(Ciudadano ciudadano);
     public void ciudadanoToVacunador(String ci);
     public void vacunadorToCiudadano(String ci);
 

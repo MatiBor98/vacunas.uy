@@ -4,7 +4,8 @@
 }
 
 .content-wrapper {
-    padding-bottom: 30vh;
+    padding-bottom: 4vh;
+    overflow: hidden;
 }
 
 .navbar {
@@ -141,7 +142,7 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-    background-color: #c4b489;
+    background-color: #f3f5f7;
 }
 
 .question-listed-metadata {
