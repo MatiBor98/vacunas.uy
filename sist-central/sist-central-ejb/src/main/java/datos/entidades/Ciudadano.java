@@ -1,6 +1,9 @@
 package datos.entidades;
 
 
+import org.apache.commons.collections.map.HashedMap;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.*;
@@ -14,13 +17,14 @@ import javax.persistence.*;
 public class Ciudadano {
 
 	@Id
-	private int ci;
-	private String nombre;
-	private String email;
+	protected int ci;
+	protected String nombre;
+	protected String email;
+	protected String firebaseTokenMovil;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
 	@MapKey(name = "codigo")
-	private Map<String, Reserva> reservas;
+	protected Map<String, Reserva> reservas;
 	
 	public Ciudadano() {}
 
@@ -28,6 +32,7 @@ public class Ciudadano {
 		this.ci = ci;
 		this.nombre = nombre;
 		this.email = email;
+		this.reservas = new HashMap<String, Reserva>();
 	}
 
 	public int getCi() {
@@ -52,6 +57,17 @@ public class Ciudadano {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void addReserva(String codigo, Reserva reserva) {
+		reservas.put(codigo, reserva);
+	}
+	public String getFirebaseTokenMovil() {
+		return firebaseTokenMovil;
+	}
+
+	public void setFirebaseTokenMovil(String firebaseTokenMovil) {
+		this.firebaseTokenMovil = firebaseTokenMovil;
 	}
 
 

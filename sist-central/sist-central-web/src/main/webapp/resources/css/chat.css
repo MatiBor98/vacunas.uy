@@ -1,0 +1,149 @@
+
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+ }
+ .received_withd_msg {
+  background: #ebebeb none repeat scroll 0 0;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+  text-align: left;
+  border-radius: 8px;
+}
+.time_date {
+  color: #adadad;
+  font-size: 10px;
+  text-align: right;
+  margin: 0 8px 0 8px;
+}
+.time_date_outgoing{
+  color: #ebebeb;
+  font-size: 10px;
+  text-align: right;
+  margin: 0 8px 0 8px;
+}
+.received_withd_msg { width: 57%;}
+.mesgs {
+  margin: auto;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+ .sent_msg p {
+  font-size: 14px;
+  margin: 0; color:#fff;
+  padding: 5px 10px 5px 12px;
+  width:100%;
+}
+.outgoing_msg{ overflow:hidden; margin:16px 0 16px;
+
+    
+  }
+  
+  
+  
+.sent_msg {
+  float: right;
+  width: 46%;
+
+  border-radius: 8px;
+  background: #05728f none repeat scroll 0 0;
+  text-align: left;
+  padding-top: 5px;
+}
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+}
+
+.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.msg_send_btn {
+  background: #05728f none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 11px;
+  width: 33px;
+}
+.messaging { padding: 0 0 50px 0;}
+.msg_history {
+  height: 516px;
+  overflow-y: auto;
+}
+
+.nombreVacunadorColor{
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+     margin-top: 0;
+	margin-bottom: 4px;
+}
+.nombreVacunador{
+	margin-top: 2px;
+	margin-bottom: 10px;
+}
+.mensajeBorder{
+	margin: 4px;
+}
+.pocoMargen {
+	margin-top: 2px;
+	margin-bottom: 4px;
+	line-height: 1em;
+	padding-bottom: 0px;
+}
+.fechaHoraMsj{
+	margin-top: 2px;
+	margin-bottom: 4px;
+	text-align: right;
+}
+body .ui-datascroller .ui-datascroller-content{
+	background-image: url(https://image.freepik.com/vector-gratis/patron-estrellas-negras-sobre-fondo-blanco_1110-366.jpg);
+}
+#j_idt35\:float-input{
+	width: 50%;
+}
+#j_idt35{
+	width: 100%;
+}
+#j_idt35\:j_idt36{
+	margin: 25px;
+}
+.ui-datascroller-content{
+	scrollbar-color: lightgray rgba(255, 255, 255, 0);
+	scrollbar-width: thin;
+}
+
+.ui-datascroller-header {
+	padding: 8px !important;
+}
+
+.tituloChat {
+	text-align: start !important;
+	margin: 0 !important;
+	color: lightslategray !important;
+}
+
+.ui-datascroller-content::-webkit-scrollbar {
+  width: 5px;
+} 
+.ui-datascroller-content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
+

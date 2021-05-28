@@ -1,5 +1,9 @@
 .idea/
-laboratorio-tse-2021.iml
+Vacunatorio-ear/Vacunatorio-ear.iml
+Vacunatorio-ejb/Vacunatorio-ejb.iml
+Vacunatorio-web/Vacunatorio-web.iml
+Vacunatorio.iml
+
 
 
 /target/

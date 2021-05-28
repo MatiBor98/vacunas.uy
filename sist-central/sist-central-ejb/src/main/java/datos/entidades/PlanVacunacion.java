@@ -2,8 +2,12 @@ package datos.entidades;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 
 
@@ -27,6 +31,10 @@ public class PlanVacunacion implements Serializable {
     @ManyToOne
     @JoinColumn(name="enfermedadNombre", nullable=false)
     private Enfermedad enfermedad;
+    
+    @OneToMany(mappedBy="planVacunacion")
+	@LazyCollection(LazyCollectionOption.FALSE)
+    private List<Etapa> etapas;
 
     public PlanVacunacion() {
     }
@@ -69,4 +77,14 @@ public class PlanVacunacion implements Serializable {
     public void setEnfermedad(Enfermedad enf) {
         this.enfermedad = enf;
     }
+    
+    public List<Etapa> getEtapas() {
+        return this.etapas;
+    }
+
+    public void setEtapas(List<Etapa> ets) {
+        this.etapas = ets;
+    }
+    
+    
 }

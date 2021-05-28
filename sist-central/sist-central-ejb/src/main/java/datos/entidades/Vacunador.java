@@ -40,10 +40,22 @@ public class Vacunador extends Ciudadano implements Serializable{
 	public void setAsignaciones(Map<LocalDate, Asignacion> asignaciones) {
 		this.asignaciones = asignaciones;
 	}
+	
+	public void addAsignacion(LocalDate fecha, Asignacion asignacion) {
+		asignaciones.put(fecha, asignacion);
+	}
 
 	public Vacunador() { }
 
-	
+	public Vacunador(int ci, String email, String nombre) {
+		super();
+		this.ci = ci;
+		this.email = email;
+		this.nombre = nombre;
+		this.reservas = new HashMap<String, Reserva>();
+		this.asignaciones = new HashMap<LocalDate, Asignacion>();
+	}
+
 	
 	
 	

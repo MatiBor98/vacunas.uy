@@ -38,6 +38,16 @@ public class Etapa {
         this.vacuna = vacuna;
         this.planVacunacion = planVacunacion;
     }
+    
+    public Etapa(RestriccionEtapa restricciones, String descripcion, LocalDate inicio, LocalDate fin, Vacuna vacuna, PlanVacunacion planVacunacion) {
+        this.restricciones = restricciones;
+        this.descripcion = descripcion;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.vacuna = vacuna;
+        this.planVacunacion = planVacunacion;
+    }
+
 
     public int getId() {
         return id;

@@ -6,6 +6,7 @@ public class CiudadanoDTOBuilder {
     private int ci;
     private String nombre;
     private String email;
+    private boolean vacunador;
 
     public CiudadanoDTOBuilder setCi(int ci) {
         this.ci = ci;
@@ -24,10 +25,17 @@ public class CiudadanoDTOBuilder {
 
     public CiudadanoDTO createCiudadanoDTO() {
         validar();
-        return new CiudadanoDTO(ci, nombre, email);
+        return new CiudadanoDTO(ci, nombre, email, vacunador);
     }
 
-    private void validar() {
+
+
+	public CiudadanoDTOBuilder setVacunador(boolean vacunador) {
+		this.vacunador = vacunador;
+		return this;
+	}
+
+	private void validar() {
         //TODO: Agregar Validaciones
     }
 

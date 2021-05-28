@@ -37,7 +37,8 @@ public class UsuarioLogueadoBean implements Serializable {
             userName = getAtributeFromJWTString(payload, "nombre_completo");
             email = getAtributeFromJWTString(payload, "email");
             cid = getAtributeFromJWTString(payload, "numero_documento");
-            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email);
+            //preguntarle a agus si iria false o que
+            CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
             usuarios.save(ciud);
         } else
             email = null;

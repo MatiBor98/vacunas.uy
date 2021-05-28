@@ -1,27 +1,38 @@
 package logica.negocios;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
 import datos.entidades.Administrador;
+import datos.entidades.Asignacion;
 import datos.entidades.Autoridad;
+import datos.entidades.Ciudadano;
 import datos.entidades.UsuarioBO;
+import datos.entidades.Vacunador;
 import datos.exceptions.EmailRegistradoException;
+import datos.repositorios.CiudadanoRepositoryLocal;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import logica.servicios.filter.BackOfficeInterceptor;
+import logica.servicios.local.AdministradorServiceLocal;
 
 /**
  * Session Bean implementation class AdministradorBean
  */
-@Interceptors({BackOfficeInterceptor.class})
+//@Interceptors({BackOfficeInterceptor.class})
 @Stateless
 @LocalBean
-public class AdministradorBean implements AdministradorBeanLocal {
+public class AdministradorBean implements AdministradorServiceLocal {
 
 	@EJB
-	UsuariosBackOfficeRepositoryLocal usuarios;
+	UsuariosBackOfficeRepositoryLocal usuariosBO;
+	
+	@EJB
+	CiudadanoRepositoryLocal usuariosFO;
     /**
      * Default constructor. 
      */
@@ -39,7 +50,10 @@ public class AdministradorBean implements AdministradorBeanLocal {
     	}
     	nuevoUsuario.setEmail(email);
     	nuevoUsuario.setPassword(password);
-    	usuarios.save(nuevoUsuario);
+    	usuariosBO.save(nuevoUsuario);
     }
+    
+    
+    
     
 }
