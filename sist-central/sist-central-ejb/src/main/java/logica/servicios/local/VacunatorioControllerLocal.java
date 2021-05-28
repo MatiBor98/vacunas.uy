@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.ejb.Local;
 
 import datos.entidades.Departamento;
+import datos.entidades.Lote;
 import datos.entidades.Vacunatorio;
 
 @Local

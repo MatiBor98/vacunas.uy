@@ -9,10 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import datos.entidades.Departamento;
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Turno;
-import datos.entidades.Vacunatorio;
+import datos.entidades.*;
 import datos.exceptions.PuestoVacunacionNoExistenteException;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.PuestoVacunacionRepositoryLocal;
@@ -70,7 +67,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);
 		vac.getPuestosVacunacion().add(puesto);
 	}
-    
+
+	public void addLoteAlVacunatorio(String nombreVacunatorio, int idPuesto) {
+		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
+		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);
+		vac.getPuestosVacunacion().add(puesto);
+	}
+
 	public List<Vacunatorio> findByPage(int primerResultado, int limiteResultados) {
 		return vacunatorioRepositoryLocal.find(primerResultado, limiteResultados);
 		
@@ -85,6 +88,7 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		turnoRepositoryLocal.save(turno);
 		return turno.getId();
 	}
+
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados) {
 		return vacunatorioRepositoryLocal.findByDepartamento(dep, primerResultado, maximosResultados);
 	}
