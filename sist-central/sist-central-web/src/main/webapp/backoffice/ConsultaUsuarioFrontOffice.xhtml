@@ -8,10 +8,11 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../WEB-INF/appTemplate.xhtml">
 	<ui:define name="titulo">
-		- Consulta Vacunatorio
+		- Consulta Usuario Front Office
 	</ui:define>
 	<ui:define name="content">
 		<div class="bodytype">
+					<p:datePicker style="display:none"></p:datePicker>
 			<div>
 				<h1 class="h2 mb-3 font-weight-normal">Ciudadano: #{ConsultaUsuarioFrontOfficeBean.consultaUsuario}</h1>
 				
@@ -44,7 +45,7 @@
 					<div class="col-sm-3"/>
 				</div>
 			</div>
-		</div>
+			</div>
 		<script>
 			document.getElementById("editarUsuario").addEventListener("click", editarUsuario);			
 	

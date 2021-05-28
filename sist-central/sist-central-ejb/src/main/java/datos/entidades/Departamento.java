@@ -18,13 +18,10 @@ public enum Departamento{
 	Lavalleja,
 	Maldonado,
 	Montevideo,
-	Paysandu {@Override
-	public String toString() {
-		return "Paysandú";
-	}},
+	Paysandu,
 	RioNegro {@Override
 	public String toString() {
-		return "Río Negro";
+		return "Rio Negro";
 	}},
 	Rivera,
 	Rocha,
@@ -32,7 +29,7 @@ public enum Departamento{
 	SanJose{@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "San José";
+		return "San Jose";
 	}},
 	Soriano,
 	Tacuarembo,
