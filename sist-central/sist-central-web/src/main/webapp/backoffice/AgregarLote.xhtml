@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Agregar Laboratorio
+    </ui:define>
+    <ui:define name="content">
+        <div class="div_body" style="background-color: white">
+            <h:form class="form-signin">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoVacunatorio.png"
+                                t:alt="LogoVacunatorio.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Agregar un lote para #{ConsultaBean.consultaVacunatorio}</h1>
+
+                <div id="errores" style="display:#{LoteBean.loteYaExiste}">
+                    <div class="alert alert-danger">
+                        Ya existe un lote con ese nombre.
+                    </div>
+                </div>
+
+                <div id="errores" style="display:#{LoteBean.loteAgregado}">
+                    <div class="alert alert-success">
+                        El lote fue agregado con exito.
+                    </div>
+                </div>
+
+                <label class="form-label">Vacunatorio:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{ConsultaBean.consultaVacunatorio}"
+                        id="inputNombreVac"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el nomrbe"
+                        required="true"
+                        disabled="true"
+                />
+
+                <label class="form-label">Numero de Lote:</label>
+                <h:inputText
+                        onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                        value="#{LoteBean.numLote}"
+                        id="inputNumeroLote"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el numero de lote"
+                        required="true"
+                />
+                <label class="form-label">Socio Logistico asociados:</label>
+                <h:selectOneListbox value="#{LoteBean.socLogistico}" class="form-control">
+                    <f:selectItems value="#{SocioLogisticoBean.getNombresSociosLogisticosHabilitados()}"/>
+                </h:selectOneListbox>
+
+                <label class="form-label">Vacuna que transporta:</label>
+                <h:selectOneListbox value="#{LoteBean.vacuna}" class="form-control">
+                    <f:selectItems value="#{VacunaBean.getNombresVacunas()}"/>
+                </h:selectOneListbox>
+
+                <label class="form-label">Dosis Disponibles:</label>
+                <h:inputText
+                        onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+                        value="#{LoteBean.dosisDisponibles}"
+                        id="inputDosisDisponibles"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse las dosis disponibles"
+                        required="true"
+                />
+
+                <div class="ui-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <label class="form-label">Vencimiento:</label>
+                        <p:datePicker id="inputVencimiento" showIcon="true" value="#{LoteBean.fechaVencimiento}" t:placeholder="Ingerse la fecha de vencimiento"/>
+                    </div>
+                </div>
+
+                <h:commandButton value="Crear"
+                                 class="btn btn-lg btn-primary btn-block"
+                                 type="submit"
+                                 style="background-color:#222938; border:#222938; margin-top: 30px"
+                                 action="#{LoteBean.agregarLote(ConsultaBean.consultaVacunatorio)}"
+                />
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

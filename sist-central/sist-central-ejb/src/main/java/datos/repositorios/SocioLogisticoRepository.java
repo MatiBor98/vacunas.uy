@@ -1,6 +1,7 @@
 package datos.repositorios;
 
 import datos.entidades.Departamento;
+import datos.entidades.Etapa;
 import datos.entidades.SocioLogistico;
 
 import javax.ejb.Singleton;
@@ -24,6 +25,13 @@ public class SocioLogisticoRepository implements SocioLogisticoRepositoryLocal {
 
     public List<SocioLogistico> find() {
         return entityManager.createQuery("select s from SocioLogistico s", SocioLogistico.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<SocioLogistico> findHabilitados() {
+        return entityManager.createQuery("select s from SocioLogistico s where s.habilitado = :habilitado",SocioLogistico.class)
+                .setParameter("habilitado", true)
                 .getResultList();
     }
 

@@ -9,7 +9,8 @@ import java.util.Optional;
 @Local
 public interface SocioLogisticoRepositoryLocal {
 	 List<SocioLogistico> find();
-     Optional<SocioLogistico> find(String nombre);
+	 List<SocioLogistico> findHabilitados();
+	 Optional<SocioLogistico> find(String nombre);
 	 void save(SocioLogistico soc);
 	 void habilitar(String nombre);
 	}

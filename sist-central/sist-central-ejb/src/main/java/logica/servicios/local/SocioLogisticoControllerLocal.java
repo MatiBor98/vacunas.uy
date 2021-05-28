@@ -13,7 +13,10 @@ import java.util.Optional;
 public interface SocioLogisticoControllerLocal {
 	Optional<SocioLogistico> find(String nombre);
 	List<SocioLogistico> find();
+	List<SocioLogistico> findHabilitados();
 	void addSocioLogistico(String nombre);
 	void habilitarSocioLogistico(String nombre);
+	String getProperty();
+	void setProperty(String property);
 
 	}

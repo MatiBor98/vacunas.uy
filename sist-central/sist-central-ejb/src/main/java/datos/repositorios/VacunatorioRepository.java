@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import datos.exceptions.VacunatorioNoExistenteException;
 import org.hibernate.annotations.QueryHints;
 
 import datos.entidades.Vacunatorio;
@@ -40,7 +41,13 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
         entityManager.persist(vac);
     }
 
-    public Optional<Vacunatorio> find(String nombre) {
+	@Override
+	public void addLoteAVacuantorio(Lote lote, String nombreVacunatorio) {
+			Vacunatorio vacunatorio = find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
+			vacunatorio.getLotes().add(lote);
+	}
+
+	public Optional<Vacunatorio> find(String nombre) {
         List<Vacunatorio> resultList = entityManager.createQuery(
                 "select e from Vacunatorio e where e.nombre = :nombre",
                 Vacunatorio.class)

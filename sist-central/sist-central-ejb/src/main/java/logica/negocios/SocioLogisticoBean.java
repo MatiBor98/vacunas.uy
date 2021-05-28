@@ -29,8 +29,10 @@ public class SocioLogisticoBean  implements SocioLogisticoControllerLocal {
 
 	@EJB
 	private SocioLogisticoRepositoryLocal socioLogisticoRepositoryLocal;
+	private String property = "0";
 
-    /**
+
+	/**
      * Default constructor.
      */
     public SocioLogisticoBean() {
@@ -48,8 +50,19 @@ public class SocioLogisticoBean  implements SocioLogisticoControllerLocal {
 	public List<SocioLogistico> find() {
 		return socioLogisticoRepositoryLocal.find();
 	}
+	public List<SocioLogistico> findHabilitados() {
+		return socioLogisticoRepositoryLocal.findHabilitados();
+	}
 
 	public void habilitarSocioLogistico(String nombre) {
 		socioLogisticoRepositoryLocal.habilitar(nombre);
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 }

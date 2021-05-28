@@ -25,6 +25,7 @@ public class RestSocioLogistico {
 	@EJB
 	SocioLogisticoControllerLocal socioLogisticoControllerLocal;
 
+
 	public RestSocioLogistico() {
 
 	}
@@ -33,9 +34,14 @@ public class RestSocioLogistico {
 	@Path("/sociologistico/{nombre}")
 	@Produces({ MediaType.TEXT_PLAIN })
 	public Response habilitarSocioLogistico(@PathParam("nombre") String nombre) {
-		socioLogisticoControllerLocal.habilitarSocioLogistico(nombre);
-		String s = "1";
-		return Response.ok(s).build();
+		if(socioLogisticoControllerLocal.find(nombre).isPresent()) {
+			socioLogisticoControllerLocal.habilitarSocioLogistico(nombre);
+			int val = Integer.parseInt(socioLogisticoControllerLocal.getProperty()) + 1;
+			socioLogisticoControllerLocal.setProperty(String.valueOf(val));
+			return Response.ok(socioLogisticoControllerLocal.getProperty()).build();
+		}
+		return Response.ok("0").build();
+
 
 	}
 

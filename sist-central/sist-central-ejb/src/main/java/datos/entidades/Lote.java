@@ -42,7 +42,9 @@ public class Lote implements Serializable{
     	this.numeroLote = numeroLote;
     	this.fechaVencimiento = fechaVencimiento;
     	this.vacuna = vacuna;
-    	this.socioLogistico = socioLogistico;		
+    	this.socioLogistico = socioLogistico;
+    	this.fechaEntrega = null;
+    	this.fechaDespacho = null;
     }
     
     public int getDosisDisponibles() {

@@ -30,16 +30,23 @@ public class Main {
     private static final String PROVIDER_URL = "http-remoting://127.0.0.1:8080";
 
     public static void main(String[] args) throws NamingException {
+        Scanner sc = new Scanner(System.in);
+        String result="0";
         Client client = ClientBuilder.newClient();
+        while(result.equals("0")) {
+            System.out.println("Ingrese el nombre del socio logistico");
+            String socioLogisticoNombre = sc.next();
 
-        WebTarget target = client.target("http://localhost:8080/rest/socioLogistico/sociologistico/hola");
 
-        Invocation invocation = target.request().buildGet();
-        Response response = invocation.invoke();
+            WebTarget target = client.target("http://localhost:8080/rest/socioLogistico/sociologistico/" + socioLogisticoNombre);
 
-        String result = response.readEntity(new GenericType<String>() {});
+            Invocation invocation = target.request().buildGet();
+            Response response = invocation.invoke();
+
+            result = (String) response.readEntity(new GenericType<String>() {
+            });
+                    }
         Context namingContext = null;
-
         try {
             String userName = System.getProperty("username", DEFAULT_USERNAME);
             String password = System.getProperty("password", DEFAULT_PASSWORD);
@@ -64,7 +71,6 @@ public class Main {
             log.info("Found destination \"" + destinationString + "\" in JNDI");
 
             int i = 1;
-            Scanner sc = new Scanner(System.in);
             while (i != 0) {
                 System.out.println("##########################################");
                 System.out.println("Seleccione una opcion y pulse enter");
