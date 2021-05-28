@@ -17,7 +17,7 @@ public class Lote implements Serializable{
 	private Integer numeroLote;
 	@Column(nullable=false)
 	private LocalDate fechaVencimiento;
-	@OneToOne
+	@ManyToOne
 	private Vacuna vacuna;
 	@Column
 	private LocalDate fechaEntrega;

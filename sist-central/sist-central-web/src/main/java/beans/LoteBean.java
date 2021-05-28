@@ -16,10 +16,10 @@ public class LoteBean implements Serializable{
 
 
 	private String vacunatorio;
-	private int numLote;
+	private Integer numLote;
 	private String socLogistico;
 	private String vacuna;
-	private int dosisDisponibles;
+	private Integer dosisDisponibles;
 	private LocalDate fechaVencimiento;
 	private String loteYaExiste = "none";
 	private String loteAgregado = "none";
@@ -41,13 +41,18 @@ public class LoteBean implements Serializable{
 
 
 	public void agregarLote(String vac) {
-
+		//falta hacer el control de que ya este ingresado
 		loteService.addLote(dosisDisponibles, numLote,vac,fechaVencimiento, vacuna,socLogistico);
 		this.setLoteYaExiste("none");
 		this.setLoteAgregado("block");
+		this.setVacunatorio(null);
+		this.setNumLote(null);
+		this.setSocLogistico(null);
+		this.setVacuna(null);
+		this.setDosisDisponibles(null);
+		this.setFechaVencimiento(null);
 
-		this.setNumLote(0);
-		this.setVacunatorio("");
+
 	}
 
 	public String getColor() {
@@ -121,7 +126,7 @@ public class LoteBean implements Serializable{
 		this.vacunatorio = vacunatorio;
 	}
 
-	public void setNumLote(int numLote) {
+	public void setNumLote(Integer numLote) {
 		this.numLote = numLote;
 	}
 
@@ -136,7 +141,7 @@ public class LoteBean implements Serializable{
 	public void setFechaVencimiento(LocalDate fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
-	public int getNumLote() {
+	public Integer getNumLote() {
 		return numLote;
 	}
 
@@ -152,11 +157,11 @@ public class LoteBean implements Serializable{
 		this.vacuna = vacuna;
 	}
 
-	public int getDosisDisponibles() {
+	public Integer getDosisDisponibles() {
 		return dosisDisponibles;
 	}
 
-	public void setDosisDisponibles(int dosisDisponibles) {
+	public void setDosisDisponibles(Integer dosisDisponibles) {
 		this.dosisDisponibles = dosisDisponibles;
 	}
 
