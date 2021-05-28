@@ -4,10 +4,13 @@ import datos.dtos.PlanVacunacionDTO;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 import datos.repositorios.PlanVacunacionRepository;
+import datos.repositorios.PlanVacunacionRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.PlanVacunacionServiceLocal;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,7 @@ public class PlanVacunacionBean implements PlanVacunacionServiceLocal {
     private Converter<PlanVacunacion, PlanVacunacionDTO> planVacunacionPlanVacunacionDTOConverter;
 
     @EJB
-    private PlanVacunacionRepository planVacunacionRepository;
+    private PlanVacunacionRepositoryLocal planVacunacionRepository;
 
     @Override
     public PlanVacunacionDTO save(PlanVacunacionDTO planVacunacionDTO) {
@@ -45,4 +48,12 @@ public class PlanVacunacionBean implements PlanVacunacionServiceLocal {
     public List<PlanVacunacion> find() {
     	return planVacunacionRepository.find();
     }
+    
+    public Date getFechaFin(String nombre) {
+    	Optional<PlanVacunacion> pVac = planVacunacionRepository.find(nombre);
+    	LocalDate fechaFin = pVac.get().getFin();
+    	Date res = Date.from(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    	return res;
+    }
 }
+

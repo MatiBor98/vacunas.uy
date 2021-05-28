@@ -17,7 +17,7 @@ public class Lote implements Serializable{
 	private Integer numeroLote;
 	@Column(nullable=false)
 	private LocalDate fechaVencimiento;
-	@OneToOne
+	@ManyToOne
 	private Vacuna vacuna;
 	@Column
 	private LocalDate fechaEntrega;
@@ -42,7 +42,9 @@ public class Lote implements Serializable{
     	this.numeroLote = numeroLote;
     	this.fechaVencimiento = fechaVencimiento;
     	this.vacuna = vacuna;
-    	this.socioLogistico = socioLogistico;		
+    	this.socioLogistico = socioLogistico;
+    	this.fechaEntrega = null;
+    	this.fechaDespacho = null;
     }
     
     public int getDosisDisponibles() {

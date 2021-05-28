@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import datos.exceptions.EmailRegistradoException;
 import org.json.JSONObject;
 
 import datos.entidades.Administrador;
@@ -49,7 +50,7 @@ public class LoginBackOfficeBean implements Serializable{
         loggedIn = false;
         wrongPassword = false;
         wrongEmail = false;
-    }
+	}
 	
 	public String getEmail() {
 		return email;

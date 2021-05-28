@@ -13,10 +13,8 @@
 	<ui:define name="content">
 		<div class="bodytype">
 			<div>
-				<h1 class="h2 mb-3 font-weight-normal">Ciudadano: #{ConsultaUsuarioFrontOfficeBean.consultaUsuario}</h1>
-				
+				<h1 class="h2 mb-3 font-weight-normal">Ciudadano: #{consultaUsuarioFrontOfficeBean.consultaUsuario}</h1>
 				<div class="row">
-					<div class="col-sm-3"/>
 					<div class="col-sm-6">
 						<div class="card" style="background-color:#c6c6c6; width:50vw">
 							<div class="card-body text-center">
@@ -24,40 +22,27 @@
 									<div class="card-header" style="background-color:#222938; color:white">
 										<h2>Informacion</h2>
 									</div>
-									<h:form>
+									<h:form id="form">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><p:inputText id = "nombreCiudadano" disabled ="true" value="Nombre: #{consultaUsuarioFrontOfficeBean.nombre}"/></li>
-											<li class="list-group-item"><p:inputText id = "emailCiudadano" disabled = "true" value = "Email: #{consultaUsuarioFrontOfficeBean.email}"/></li>
+											<li class="list-group-item"><label class="col-form-lavel pt-2" for="nombreCiudadano">Nombre: </label><p:inputText id = "nombreCiudadano" disabled="#{not consultaUsuarioFrontOfficeBean.modificando}" value="#{consultaUsuarioFrontOfficeBean.nombre}"><p:autoUpdate/></p:inputText></li>
+											<li class="list-group-item"><label class="col-form-lavel pt-2" for="emailCiudadano">Email:</label> <p:inputText id = "emailCiudadano" disabled="#{not consultaUsuarioFrontOfficeBean.modificando}" value ="#{consultaUsuarioFrontOfficeBean.email}"><p:autoUpdate/></p:inputText></li>
 											<li class="list-group-item">Vacunador:
-												<h:panelGroup rendered="#{consultaUsuarioFrontOfficeBean.vacunador}"><i id = "vacunadorSi" class="pi pi-check"/></h:panelGroup>
-	                            				<h:panelGroup rendered="#{not consultaUsuarioFrontOfficeBean.vacunador}"><i id = "vacunadorNo" class="pi pi-times"/></h:panelGroup>
-	                            				<p:selectBooleanCheckbox id="checkVacunador" style="display: none;" value="#{consultaUsuarioFrontOfficeBean.vacunador}" itemLabel="Basic"/>
+												<h:panelGroup rendered="#{consultaUsuarioFrontOfficeBean.vacunador == true and consultaUsuarioFrontOfficeBean.modificando == false}"><i id = "vacunadorSi" class="pi pi-check"/></h:panelGroup>
+	                            				<h:panelGroup rendered="#{not consultaUsuarioFrontOfficeBean.vacunador == true and consultaUsuarioFrontOfficeBean.modificando == false}"><i id = "vacunadorNo" class="pi pi-times"/></h:panelGroup>
+	                            				<h:panelGroup rendered="#{consultaUsuarioFrontOfficeBean.modificando}"><p:selectBooleanCheckbox id="checkVacunador" value="#{consultaUsuarioFrontOfficeBean.vacunador}"></p:selectBooleanCheckbox></h:panelGroup>
 	                            			</li>
 										</ul>
+										<p:commandButton id="editarUsuario" type="submit" update="form" icon="pi pi-user-edit" action="#{consultaUsuarioFrontOfficeBean.setModificandoTrue()}" rendered="#{not consultaUsuarioFrontOfficeBean.modificando}"><p:autoUpdate/></p:commandButton>
+										<p:commandButton id="modificarUsuario" type="submit" update="form" icon="pi pi-check" action="#{consultaUsuarioFrontOfficeBean.overwriteCiudadano()}" rendered="#{consultaUsuarioFrontOfficeBean.modificando}"><p:autoUpdate/></p:commandButton>
+										<p:messages showDetail="true" closable="true" infoStyle="color:darkgreen"><p:autoUpdate/></p:messages>
 									</h:form>
-									<p:commandButton id="editarUsuario" type="button" icon="pi pi-user-edit"></p:commandButton>
-									<p:commandButton id="modificarUsuario" type="button" icon="pi pi-check" action="#{consultaUsuarioFrontOffice.overwriteCiudadano}" style="display: none;"></p:commandButton> 
 								</div>
 						  	</div>
 						</div>
 					</div>
-					<div class="col-sm-3"/>
 				</div>
 			</div>
 		</div>
-		<script>
-			document.getElementById("editarUsuario").addEventListener("click", editarUsuario);			
-	
-			function editarUsuario() {
-			  document.getElementById("vacunadorSi").style.display = "none";
-			  document.getElementById("vacunadorNo").style.display = "none";
-			  document.getElementById("nombreCiudadano").disabled = "false";
-			  document.getElementById("emailCiudadano").disabled = "false";
-			  document.getElementById("checkVacunador").style.display = "inline";
-			  document.getElementById("modificarUsuario").style.display = "inline";
-			  
-			}
-		</script>
 	</ui:define>
 </ui:composition>
 </html>

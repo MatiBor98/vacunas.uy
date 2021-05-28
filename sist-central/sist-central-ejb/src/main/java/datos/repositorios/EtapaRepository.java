@@ -1,23 +1,27 @@
 package datos.repositorios;
 import datos.entidades.Departamento;
 import datos.entidades.Etapa;
+import datos.entidades.PlanVacunacion;
+import datos.entidades.RestriccionEtapa;
 import datos.entidades.Trabajos;
+import datos.entidades.Vacuna;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Singleton()
-public class EtapaRepository {
+public class EtapaRepository implements EtapaRepositoryLocal{
 
     @PersistenceContext(unitName = "sist-centralPersistenceUnit")
 	private EntityManager entityManager;
 
-    public EtapaRepository() {
+    public EtapaRepository(){
     }
 
     public List<Etapa> find() {
@@ -59,4 +63,10 @@ public class EtapaRepository {
 
         return etapaTypedQuery.getResultList();
     }
+
+	public void save(Vacuna vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion, List<Trabajos> trabajos, int edadMin, int edadMax) {
+		RestriccionEtapa restricciones = new RestriccionEtapa(trabajos, edadMin, edadMax);
+		Etapa res = new Etapa(restricciones, descripcion, inicio, fin, vac, planVacunacion);
+		entityManager.persist(res);
+	}
 }

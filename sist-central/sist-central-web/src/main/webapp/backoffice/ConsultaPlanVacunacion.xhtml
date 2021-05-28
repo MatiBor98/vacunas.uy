@@ -69,10 +69,14 @@
 													<li class="list-group-item">Fin: #{etapa.fin}</li>
 													<li class="list-group-item">Vacuna: #{etapa.vacuna.nombre}</li>
 													<h:form rendered="#{etapa.restricciones.mayorIgual ne null}">
-														<li class="list-group-item">Edad minima: #{etapa.restricciones.mayorIgual}</li>
+														<h:form rendered="#{etapa.restricciones.mayorIgual gt -1}">
+															<li class="list-group-item">Edad minima: #{etapa.restricciones.mayorIgual}</li>
+														</h:form>
 													</h:form>
 													<h:form rendered="#{etapa.restricciones.menorIgual ne null}">
-														<li class="list-group-item">Edad maxima: #{etapa.restricciones.menorIgual}</li>
+														<h:form rendered="#{etapa.restricciones.menorIgual gt -1}">
+															<li class="list-group-item">Edad maxima: #{etapa.restricciones.menorIgual}</li>
+														</h:form>
 													</h:form>
 													<h:form rendered="#{!etapa.restricciones.getFiltroEmpleoEn().isEmpty()}">
 														<li class="list-group-item">Unicamente para personal de:</li>
@@ -83,6 +87,9 @@
 												</div>
 										  </ui:repeat>
 									  </ul>
+									</h:form>
+									<h:form>
+										<h:button value="Agregar etapa" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarEtapa.xhtml" />
 									</h:form>
 								</div>
 						  </div>

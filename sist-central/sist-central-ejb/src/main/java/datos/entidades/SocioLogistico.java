@@ -14,6 +14,8 @@ public class SocioLogistico implements Serializable{
 	@Id
 	private String nombre;
 
+	private boolean habilitado;
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -22,14 +24,22 @@ public class SocioLogistico implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public SocioLogistico(String nombre) {
+	public SocioLogistico(String nombre, boolean habilitado) {
 		super();
 		this.nombre = nombre;
+		this.habilitado = habilitado;
 	}
 
 	public SocioLogistico() {
 		super();
 	}
-	
-	
+
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
 }

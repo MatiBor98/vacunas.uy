@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Agregar Etapa
+    </ui:define>
+    <ui:define name="content">
+        <div class="div_body" style="background-color: white">
+            <h:form class="form-signin">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoPlanVacunacion.png"
+                                t:alt="LogoVacunatorio.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Agregar una etapa para #{ConsultaBean.consultaPlanVacunacion}</h1>
+
+                <div id="errores" style="display:#{EtapaBean.etapaAgregada}">
+                    <div class="alert alert-success">
+                        La etapa fue agregada con exito.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.elegirVacuna}">
+                    <div class="alert alert-danger">
+                        La etapa debe estar relacionada con una unica vacuna.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.elegirFecha}">
+                    <div class="alert alert-danger">
+                        La etapa debe tener fecha de inicio y fin.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.fechaIncorrecta}">
+                    <div class="alert alert-danger">
+                        La fecha de fin debe ser despues de la fecha de inicio.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.fechaFinIncorrecta}">
+                    <div class="alert alert-danger">
+                        La fecha de fin debe ser antes de que acabe el plan de vacunacion.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.antesDeHoy}">
+                    <div class="alert alert-danger">
+                        La fecha de inicio debe ser de hoy en adelante.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{EtapaBean.edadesIncorrectas}">
+                    <div class="alert alert-danger">
+                        La edad maxima debe ser mayor o igual que la edad minima.
+                    </div>
+                </div>
+                
+                <p:datePicker style="display:none"></p:datePicker>
+
+                <label class="form-label">Plan de vacunacion:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{ConsultaBean.consultaPlanVacunacion}"
+                        id="inputNombreVac"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el nomrbe"
+                        required="true"
+                        disabled="true"
+                />
+
+                <label class="form-label">Descripcion:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{EtapaBean.descripcion}"
+                        id="inputDescripcion"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el nomrbe"
+                        required="true"
+                />
+                
+		        
+		        <label class="form-label">Vacuna:</label>
+                <h:selectOneMenu value="#{EtapaBean.vacuna}" class="form-control">
+                    <f:selectItems value="#{VacunaBean.getNombresVacunas()}"/>
+                </h:selectOneMenu>
+                
+                 <div class="ui-fluid p-grid p-formgrid">
+            		<div class="p-field p-col-12 p-md-6">
+		                <label class="form-label">Inicio:</label>
+		                <p:datePicker id="inputInicio" showIcon="true" value="#{EtapaBean.fechaInicio}" t:placeholder="Ingerse la fecha de inicio"/>
+		            </div>
+		        </div>
+                
+                <div class="ui-fluid p-grid p-formgrid">
+            		<div class="p-field p-col-12 p-md-6">
+		                <label class="form-label">Fin:</label>
+		                <p:datePicker id="inputFin" showIcon="true" value="#{EtapaBean.fechaFin}" t:placeholder="Ingerse la fecha de fin"/>
+		            </div>
+		        </div>
+                <input type="checkbox" id="CheckEdades"
+                       onclick="CamposEdades()"> La etapa tiene restricciones de edades </input>
+                <p></p>
+                
+                 <div id="camposEdad" style="display:none">
+	                <div class="ui-fluid p-grid p-formgrid">
+	            		<div class="p-field p-col-12 p-md-6">
+			                <label class="form-label">Edad minima:</label>
+			                <p:inputNumber id="input3" value="#{EtapaBean.edadMinima}" minValue="0"
+			                                maxValue="150" decimalPlaces="0" t:placeholder="Ingerse la edad minima"/>
+			            </div>
+			        </div>
+			        
+			        <div class="ui-fluid p-grid p-formgrid">
+	            		<div class="p-field p-col-12 p-md-6">
+			                <label class="form-label">Edad maxima:</label>
+			                <p:inputNumber id="inputXD" classs="text-center" value="#{EtapaBean.edadMaxima}" minValue="0"
+			                                maxValue="150" decimalPlaces="0" t:placeholder="Ingerse la edad minima" />
+			            </div>
+			        </div>
+			    </div>
+                
+                <input type="checkbox" id="CheckPersonal"
+                       onclick="CamposPersonal()"> La etapa tiene restricciones de personal </input>
+		        <p></p>
+		        <div id="camposPersonal" style="display:none">
+		        
+			        <label class="form-label">Personal habilitado:</label>
+	                <h:selectManyListbox value="#{EtapaBean.trabajos}" class="form-control">
+	                    <f:selectItems value="#{EtapaBean.getNombresTrabajos()}"/>
+	                </h:selectManyListbox>
+                
+                </div>
+
+                <h:commandButton value="Crear"
+                                 class="btn btn-lg btn-primary btn-block"
+                                 type="submit"
+                                 style="background-color:#222938; border:#222938; margin-top: 30px"
+                                 action="#{EtapaBean.agregarEtapa(ConsultaBean.consultaPlanVacunacion)}"
+                />
+            </h:form>
+        </div>
+        <scripts>
+	        <script type="text/javascript">
+			 	function CamposEdades() {
+			  		var checkBox = document.getElementById("CheckEdades");
+			  		var input = document.getElementById("camposEdad");
+			  		if (checkBox.checked == true){
+			    		input.style.display = "block";
+			  		} else {
+			   		 input.style.display = "none";
+			 		 }
+				}
+		 	</script>
+		 	<script type="text/javascript">
+			 	function CamposPersonal() {
+			  		var checkBox = document.getElementById("CheckPersonal");
+			  		var input = document.getElementById("camposPersonal");
+			  		if (checkBox.checked == true){
+			    		input.style.display = "block";
+			  		} else {
+			   		 input.style.display = "none";
+			 		 }
+				}
+		 	</script>
+	 	</scripts>
+    </ui:define>
+</ui:composition>
+</html>

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -240,5 +241,12 @@ public class PlanVacunacionBean implements Serializable{
 	
 	public List<Etapa> getEtapas(String nombre) {
 		return planVacService.find(nombre).get().getEtapas();
+	}
+	
+	public Date getFechaFin(String nombre) {
+		Optional<PlanVacunacion> pvac = planVacService.find(nombre);
+		LocalDate fechaFin = pvac.get().getFin();
+		Date res = Date.from(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		return res;
 	}
 }
