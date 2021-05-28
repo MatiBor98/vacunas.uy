@@ -6,11 +6,14 @@ import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Ciudadano;
+import datos.exceptions.CiudadanoRegistradoException;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 @Named
@@ -26,7 +29,6 @@ public class UsuarioFrontOfficeBean implements Serializable {
 	private String email;
 	private String nombre;
 	private boolean vacunador;
-	private boolean ciRegistrada = false;
 	
 	public int getCi() {
 		return ci;
@@ -62,7 +64,13 @@ public class UsuarioFrontOfficeBean implements Serializable {
 
 	public void registrarUsuario() {
 		CiudadanoDTO ciudadanoDTO = new CiudadanoDTO(ci, nombre, email, vacunador);
-		usuarios.save(ciudadanoDTO);
+		try {
+			usuarios.save(ciudadanoDTO);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Ciudadano registrado con exito"));
+		}
+		catch(CiudadanoRegistradoException e){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ya existe un ciudadano registrado con la CI ingresada"));
+		}
 	}
 	
 	public UsuarioFrontOfficeBean() {
