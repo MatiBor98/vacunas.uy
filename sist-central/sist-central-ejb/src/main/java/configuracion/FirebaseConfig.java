@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import datos.dtos.MensajeDTO;
 import datos.dtos.MensajesChangedEvent;
+import datos.exceptions.CiudadanoRegistradoException;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.servicios.local.CiudadanoServiceLocal;
 
@@ -97,8 +98,12 @@ public class FirebaseConfig {
 	CiudadanoServiceLocal ciudadanoServiceLocal;
 	public void prueba() {
 		
-		ciudadanoServiceLocal.save(new CiudadanoDTOBuilder()
-				.setCi(50550419).setNombre("Nicolás").setEmail("email@").createCiudadanoDTO());
+		try {
+			ciudadanoServiceLocal.save(new CiudadanoDTOBuilder()
+					.setCi(50550419).setNombre("Nicolás").setEmail("email@").createCiudadanoDTO());
+		} catch (CiudadanoRegistradoException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

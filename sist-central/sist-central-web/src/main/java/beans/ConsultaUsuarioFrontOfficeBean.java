@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -37,7 +38,16 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 	private String hayCiudadanos = "block";
 	private String color = "white";
 	private String colorSecundario = "#222938";
+	private boolean modificando;
 
+	public boolean isModificando() {
+		return modificando;
+	}
+
+	public void setModificandoTrue() {
+		this.modificando = true;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -67,6 +77,7 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 	}
 
 	public void setConsultaUsuario(int usu) {
+		modificando = false;
 		this.consultaUsuario = usu;
 		this.consultaUsuarioStatic = consultaUsuario;
 		try {
@@ -76,19 +87,20 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 			vacunador = ciudadano.getVacunador();
 			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaUsuarioFrontOffice.xhtml");
 		} catch (CiudadanoNoEncontradoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	public static int getConsultaUsuarioStatic() {
 		return consultaUsuarioStatic;
 	}
 	
-	public void overwriteCiudadano() {
+	public void overwriteCiudadano(){
 		CiudadanoDTO ciudadanoDTO = new CiudadanoDTO(consultaUsuarioStatic, nombre, email, vacunador);
 		usuarios.overwriteCiudadano(ciudadanoDTO);
+		modificando = false;
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Ciudadano modificado con exito"));
+
 	}
 	
 	public String getBusqueda() {
@@ -202,15 +214,4 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 	public void setColorSecundario(String colorSecundario) {
 		this.colorSecundario = colorSecundario;
 	}
-	public void AsignarRolVacunador(int ci) throws CiudadanoNoEncontradoException {
-		CiudadanoDTO ciudadano = usuarios.findByNombreCi(ci);
-		ciudadano.setVacunador(true);
-	}
-	
-	public void QuitarRolVacunador(int ci) throws CiudadanoNoEncontradoException {
-		CiudadanoDTO vacunador = usuarios.findByNombreCi(ci);
-		vacunador.setVacunador(false);
-		
-	}
-
 }

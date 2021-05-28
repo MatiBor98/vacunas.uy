@@ -4,6 +4,7 @@ import datos.dtos.CiudadanoDTO;
 import datos.entidades.Agenda;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
+import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Local
 public interface CiudadanoRepositoryLocal {
     List<Ciudadano> find();
-    void save(Ciudadano ciudadano);
+    void save(Ciudadano ciudadano) throws CiudadanoRegistradoException;
     Ciudadano findByNombreCi(int criterio);
 	void saveVacunador(Vacunador vacunador);
     public void deleteCiudadano(Ciudadano ciudadano);

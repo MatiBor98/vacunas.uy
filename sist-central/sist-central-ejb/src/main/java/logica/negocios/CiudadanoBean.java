@@ -7,6 +7,7 @@ import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
+import datos.exceptions.CiudadanoRegistradoException;
 import datos.repositorios.CiudadanoRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.CiudadanoServiceLocal;
@@ -58,7 +59,7 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	ciudadanoRepository.findByNombreCi(ci).setFirebaseTokenMovil(firebaseToken);;
     }
 
-    public void save(CiudadanoDTO ciudadanoDTO) {
+    public void save(CiudadanoDTO ciudadanoDTO) throws CiudadanoRegistradoException{
         ciudadanoRepository.save(ciudadanoDTOConverter.convert(ciudadanoDTO));
     }
 
