@@ -12,6 +12,7 @@ public interface CiudadanoServiceLocal {
     List<CiudadanoDTO> find();
     void save(CiudadanoDTO ciudadano);
     CiudadanoDTO findByNombreCi(int criterio) throws CiudadanoNoEncontradoException;
-    public void overwriteCiudadano(CiudadanoDTO ciudadano);
-
+    void overwriteCiudadano(CiudadanoDTO ciudadano);
+    void notificar(int ci);
+    void updateFirebaseTokenMovil(int ci, String firebaseToken);
 }
