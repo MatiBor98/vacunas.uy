@@ -56,21 +56,17 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     	return entityManager.find(Ciudadano.class, criterio);
     }
     
-    @Override
-    public void refreshCiudadano(Ciudadano ciudadano) {
-    	entityManager.merge(ciudadano);
-    }
-    
+
     public void ciudadanoToVacunador(String ci) {
-    	entityManager.createNativeQuery("UPDATE ciudadano"
-    										+ "SET rol = 'Vacunador'"
-    											+ "WHERE ci = " + ci);
+    	entityManager.createNativeQuery("UPDATE ciudadano "
+    										+ "SET rol = 'Vacunador' "
+    											+ "WHERE ci = " + ci + ";").executeUpdate();
     }
     
     public void vacunadorToCiudadano(String ci) {
-    	entityManager.createNativeQuery("UPDATE ciudadano"
-    										+ "SET rol = 'Ciudadano'"
-    											+ "WHERE ci = " + ci);
+    	entityManager.createNativeQuery("UPDATE ciudadano "
+    										+ "SET rol = 'Ciudadano' "
+    											+ "WHERE ci = " + ci + ";").executeUpdate();
     }
     
 }

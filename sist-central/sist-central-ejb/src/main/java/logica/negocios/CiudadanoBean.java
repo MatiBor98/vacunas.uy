@@ -73,9 +73,8 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	else if(userLegacy instanceof Vacunador && !(userNew instanceof Vacunador)) {
     		ciudadanoRepository.vacunadorToCiudadano(String.valueOf(userNew.getCi()));
     	}
-    	if(userNew.getEmail() != userLegacy.getEmail() || userNew.getNombre() != userLegacy.getNombre()) {
-    		ciudadanoRepository.refreshCiudadano(userNew);
-    	}
+    	userLegacy.setEmail(userNew.getEmail());
+    	userLegacy.setNombre(userNew.getNombre());
     }
 
 	@Override
