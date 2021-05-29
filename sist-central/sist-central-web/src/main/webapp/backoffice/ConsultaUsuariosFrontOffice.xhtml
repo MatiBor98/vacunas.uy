@@ -58,13 +58,13 @@
 	                    <ui:repeat value="#{consultaUsuarioFrontOfficeBean.getUsuarios()}" var="usu">
 							<h:form rendered="#{not usu.vacunador}">
 		                        <li class="list-group-item" style="background-color:#{consultaUsuarioFrontOfficeBean.getColor()}">
-		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci}-#{usu.nombre}</h2>
+		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci} - #{usu.nombre}</h2>
 		                            <p style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p>                           
 		                             <div style="display:inline">
 			                             <h:form>
 			                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
 			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{consultaUsuarioFrontOfficeBean.setConsultaUsuario(usu.ci)}"/>
+			                                                 action="#{ConsultaBean.setConsultaUsuario(usu.ci, usu.nombre, usu.email, usu.vacunador)}"/>
 			                            </h:form>
 			                         </div>
 		                            <p></p>
@@ -88,13 +88,13 @@
 	                    <ui:repeat value="#{consultaUsuarioFrontOfficeBean.getUsuarios()}" var="usu">
 							<h:form rendered="#{usu.vacunador}">
 		                        <li class="list-group-item" style="background-color:#{consultaUsuarioFrontOfficeBean.getColor()}">
-		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci}-#{usu.nombre}</h2>
+		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci} - #{usu.nombre}</h2>
 		                            <p style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p> 
 		                            <div style="display:inline">                           
 			                             <h:form>
 			                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
 			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{consultaUsuarioFrontOfficeBean.setConsultaUsuario(usu.ci)}"/>
+			                                                 action="#{ConsultaBean.setConsultaUsuario(usu.ci, usu.nombre, usu.email, usu.vacunador)}"/>
 			                            </h:form>
 			                        </div>
 		                            <p></p>

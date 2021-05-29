@@ -38,15 +38,6 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 	private String hayCiudadanos = "block";
 	private String color = "white";
 	private String colorSecundario = "#222938";
-	private boolean modificando;
-
-	public boolean isModificando() {
-		return modificando;
-	}
-
-	public void setModificandoTrue() {
-		this.modificando = true;
-	}
 	
 	public String getEmail() {
 		return email;
@@ -75,30 +66,14 @@ public class ConsultaUsuarioFrontOfficeBean implements Serializable {
 	public int getConsultaUsuario() {
 		return consultaUsuario;
 	}
-
-	public void setConsultaUsuario(int usu) {
-		modificando = false;
-		this.consultaUsuario = usu;
-		this.consultaUsuarioStatic = consultaUsuario;
-		try {
-			CiudadanoDTO ciudadano =  usuarios.findByNombreCi(consultaUsuarioStatic);
-			email = ciudadano.getEmail();
-			nombre = ciudadano.getNombre();
-			vacunador = ciudadano.getVacunador();
-			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaUsuarioFrontOffice.xhtml");
-		} catch (CiudadanoNoEncontradoException e) {
-			e.printStackTrace();
-		}		
-	}
 	
 	public static int getConsultaUsuarioStatic() {
 		return consultaUsuarioStatic;
 	}
 	
-	public void overwriteCiudadano(){
-		CiudadanoDTO ciudadanoDTO = new CiudadanoDTO(consultaUsuarioStatic, nombre, email, vacunador);
+	public void overwriteCiudadano(int CI, String nombre, String email, boolean esVac){
+		CiudadanoDTO ciudadanoDTO = new CiudadanoDTO(CI, nombre, email, esVac);
 		usuarios.overwriteCiudadano(ciudadanoDTO);
-		modificando = false;
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Ciudadano modificado con exito"));
 	}
 	
