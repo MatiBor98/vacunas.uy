@@ -71,10 +71,12 @@
 													<li class="list-group-item">No hay vacunadores asignados a este puesto</li>
 												</h:form>
 												<h:form rendered="#{!puesto.getAsignaciones().isEmpty()}">
-													<li class="list-group-item">Asignaciones:</li>
+													<h5>
+														<li class="list-group-item" style="background-color:#99cddd">Asignaciones:</li>
+													</h5>
 													<ui:repeat value="#{puesto.getAsignaciones()}" var="asig">
 														<div class="card" style="width:960px; background-color:#c6c6c6">
-															<div class="card-header" style="background-color:#c6c6c6; color:#222938">
+															<div class="card-header" style="background-color:#99cddd; color:#222938">
 															  <h5>
 																<li class="list-group-item">Vacunador: #{asig.vacunador.nombre} - #{asig.vacunador.ci}</li>
 															  </h5>
@@ -86,16 +88,16 @@
 													</ui:repeat>
 												</h:form>
 													<h:commandButton value="Asignar Vacunador"
-					                                 class="btn btn-info"
+					                                 class="btn"
 					                                 type="submit"
-					                                 style="padding: 5px 12px; display: block; margin-top: 5px; margin-bottom: 5px"
+					                                 style="padding: 5px 12px; display: block; margin-top: 5px; margin-bottom: 5px; background-color:#99cddd"
 					                                 action="#{ConsultaBean.setConsultaPuesto(puesto.nombrePuesto)}"/>
 											</div>
 										  </ui:repeat>
 									  </ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar puesto" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarPuesto.xhtml" />
+										<h:button value="Agregar puesto" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarPuesto.xhtml" />
 									</h:form>
 								</div>
 
@@ -124,7 +126,7 @@
 									  </ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar turno" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarTurno.xhtml" />
+										<h:button value="Agregar turno" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarTurno.xhtml" />
 									</h:form>
 								</div>
 
@@ -145,7 +147,7 @@
 										</ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar lote" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarLote.xhtml" />
+										<h:button value="Agregar lote" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarLote.xhtml" />
 									</h:form>
 								</div>
 
