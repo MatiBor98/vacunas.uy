@@ -81,7 +81,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 	
 	public List<Vacunatorio> findByDepartamento(Departamento dep) {
 		return entityManager.createQuery(
-				"select v from Vacunatorio v" 
+				"select distinct v from Vacunatorio v"
 						+ " left join fetch v.lotes lot"
 						+ " left join fetch lot.vacuna vacuna"
 						+ " left join fetch vacuna.enfermedades"
@@ -92,7 +92,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 	}
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados ) {
 		return entityManager.createQuery(
-				"select v from Vacunatorio v" 
+				"select distinct v from Vacunatorio v"
 						+ " left join fetch v.lotes lot"
 						+ " left join fetch lot.vacuna vacuna"
 						+ " left join fetch vacuna.enfermedades"

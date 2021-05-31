@@ -94,17 +94,17 @@ public class Vacunatorio implements Serializable {
 	public void setLotes(Set<Lote> lotes) {
 		this.lotes = lotes;
 	}
+
 	public Vacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
 		super();
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
-		this.puestosVacunacion = new ArrayList<PuestoVacunacion>();
-		this.dosisVacunatorios = new ArrayList<DosisVacunatorio>();
+		this.puestosVacunacion = Collections.emptyList();
+		this.dosisVacunatorios = Collections.emptyList();
 		this.lotes = Collections.emptySet();
-		this.turnos = new ArrayList<Turno>();
-				
+		this.turnos = Collections.emptyList();
 	}
 
 	public Vacunatorio() {

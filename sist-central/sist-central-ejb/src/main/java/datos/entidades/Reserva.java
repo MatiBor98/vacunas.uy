@@ -27,6 +27,8 @@ public class Reserva implements Serializable{
 	@JoinColumn(name="intervaloId", nullable=false)
 	private Intervalo intervalo;
 
+	private Integer paraDosis;
+
 	public int getCodigo() {
 		return codigo;
 	}
@@ -51,10 +53,28 @@ public class Reserva implements Serializable{
 		this.ciudadano = ciudadano;
 	}
 
-	public Reserva(Estado estado, Ciudadano ciudadano) {
+	public Intervalo getIntervalo() {
+		return intervalo;
+	}
+
+	public void setIntervalo(Intervalo intervalo) {
+		this.intervalo = intervalo;
+	}
+
+	public Integer getParaDosis() {
+		return paraDosis;
+	}
+
+	public void setParaDosis(Integer paraDosis) {
+		this.paraDosis = paraDosis;
+	}
+
+	public Reserva(Estado estado, Ciudadano ciudadano, Intervalo intervalo, int paraDosis) {
 		super();
 		this.estado = estado;
 		this.ciudadano = ciudadano;
+		this.intervalo = intervalo;
+		this.paraDosis = paraDosis;
 	}
 
 	public Reserva() {

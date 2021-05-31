@@ -24,7 +24,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     @Override
     public List<Agenda> find() {
         return entityManager.createQuery(
-                "select a from Agenda a " +
+                "select distinct a from Agenda a " +
                     "join fetch a.etapa e " +
                     "join fetch e.planVacunacion p", Agenda.class)
                 .getResultList();
@@ -43,7 +43,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     @Override
     public List<Agenda> findByNombrePlan(String criterio) {
         return entityManager.createQuery(
-                    "select a from Agenda a " +
+                    "select distinct a from Agenda a " +
                         "join fetch a.etapa e " +
                         "join fetch e.planVacunacion p " +
                         "where lower(p.nombre) like :criterio", Agenda.class)
@@ -60,10 +60,10 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                         "inner join a.etapa e " +
                         "left join e.restricciones.filtroEmpleoEn f " +
                         "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +
-                        "and current_date between a.inicio and a.fin " +
+                        "and current_date >= a.inicio " +
                         "and (e.restricciones.mayorIgual is null or :edadCiudadano >= e.restricciones.mayorIgual) " +
                         "and (e.restricciones.mayorIgual is null or :edadCiudadano <= e.restricciones.menorIgual) " +
-                        "and a.cantidadCuposDisponbiles > 0 " +
+                        "and a.fin is null " +
                         "and a.turno.vacunatorio.departamento = :departamento " +
                         "group by a " +
                         "having count(f) = 0 " +
