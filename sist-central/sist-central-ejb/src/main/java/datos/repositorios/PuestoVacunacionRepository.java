@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import datos.entidades.Asignacion;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacuna;
 import datos.entidades.Vacunatorio;
@@ -64,5 +65,20 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
     	}
 		return res;
     }
+
+
+
+	@Override
+	public List<Asignacion> getAsignaciones(String nombreVacunatorio, String nombrePuesto) {
+		PuestoVacunacion pVac = find(nombreVacunatorio, nombrePuesto).get(0);
+		return pVac.getAsignaciones();
+	}
+
+
+
+	@Override
+	public void addAsignacion(Asignacion asig) {
+		entityManager.persist(asig);
+	}
 
 }

@@ -2,10 +2,15 @@ package beans;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Named;
+
+import datos.entidades.Turno;
 
 @Named("TurnoBean")
 @RequestScoped
@@ -68,23 +73,11 @@ public class TurnoBean implements Serializable{
 		}
 	}*/
 	
-	/*public List<Vacuna> getVacs() {
-		List<Vacuna> res = new ArrayList<>();
-		List<Vacuna> vacs = (List<Vacuna>) vacService.find();
-		if (this.realizarBusqueda) {
-			Pattern pattern = Pattern.compile(this.busqueda.trim(), Pattern.CASE_INSENSITIVE);
-			for (Vacuna vac : vacs) {
-				Matcher match = pattern.matcher(vac.getNombre());
-				boolean matchNombre = match.find();
-				if (matchNombre) {
-					res.add(vac);
-				}
-			}
-		} else {
-			res = vacs;
-		}
-		return res;
-	}*/
+	public List<Turno> getTurnos(String nomVacunatortio) {
+		List<Turno> res = new ArrayList<>();
+		List<Turno> turnos = (List<Turno>) turnoService.find();
+		return turnos;
+	}
 	public String getColor() {
 		if (this.color.equals("white")) {
 			this.color = "#222938";
@@ -139,14 +132,14 @@ public class TurnoBean implements Serializable{
 		this.hayBusqueda = hayBusqueda;
 	}
 	
-	/*public List<String> getNombresVacunas() {
-		List<Vacuna> vacs = getVacs();
-		List<String> nombreVacs = new ArrayList<>();
-		for (Vacuna vac:vacs) {
-			nombreVacs.add(vac.getNombre());
+	public List<String> getNombresTurnos(String nomVacunatorio) {
+		List<Turno> turnos = getTurnos(nomVacunatorio);
+		List<String> nombreTurnos = new ArrayList<>();
+		for (Turno turno:turnos) {
+			nombreTurnos.add(turno.getNombre());
 		}
-		return nombreVacs;
-	}*/
+		return nombreTurnos;
+	}
 	
 	/*public String getVacModificar() {
 		return vacModificar;

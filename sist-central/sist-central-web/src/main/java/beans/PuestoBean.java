@@ -192,5 +192,4 @@ public class PuestoBean implements Serializable{
 		this.puestoNoEliminado = puestoNoEliminado;
 	}
 	
-	
 }

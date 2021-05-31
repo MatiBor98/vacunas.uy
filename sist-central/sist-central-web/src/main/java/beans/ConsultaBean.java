@@ -17,6 +17,7 @@ public class ConsultaBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String consultaVacunatorio;
+	private String consultaPuesto;
 	private int consultaUsuario;
 	private String consultaUsuarioNombre;
 	private String consultaUsuarioEmail;
@@ -124,6 +125,15 @@ public class ConsultaBean implements Serializable{
 
 	public void setConsultaUsuarioVacunador(boolean consultaUsuarioVacunador) {
 		this.consultaUsuarioVacunador = consultaUsuarioVacunador;
+	}
+
+	public String getConsultaPuesto() {
+		return consultaPuesto;
+	}
+
+	public void setConsultaPuesto(String consultaPuesto) {
+		this.consultaPuesto = consultaPuesto;
+		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "AgregarAsignacion.xhtml");
 	}
 	
 }

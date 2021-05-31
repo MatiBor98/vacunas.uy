@@ -36,6 +36,14 @@ public class Asignacion implements Serializable {
 	private Turno turno;
 
 	public Asignacion() {}
+	
+	public Asignacion(Vacunador vac, Turno turn, PuestoVacunacion pVac, LocalDate fechaI, LocalDate fechaF) {
+		this.fechaFin = fechaF;
+		this.fechaInicio = fechaI;
+		this.puestoVacunacion = pVac;
+		this.turno = turn;
+		this.vacunador = vac;
+	}
 
 	public int getId() {
 		return id;
