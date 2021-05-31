@@ -8,6 +8,8 @@ import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Local;
 import java.util.List;
+import java.util.Optional;
+import java.util.Optional;
 
 
 @Local
@@ -15,12 +17,11 @@ public interface CiudadanoRepositoryLocal {
     List<Ciudadano> find();
     void save(Ciudadano ciudadano) throws CiudadanoRegistradoException;
     Ciudadano findByNombreCi(int criterio);
+    Optional<Ciudadano> find(int ci);
 	void saveVacunador(Vacunador vacunador);
-    public void deleteCiudadano(Ciudadano ciudadano);
-    public void ciudadanoToVacunador(String ci);
-    public void vacunadorToCiudadano(String ci);
+    void deleteCiudadano(Ciudadano ciudadano);
+    void ciudadanoToVacunador(String ci);
+    void vacunadorToCiudadano(String ci);
 
-    //public CiudadanoDTO getCiudadano(int ci) throws CiudadanoNoExisteException ;
-    //public List<CiudadanoDTO> getCiudadanos();
 }
 
