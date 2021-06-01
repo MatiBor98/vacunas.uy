@@ -100,7 +100,8 @@ public class AgendaBean implements AgendaServiceLocal {
             LocalDateTime fechaSiguienteDosis = intervalo.getFechayHora().plusDays((long) vacuna.getDosisSeparacionDias() * i);
             Intervalo intervaloCreadoSiguienteDosis = intervaloRepository.findOrCreate(
                     new Intervalo(fechaSiguienteDosis, intervalo.getAgenda()));
-            Reserva reservaSigueinteDosis = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreadoSiguienteDosis, i+1);
+            Reserva reservaSigueinteDosis = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreadoSiguienteDosis,
+                    i + 1);
             intervaloCreadoSiguienteDosis.addReserva(reservaSigueinteDosis);
             reservaRepository.save(reservaSigueinteDosis);
             reservasHechas.add(reservaSigueinteDosis);
@@ -110,13 +111,17 @@ public class AgendaBean implements AgendaServiceLocal {
     }
 
     @Override
-    public List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicio) {
-        if(!fechaInicio.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
-            throw new RuntimeException("La fecha debe comenzar en Lunes.");
+    public List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicioSemana) {
+        if(!fechaInicioSemana.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+            throw new RuntimeException("La fecha de la semana debe comenzar en Lunes.");
         }
+
+        LocalDate fechaInicio = fechaInicioSemana.isBefore(LocalDate.now()) ?
+                LocalDate.now().plusDays(1) :
+                fechaInicioSemana;
         Agenda agenda = agendaRepository.find(agendaId).orElseThrow(RuntimeException::new);
         Vacuna vacuna = agenda.getEtapa().getVacuna();
-        LocalDate fechaLimite = fechaInicio.plusWeeks(1);
+        LocalDate fechaLimite = fechaInicioSemana.plusWeeks(1);
 
         Map<LocalDateTime, Intervalo> intervalosRegistrados = intervaloRepository
                 .getIntervalos(fechaInicio.atStartOfDay(), fechaLimite.atStartOfDay(), agendaId)
@@ -152,7 +157,7 @@ public class AgendaBean implements AgendaServiceLocal {
     }
 
     /**
-     * Retorna un predicado que dado un inervalo chequea si este esta disponible y ademas que tena intervalos disponibles
+     * Retorna un predicado que dado un inervalo chequea si este esta disponible y ademas que tenga intervalos disponibles
      * para las siguientes dosis.
      * @param fechaInicio  fecha inicio de la ventana de tipo que se va a mostrar los intervalos (Un Lunes )
      * @param agendaId Id de la agenda de la que se estan listando los intervalos
