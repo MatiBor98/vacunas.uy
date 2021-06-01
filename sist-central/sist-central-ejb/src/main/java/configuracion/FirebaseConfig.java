@@ -52,8 +52,7 @@ public class FirebaseConfig {
 
 			initializeDatabase();
 			
-			prueba();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,16 +93,6 @@ public class FirebaseConfig {
 
 
 
-	@EJB
-	CiudadanoServiceLocal ciudadanoServiceLocal;
-	public void prueba() {
-		
-		try {
-			ciudadanoServiceLocal.save(new CiudadanoDTOBuilder()
-					.setCi(50550419).setNombre("Nicolás").setEmail("email@").createCiudadanoDTO());
-		} catch (CiudadanoRegistradoException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 }

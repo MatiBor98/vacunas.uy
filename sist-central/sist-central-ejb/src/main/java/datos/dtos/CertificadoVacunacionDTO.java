@@ -1,4 +1,4 @@
-package datos.dtos.certificado;
+package datos.dtos;
 
 
 import datos.dtos.DosisDadaDTO;

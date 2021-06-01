@@ -1,14 +1,12 @@
 package logica.creacion;
 
 import datos.dtos.DosisDadaDTO;
-import datos.dtos.certificado.CertificadoVacunacionDTO;
+import datos.dtos.CertificadoVacunacionDTO;
 import datos.entidades.*;
 import datos.repositorios.CiudadanoRepositoryLocal;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,17 +37,26 @@ public class CertificadoVacunacionCreator {
 
                 List<String> enfermedades = vacuna.getEnfermedades().stream().map(Enfermedad::getNombre).collect(Collectors.toList());
 
-                LocalDate fechaini = null;
-                LocalDate fechafin = null;
+                String fechaini = "N/A";
+                String fechafin = "N/A";
 
                 if( vacuna.getCantDosis() == reserva.getParaDosis()){
-                    fechaini = reserva.getIntervalo().getFechayHora().toLocalDate();
-                    fechafin = fechaini.plusMonths(vacuna.getInmunidadMeses());
+                    LocalDate fechainiDate = reserva.getIntervalo().getFechayHora().toLocalDate();
+
+                    fechaini = fechainiDate.toString();
+                    fechafin = fechainiDate.plusMonths(vacuna.getInmunidadMeses()).toString();
+
+
                 }
 
 
-                dosisDadas.add(new DosisDadaDTO( reserva.getCodigo(), enfermedades, 
-                        reserva.getIntervalo().getFechayHora().toLocalDate().toString(), reserva.getParaDosis(), fechafin.toString(), fechaini.toString()));
+                int codigo = reserva.getCodigo();
+
+                String fechaEmitido = reserva.getIntervalo().getFechayHora().toLocalDate().toString();
+                DosisDadaDTO dosis = new DosisDadaDTO(codigo, enfermedades,
+                        fechaEmitido, reserva.getParaDosis(), fechafin, fechaini);
+                
+                dosisDadas.add(dosis);
             }
         }
 

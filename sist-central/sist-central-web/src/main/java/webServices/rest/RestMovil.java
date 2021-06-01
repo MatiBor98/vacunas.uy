@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunatorioEnfermedadesDTO;
-import datos.dtos.certificado.CertificadoVacunacionDTO;
+import datos.dtos.CertificadoVacunacionDTO;
 import datos.entidades.*;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
@@ -16,6 +16,7 @@ import logica.servicios.local.VacunatorioControllerLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.nio.charset.StandardCharsets;

@@ -1,7 +1,6 @@
 package datos.repositorios;
 
-import datos.entidades.Ciudadano;
-import datos.entidades.Vacunador;
+import datos.entidades.*;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Singleton;
