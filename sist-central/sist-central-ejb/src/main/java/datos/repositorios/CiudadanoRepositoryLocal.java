@@ -13,14 +13,22 @@ import java.util.List;
 @Local
 public interface CiudadanoRepositoryLocal {
     List<Ciudadano> find();
-    void save(Ciudadano ciudadano) throws CiudadanoRegistradoException;
-    Ciudadano findByNombreCi(int criterio);
-	void saveVacunador(Vacunador vacunador);
-    public void deleteCiudadano(Ciudadano ciudadano);
-    public void ciudadanoToVacunador(String ci);
-    public void vacunadorToCiudadano(String ci);
 
-    //public CiudadanoDTO getCiudadano(int ci) throws CiudadanoNoExisteException ;
-    //public List<CiudadanoDTO> getCiudadanos();
-}
+    void save(Ciudadano ciudadano) throws CiudadanoRegistradoException;
+
+    Ciudadano findByNombreCi(int criterio);
+
+    void saveVacunador(Vacunador vacunador);
+
+    void deleteCiudadano(Ciudadano ciudadano);
+
+    void ciudadanoToVacunador(String ci);
+
+    void vacunadorToCiudadano(String ci);
+
+    Ciudadano getCiudadanoConReservas(int ci);
+
+        //public CiudadanoDTO getCiudadano(int ci) throws CiudadanoNoExisteException ;
+        //public List<CiudadanoDTO> getCiudadanos();
+    }
 

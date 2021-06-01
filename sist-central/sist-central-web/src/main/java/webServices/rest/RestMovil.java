@@ -2,18 +2,17 @@ package webServices.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunatorioEnfermedadesDTO;
+import datos.dtos.certificado.CertificadoVacunacionDTO;
 import datos.entidades.*;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
+import logica.creacion.CertificadoVacunacionCreator;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
-import org.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -99,21 +98,7 @@ public class RestMovil {
     @Path("/ciudadanos/agregar/")
     public void addCiudadano(@QueryParam("jwt") String jwtIdToken) {
 
-        String[] chunks = jwtIdToken.split("\\.");
-
-        Base64.Decoder decoder = Base64.getDecoder();
-
-        String header = new String(decoder.decode(chunks[0]));
-        String payload = new String(decoder.decode(chunks[1]));
-
-        SignatureAlgorithm sa = SignatureAlgorithm.RS256;
-
-        /*
-        String tokenWithoutSignature = chunks[0] + "." + chunks[1];
-        String signature = chunks[2];
-        */
-
-        JsonObject claims = new Gson().fromJson(payload, JsonObject.class);
+        JsonObject claims = getClaimsFromJWT(jwtIdToken);
 
         int ci =  Integer.parseInt(claims.get("numero_documento").getAsString());
         String nombre = claims.get("name").getAsString();
@@ -133,6 +118,26 @@ public class RestMovil {
     }
 
 
+
+
+    @EJB
+    CertificadoVacunacionCreator certificadoVacunacionCreator;
+
+    @GET
+    @Path("/ciudadanos/certificado/")
+    public CertificadoVacunacionDTO getCertificadoVacunacion(@QueryParam("jwt") String jwtIdToken) {
+
+        JsonObject claims = getClaimsFromJWT(jwtIdToken);
+
+        int ci = Integer.parseInt(claims.get("numero_documento").getAsString());
+        String nombre = claims.get("name").getAsString();
+
+        return certificadoVacunacionCreator.create(ci);
+    }
+
+
+
+
     @GET
     @Path("/notificar/{ci}")
     public String prueba(@PathParam("ci") String ci) {
@@ -145,5 +150,26 @@ public class RestMovil {
         return "error";
     }
 
+
+
+
+
+    private JsonObject getClaimsFromJWT(String jwtIdToken) {
+        String[] chunks = jwtIdToken.split("\\.");
+
+        Base64.Decoder decoder = Base64.getDecoder();
+
+        String header = new String(decoder.decode(chunks[0]));
+        String payload = new String(decoder.decode(chunks[1]));
+
+        SignatureAlgorithm sa = SignatureAlgorithm.RS256;
+
+        /*
+        String tokenWithoutSignature = chunks[0] + "." + chunks[1];
+        String signature = chunks[2];
+        */
+
+        return new Gson().fromJson(payload, JsonObject.class);
+    }
 
 }

@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 @Entity
 public class Reserva implements Serializable{
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
-    @SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
+	@SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
 	private int codigo;
-	
+
 	private Estado estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -26,6 +26,8 @@ public class Reserva implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="intervaloId", nullable=false)
 	private Intervalo intervalo;
+
+	private Integer paraDosis;
 
 	public int getCodigo() {
 		return codigo;
@@ -51,15 +53,34 @@ public class Reserva implements Serializable{
 		this.ciudadano = ciudadano;
 	}
 
-	public Reserva(Estado estado, Ciudadano ciudadano) {
+	public Intervalo getIntervalo() {
+		return intervalo;
+	}
+
+	public void setIntervalo(Intervalo intervalo) {
+		this.intervalo = intervalo;
+	}
+
+	public Integer getParaDosis() {
+		return paraDosis;
+	}
+
+	public void setParaDosis(Integer paraDosis) {
+		this.paraDosis = paraDosis;
+	}
+
+	public Reserva(Estado estado, Ciudadano ciudadano, Intervalo intervalo, int paraDosis) {
 		super();
 		this.estado = estado;
 		this.ciudadano = ciudadano;
+		this.intervalo = intervalo;
+		this.paraDosis = paraDosis;
 	}
 
 	public Reserva() {
 		super();
 	}
-	
-	
+
+
 }
+

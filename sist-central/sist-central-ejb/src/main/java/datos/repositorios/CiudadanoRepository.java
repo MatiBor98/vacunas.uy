@@ -1,13 +1,13 @@
 package datos.repositorios;
 
-import datos.entidades.Ciudadano;
-import datos.entidades.Vacunador;
+import datos.entidades.*;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class CiudadanoRepository implements CiudadanoRepositoryLocal{
@@ -67,6 +67,16 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     	entityManager.createNativeQuery("UPDATE ciudadano "
     										+ "SET rol = 'Ciudadano' "
     											+ "WHERE ci = " + ci + ";").executeUpdate();
+    }
+
+    public Ciudadano getCiudadanoConReservas(int ci){
+        Ciudadano ciudadano = entityManager.find(Ciudadano.class, ci);
+        List<Intervalo> intervalos = ciudadano.getReservas().values().parallelStream().map(Reserva::getIntervalo).collect(Collectors.toList());
+        List<Vacuna> vacunaList = intervalos.parallelStream().map(Intervalo::getAgenda).map(Agenda::getEtapa)
+                .map(Etapa::getVacuna).collect(Collectors.toList());
+        vacunaList.parallelStream().map(Vacuna::getEnfermedades).collect(Collectors.toList()).size();
+        return  ciudadano;
+
     }
     
 }
