@@ -53,8 +53,9 @@ public class CertificadoVacunacionCreator {
                 int codigo = reserva.getCodigo();
 
                 String fechaEmitido = reserva.getIntervalo().getFechayHora().toLocalDate().toString();
+                String nombreVacuna = vacuna.getNombre();
                 DosisDadaDTO dosis = new DosisDadaDTO(codigo, enfermedades,
-                        fechaEmitido, reserva.getParaDosis(), fechafin, fechaini);
+                        nombreVacuna, fechaEmitido, reserva.getParaDosis(), fechaini, fechafin);
                 
                 dosisDadas.add(dosis);
             }

@@ -1,7 +1,5 @@
 package datos.dtos;
 
-import datos.entidades.Intervalo;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +10,10 @@ public class DosisDadaDTO implements Serializable {
 
     private List<String> enfermedades;
 
+    private String nombreVacuna;
+
     private String fecha;
+
 
     private Integer paraDosis;
 
@@ -75,9 +76,10 @@ public class DosisDadaDTO implements Serializable {
         this.periodoInmunidadFin = periodoInmunidadFin.toString();
     }
 
-    public DosisDadaDTO(int codigo, List<String> enfermedades, String fecha, Integer paraDosis, String periodoInmunidadInicio, String periodoInmunidadFin) {
+    public DosisDadaDTO(int codigo, List<String> enfermedades, String nombreVacuna, String fecha, Integer paraDosis, String periodoInmunidadInicio, String periodoInmunidadFin) {
         this.codigo = codigo;
         this.enfermedades = enfermedades;
+        this.nombreVacuna = nombreVacuna;
         this.fecha = fecha;
         this.paraDosis = paraDosis;
         this.periodoInmunidadInicio = periodoInmunidadInicio.toString();
@@ -85,5 +87,13 @@ public class DosisDadaDTO implements Serializable {
     }
 
     public DosisDadaDTO() {
+    }
+
+    public String getNombreVacuna() {
+        return nombreVacuna;
+    }
+
+    public void setNombreVacuna(String nombreVacuna) {
+        this.nombreVacuna = nombreVacuna;
     }
 }
