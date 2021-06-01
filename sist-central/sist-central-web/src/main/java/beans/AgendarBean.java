@@ -1,7 +1,10 @@
 package beans;
 
 import datos.dtos.VacunatorioTieneAgendaDTO;
-import datos.entidades.*;
+import datos.entidades.Departamento;
+import datos.entidades.Enfermedad;
+import datos.entidades.Intervalo;
+import datos.entidades.Reserva;
 import datos.repositorios.ReservaRepository;
 import io.jsonwebtoken.lang.Strings;
 import logica.servicios.local.AgendaServiceLocal;
@@ -9,7 +12,7 @@ import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.DayOfWeek;
@@ -23,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Named("AgendarBean")
-@SessionScoped
+@ViewScoped
 public class AgendarBean implements Serializable {
     @EJB
     private EnfermedadServiceLocal enfermedadController;
@@ -46,8 +49,6 @@ public class AgendarBean implements Serializable {
     private Boolean ciudadanoHabilitado = null;
 
     private Boolean yaTieneAgendaCiudadano = null;
-
-    private List<Reserva> reservasRealizadas = Collections.emptyList();
 
     private LocalDate semana;
 
@@ -119,7 +120,7 @@ public class AgendarBean implements Serializable {
     }
 
     public List<Reserva> getReservasRealizadas() {
-        return reservasRealizadas;
+        return entrada.reservasRealizadas;
     }
 
     public LocalDate getSemana() {
@@ -172,8 +173,9 @@ public class AgendarBean implements Serializable {
 
     public void concretarAgenda() {
         try {
-            reservasRealizadas = agendaServiceLocal.efectuarReserva(entrada.intervalo, 52050756);
-            this.entrada = new Entrada();
+            Intervalo intervalo = entrada.intervalo;
+            limpiarEntrada();
+            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, 52050756);
         } catch(Exception e) {
             actualizarIntervalos();
             System.out.println("No se puedo realizar la reserva!");
@@ -204,6 +206,8 @@ public class AgendarBean implements Serializable {
         private VacunatorioTieneAgendaDTO vacunatorioAgneda = null;
 
         private Intervalo intervalo = null;
+
+        private List<Reserva> reservasRealizadas = Collections.emptyList();
 
         public Enfermedad getEnfermedad() {
             return enfermedad;
