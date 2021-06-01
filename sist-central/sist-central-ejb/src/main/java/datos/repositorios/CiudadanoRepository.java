@@ -1,6 +1,7 @@
 package datos.repositorios;
 
-import datos.entidades.*;
+import datos.entidades.Ciudadano;
+import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Singleton;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Singleton
 public class CiudadanoRepository implements CiudadanoRepositoryLocal{
@@ -48,25 +50,29 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
     @Override
     public Ciudadano findByNombreCi(int criterio) {
-
-        /*return entityManager.createQuery(
-                "select c from Ciudadano c where c.ci = :cedula", Ciudadano.class)
-                .setParameter("cedula",criterio)
-                .getResultList();*/
     	return entityManager.find(Ciudadano.class, criterio);
     }
-    
 
     public void ciudadanoToVacunador(String ci) {
     	entityManager.createNativeQuery("UPDATE ciudadano "
     										+ "SET rol = 'Vacunador' "
     											+ "WHERE ci = " + ci + ";").executeUpdate();
     }
-    
+
     public void vacunadorToCiudadano(String ci) {
     	entityManager.createNativeQuery("UPDATE ciudadano "
     										+ "SET rol = 'Ciudadano' "
     											+ "WHERE ci = " + ci + ";").executeUpdate();
+    }
+
+    @Override
+    public Optional<Ciudadano> find(int ci) {
+        return entityManager.createQuery(
+                "select c from Ciudadano c where c.ci = :cedula", Ciudadano.class)
+                .setParameter("cedula", ci)
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 
     public Ciudadano getCiudadanoConReservas(int ci){
@@ -78,5 +84,5 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
         return  ciudadano;
 
     }
-    
+
 }

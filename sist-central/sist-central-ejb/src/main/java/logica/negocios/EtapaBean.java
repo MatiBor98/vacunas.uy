@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Stateless
 public class EtapaBean  implements EtapaController {
@@ -58,26 +59,21 @@ public class EtapaBean  implements EtapaController {
     }
 
     @Override
-    public boolean habilidadoCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
-        //TODO: hacer esto en la consulta para mejorar
-        return !etapaRepository.find(nombreEnfermedad, edadCiudadano, trabajos).isEmpty();
+    public boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
+        return etapaRepository.existeEtapaParaCiudadano(nombreEnfermedad, edadCiudadano, trabajos);
     }
     
     @Override
-    public void save(String nomVac, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion, List<Trabajos> trabajos, int edadMin, int edadMax) {
+    public void save(String nomVac, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion,
+                     List<Trabajos> trabajos, int edadMin, int edadMax) {
     	Vacuna vac = vacunaRepository.findByNombreVacuna(nomVac).get(0);
     	Optional<PlanVacunacion> planVacOptional = pVacRepository.find(planVacunacion);
     	PlanVacunacion planVac = planVacOptional.get();
     	etapaRepository.save(vac, inicio, fin, planVac, descripcion, trabajos, edadMin, edadMax);
     }
 
-	@Override
+    @Override
 	public List<String> getNombresTrabajos() {
-		List<String> res = new ArrayList<>();
-		Trabajos[] trabajos = Trabajos.values();
-		for(Trabajos trabajo:trabajos) {
-			res.add(trabajo.toString());
-		}
-		return res;
+		return Stream.of(Trabajos.values()).map(Trabajos::toString).collect(Collectors.toList());
 	}
 }

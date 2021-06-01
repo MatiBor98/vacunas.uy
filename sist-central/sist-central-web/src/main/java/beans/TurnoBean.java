@@ -61,22 +61,15 @@ public class TurnoBean implements Serializable{
 		this.setVacunatorio("");
 	}
 	
-	/*public void eliminarVacuna(String nom) {
-		if (!vacService.findByNombreVacuna(nom).isEmpty()) {
-			vacService.eliminar(nom);
-			this.setVacunaEliminada("block");
-			this.setVacunaNoEliminada("none");
-		} else {
-			this.setVacunaEliminada("none");
-			this.setVacunaNoEliminada("block");
-
-		}
-	}*/
-	
 	public List<Turno> getTurnos(String nomVacunatortio) {
 		List<Turno> res = new ArrayList<>();
 		List<Turno> turnos = (List<Turno>) turnoService.find();
-		return turnos;
+		for(Turno turno:turnos) {
+			if (turno.getVacunatorio().getNombre().equals(nomVacunatortio)) {
+				res.add(turno);
+			}
+		}
+		return res;
 	}
 	public String getColor() {
 		if (this.color.equals("white")) {

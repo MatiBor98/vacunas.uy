@@ -1,26 +1,26 @@
 package datos.entidades;
 
+import datos.exceptions.IntervaloNoDisponibleException;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
-public class Intervalo implements Serializable{
-	
-	/**
-	 * 
-	 */
+public class Intervalo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="intervaloId")
     @SequenceGenerator(name="intervaloId",sequenceName="intervaloId", allocationSize=1)
 	private Integer id;
+
 	private LocalDateTime fechayHora;
 
 	@ManyToOne
@@ -30,12 +30,22 @@ public class Intervalo implements Serializable{
 	@OneToMany(mappedBy = "intervalo")
 	private List<Reserva> reservas;
 
+	@Transient
+	private final AtomicInteger cantidadReservas = new AtomicInteger(0);
+
+	@PostLoad
+	private void postLoad(){
+		cantidadReservas.compareAndSet(0, reservas.size());
+	}
+
 	public Intervalo(LocalDateTime fechayHora, Agenda agenda) {
 		this.fechayHora = fechayHora;
 		this.agenda = agenda;
-		this.reservas = Collections.emptyList();
+		this.reservas = new LinkedList<>();
 	}
-	public Intervalo() {}
+	public Intervalo() {
+		this.reservas = new LinkedList<>();
+	}
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -66,10 +76,18 @@ public class Intervalo implements Serializable{
 	}
 
 	public List<Reserva> getReservas() {
-		return reservas;
+		return new LinkedList<>(reservas);
 	}
 
-	public void setReservas(List<Reserva> reservas) {
-		this.reservas = reservas;
+	public void addReserva(Reserva reserva) {
+		int capacidadPorIntervalo = agenda.getHorarioPorDia().get(fechayHora.getDayOfWeek()).getCapacidadPorTurno();
+		int cant;
+		do {
+			cant = cantidadReservas.get();
+			if (cant >= capacidadPorIntervalo) {
+				throw new IntervaloNoDisponibleException();
+			}
+		} while (!cantidadReservas.compareAndSet(cant, cant + 1));
+		reservas.add(reserva);
 	}
 }

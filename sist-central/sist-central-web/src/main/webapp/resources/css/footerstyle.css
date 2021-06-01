@@ -7,11 +7,10 @@ footer{
 	color: white;
 	overflow: hidden;
 	height: 30vh;
+	position: absolute;
 	bottom: 0;
 	right: 0;
 	left: 0;
-	flex: 0 0 50px;/*or just height:50px;*/
- 	 margin-top: auto;
 }
 
 footer .container{
