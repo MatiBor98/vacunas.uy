@@ -84,4 +84,11 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
     }
 
+    @Override
+    public List<Ciudadano> findTokenNotNull() {
+        return entityManager.createQuery(
+                "select c from Ciudadano c where c.firebaseTokenMovil is not null", Ciudadano.class)
+                .getResultList();
+    }
+
 }

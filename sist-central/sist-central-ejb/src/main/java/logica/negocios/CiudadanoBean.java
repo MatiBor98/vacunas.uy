@@ -1,5 +1,6 @@
 package logica.negocios;
 
+import com.google.firebase.messaging.Notification;
 import datos.dtos.AgendaDTO;
 import datos.dtos.CiudadanoDTO;
 import datos.entidades.Agenda;
@@ -45,6 +46,12 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
         return ciudadanoRepository.find().parallelStream().map(ciudadanoConverter::convert).collect(Collectors.toList());
     }
 
+	@Override
+	public List<CiudadanoDTO> findTokenNotNull() {
+		return ciudadanoRepository.findTokenNotNull().parallelStream().map(ciudadanoConverter::convert).collect(Collectors.toList());
+	}
+
+
     @Override
     public CiudadanoDTO findByNombreCi(int criterio) throws CiudadanoNoEncontradoException{
     	Ciudadano buscado = ciudadanoRepository.findByNombreCi(criterio);
@@ -77,34 +84,6 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	userLegacy.setNombre(userNew.getNombre());
     }
 
-	@Override
-	public void notificar(int ci) {
-		Ciudadano Ciudadano = ciudadanoRepository.findByNombreCi(ci);
-    	if (Ciudadano.getFirebaseTokenMovil() != null) {
-    		// This registration token comes from the client FCM SDKs.
-    		String registrationToken = Ciudadano.getFirebaseTokenMovil();
-
-    		// See documentation on defining a message payload.
-    		Message message = Message.builder()
-    		    .putData("score", "850")
-    		    .putData("time", "2:45")
-    		    .setToken(registrationToken)
-    		    .build();
-
-    		// Send a message to the device corresponding to the provided
-    		// registration token.
-    		String response;
-			try {
-				response = FirebaseMessaging.getInstance().send(message);
-				System.out.println("Successfully sent message: " + response);
-			} catch (FirebaseMessagingException e) {
-				e.printStackTrace();
-			}
-    		// Response is a message ID string.
-    	}
-
-
-	}
 
 	@Override
 	public Vacunador findVacunador(int ciVac) {
@@ -114,6 +93,36 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 			vac = (Vacunador) ciud;
 		}
 		return vac;
+	}
+
+    @Override
+    public void notificarTodosLosUsuariosMoviles(String titulo, String cuerpo) {
+        for (Ciudadano ciudadano : ciudadanoRepository.findTokenNotNull()){
+			notificar(ciudadano.getFirebaseTokenMovil(),titulo,cuerpo);
+		}
+    }
+
+	@Override
+	public void notificar(String firebaseToken, String titulo, String cuerpo) {
+		Notification notificacion = Notification.builder().setTitle(titulo).setBody(cuerpo).build();
+
+		Message message = Message.builder()
+				.setNotification(notificacion)
+				.putData("message", cuerpo)
+				.setToken(firebaseToken)
+				.build();
+
+		// Send a message to the device corresponding to the provided
+		// registration token.
+		String response;
+		try {
+			response = FirebaseMessaging.getInstance().send(message);
+			System.out.println("Successfully sent message: " + response);
+		} catch (FirebaseMessagingException e) {
+			e.printStackTrace();
+		}
+
+
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
@@ -48,7 +49,11 @@ public class RefreshTokenServlet extends AbstractServlet {
                 .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), Response.class);
         JsonObject tokenResponse = jaxrsResponse.readEntity(JsonObject.class);
         if (jaxrsResponse.getStatus() == 200) {
-            request.getSession().setAttribute("tokenResponse", tokenResponse);
+            Cookie jwtCookie = new Cookie("JWT", tokenResponse.toString());
+            jwtCookie.setMaxAge(36000); //expire could be 60 (seconds)
+            jwtCookie.setHttpOnly(true);
+            jwtCookie.setPath("/");
+            response.addCookie(jwtCookie);
         } else {
             request.setAttribute("error", tokenResponse.getString("error_description", "error!"));
         }

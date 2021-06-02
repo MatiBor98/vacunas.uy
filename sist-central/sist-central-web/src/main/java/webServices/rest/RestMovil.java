@@ -13,12 +13,21 @@ import logica.creacion.CertificadoVacunacionCreator;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
+import org.eclipse.microprofile.config.Config;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -29,6 +38,9 @@ import static java.util.stream.Collectors.toList;
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class RestMovil {
+
+    @Inject
+    private Config config;
 
     @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
@@ -136,25 +148,6 @@ public class RestMovil {
         return certificadoVacunacionCreator.create(ci);
     }
 
-
-
-
-    @GET
-    @Path("/notificar/{ci}")
-    public String prueba(@PathParam("ci") String ci) {
-        try {
-            ciudadanoServiceLocal.notificar(Integer.parseInt(ci));
-            return "notificado";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "error";
-    }
-
-
-
-
-
     private JsonObject getClaimsFromJWT(String jwtIdToken) {
         String[] chunks = jwtIdToken.split("\\.");
 
@@ -171,6 +164,73 @@ public class RestMovil {
         */
 
         return new Gson().fromJson(payload, JsonObject.class);
+    }
+
+    @GET
+    @Path("/gubuy/tokenrequest")
+    public String getTokenRequest(@QueryParam("code") String authorizationCode){
+
+        if (authorizationCode == null || authorizationCode.equals("")){
+            throw new IllegalArgumentException("código inválido");
+        }
+
+        String clientId = config.getValue("client.clientId", String.class);
+        String clientSecret = config.getValue("client.clientSecret", String.class);
+
+
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target(config.getValue("provider.tokenUri", String.class));
+        Form form = new Form();
+        form.param("grant_type", "authorization_code");
+        form.param("code", authorizationCode);
+        form.param("redirect_uri", config.getValue("client.redirectUri", String.class));
+
+
+        javax.json.JsonObject tokenResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
+                .header(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue(clientId, clientSecret))
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), javax.json.JsonObject.class);
+            /////////
+
+
+        return tokenResponse.toString();
+
+
+    }
+
+    @GET
+    @Path("/gubuy/refreshtoken")
+    public String getRefreshToken(@QueryParam("refresh_token") String refreshToken, @QueryParam("scope") String scope){
+
+        String clientId = config.getValue("client.clientId", String.class);
+        String clientSecret = config.getValue("client.clientSecret", String.class);
+
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target(config.getValue("provider.tokenUri", String.class));
+
+        Form form = new Form();
+        form.param("grant_type", "refresh_token");
+        form.param("refresh_token", refreshToken);
+
+        if (scope != null && !scope.isEmpty()) {
+            form.param("scope", scope);
+        }
+
+        Response jaxrsResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
+                .header(HttpHeaders.AUTHORIZATION, getAuthorizationHeaderValue(clientId, clientSecret))
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), Response.class);
+        javax.json.JsonObject tokenResponse = jaxrsResponse.readEntity(javax.json.JsonObject.class);
+
+        return tokenResponse.toString();
+
+    }
+
+
+
+
+    protected String getAuthorizationHeaderValue(String clientId, String clientSecret) {
+        String token = clientId + ":" + clientSecret;
+        String encodedString = Base64.getEncoder().encodeToString(token.getBytes());
+        return "Basic " + encodedString;
     }
 
 }

@@ -7,6 +7,7 @@ import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Local;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +24,6 @@ public interface CiudadanoRepositoryLocal {
     void vacunadorToCiudadano(String ci);
     Ciudadano getCiudadanoConReservas(int ci);
 
+    List<Ciudadano> findTokenNotNull();
 }
 
