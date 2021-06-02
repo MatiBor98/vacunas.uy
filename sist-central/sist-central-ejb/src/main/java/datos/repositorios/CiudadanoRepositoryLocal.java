@@ -1,14 +1,11 @@
 package datos.repositorios;
 
-import datos.dtos.CiudadanoDTO;
-import datos.entidades.Agenda;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Local;
 import java.util.List;
-import java.util.Optional;
 import java.util.Optional;
 
 
