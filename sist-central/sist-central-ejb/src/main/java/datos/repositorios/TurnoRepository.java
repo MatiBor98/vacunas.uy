@@ -47,7 +47,7 @@ public class TurnoRepository implements TurnoRepositoryLocal {
 	}
 	
 	public List<Turno> find(String vac, String nombreTurno) {
-		Query query = entityManager.createQuery("SELECT t FROM Turno t WHERE lower(t.nombre) like :nombreTurno").setParameter("nombreTurno", "%" + nombreTurno.toLowerCase() + "%");
+		Query query = entityManager.createQuery("SELECT t FROM Turno t WHERE lower(t.nombre) :nombreTurno").setParameter("nombreTurno", nombreTurno.toLowerCase());
 		//Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) like :nombrePuesto and lower(p.vacunatorio) like :vac").setParameter("vac", "%" + vac + "%").setParameter("nombrePuesto", "%" + nombrePuesto.toLowerCase() + "%");
     	List<Turno> turns = query.getResultList();
     	List<Turno> res = new ArrayList<>();

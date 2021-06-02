@@ -54,7 +54,7 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
     }
     
     public List<PuestoVacunacion> find(String vac, String nombrePuesto) {
-    	Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) like :nombrePuesto").setParameter("nombrePuesto", "%" + nombrePuesto.toLowerCase() + "%");
+    	Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) = :nombrePuesto").setParameter("nombrePuesto", nombrePuesto.toLowerCase());
 		//Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) like :nombrePuesto and lower(p.vacunatorio) like :vac").setParameter("vac", "%" + vac + "%").setParameter("nombrePuesto", "%" + nombrePuesto.toLowerCase() + "%");
     	List<PuestoVacunacion> pVacs = query.getResultList();
     	List<PuestoVacunacion> res = new ArrayList<>();

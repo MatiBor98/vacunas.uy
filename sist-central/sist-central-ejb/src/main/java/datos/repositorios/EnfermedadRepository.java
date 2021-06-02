@@ -56,7 +56,7 @@ public class EnfermedadRepository implements EnfermedadRepositoryLocal {
     
     @Override
     public List<Enfermedad> findByNombreEnfermedad(String nombreEnf) {
-    	Query query = entityManager.createQuery("SELECT e FROM Enfermedad e WHERE lower(e.nombre) like :nombreEnf").setParameter("nombreEnf", "%" + nombreEnf.toLowerCase() + "%");
+    	Query query = entityManager.createQuery("SELECT e FROM Enfermedad e WHERE lower(e.nombre) = :nombreEnf").setParameter("nombreEnf", nombreEnf.toLowerCase());
     	List<Enfermedad> enfs = query.getResultList();
     	return enfs;
     }

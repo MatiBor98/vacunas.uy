@@ -38,7 +38,7 @@ public class VacunaRepository implements VacunaRepositoryLocal {
 
     @Override
     public List<Vacuna> findByNombreVacuna(String nombreVac) {
-    	Query query = entityManager.createQuery("SELECT v FROM Vacuna v WHERE lower(v.nombre) like :nombreVac").setParameter("nombreVac", "%" + nombreVac.toLowerCase() + "%");
+    	Query query = entityManager.createQuery("SELECT v FROM Vacuna v WHERE lower(v.nombre) = :nombreVac").setParameter("nombreVac", nombreVac.toLowerCase());
     	List<Vacuna> vacs = query.getResultList();
     	return vacs;
     }

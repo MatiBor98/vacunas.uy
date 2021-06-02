@@ -78,7 +78,7 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     
     public void addBOUser(String email, String password, String rol) throws EmailRegistradoException {
     	UsuarioBO nuevoUsuario;
-    	if(rol.equals("administrador")) {
+    	if(rol.equals("Administrador")) {
     		nuevoUsuario = new Administrador();
     	}
     	else{
