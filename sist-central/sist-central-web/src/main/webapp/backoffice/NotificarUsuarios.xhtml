@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+   <ui:define name="titulo">
+      - Notificar a todos los usuarios moviles
+   </ui:define>
+   <ui:define name="content">
+      <div class="div_body" style="background-color: white; min-height:100vh; display:block">
+         <h:form class="form-signin">
+
+
+            <label class="form-label">Título de la notificación:</label>
+            <p:inputText
+                    stlyeClsss="text-input"
+                    value="#{NotificacionBean.titulo}"
+                    id="titulo"
+                    class="form-control text-center"
+                    t:placeholder="Aviso..."
+                    required="true"
+            />
+
+            <label class="form-label">Cuerpo de la notificación:</label>
+            <p:inputText
+                    stlyeClsss="text-input"
+                    value="#{NotificacionBean.cuerpo}"
+                    id="cuerpo"
+                    class="form-control text-center"
+                    t:placeholder="Motivo..."
+                    required="true"
+            />
+
+            <h:commandButton value="Crear"
+                             class="btn btn-lg btn-primary btn-block"
+                             type="submit"
+                             style="background-color:#222938; border:#222938; margin-top: 30px"
+                             action="#{NotificacionBean.notificar()}"
+            />
+         </h:form>
+      </div>
+   </ui:define>
+</ui:composition>
+</html>

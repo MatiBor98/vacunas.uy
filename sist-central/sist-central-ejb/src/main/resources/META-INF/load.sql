@@ -31,3 +31,13 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 3);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 5);
 insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 52050756,'bpardinas@bruno.com', 'Bruno Pardiñas');
+insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 50550419,'nicolas@mail.com', 'Nicolás San Martín');
+
+insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-10-19 10:30:00',1);
+insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-11-19 10:30:00',1);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 2, 1, 50550419, 1);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 2, 2, 50550419, 2);
+
+
+insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'), TIMESTAMP '2021-6-4 10:30:00',1);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 0, 1, 50550419, 3);

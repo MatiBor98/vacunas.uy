@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 @Entity
 public class Reserva implements Serializable{
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
-    @SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
+	@SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
 	private int codigo;
-	
+
 	private Estado estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -80,6 +80,7 @@ public class Reserva implements Serializable{
 	public Reserva() {
 		super();
 	}
-	
-	
+
+
 }
+

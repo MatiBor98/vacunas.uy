@@ -13,9 +13,13 @@ import java.util.List;
 public interface CiudadanoServiceLocal {
     List<CiudadanoDTO> find();
     void save(CiudadanoDTO ciudadano) throws CiudadanoRegistradoException;
+
+    List<CiudadanoDTO> findTokenNotNull();
+
     CiudadanoDTO findByNombreCi(int criterio) throws CiudadanoNoEncontradoException;
     void overwriteCiudadano(CiudadanoDTO ciudadano);
-    void notificar(int ci);
     void updateFirebaseTokenMovil(int ci, String firebaseToken);
-	Vacunador findVacunador(int ciVac);
+    void notificar(String firebaseToken, String titulo, String cuerpo);
+    Vacunador findVacunador(int ciVac);
+	void notificarTodosLosUsuariosMoviles(String titulo , String cuerpo);
 }
