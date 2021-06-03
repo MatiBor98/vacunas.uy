@@ -30,7 +30,7 @@ public class InitSchedule {
         for (Reserva reserva : reservas){
             ciudadanoServiceLocal.notificar(reserva.getCiudadano().getFirebaseTokenMovil(),
                     "Recordatorio de vacunación",
-                    String.format("Se recuerda que %s (%s), tiene una reserva para %s.",
+                    String.format("Se recuerda que %s (%s), tiene una reserva para: %s.",
                             reserva.getCiudadano().getNombre(),
                             String.valueOf(reserva.getCiudadano().getCi()),
                             reserva.getIntervalo().getFechayHora().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
