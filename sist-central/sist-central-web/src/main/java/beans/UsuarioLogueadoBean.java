@@ -3,9 +3,11 @@ package beans;
 import datos.dtos.CiudadanoDTO;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
+import io.jsonwebtoken.security.Keys;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.annotation.PostConstruct;
+import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.annotation.ManagedProperty;
@@ -14,6 +16,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
@@ -28,6 +31,10 @@ public class UsuarioLogueadoBean implements Serializable {
     String email;
     String userName;
     String cid;
+    
+	String password = "secretKeyforJwt.secretKeyForJwt.secretKeyforJwt";
+	SecretKey key = Keys.hmacShaKeyFor(password.getBytes(StandardCharsets.UTF_8));
+
     @PostConstruct
     public void init() {
         Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");

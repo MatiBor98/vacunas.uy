@@ -69,7 +69,6 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     			.setIssuedAt(new Date(timestamp))
     			.setExpiration(new Date(timestamp+60000))
     			.claim("email", usuario.getEmail())
-    			.claim("password", usuario.getPassword())
     			.claim("rol", rol)
     			.signWith(key).compact();
     	
