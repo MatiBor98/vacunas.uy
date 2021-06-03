@@ -7,6 +7,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Singleton
 @LocalBean
@@ -30,5 +33,19 @@ public class ReservaRepository {
                 .getSingleResult() > 0;
 
 
+    }
+
+    public List<Reserva> findReservasTomorrow(){
+        LocalDateTime hoy = LocalDateTime.now();
+        LocalDateTime maniana = hoy.plusDays(1).withHour(23).withMinute(59);
+        return entityManager.createQuery(
+                " select r from Reserva r join Ciudadano c on (r.ciudadano.ci = c.ci) " +
+                        "join Intervalo i on (r.intervalo.id = i.id)"
+                        + " where r.intervalo.fechayHora >= :hoy and r.intervalo.fechayHora <= :maniana "
+                        + " and r.ciudadano.firebaseTokenMovil is not null"
+                )
+                .setParameter("hoy",hoy)
+                .setParameter("maniana",maniana)
+                .getResultList();
     }
 }

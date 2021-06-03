@@ -37,3 +37,7 @@ insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId')
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-11-19 10:30:00',1);
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 2, 1, 50550419, 1);
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 2, 2, 50550419, 2);
+
+
+insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'), TIMESTAMP '2021-6-4 10:30:00',1);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 0, 1, 50550419, 3);
