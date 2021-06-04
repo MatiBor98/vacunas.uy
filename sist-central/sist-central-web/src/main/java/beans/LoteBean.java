@@ -219,7 +219,7 @@ public class LoteBean implements Serializable{
 		ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
 		String destinationString = System.getProperty("destination", "topic/sist-central");
 		Destination destination = (Destination) namingContext.lookup(destinationString);
-		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre + "|" + socioLogisticoNombre + "|");
+		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
 		JMSContext context = connectionFactory.createContext(userName, password);
 		context.createProducer().send(destination, content);
 

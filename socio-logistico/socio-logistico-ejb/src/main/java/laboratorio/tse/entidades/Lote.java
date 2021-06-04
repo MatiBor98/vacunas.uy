@@ -23,6 +23,8 @@ public class Lote implements Serializable{
 	private LocalDate fechaEntrega;
 	@Column
 	private LocalDate fechaDespacho;
+	@Column
+	private String nombreVacunatorio;
 		
     /**
      * Default constructor. 
@@ -31,7 +33,7 @@ public class Lote implements Serializable{
         super();
     }
     
-    public Lote(int dosisDisponibles, int numeroLote, LocalDate fechaVencimiento, String vacuna) {
+    public Lote(int dosisDisponibles, int numeroLote,String nombreVacunatorio, LocalDate fechaVencimiento, String vacuna) {
     	super();
     	this.dosisDisponibles = dosisDisponibles;
     	this.numeroLote = numeroLote;
@@ -39,9 +41,18 @@ public class Lote implements Serializable{
     	this.vacuna = vacuna;
     	this.fechaEntrega = null;
     	this.fechaDespacho = null;
+    	this.nombreVacunatorio = nombreVacunatorio;
     }
     
-    public int getDosisDisponibles() {
+    public String getNombreVacunatorio() {
+		return nombreVacunatorio;
+	}
+
+	public void setNombreVacunatorio(String nombreVacunatorio) {
+		this.nombreVacunatorio = nombreVacunatorio;
+	}
+
+	public int getDosisDisponibles() {
     	return dosisDisponibles;
     }
     

@@ -16,13 +16,14 @@
 				<p:column headerText="Numero Lote">
 					<h:outputText value="#{lote.numeroLote}" />
 				</p:column>
-
 				<p:column headerText="Vacuna">
 					<h:outputText value="#{lote.vacuna}" />
 				</p:column>
-
 				<p:column headerText="Dosis Disponibles">
 					<h:outputText value="#{lote.dosisDisponibles}" />
+				</p:column>
+				<p:column headerText="Vacunatorio">
+					<h:outputText value="#{lote.nombreVacunatorio}" />
 				</p:column>
 				<p:column headerText="Fecha Vencimiento">
 					<h:outputText value="#{lote.fechaVencimiento}" />
@@ -32,6 +33,11 @@
 				</p:column>
 				<p:column headerText="Fecha Despacho">
 					<h:outputText value="#{lote.fechaDespacho}" />
+				</p:column>
+				 <p:column headerText="Despachar">
+					<h:form rendered="#{empty lote.fechaDespacho}">
+							<h:commandButton value="Despachar" type="submit" class="btn btn-danger" style="padding: 2px 6px" action="#{ListarBean.despachar(lote.numeroLote)}" />
+					</h:form>
 				</p:column>
 			</p:dataTable>
 		</h:form>

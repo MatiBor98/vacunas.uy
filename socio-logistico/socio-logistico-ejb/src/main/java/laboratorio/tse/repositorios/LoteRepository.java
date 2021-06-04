@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import laboratorio.tse.entidades.Lote;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,10 +43,25 @@ public class LoteRepository implements LoteRepositoryLocal {
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }*/
 
-
+	public Optional<Lote> find(int numeroLote) {
+        List<Lote> resultList = entityManager.createQuery(
+                "select l from Lote l where l.numeroLote = :numeroLote",
+				Lote.class)
+                .setParameter("numeroLote", numeroLote)
+                .setMaxResults(1)
+                .getResultList();
+        return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+    }
+	
 	@Override
 	public void save(Lote lote) {
 		entityManager.persist(lote);
+		
+	}
+
+	@Override
+	public void despacharLote(int numero) {
+		this.find(numero).get().setFechaDespacho(LocalDate.now());
 		
 	}
 	

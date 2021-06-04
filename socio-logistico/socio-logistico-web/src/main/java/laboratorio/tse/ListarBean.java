@@ -7,7 +7,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import laboratorio.tse.entidades.Lote;
-
+import laboratorio.tse.negocios.LoteServiceLocal;
+import laboratorio.tse.repositorios.LoteRepositoryLocal;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,7 +27,7 @@ public class ListarBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	laboratorio.tse.repositorios.LoteRepositoryLocal service;
+	LoteRepositoryLocal service;
 
 
 
@@ -42,6 +43,12 @@ public class ListarBean implements Serializable{
 		//Lote lote = new Lote(10, 1, LocalDate.now(), "Pfizer"); 
 		//service.save(lote);
 		list = service.find();
+	}
+	
+	public void despachar(int numero) {		
+		//Lote lote = new Lote(10, 1, LocalDate.now(), "Pfizer"); 
+		//service.save(lote);
+		service.despacharLote(numero);
 	}
 	
 	

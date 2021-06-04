@@ -1,4 +1,4 @@
-package negocios;
+package laboratorio.tse.negocios;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -22,8 +22,8 @@ public class LoteBean implements LoteServiceLocal {
 	@EJB
 	LoteRepositoryLocal loteRepositoryLocal;
 	
-	public void addLote(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre) {
-		Lote lote = new Lote(dosisDisponibles,numeroLote, fechaVencimiento, nomVac);
+	public void addLote(int dosisDisponibles, int numeroLote,String nombreVacunatorio, String nomVac, LocalDate fechaVencimiento, String vacunaNombre) {
+		Lote lote = new Lote(dosisDisponibles,numeroLote,nombreVacunatorio, fechaVencimiento, nomVac);
 		loteRepositoryLocal.save(lote);
 	}
 
@@ -40,6 +40,13 @@ public class LoteBean implements LoteServiceLocal {
     public LoteBean() {
         // TODO Auto-generated constructor stub
     }
+
+
+	@Override
+	public void despacharLote(int numero) {
+		loteRepositoryLocal.despacharLote(numero);
+		
+	}
 
 
 

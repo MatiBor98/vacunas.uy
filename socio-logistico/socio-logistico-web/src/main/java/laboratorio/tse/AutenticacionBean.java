@@ -2,8 +2,10 @@ package laboratorio.tse;
 
 import java.io.IOException;
 
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -12,14 +14,19 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.config.Config;
+
 @Named("AutenticacionBean")
 @RequestScoped
 public class AutenticacionBean {
 
-
+	@Inject
+    private Config config;
+	
 	String nombre;
 
 	public void autenticar() {
+		nombre = config.getValue("socioLogistico.nombre", String.class);
 		String result;
 		Client client = ClientBuilder.newClient();
 			WebTarget target = client
