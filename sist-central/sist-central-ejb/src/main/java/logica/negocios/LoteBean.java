@@ -18,7 +18,6 @@ import java.util.Optional;
  * Session Bean implementation class PuestoVacunacionBean
  */
 @Stateless
-@LocalBean
 public class LoteBean implements LoteServiceLocal {
 
 	@EJB
@@ -47,6 +46,16 @@ public class LoteBean implements LoteServiceLocal {
     public List<Lote> find() {
     	return loteRepositoryLocal.find();
     }
+
+	@Override
+	public void despacharLote(int numeroLote, String socioLogistico, LocalDate fechaDespacho) {
+		loteRepositoryLocal.despacharLote(numeroLote, socioLogistico,fechaDespacho);
+	}
+
+	@Override
+	public void entregarLote(int numeroLote, String socioLogistico, LocalDate fechaEntrega) {
+		loteRepositoryLocal.entregarLote(numeroLote, socioLogistico,fechaEntrega);
+	}
 
 	/*@Override
 	public List<Lote> find(String vac, String nombreLote) {

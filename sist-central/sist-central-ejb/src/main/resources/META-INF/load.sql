@@ -31,3 +31,5 @@ insert into agenda (id, inicio, fin, nombre, etapaid, turno_id, cantidadCuposDis
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 3);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 5);
+
+insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false')

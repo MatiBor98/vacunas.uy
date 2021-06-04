@@ -47,7 +47,6 @@ public class TopicoMDB implements MessageListener {
 				String[] partes= msg.getText().split("\\|");
 				Lote lote = new Lote(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]),partes[2], LocalDate.parse(partes[3]), partes[4]);
 				service.save(lote);
-				//informarSocLog(21, 21, "21", LocalDate.now(), "21", "21");
 			} catch (JMSException e) {
 				e.printStackTrace();
 			//} catch (NamingException e) {
@@ -58,24 +57,6 @@ public class TopicoMDB implements MessageListener {
 	}
 	
 	
-	public void informarSocLog(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre, String socioLogisticoNombre) throws NamingException {
-		String userName = "alta1";
-		String password = "alta1";
-		final Properties env = new Properties();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://127.0.0.1:8080"));
-		env.put(Context.SECURITY_PRINCIPAL, userName);
-		env.put(Context.SECURITY_CREDENTIALS, password);
-		Context namingContext = null;
-		namingContext = new InitialContext(env);
-		String connectionFactoryString = System.getProperty("connection.factory", "jms/RemoteConnectionFactory");
-		ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
-		String destinationString = System.getProperty("destination", "queue/socio-logistico");
-		Destination destination = (Destination) namingContext.lookup(destinationString);
-		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre + "|" + socioLogisticoNombre + "|");
-		JMSContext context = connectionFactory.createContext(userName, password);
-		context.createProducer().send(destination, content);
 
-	}
 	
 }
