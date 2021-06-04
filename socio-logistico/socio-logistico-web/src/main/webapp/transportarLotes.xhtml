@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<div class="card">
+
+		<h:form>
+			<p:dataTable var="lote" value="#{ListarBean.list}" paginator="true"
+				rows="10"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:column headerText="Numero Lote">
+					<h:outputText value="#{lote.numeroLote}" />
+				</p:column>
+
+				<p:column headerText="Vacuna">
+					<h:outputText value="#{lote.vacuna}" />
+				</p:column>
+
+				<p:column headerText="Dosis Disponibles">
+					<h:outputText value="#{lote.dosisDisponibles}" />
+				</p:column>
+				<p:column headerText="Fecha Vencimiento">
+					<h:outputText value="#{lote.fechaVencimiento}" />
+				</p:column>
+				<p:column headerText="Fecha Entrega">
+					<h:outputText value="#{lote.fechaEntrega}" />
+				</p:column>
+				<p:column headerText="Fecha Despacho">
+					<h:outputText value="#{lote.fechaDespacho}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+
+</body>
+</html>

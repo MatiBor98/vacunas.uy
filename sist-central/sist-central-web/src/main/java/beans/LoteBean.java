@@ -5,8 +5,15 @@ import logica.servicios.local.LoteServiceLocal;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSContext;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Properties;
 
 @Named("LoteBean")
 @RequestScoped
@@ -40,9 +47,10 @@ public class LoteBean implements Serializable{
 	}
 
 
-	public void agregarLote(String vac) {
+	public void agregarLote(String vac) throws NamingException {
 		//falta hacer el control de que ya este ingresado
 		loteService.addLote(dosisDisponibles, numLote,vac,fechaVencimiento, vacuna,socLogistico);
+		informarSocLog(dosisDisponibles, numLote,vac,fechaVencimiento, vacuna,socLogistico);
 		this.setLoteYaExiste("none");
 		this.setLoteAgregado("block");
 		this.setVacunatorio(null);
@@ -197,4 +205,23 @@ public class LoteBean implements Serializable{
 		this.loteService = loteService;
 	}
 
+	public void informarSocLog(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre, String socioLogisticoNombre) throws NamingException {
+		String userName = "alta1";
+		String password = "alta1";
+		final Properties env = new Properties();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
+		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://127.0.0.1:8080"));
+		env.put(Context.SECURITY_PRINCIPAL, userName);
+		env.put(Context.SECURITY_CREDENTIALS, password);
+		Context namingContext = null;
+		namingContext = new InitialContext(env);
+		String connectionFactoryString = System.getProperty("connection.factory", "jms/RemoteConnectionFactory");
+		ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
+		String destinationString = System.getProperty("destination", "topic/sist-central");
+		Destination destination = (Destination) namingContext.lookup(destinationString);
+		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre + "|" + socioLogisticoNombre + "|");
+		JMSContext context = connectionFactory.createContext(userName, password);
+		context.createProducer().send(destination, content);
+
+	}
 }

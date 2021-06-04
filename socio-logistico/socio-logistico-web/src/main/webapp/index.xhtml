@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form>
+
+	<div class="card">
+		<h5>Ingrese su nombre de socio logistico</h5>
+		<div class="p-formgroup-inline">
+			<div class="p-field">
+				<h:inputText id="Nombre" 
+				             stlyeClass="text-input"
+				             class="form-control text-center"
+				             placeholder="Firstname"
+				             value="#{AutenticacionBean.nombre}"
+				             required="true"
+				             
+			     />
+			</div>
+			<h:commandButton value="Ingresar" 
+							 class="btn btn-lg btn-primary btn-block"
+                             type="submit"
+			                 action="#{AutenticacionBean.autenticar()}"
+			
+			/>
+		</div>
+	</div>
+</h:form>
+</html>
