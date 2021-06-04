@@ -5,12 +5,15 @@
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<ui:composition template="../WEB-INF/appTemplate.xhtml">
+<ui:composition template="../../WEB-INF/appTemplate.xhtml">
 	<ui:define name="titulo">
 		- Home-Administrador
 	</ui:define>
 	<ui:define name="content">
 		<div class="div-body" style="height: 100%; min-height: 100%; padding-bottom: 30vh;">
+		<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade" >
+		    <p class="p-m-0">No tiene a acceso a la pagina solicitada</p>
+		 </p:dialog>
 			<div class="container">
 			<!-- gestion de usuarios -->
 				<div class="d-flex flex-row justify-content-center pt-5">
@@ -31,7 +34,7 @@
 							</div>
 							<div class="card-body">
 								<h5>Alta de usuario BackOffice</h5>
-								<a href="/backoffice/AgregarUsuarioBackOffice.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/AgregarUsuarioBackOffice.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -46,7 +49,7 @@
 							</div>
 							<div class="card-body">
 								<h5>Alta de usuario FrontOffice</h5>
-								<a href="/backoffice/AgregarUsuarioFrontOffice.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/AgregarUsuarioFrontOffice.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -54,7 +57,7 @@
 						<div class="card h-100  mx-auto">
 							<div class="card-body">
 								<h5>Lista de usuarios FrontOffice</h5>
-								<a href="/backoffice/ConsultaUsuariosFrontOffice.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/ConsultaUsuariosFrontOffice.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -62,7 +65,7 @@
 						<div class="card h-100 mx-auto">
 							<div class="card-body">
 								<h5>Lista de usuarios BackOffice </h5>
-								<a href="/backoffice/ConsultaUsuariosBackOffice.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/ConsultaUsuariosBackOffice.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -77,7 +80,7 @@
 						<div class="card h-100 mx-auto">
 							<div class="card-body ">
 								<h5>Alta de vacunatorio</h5>
-								<a href="/backoffice/AgregarVacunatorio.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/AgregarVacunatorio.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -85,7 +88,7 @@
 						<div class="card h-100 mx-auto">
 							<div class="card-body">
 								<h5>Lista de vacunatorios</h5>
-								<a href="/backoffice/ConsultaVacunatorios.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/ConsultaVacunatorios.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -100,7 +103,7 @@
 						<div class="card h-100 mx-auto">
 							<div class="card-body">
 								<h5>Alta de socio logistico</h5>
-								<a href="/backoffice/AgregarSocioLogistico.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/AgregarSocioLogistico.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>
@@ -108,7 +111,7 @@
 						<div class="card h-100 mx-auto">
 							<div class="card-body">
 								<h5>Lista de socios logisticos</h5>
-								<a href="/backoffice/ConsultaSociosLogisticos.xhtml" class="stretched-link"></a>
+								<a href="/backoffice/administrador/ConsultaSociosLogisticos.xhtml" class="stretched-link"></a>
 							</div>
 						</div>
 					</div>

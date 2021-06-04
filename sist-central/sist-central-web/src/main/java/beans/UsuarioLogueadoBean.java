@@ -3,9 +3,11 @@ package beans;
 import datos.dtos.CiudadanoDTO;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
+import io.jsonwebtoken.security.Keys;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.annotation.PostConstruct;
+import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
