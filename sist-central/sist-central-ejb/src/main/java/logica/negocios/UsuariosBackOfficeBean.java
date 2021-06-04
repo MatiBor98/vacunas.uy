@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import datos.dtos.SessionTokens;
 import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
@@ -48,7 +49,7 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
         // TODO Auto-generated constructor stub
     }
 
-    public String auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException{
+    public SessionTokens auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException{
     	
     	UsuarioBO usuario = usuariosBO.find(email);
     	if(usuario == null) {
@@ -67,12 +68,23 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	long timestamp = System.currentTimeMillis();
     	String jwt = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
-    			.setExpiration(new Date(timestamp+60000))
+    			.setExpiration(new Date(timestamp+120000))
     			.claim("email", usuario.getEmail())
     			.claim("rol", rol)
     			.signWith(key).compact();
     	
-    	return jwt;
+    	String jwtRefresh = Jwts.builder()
+				.setIssuedAt(new Date(timestamp))
+				.setExpiration(new Date(timestamp+240000))
+				.claim("email", usuario.getEmail())
+    			.claim("rol", rol)
+				.signWith(key).compact();
+    	
+    	SessionTokens token = new SessionTokens();
+    	token.setAccessToken(jwt);
+    	token.setRefreshToken(jwtRefresh);
+    	
+    	return token;
     }
     
     public void addBOUser(String email, String password, String rol) throws EmailRegistradoException {

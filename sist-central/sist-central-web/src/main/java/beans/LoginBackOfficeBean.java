@@ -20,6 +20,7 @@ import javax.inject.Named;
 import datos.exceptions.EmailRegistradoException;
 import org.json.JSONObject;
 
+import datos.dtos.SessionTokens;
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
 import datos.entidades.UsuarioBO;
@@ -64,7 +65,9 @@ public class LoginBackOfficeBean implements Serializable{
 
 	public void login() {
 		try {
-			String jwt = usuarios.auntenticarUsuario(email, password);
+			SessionTokens tokens = usuarios.auntenticarUsuario(email, password);
+			String jwt = tokens.getAccessToken();
+			String refresh = tokens.getRefreshToken();
 			
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			//ahora creamos los parametros para la cookie
@@ -73,7 +76,14 @@ public class LoginBackOfficeBean implements Serializable{
 			properties.put("maxAge", 36000);
 			properties.put("httpOnly", true);
 			//aca se agrega la cookie a la response
-			ec.addResponseCookie("JWT", jwt, properties);
+			ec.addResponseCookie("JWTBO", jwt, properties);
+			
+			Map<String, Object> propertiesRefresh = new HashMap<String,Object>();
+			properties.put("path", "/");
+			properties.put("maxAge", 72000);
+			properties.put("httpOnly", true);
+			//aca se agrega la cookie a la response
+			ec.addResponseCookie("JWTBORefresh", refresh, propertiesRefresh);
 			
 			String[] tokenParts = jwt.split("\\.");
 			Base64.Decoder decoder = Base64.getDecoder();
@@ -82,10 +92,10 @@ public class LoginBackOfficeBean implements Serializable{
 			JSONObject body = new JSONObject(playload);
 			//ahora miramos en el playload que rol tiene para decidir a donde redirigir
 			if(body.getString("rol").equals("administrador")) {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/Administrador.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/administrador/Administrador.xhtml");
 			}
 			else if(body.get("rol").equals("autoridad")){
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/Autoridad.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/autoridad/Autoridad.xhtml");
 			}
 		} catch (EmailNoRegistradoException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El email ingresado no se ecnuentra registrado"));
@@ -97,4 +107,15 @@ public class LoginBackOfficeBean implements Serializable{
 			
 	}
 	
+	public void logout() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+		//tenemos q eliminar las cookies, pero como no existe un mecanismo para tal cosa las sobreescribimos
+		Map<String, Object> properties = new HashMap<String,Object>();
+		properties.put("path", "/");
+		properties.put("maxAge", 0);
+		properties.put("httpOnly", true);
+		ec.addResponseCookie("JWTBO", "", properties);
+		ec.addResponseCookie("JWTBORefresh", "", properties);
+	}
 }
