@@ -3,7 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"> 
-<ui:composition template="../../WEB-INF/appTemplate.xhtml">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
 	<ui:define name="titulo">
 		- Lista usuarios backoffice
 	</ui:define>
@@ -11,7 +11,7 @@
 		<div class="div-body" >
 			<div class="content">			
 				<ul class="list-group pt-5 pb-5" style="margin-top: 30px">
-                    <ui:repeat value="#{usuarioBackOfficeBean.listarUsuarios()}" var="usu">
+                    <ui:repeat value="#{UsuarioBackOfficeBean.listarUsuarios()}" var="usu">
 
                         <li class="list-group-item" style="background-color:#{usuarioBackOfficeBean.getColor()}">
                             <h2 style="color:#{usuarioBackOfficeBean.colorSecundario}">Email: #{usu.email}</h2>

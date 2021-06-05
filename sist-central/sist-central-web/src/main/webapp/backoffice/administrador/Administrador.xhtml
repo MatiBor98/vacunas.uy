@@ -5,16 +5,17 @@
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<ui:composition template="../../WEB-INF/appTemplate.xhtml">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
 	<ui:define name="titulo">
 		- Home-Administrador
 	</ui:define>
 	<ui:define name="content">
-		<div class="div-body" style="height: 100%; min-height: 100%; padding-bottom: 30vh;">
-		<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade" >
-		    <p class="p-m-0">No tiene a acceso a la pagina solicitada</p>
-		 </p:dialog>
-			<div class="container">
+		<div class="div-body" style="height: 100%; min-height: 100%; padding-bottom: 30vh;" id="body">
+			<div class="container" >
+			<p:dialog header="Header" widgetVar="dlg" minHeight="40" width="350" showEffect="fade" modal="true" rendered="#{param[accesDenied] != null}">
+			    <p class="p-m-0">No tiene acceso para acceder a esa pagina.</p>
+			   	<p:autoUpdate/>
+			</p:dialog>
 			<!-- gestion de usuarios -->
 				<div class="d-flex flex-row justify-content-center pt-5">
 					<h3>Gestion de ususarios</h3>
@@ -118,6 +119,13 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			document.getElementById("body").onload = funtion(){cargarDialogo()};
+
+			function cargarDialogo(){
+				PF("dlg").show();
+					}
+		</script>
 	</ui:define>
 </ui:composition>
 </html>

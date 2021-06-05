@@ -68,14 +68,14 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	long timestamp = System.currentTimeMillis();
     	String jwt = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
-    			.setExpiration(new Date(timestamp+120000))
+    			.setExpiration(new Date(timestamp+60000))
     			.claim("email", usuario.getEmail())
     			.claim("rol", rol)
     			.signWith(key).compact();
     	
     	String jwtRefresh = Jwts.builder()
 				.setIssuedAt(new Date(timestamp))
-				.setExpiration(new Date(timestamp+240000))
+				.setExpiration(new Date(timestamp+120000))
 				.claim("email", usuario.getEmail())
     			.claim("rol", rol)
 				.signWith(key).compact();

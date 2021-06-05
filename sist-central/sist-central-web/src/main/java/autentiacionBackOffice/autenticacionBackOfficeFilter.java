@@ -3,8 +3,10 @@ package autentiacionBackOffice;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.Map;
 
 import javax.crypto.SecretKey;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -58,6 +60,7 @@ public class autenticacionBackOfficeFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		Cookie[] cookie = req.getCookies();
+		
 		int iter = 0;
 		while(iter < cookie.length && !cookie[iter].getName().equals("JWTBO")) {
 			iter++;
@@ -69,10 +72,10 @@ public class autenticacionBackOfficeFilter implements Filter {
 		}
 		String accessToken = cookie[iter].getValue();
 		try {
-			//aca encontramos la cookie de la token y resta verificarla
+			//aca encontramos la cookie de la token y resta verificarlalink a viewscoped bean with pages
 			Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
 			String rol = claims.get("rol", String.class);
-		    
+			
 		    //ahora vemos a q pagina esta intentando acceder para comprobar que tiene permiso
 		    String requri = ((HttpServletRequest) request).getRequestURI();
 		    String[] direcciones = requri.split("/");
@@ -80,11 +83,11 @@ public class autenticacionBackOfficeFilter implements Filter {
 		    	//si accede a uno q no corresponde a su rol lo mandamos a la pagina de acceso denegado
 		    	if(!rol.equals(direcciones[2])) {
 		    		if(rol.equals("administrador")) {
-		    			httpResponse.sendRedirect(req.getContextPath() + "/backoffice/administrador/Administrador.xhtml");
+		    			httpResponse.sendRedirect(req.getContextPath() + "/backoffice/administrador/Administrador.xhtml?accessDenied=true");
 		 	            return;
 		    		}
 		    		if(rol.equals("autoridad")) {
-		    			httpResponse.sendRedirect(req.getContextPath() + "/backoffice/autoridad/Autoridad.xhtml");
+		    			httpResponse.sendRedirect(req.getContextPath() + "/backoffice/autoridad/Autoridad.xhtml?accessDenied=true");
 		 	            return;
 		    		}
 		           
@@ -109,8 +112,7 @@ public class autenticacionBackOfficeFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 			catch(JwtException f) {
-				httpResponse.addHeader("error", "Su sesion ha expirado");
-				httpResponse.sendRedirect(req.getContextPath() + "/Login.xhtml");
+				httpResponse.sendRedirect(req.getContextPath() + "/Login.xhtml?sessionExpired=true");
 		        return;
 			}
 			
@@ -138,7 +140,7 @@ public class autenticacionBackOfficeFilter implements Filter {
     	long timestamp = System.currentTimeMillis();
 		String newAccessToken = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
-    			.setExpiration(new Date(timestamp+300000))
+    			.setExpiration(new Date(timestamp+60000))
     			.claim("email", refreshClaims.get("email", String.class))
     			.claim("rol", refreshClaims.get("rol", String.class))
     			.signWith(key).compact();

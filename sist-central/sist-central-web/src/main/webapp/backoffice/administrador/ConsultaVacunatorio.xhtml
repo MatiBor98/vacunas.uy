@@ -6,7 +6,7 @@
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<ui:composition template="../../WEB-INF/appTemplate.xhtml">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
 	<ui:define name="titulo">
 		- Consulta Vacunatorio
 	</ui:define>
@@ -36,8 +36,8 @@
 				<div class="row" style="display:block; padding-top: 0vh;">
 					<div class="col-sm-3"/>
 					<div class="col-sm-6">
-						<div class="card" style="background-color:#c6c6c6; width:1000px">
-						  <div class="card-body text-center">
+						<div class="card" style="background-color:#c6c6c6; width:1000px; border:0px">
+						  <div class="card-body text-center" style="background-color:#c6c6c6; border:0px">
 								<div  class="bodytype" id="info" style="display:block">
 									<div class="card-header" style="background-color:#222938; color:white">
 										<h2>Informacion</h2>
@@ -61,12 +61,43 @@
 									<h:form rendered="#{!VacunatorioBean.getPuestos(ConsultaBean.consultaVacunatorio).isEmpty()}">
 									  <ul class="list-group list-group-flush">
 										  <ui:repeat value="#{VacunatorioBean.getPuestos(ConsultaBean.consultaVacunatorio)}" var="puesto">
-												<li class="list-group-item">#{puesto.nombrePuesto}</li>
+										  	<div class="card" style="width:960px; background-color:#c6c6c6; border:0px">
+										  		<div class="card-header" style="background-color:#222938; color:#222938">
+										  		  <h3>
+													<li class="list-group-item">#{puesto.nombrePuesto}</li>
+												  </h3>
+												</div>
+												<h:form rendered="#{puesto.getAsignaciones().isEmpty()}">
+													<li class="list-group-item">No hay vacunadores asignados a este puesto</li>
+												</h:form>
+												<h:form rendered="#{!puesto.getAsignaciones().isEmpty()}">
+													<h5>
+														<li class="list-group-item" style="background-color:#99cddd">Asignaciones:</li>
+													</h5>
+													<ui:repeat value="#{puesto.getAsignaciones()}" var="asig">
+														<div class="card" style="width:960px; background-color:#c6c6c6">
+															<div class="card-header" style="background-color:#99cddd; color:#222938">
+															  <h5>
+																<li class="list-group-item">Vacunador: #{asig.vacunador.nombre} - #{asig.vacunador.ci}</li>
+															  </h5>
+															</div>
+															<li class="list-group-item">Turno: #{asig.turno.nombre} (#{asig.turno.inicio} - #{asig.turno.fin})</li>
+															<li class="list-group-item">Desde: #{asig.fechaInicio}</li>
+															<li class="list-group-item">Hasta: #{asig.fechaFin}</li>
+														</div>
+													</ui:repeat>
+												</h:form>
+													<h:commandButton value="Asignar Vacunador"
+					                                 class="btn"
+					                                 type="submit"
+					                                 style="padding: 5px 12px; display: block; margin-top: 5px; margin-bottom: 5px; background-color:#99cddd"
+					                                 action="#{ConsultaBean.setConsultaPuesto(puesto.nombrePuesto)}"/>
+											</div>
 										  </ui:repeat>
 									  </ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar puesto" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarPuesto.xhtml" />
+										<h:button value="Agregar puesto" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarPuesto.xhtml" />
 									</h:form>
 								</div>
 
@@ -95,7 +126,7 @@
 									  </ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar turno" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarTurno.xhtml" />
+										<h:button value="Agregar turno" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarTurno.xhtml" />
 									</h:form>
 								</div>
 
@@ -116,7 +147,7 @@
 										</ul>
 									</h:form>
 									<h:form>
-										<h:button value="Agregar lote" class="btn btn-info" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarLote.xhtml" />
+										<h:button value="Agregar lote" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="AgregarLote.xhtml" />
 									</h:form>
 								</div>
 

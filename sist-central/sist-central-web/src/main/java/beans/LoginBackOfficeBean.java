@@ -42,6 +42,20 @@ public class LoginBackOfficeBean implements Serializable{
 
 	String email = null;
 	String password = null;
+	boolean sesionExpirada;
+	String error;
+	
+	public boolean isSesionExpirada() {
+		return sesionExpirada;
+	}
+
+	public void setSesionExpirada(boolean sesionExpirada) {
+		this.sesionExpirada = sesionExpirada;
+	}
+
+	public String getError() {
+		return error;
+	}
 	
 	public LoginBackOfficeBean() {
 		// TODO Auto-generated constructor stub
@@ -63,6 +77,15 @@ public class LoginBackOfficeBean implements Serializable{
 		this.password = password;
 	}
 
+	@PostConstruct
+	public void init() {
+		String error = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("error");
+		if(error != null) {
+			sesionExpirada = true;
+		}
+		
+	}
+	
 	public void login() {
 		try {
 			SessionTokens tokens = usuarios.auntenticarUsuario(email, password);
@@ -80,7 +103,7 @@ public class LoginBackOfficeBean implements Serializable{
 			
 			Map<String, Object> propertiesRefresh = new HashMap<String,Object>();
 			properties.put("path", "/");
-			properties.put("maxAge", 72000);
+			properties.put("maxAge", 36000);
 			properties.put("httpOnly", true);
 			//aca se agrega la cookie a la response
 			ec.addResponseCookie("JWTBORefresh", refresh, propertiesRefresh);
@@ -110,12 +133,18 @@ public class LoginBackOfficeBean implements Serializable{
 	public void logout() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
-		//tenemos q eliminar las cookies, pero como no existe un mecanismo para tal cosa las sobreescribimos
+		//tenemos q eliminar las cookies, pero como no existe un mecanismo para tal cosa se sobreescriben
 		Map<String, Object> properties = new HashMap<String,Object>();
 		properties.put("path", "/");
 		properties.put("maxAge", 0);
 		properties.put("httpOnly", true);
 		ec.addResponseCookie("JWTBO", "", properties);
 		ec.addResponseCookie("JWTBORefresh", "", properties);
+		
+		try {
+			ec.redirect("/Login.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
