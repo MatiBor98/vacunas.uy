@@ -34,6 +34,8 @@ public class UsuarioLogueadoBean implements Serializable {
             Base64.Decoder decoder = Base64.getDecoder();
             String payload = new String(decoder.decode(chunks[1]));
             userName = getAtributeFromJWTString(payload, "nombre_completo");
+            userName = org.apache.commons.lang3.StringEscapeUtils.unescapeJava(userName);
+
             email = getAtributeFromJWTString(payload, "email");
             cid = getAtributeFromJWTString(payload, "numero_documento");
             try {
