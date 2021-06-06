@@ -6,7 +6,7 @@ import datos.entidades.Agenda;
 import datos.entidades.Etapa;
 import datos.entidades.InformacionPosiblesIntervalos;
 import datos.entidades.Turno;
-import datos.repositorios.EtapaRepository;
+import datos.repositorios.EtapaRepositoryLocal;
 import datos.repositorios.TurnoRepositoryLocal;
 
 import javax.ejb.EJB;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
     @EJB
-    private EtapaRepository etapaRepository;
+    private EtapaRepositoryLocal etapaRepository;
 
     @EJB
     private TurnoRepositoryLocal turnoRepository;

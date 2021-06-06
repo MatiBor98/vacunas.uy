@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.wildfly.discovery.ServicesQueue;
+
 import laboratorio.tse.entidades.Lote;
 import laboratorio.tse.repositorios.LoteRepositoryLocal;
 
@@ -103,6 +105,12 @@ public class LoteBean implements LoteServiceLocal {
 		JMSContext context = connectionFactory.createContext(userName, password);
 		context.createProducer().send(destination, content);
 
+	}
+
+
+	@Override
+	public Optional<Lote> find(int numeroLote) {
+		return loteRepositoryLocal.find(numeroLote);
 	}
 
 }

@@ -2,6 +2,9 @@ package datos.entidades;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class PuestoVacunacion {
 	private String nombrePuesto;
 	
 	@OneToMany(mappedBy="puestoVacunacion")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Asignacion> asignaciones;
 
 	public Vacunatorio getVacunatorio() {

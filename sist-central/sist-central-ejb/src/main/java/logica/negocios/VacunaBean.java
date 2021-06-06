@@ -39,4 +39,9 @@ public class VacunaBean implements VacunaServiceLocal {
     public void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs) {
     	vacunaRepository.modificarVacuna(nombre, cantDosis, inmunidadMeses, dosisSeparacion, labs, enfs);
     }
+
+	@Override
+	public Vacuna find(String nomVacuna) {
+		return vacunaRepository.find(nomVacuna).get();
+	}
 }

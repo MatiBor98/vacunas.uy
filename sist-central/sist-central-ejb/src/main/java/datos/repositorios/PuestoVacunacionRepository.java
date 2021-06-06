@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import datos.dtos.PuestoVacunacionDTO;
+import datos.entidades.Asignacion;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacuna;
 import datos.entidades.Vacunatorio;
@@ -53,7 +55,7 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
     }
     
     public List<PuestoVacunacion> find(String vac, String nombrePuesto) {
-    	Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) like :nombrePuesto").setParameter("nombrePuesto", "%" + nombrePuesto.toLowerCase() + "%");
+    	Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) = :nombrePuesto").setParameter("nombrePuesto", nombrePuesto.toLowerCase());
 		//Query query = entityManager.createQuery("SELECT p FROM PuestoVacunacion p WHERE lower(p.nombrePuesto) like :nombrePuesto and lower(p.vacunatorio) like :vac").setParameter("vac", "%" + vac + "%").setParameter("nombrePuesto", "%" + nombrePuesto.toLowerCase() + "%");
     	List<PuestoVacunacion> pVacs = query.getResultList();
     	List<PuestoVacunacion> res = new ArrayList<>();
@@ -64,5 +66,21 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
     	}
 		return res;
     }
+
+
+
+	@Override
+	public List<Asignacion> getAsignaciones(String nombreVacunatorio, String nombrePuesto) {
+		PuestoVacunacion pVac = find(nombreVacunatorio, nombrePuesto).get(0);
+		return pVac.getAsignaciones();
+	}
+
+
+
+	@Override
+	public void addAsignacion(Asignacion asig) {
+		entityManager.persist(asig);
+	}
+
 
 }

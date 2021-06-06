@@ -2,11 +2,13 @@ package datos.repositorios;
 
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
+import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class CiudadanoRepository implements CiudadanoRepositoryLocal{
@@ -24,9 +26,14 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
     }
 
     @Override
-    public void save(Ciudadano ciudadano) {
-        if (findByNombreCi(ciudadano.getCi()) == null)
+    public void save(Ciudadano ciudadano) throws CiudadanoRegistradoException {
+        if (findByNombreCi(ciudadano.getCi()) == null)  {
             entityManager.persist(ciudadano);
+        }
+        else {
+        	throw new CiudadanoRegistradoException();
+        }
+        	
     }
     
     @Override
@@ -42,29 +49,28 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 
     @Override
     public Ciudadano findByNombreCi(int criterio) {
-
-        /*return entityManager.createQuery(
-                "select c from Ciudadano c where c.ci = :cedula", Ciudadano.class)
-                .setParameter("cedula",criterio)
-                .getResultList();*/
     	return entityManager.find(Ciudadano.class, criterio);
     }
-    
-    @Override
-    public void refreshCiudadano(Ciudadano ciudadano) {
-    	entityManager.merge(ciudadano);
-    }
-    
+
     public void ciudadanoToVacunador(String ci) {
-    	entityManager.createNativeQuery("UPDATE ciudadano"
-    										+ "SET rol = 'Vacunador'"
-    											+ "WHERE ci = " + ci);
+    	entityManager.createNativeQuery("UPDATE ciudadano "
+    										+ "SET rol = 'Vacunador' "
+    											+ "WHERE ci = " + ci + ";").executeUpdate();
     }
-    
+
     public void vacunadorToCiudadano(String ci) {
-    	entityManager.createNativeQuery("UPDATE ciudadano"
-    										+ "SET rol = 'Ciudadano'"
-    											+ "WHERE ci = " + ci);
+    	entityManager.createNativeQuery("UPDATE ciudadano "
+    										+ "SET rol = 'Ciudadano' "
+    											+ "WHERE ci = " + ci + ";").executeUpdate();
     }
-    
+
+    @Override
+    public Optional<Ciudadano> find(int ci) {
+        return entityManager.createQuery(
+                "select c from Ciudadano c where c.ci = :cedula", Ciudadano.class)
+                .setParameter("cedula", ci)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
 }

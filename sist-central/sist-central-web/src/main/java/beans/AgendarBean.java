@@ -1,27 +1,32 @@
 package beans;
 
-import datos.dtos.AgendaDTO;
+import datos.dtos.VacunatorioTieneAgendaDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Intervalo;
-import datos.entidades.Vacunatorio;
+import datos.entidades.Reserva;
+import datos.repositorios.ReservaRepository;
+import io.jsonwebtoken.lang.Strings;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.time.temporal.WeekFields;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Named("AgendarBean")
-@SessionScoped
+@ViewScoped
 public class AgendarBean implements Serializable {
     @EJB
     private EnfermedadServiceLocal enfermedadController;
@@ -32,38 +37,54 @@ public class AgendarBean implements Serializable {
     @EJB
     private EtapaController etapaController;
 
+    @EJB
+    private ReservaRepository reservaRepository;
+
     private Entrada entrada = new Entrada();
 
     private String enfermedaNombre = null;
 
+    private boolean mostrarLista = false;
+
     private Boolean ciudadanoHabilitado = null;
 
-    private Supplier<LocalDate> nextDateSupplier = getNextDateSupplier();
+    private Boolean yaTieneAgendaCiudadano = null;
+
+    private LocalDate semana;
+
+    private Map<DayOfWeek, List<Intervalo>> intevalosPorDia = null;
+
+    private final LocalDate fechaMax;
+
+    private final LocalDate fechaMin;
+
+    private boolean procesando = false;
+
+    public AgendarBean() {
+        WeekFields weekFields = WeekFields.of(Constantes.ES_UY);
+        this.semana = LocalDate.now()
+                .with(weekFields.dayOfWeek(), 1);
+        this.fechaMin = semana;
+        this.fechaMax = semana.plusMonths(3);
+    }
 
     public List<Enfermedad> getEnfermedades() {
-        return enfermedaNombre == null ? Collections.emptyList() : enfermedadController
+        return !mostrarLista || !Strings.hasText(enfermedaNombre) ? Collections.emptyList() : enfermedadController
                 .findPage(0, 10, enfermedaNombre);
     }
 
-    public List<VacunatorioAgneda> getAgendas() {
-        //TODO: arreglar eso ya que se optiene de una forma en el servicio se papea y se dehace el mapeo
-        // - se hizo asi solo para agilizar
+    public List<VacunatorioTieneAgendaDTO> getAgendas() {
         return entrada.vacunatorioAgneda != null ? Collections.singletonList(entrada.vacunatorioAgneda) :
                 agendaServiceLocal.findAgendasParaCiudadanoPorDepartamento(entrada.enfermedad.getNombre(),
-                        50, null, entrada.departamento)
-                        .entrySet()
-                        .stream()
-                        .flatMap(e-> e.getValue().stream().map(a-> VacunatorioAgneda.of(e.getKey(), a)))
-                        .collect(Collectors.toList());
+                        50, null, entrada.departamento);
     }
 
-    public List<Intervalo> getIntervalos() {
-        return agendaServiceLocal.getIntervalos(entrada.vacunatorioAgneda.agendaDTO.getId(), nextDateSupplier.get());
+    public List<DayOfWeek> getDiasIntervalos() {
+        return intevalosPorDia.keySet().stream().sorted().collect(Collectors.toList());
     }
 
-    private Supplier<LocalDate> getNextDateSupplier() {
-        AtomicReference<LocalDate> localDate = new AtomicReference<>(LocalDate.now());
-        return () -> localDate.getAndSet(localDate.get().plusWeeks(1));
+    public List<Intervalo> getIntervalosPorDia(DayOfWeek dia) {
+        return intevalosPorDia.get(dia);
     }
 
     public Entrada getEntrada() {
@@ -90,45 +111,91 @@ public class AgendarBean implements Serializable {
         this.ciudadanoHabilitado = ciudadanoHabilitado;
     }
 
-    public void onBlur() {
-        this.enfermedaNombre = null;
+    public Boolean getYaTieneReservaCiudadano() {
+        return yaTieneAgendaCiudadano;
+    }
+
+    public void setYaTieneReservaCiudadano(Boolean yaTieneReservaCiudadano) {
+        this.yaTieneAgendaCiudadano = yaTieneReservaCiudadano;
+    }
+
+    public List<Reserva> getReservasRealizadas() {
+        return entrada.reservasRealizadas;
+    }
+
+    public LocalDate getSemana() {
+        return semana;
+    }
+
+    public void setSemana(LocalDate semana) {
+        this.semana = semana;
+    }
+
+    public String getFechaMax() {
+        return fechaMax.format(DateTimeFormatter.ISO_WEEK_DATE).substring(0, 8);
+    }
+
+    public String getFechaMin() {
+        return fechaMin.format(DateTimeFormatter.ISO_WEEK_DATE).substring(0, 8);
+    }
+
+    public void mostrarLista(boolean mostrar) {
+        this.mostrarLista = mostrar;
     }
 
     public void elegirEnfermedad(Enfermedad enfermedad) {
         this.entrada.enfermedad = enfermedad;
         this.enfermedaNombre = null;
         this.ciudadanoHabilitado = etapaController
-                .habilidadoCiudadano(entrada.enfermedad.getNombre(), 50, null);
+                .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), 50, null);
+        this.yaTieneAgendaCiudadano = reservaRepository
+                .existeReservaPendienteByCiudadanoEnfermedad(52050756, enfermedad.getNombre());
+    }
+    public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
+        this.entrada.vacunatorioAgneda = vacunatorioAgneda;
+        if(vacunatorioAgneda != null) {
+            this.intevalosPorDia = agendaServiceLocal
+                    .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
+                    .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
+        } else {
+            this.intevalosPorDia = null;
+        }
     }
 
-    public void elegirVacunatorioAgneda(VacunatorioAgneda vacunatorioAgneda) {
-        this.entrada.vacunatorioAgneda = vacunatorioAgneda;
+    public boolean isProcesando() {
+        return procesando;
+    }
+
+    public void elegirIntervalo(Intervalo intervalo) {
+        procesando = true;
+        entrada.intervalo = intervalo;
+    }
+
+    public void concretarAgenda() {
+        try {
+            Intervalo intervalo = entrada.intervalo;
+            limpiarEntrada();
+            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, 52050756);
+        } catch(Exception e) {
+            actualizarIntervalos();
+            System.out.println("No se puedo realizar la reserva!");
+        } finally {
+            procesando = false;
+        }
     }
 
     public void limpiarEntrada() {
         this.entrada = new Entrada();
     }
 
-    public static class VacunatorioAgneda {
-        private final Vacunatorio vacunatorio;
-        private final AgendaDTO agendaDTO;
+    public void actualizarIntervalos() {
+        intevalosPorDia = agendaServiceLocal
+                .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
+                .stream().collect(Collectors.groupingBy(i->i.getFechayHora().getDayOfWeek()));
+    }
 
-        public static VacunatorioAgneda of(Vacunatorio v, AgendaDTO a) {
-            return new VacunatorioAgneda(v, a);
-        }
-
-        private VacunatorioAgneda(Vacunatorio vacunatorio, AgendaDTO agendaDTO) {
-            this.vacunatorio = vacunatorio;
-            this.agendaDTO = agendaDTO;
-        }
-
-        public Vacunatorio getVacunatorio() {
-            return vacunatorio;
-        }
-
-        public AgendaDTO getAgendaDTO() {
-            return agendaDTO;
-        }
+    public String getDiaConFormatoUy(DayOfWeek dia) {
+        return dia.getDisplayName(TextStyle.SHORT, Constantes.ES_UY);
     }
 
     public static class Entrada {
@@ -136,7 +203,11 @@ public class AgendarBean implements Serializable {
 
         private Departamento departamento = null;
 
-        private VacunatorioAgneda vacunatorioAgneda = null;
+        private VacunatorioTieneAgendaDTO vacunatorioAgneda = null;
+
+        private Intervalo intervalo = null;
+
+        private List<Reserva> reservasRealizadas = Collections.emptyList();
 
         public Enfermedad getEnfermedad() {
             return enfermedad;
@@ -150,8 +221,12 @@ public class AgendarBean implements Serializable {
             this.departamento = departamento;
         }
 
-        public VacunatorioAgneda getVacunatorioAgneda() {
+        public VacunatorioTieneAgendaDTO getVacunatorioAgneda() {
             return vacunatorioAgneda;
+        }
+
+        public Intervalo getIntervalo() {
+            return intervalo;
         }
     }
 }

@@ -3,6 +3,7 @@ package laboratorio.tse.negocios;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Local;
 
@@ -15,5 +16,7 @@ public interface LoteServiceLocal {
 	void despacharLote(int numero, LocalDate fechaDespacho);
 	void entregarLote(int numero, LocalDate fechaEntrega);
 	void transportarLoteAsync(int numero,String nombreSocLog);
+	Optional<Lote> find(int numeroLote);
+
 
 }

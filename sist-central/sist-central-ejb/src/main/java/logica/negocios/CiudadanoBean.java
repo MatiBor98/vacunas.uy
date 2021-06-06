@@ -1,12 +1,16 @@
 package logica.negocios;
 
-import datos.dtos.AgendaDTO;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
 import datos.dtos.CiudadanoDTO;
+import datos.dtos.VacunadorDTO;
 import datos.entidades.Agenda;
 import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
+import datos.exceptions.CiudadanoRegistradoException;
 import datos.repositorios.CiudadanoRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.CiudadanoServiceLocal;
@@ -14,14 +18,6 @@ import logica.servicios.local.CiudadanoServiceLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
-
-
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +54,7 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	ciudadanoRepository.findByNombreCi(ci).setFirebaseTokenMovil(firebaseToken);;
     }
 
-    public void save(CiudadanoDTO ciudadanoDTO) {
+    public void save(CiudadanoDTO ciudadanoDTO) throws CiudadanoRegistradoException{
         ciudadanoRepository.save(ciudadanoDTOConverter.convert(ciudadanoDTO));
     }
 
@@ -72,9 +68,8 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	else if(userLegacy instanceof Vacunador && !(userNew instanceof Vacunador)) {
     		ciudadanoRepository.vacunadorToCiudadano(String.valueOf(userNew.getCi()));
     	}
-    	if(userNew.getEmail() != userLegacy.getEmail() || userNew.getNombre() != userLegacy.getNombre()) {
-    		ciudadanoRepository.refreshCiudadano(userNew);
-    	}
+    	userLegacy.setEmail(userNew.getEmail());
+    	userLegacy.setNombre(userNew.getNombre());
     }
 
 	@Override
@@ -104,6 +99,22 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	}
 
 
+	}
+
+	@Override
+	public Vacunador findVacunador(int ciVac) {
+		Ciudadano ciud = ciudadanoRepository.findByNombreCi(ciVac);
+		Vacunador vac = null;
+		if (ciud instanceof Vacunador) {
+			vac = (Vacunador) ciud;
+		}
+		return vac;
+	}
+
+	@Override
+	public VacunadorDTO getVacunadorDTO(Vacunador vacunador) {
+		VacunadorDTO vacDTO = new VacunadorDTO(vacunador.getCi(), vacunador.getEmail(), vacunador.getNombre());
+		return vacDTO;
 	}
 
 }

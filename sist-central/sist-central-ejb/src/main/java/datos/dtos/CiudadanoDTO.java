@@ -3,7 +3,13 @@ package datos.dtos;
 import java.io.Serializable;
 
 public class CiudadanoDTO implements Serializable{
-    private int ci;
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int ci;
     private String nombre;
     private String email;
     private boolean vacunador;

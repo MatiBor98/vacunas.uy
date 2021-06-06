@@ -16,4 +16,8 @@ public interface UsuariosBackOfficeRepositoryLocal {
     
     public List<UsuarioBO> find();
 
+	public void AdministradorToAutoridad(String email);
+
+	public void AutoridadToAdministrador(String email);
+
 }

@@ -32,7 +32,7 @@ public class CiudadanoBuilder {
     public Ciudadano createCiudadano() {
         validar();
         if(vacunador) {
-            return new Vacunador(ci, nombre, email);
+            return new Vacunador(ci, email, nombre);
         }
         return new Ciudadano(ci, nombre, email);
     }

@@ -13,61 +13,88 @@
 		<div class="div-body">
 		<!-- presentacion -->
 			<div class="container">
-				<div class="row pt-3 pb-2">
-					<div class="col-8">
-						<h2>Vacunas.uy</h2>
+				<div class="row pt-5 pb-2">
+					<div class="col-6 justify-content-center">
+						<h2 class="pb-2">Vacunas.uy</h2>
+						<p class="pt-3" style="line-height: 25px;">Bienvenido a la plataforma de vacunacion de los uruguayos y esta aca para facilitar tu vacunacion.
+						Ahora vacunarte esta a solo un paso! #NosCuidamosEntreTodos</p>
 					</div>
 					<div class="col-4">
-
+						<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<h:graphicImage styleClass="mb-4"
+		                                name="carrusel/vacuna-1.jpg"
+		                                t:alt="LogoEnfermedad.png"
+		                                class="d-bloc w-100"
+									 />								
+								</div>
+								<div class="carousel-item">
+									<h:graphicImage styleClass="mb-4"
+		                                name="carrusel/vacuna-1.jpg"
+		                                t:alt="LogoEnfermedad.png"
+		                                class="d-bloc w-100"
+									 />	
+								</div>
+								<div class="carousel-item">
+									<h:graphicImage styleClass="mb-4"
+		                                name="carrusel/vacuna-1.jpg"
+		                                t:alt="LogoEnfermedad.png"
+		                                class="d-bloc w-100"
+									 />	
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			<hr/>
 			<!-- Agendar vacunacion -->
 				<div class="row pt-3 pb-2">
 					<!-- este va ser para cuando no esta logueado -->
-					<h:form>
+					<h:form rendered="#{empty tokenResponse}">
 						<h3>Agenda tu vacunacion</h3>
 						<p>Busca la enfermedad y selecciona una vacuna, y te daremos fecha en el turno que te quede mas comodo</p>
-						<h:panelGroup rendered="#{empty tokenResponse}">
+						<h:panelGroup >
 						<a href="/authorize" class="btn btn-lg btn-primary">Ingresar a tu usuario gub.uy</a>
 						</h:panelGroup>
-						
-					<p:datePicker style="display:none"></p:datePicker>
-					
 					</h:form>
 					<!--  este para cuando esta logueado -->
-					<h3>Agenda tu vacunacion</h3>
-					<div class="container">
-						<div class="row">
-							<div class="col-4 d-flex justify-content-center">
-								<div class="card">
-									<img/>
-									<div class="card-body">
-										<h5 class="card-title">Agenda tu vacunacion</h5>
-										<p class="card-text">Busca la enfermedad y selecciona una vacuna, y te daremos fecha en el turno que te quede mas comodo</p>
-										<a href="#" class="stretched-link"></a>
+					<h:form rendered="#{not empty tokenResponse}">
+						<h3>Agenda tu vacunacion</h3>
+						<div class="container">
+							<div class="row">
+								<div class="col-4 d-flex justify-content-center">
+									<div class="card h-100">
+										<img/>
+										<div class="card-body">
+											<h5 class="card-title">Agenda tu vacunacion</h5>
+											<p class="card-text">Busca la enfermedad y selecciona una vacuna, y te daremos fecha en el turno que te quede mas comodo</p>
+											<a href="#" class="stretched-link"></a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-4 d-flex justify-content-center">
-								<div class="card">
-									<img/>
-									<div class="card-body">
-										<h5 class="card-title">Gestiona tus agendas</h5>
-										<p class="card-text">Revisa el estado o cancela agendas</p>
-										<a href="#" class="stretched-link"></a>
+								<div class="col-4 d-flex justify-content-center">
+									<div class="card h-100">
+										<img/>
+										<div class="card-body">
+											<h5 class="card-title">Gestiona tus agendas</h5>
+											<p class="card-text">Revisa el estado o cancela agendas</p>
+											<a href="#" class="stretched-link"></a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</h:form>
 				</div>
 				<hr/>
 				<!-- Monitor de vacunacion -->
-				<div class="row pt-3 pb-5">
-					<h3>Monitor de vacunas</h3>
-					<p>Explora las estadisticas sobre las vacunaciones en el pais</p>
-					<a id="monitor-boton" href="#" class="btn btn-lg btn-primary">Accede al monitor</a>
+				<div class="row pt-3">
+					<div class="col">
+						<h3>Monitor de vacunas</h3>
+						<p>Explora las estadisticas sobre las vacunaciones en el pais</p>
+						<a id="monitor-boton" href="#" class="btn btn-lg btn-primary">Accede al monitor</a>
+					</div>
 				</div>
 			</div>
 		</div>

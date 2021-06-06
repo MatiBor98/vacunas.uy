@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+	<ui:define name="titulo">
+		- Consulta Usuario Back Office
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype" style="min-height: 0px">
+			<div class="content" style="margin:initial">
+				<h:graphicImage styleClass="mb-4"
+								name="LogoUsuario.png"
+								p:alt="LogoUsuario.png"
+								p:width="90"
+								p:height="90"
+				/>
+				<div>
+					<p:datePicker style="display:none"></p:datePicker>
+					<div class="row" style="justify-content: end; padding-top: 2vh; display:block">
+						<div class="col-sm-3"/>
+						<div class="col-sm-6">
+							<div class="card" style="background-color:#c6c6c6; width:625px">
+								<div class="card-body text-center">
+									<div  class="bodytype" id="info" style="display:block; min-height: 0px">
+										<div class="card-header" style="background-color:#222938; color:white">
+											<h2>Informacion</h2>
+										</div>
+										<h:form id="form">
+											<ul class="list-group list-group-flush">
+												<li><p:outputLabel id = "email"  value ="Email: #{ConsultaBean.consultaUsuarioBackOffice}"></p:outputLabel></li>
+												<li class="list-group-item">Rol:
+									                <h:selectOneMenu value="#{ConsultaBean.consultaUsuarioBackOfficeRol}" class="form-control" disabled="#{not ConsultaBean.modificando}">
+									                    <f:selectItem itemLabel="Autoridad" itemValue="autoridad"/>
+									                    <f:selectItem itemLabel="Administrador" itemValue="administrador"/>
+									                </h:selectOneMenu>
+		                            			</li>
+											</ul>
+											<p:commandButton id="editarUsuario" type="submit" update="form" icon="pi pi-user-edit" action="#{ConsultaBean.setModificando(true)}" rendered="#{not ConsultaBean.modificando}"><p:autoUpdate/></p:commandButton>
+											<p:commandButton id="modificarUsuario" type="submit" update="form" icon="pi pi-check" action="#{UsuarioBackOfficeBean.overwriteUsuario(ConsultaBean.consultaUsuarioBackOffice, ConsultaBean.consultaUsuarioBackOfficeRol)}" rendered="#{ConsultaBean.modificando}">
+												<p:autoUpdate/>
+												<f:actionListener binding="#{ConsultaBean.setModificando(false)}" />
+											</p:commandButton>
+											<p:messages showDetail="true" closable="true"><p:autoUpdate/></p:messages>
+										</h:form>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						<div class="col-sm-3"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

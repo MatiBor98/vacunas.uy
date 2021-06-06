@@ -2,6 +2,7 @@ package logica.negocios;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,17 +10,23 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import datos.dtos.AsignacionDTO;
+import datos.dtos.PuestoVacunacionDTO;
+import datos.dtos.TurnoDTO;
+import datos.dtos.VacunatorioDTO;
 import datos.entidades.*;
 import datos.exceptions.PuestoVacunacionNoExistenteException;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.PuestoVacunacionRepositoryLocal;
 import datos.repositorios.TurnoRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryLocal;
+import logica.creacion.VacunatorioToDto;
+import logica.schedule.DatosVacunatorio;
+import logica.servicios.local.PuestoVacunacionBeanLocal;
+import logica.servicios.local.TurnoServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
-/**
- * Session Bean implementation class VacunatorioBean
- */
+
 @Stateless
 @LocalBean
 public class VacunatorioBean implements  VacunatorioControllerLocal {
@@ -34,9 +41,14 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 	@EJB
 	private TurnoRepositoryLocal turnoRepositoryLocal;
-    /**
-     * Default constructor. 
-     */
+	
+	@EJB
+	private PuestoVacunacionBeanLocal pVacBean;
+	
+	@EJB
+	private TurnoServiceLocal turnoBean;
+	
+	
     public VacunatorioBean() {
     }
 
@@ -103,5 +115,21 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 			res.add(dep.toString());
 		}
 		return res;
+	}
+
+	public DatosVacunatorio getDatosVacunatorio(String nombreVacunatorio) {
+		Date now = new Date();
+		Vacunatorio vac = find(nombreVacunatorio).get();
+		VacunatorioDTO res = new VacunatorioDTO(nombreVacunatorio, vac.getCiudad(), vac.getDireccion(), vac.getDepartamento());
+		List<PuestoVacunacionDTO> pVacs = pVacBean.getDTO(vac);
+		res.setPuestosVacunacion(pVacs);
+		List<TurnoDTO> turnosDTO = new ArrayList<>();
+		for(Turno turno:vac.getTurnos()) {
+			TurnoDTO turnoDTO = turnoBean.getTurnoDTO(turno);
+			turnosDTO.add(turnoDTO);
+		}
+		res.setTurnos(turnosDTO);
+		DatosVacunatorio datos = new DatosVacunatorio(now, res);
+		return datos;
 	}
 }

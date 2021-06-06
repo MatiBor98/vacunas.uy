@@ -27,7 +27,7 @@ public class LaboratorioRepository implements LaboratorioRepositoryLocal {
     }
     @Override
     public List<Laboratorio> findByNombreLaboratorio(String nombreLab) {
-    	Query query = entityManager.createQuery("SELECT l FROM Laboratorio l WHERE lower(l.nombre) like :nombreLab").setParameter("nombreLab", "%" + nombreLab.toLowerCase() + "%");
+    	Query query = entityManager.createQuery("SELECT l FROM Laboratorio l WHERE lower(l.nombre) = :nombreLab").setParameter("nombreLab", nombreLab.toLowerCase());
     	List<Laboratorio> labs = query.getResultList();
     	return labs;
     }

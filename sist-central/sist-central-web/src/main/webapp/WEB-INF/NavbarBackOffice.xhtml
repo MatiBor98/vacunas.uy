@@ -24,9 +24,11 @@
                 />
             </a>
             <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="">Inicio</a></li>
+                <li><a class="dropdown-item" href="../index.xhtml">Inicio</a>
+                </li>
                 <li><a class="dropdown-item" href="../backoffice/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a>
+                </li>
                 <li><a class="dropdown-item" href="../backoffice/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
                 <li><a class="dropdown-item" href="../backoffice/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a>
                 </li>
@@ -36,8 +38,15 @@
                 <li><a class="dropdown-item" href="../backoffice/AgregarVacunatorio.xhtml">Agregar Vacunatorio</a></li>
                 <li><a class="dropdown-item" href="../backoffice/ConsultaVacunatorios.xhtml">Consultar Vacunatorios</a>
                 </li>
+                <li><a class="dropdown-item" href="../backoffice/AgregarPlanVacunacion.xhtml">Agregar Plan de Vacunacion</a></li>
+                <li><a class="dropdown-item" href="../backoffice/ConsultaPlanesVacunacion.xhtml">Consultar Planes de Vacunacion</a></li>
             </ul>
         </div>
+        	<h:commandLink style="display:inline" class="glyphicon glyphicon-align-left" onclick="GoBackWithRefresh();return false;">
+        		<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg>
+        	</h:commandLink>
         <div class="collapse navbar-collapse">
             <h:form class="form-inline" style="width: 60vw; font-size: 1.5vw; margin-left: 7vw" action="" method="post">
                 <input
@@ -55,10 +64,33 @@
 
 
             </h:form>
-            <h:form>
-				<p:commandButton type="button" value="Cerrar sesion" styleClass="rounded-button ui-button-info" action="#{LoginBO.logout()}"/>
-			</h:form>
+
+            <h:panelGroup rendered="#{empty UsuarioLogueadoBean.userName}">
+
+                <ul class='nav navbar-nav ml-auto'>
+                    <li class='nav-tie mx-2'><a href="/authorize">Iniciar Sesion</a></li>
+                </ul>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.userName}">
+
+                <ul class='nav navbar-nav ml-auto'>
+                    <li class='nav-tie mx-2'>#{UsuarioLogueadoBean.userName}</li>
+                </ul>
+
+                <ul class='nav navbar-nav ml-auto'>
+                    <li class='nav-tie mx-2'><a href="/Logout">Cerrar Sesion</a></li>
+                </ul>
+            </h:panelGroup>
         </div>
     </nav>
+    <script>
+    function GoBackWithRefresh(event) {
+        if ('referrer' in document) {
+            window.location = document.referrer;
+        } else {
+            window.history.back();
+        }
+    }
+    </script>
 </f:view>
 </html>

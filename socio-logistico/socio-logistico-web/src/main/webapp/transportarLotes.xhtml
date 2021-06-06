@@ -9,7 +9,6 @@
 <body>
 	<div class="card">
 
-		<h:form>
 			<p:dataTable var="lote" value="#{ListarBean.list}" paginator="true"
 				rows="10"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
@@ -34,16 +33,21 @@
 				<p:column headerText="Fecha Despacho">
 					<h:outputText value="#{lote.fechaDespacho}" />
 				</p:column>
-				 <p:column headerText="Despachar">
-					<h:form rendered="#{empty lote.fechaDespacho}">
-							<h:commandButton value="Despachar" type="submit" class="btn btn-danger" style="padding: 2px 6px" action="#{ListarBean.despachar(lote.numeroLote)}" />
-					</h:form>
-					<h:outputText rendered="#{not empty lote.fechaDespacho and empty lote.fechaEntrega}" value="Entregando" />
-					<h:outputText rendered="#{not empty lote.fechaEntrega}" value="Entregado" />
+<!-- 				 <p:column headerText="Despachar"> -->
+<!-- 					<h:form rendered="#{empty lote.fechaDespacho}"> -->
+<!-- 							<h:commandButton value="Despachar" type="submit" class="btn btn-danger" style="padding: 2px 6px" action="#{ListarBean.despachar(lote.numeroLote)}" /> -->
+<!-- 					</h:form> -->
+<!-- 					<h:outputText rendered="#{not empty lote.fechaDespacho and empty lote.fechaEntrega}" value="Entregando" /> -->
+<!-- 					<h:outputText rendered="#{not empty lote.fechaEntrega}" value="Entregado" /> -->
 					
+<!-- 				</p:column> -->
+				<p:column headerText="Consulta">
+				    <h:form>				
+						<f:param name="numeroLote" value="#{lote.numeroLote}}" />
+						<h:commandButton ajax = "false" value="Consultar" type="submit" class="btn btn-danger" style="padding: 2px 6px" action="consultaLote.xhtml" />
+					</h:form>		
 				</p:column>
 			</p:dataTable>
-		</h:form>
 	</div>
 
 </body>

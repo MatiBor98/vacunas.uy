@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+    <ui:define name="titulo">
+        - Consulta Socios Logisticos
+    </ui:define>
+    <ui:define name="content">
+        <div class="bodytype">
+            <div class="content">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoSocioLogistico.png"
+                                p:alt="LogoSocioLogistico.png"
+                                p:width="90"
+                                p:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Socios logisticos disponibles</h1>
+                <h:form class="form-inline my-4 my-lg-0 mr-auto">
+                    <h:inputText
+                            value="#{SocioLogisticoBean.busqueda}"
+                            class="form-control col-10 mr-sm-2"
+                            style="width:650px"
+                            type="search"
+                            p:placeholder="Buscar socio logistico"
+                            aria-label="Search"
+                            name="busquedaSociosLogisticos"
+                    />
+                    <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
+                                     style="background-color:#222938; border:#222938; color:white"
+                                     action="#{SocioLogisticoBean.setRealizarBusqueda(true)}"/>
+                </h:form>
+                <p></p>
+                <div class="dropdown">
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#"
+                       href="/page.html">
+                        Ordenar Por: <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="">Alfabeticamente</a></li>
+                        <p></p>
+                        <li><a href="">Fecha</a></li>
+                    </ul>
+                </div>
+
+                <div id="busq" style="margin-top: 20px; display:#{SocioLogisticoBean.hayBusqueda}">
+                    <div class="alert alert-secondary">
+                        Resultado de la busqueda "#{SocioLogisticoBean.busqueda}"
+                    </div>
+                </div>
+
+                <div id="eliminado" style="margin-top: 20px; display:#{SocioLogisticoBean.socioLogisticoEliminado}">
+                    <div class="alert alert-success">
+                        El socio logistico fue eliminado.
+                    </div>
+                </div>
+
+                <div id="eliminado" style="margin-top: 20px; display:#{SocioLogisticoBean.socioLogisticoNoEliminado}">
+                    <div class="alert alert-danger">
+                        No se pudo eliminar el socio logistico.
+                    </div>
+                </div>
+
+                <div id="errores" style="margin-top: 20px; display:#{SocioLogisticoBean.haySociosLogisticos()}">
+                    <div class="alert alert-danger">
+                        No hay nignun socio logistico.
+                    </div>
+                </div>
+                <ul class="list-group" style="margin-top: 30px">
+                    <ui:repeat value="#{SocioLogisticoBean.getSociosLogisticos()}" var="soc">
+
+                        <li class="list-group-item" style="background-color:#{SocioLogisticoBean.getColor()}">
+                            <h2 style="color:#{SocioLogisticoBean.colorSecundario}">#{soc.nombre}</h2>
+                            <p style="color:#{SocioLogisticoBean.colorSecundario}"> Habilitado: #{soc.habilitado}</p>
+                            <h:form>
+                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+                                                 action="#{ConsultaBean.setConsultaSocioLogistico(soc.nombre)}"/>
+                            </h:form>
+                            <p></p>
+                        </li>
+
+                    </ui:repeat>
+
+                </ul>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
+</html>

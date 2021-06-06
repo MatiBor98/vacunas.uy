@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.ejb.Local;
 
+import datos.entidades.Asignacion;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacunatorio;
 
@@ -14,4 +15,6 @@ public interface PuestoVacunacionRepositoryLocal {
 	void save(PuestoVacunacion puesto);
 	Optional<PuestoVacunacion> find(int id);
 	List<PuestoVacunacion> find(String vacunatorio, String nombrePuesto);
+	List<Asignacion> getAsignaciones(String nombreVacunatorio, String nombrePuesto);
+	void addAsignacion(Asignacion asig);
 }

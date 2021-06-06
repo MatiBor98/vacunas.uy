@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+	<ui:define name="titulo">
+		- Lista usuarios backoffice
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype" >
+			<div class="content" style="margin:initial">
+				<h:graphicImage styleClass="mb-4"
+								name="LogoUsuario.png"
+								p:alt="LogoUsuario.png"
+								p:width="90"
+								p:height="90"
+				/>
+				<h1 class="h2 mb-3 font-weight-normal">Usuarios</h1>
+				<h:form class="form-inline my-4 my-lg-0 mr-auto">
+					<h:inputText
+						value="#{consultaUsuarioFrontOfficeBean.busqueda}"
+						class="form-control col-10 mr-sm-2"
+						style="width:650px"
+						type="search"
+						p:placeholder="Buscar usuario por nombre o CI"
+						aria-label="Search"
+						name="busquedaUsuarios"
+						/>
+					<h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0" style="background-color:#222938; border:#222938; color:white" action="#{consultaUsuarioFrontOfficeBean.setRealizarBusqueda(true)}"/>
+				</h:form>
+				<p></p>
+				
+				<div id="busq" style="margin-top: 20px; display:#{consultaUsuarioFrontOfficeBean.hayBusqueda}">
+						<div class="alert alert-secondary">
+							Resultado de la busqueda "#{consultaUsuarioFrontOfficeBean.busqueda}"
+						</div>
+				</div>
+				
+				<p:datePicker style="display:none"></p:datePicker>
+				
+				<div style="display:inline">
+				  <button id="botonCiudadanos" type="button" class="btn" style="padding: 12px 60px; background-color:#222938; color:white; border-color:#222938" onclick="mostrarCiudadanos()">Ciudadanos</button>
+				  <button id="botonVacunadores" type="button" class="btn" style="padding: 12px 60px; background-color:white; color:#222938; border-color:#222938" onclick="mostrarVacunadores()">Vacunadores</button>
+				</div>
+				
+				<div id="ciudadanos">
+					
+					<div id="errores" style="margin-top: 20px; display:#{consultaUsuarioFrontOfficeBean.hayCiudadanos()}">
+						<div class="alert alert-danger">
+							No hay nignun ciudadano registrado.
+						</div>
+					</div>
+							
+					<ul class="list-group pt-5 pb-5">
+	                    <ui:repeat value="#{consultaUsuarioFrontOfficeBean.getUsuarios()}" var="usu">
+							<h:form rendered="#{not usu.vacunador}">
+		                        <li class="list-group-item" style="background-color:#{consultaUsuarioFrontOfficeBean.getColor()}">
+		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci} - #{usu.nombre}</h2>
+		                            <p style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p>                           
+		                             <div style="display:inline">
+			                             <h:form>
+			                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+			                                                 action="#{ConsultaBean.setConsultaUsuario(usu.ci, usu.nombre, usu.email, usu.vacunador)}"/>
+			                            </h:form>
+			                         </div>
+		                            <p></p>
+		                        </li>
+		                    </h:form>
+	
+	                    </ui:repeat>
+	
+	                </ul>
+                </div>	
+                
+               <div id="vacunadores" style="display:none">	
+               
+              		<div id="errores" style="margin-top: 20px; display:#{consultaUsuarioFrontOfficeBean.hayVacunadores()}">
+						<div class="alert alert-danger">
+							No hay nignun vacunador registrado.
+						</div>
+					</div> 			
+               			
+					<ul class="list-group pt-5 pb-5">
+	                    <ui:repeat value="#{consultaUsuarioFrontOfficeBean.getUsuarios()}" var="usu">
+							<h:form rendered="#{usu.vacunador}">
+		                        <li class="list-group-item" style="background-color:#{consultaUsuarioFrontOfficeBean.getColor()}">
+		                            <h2 style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}">#{usu.ci} - #{usu.nombre}</h2>
+		                            <p style="color:#{consultaUsuarioFrontOfficeBean.colorSecundario}"> Email: #{usu.email}</p> 
+		                            <div style="display:inline">                           
+			                             <h:form>
+			                                <h:commandButton value="Consultar" type="submit" class="btn btn-info"
+			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
+			                                                 action="#{ConsultaBean.setConsultaUsuario(usu.ci, usu.nombre, usu.email, usu.vacunador)}"/>
+			                            </h:form>
+			                        </div>
+		                            <p></p>
+		                        </li>
+		                    </h:form>
+	
+	                    </ui:repeat>
+	
+	                </ul>
+                </div>	
+			</div>
+		</div>
+		<scripts>
+	<script type="text/javascript">
+		function mostrarCiudadanos() {
+			document.getElementById("ciudadanos").style.display = "block";
+			document.getElementById("vacunadores").style.display = "none";
+			document.getElementById("botonCiudadanos").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonVacunadores").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarVacunadores() {
+			document.getElementById("ciudadanos").style.display = "none";
+			document.getElementById("vacunadores").style.display = "block";
+			document.getElementById("botonCiudadanos").style = "padding: 12px 60px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonVacunadores").style = "padding: 12px 60px; background-color:#222938; color:white; border-color:#222938";
+	
+		}
+	</script>
+</scripts>
+	</ui:define>
+</ui:composition>
+</html>
