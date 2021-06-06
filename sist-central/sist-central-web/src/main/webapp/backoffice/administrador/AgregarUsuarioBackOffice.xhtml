@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+	<ui:define name="titulo">
+		- Alta Usuario BackOffice
+	</ui:define>
+	<ui:define name="content">
+		<div class="div_body" style="background-color: white; min-height:100vh; display:block">
+            <h:form class="form-signin">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoUsuario.png"
+                                t:alt="LogoUsuario.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Agregar un usuario backoffice</h1>
+
+                <div id="errores" style="display:#{UsuarioBackOfficeBean.emailInvalido}">
+                    <div class="alert alert-danger">
+                        Email invalido.
+                    </div>
+                </div>
+
+                <div id="errores" style="display:#{UsuarioBackOfficeBean.elegirRol}">
+                    <div class="alert alert-danger">
+                        Elija un rol.
+                    </div>
+                </div>
+
+                <div id="errores" style="display:#{UsuarioBackOfficeBean.passwordInvalido}">
+                    <div class="alert alert-danger">
+                        Las password no coinciden.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{UsuarioBackOfficeBean.usuarioAgregado}">
+                    <div class="alert alert-success">
+                        El usuario fue agregado.
+                    </div>
+                </div>
+                
+                <div id="errores" style="display:#{UsuarioBackOfficeBean.usuarioYaExiste}">
+                    <div class="alert alert-danger">
+                        Ya existe un usuario con ese email.
+                    </div>
+                </div>
+                
+                <p:datePicker style="display:none"></p:datePicker>
+
+
+                <label class="form-label">Email:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{UsuarioBackOfficeBean.email}"
+                        id="inputEmail"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el email"
+                        required="true"
+                />
+
+                <label class="form-label">Rol</label>
+                <h:selectOneMenu value="#{UsuarioBackOfficeBean.rol}" class="form-control">
+                    <f:selectItem itemLabel="Autoridad" itemValue="Autoridad"/>
+                    <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                </h:selectOneMenu>
+
+                <label class="form-label">Password</label>
+                <h:inputText
+                        value="#{UsuarioBackOfficeBean.password}"
+                        id="inputPass"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse la password"
+                        required="true"
+                />
+
+                <label class="form-label">Repetir password</label>
+                <h:inputText
+                        value="#{UsuarioBackOfficeBean.password2}"
+                        id="inputRepetirPass"
+                        class="form-control text-center"
+                        t:placeholder="Repita la password"
+                        required="true"
+                />
+                
+                <h:commandButton value="Crear"
+                                 class="btn btn-lg btn-primary btn-block"
+                                 type="submit"
+                                 style="background-color:#222938; border:#222938; margin-top: 30px"
+                                 action="#{UsuarioBackOfficeBean.agregarUsuario()}"
+                />
+            </h:form>
+        </div>
+	</ui:define>
+</ui:composition>
+</html>

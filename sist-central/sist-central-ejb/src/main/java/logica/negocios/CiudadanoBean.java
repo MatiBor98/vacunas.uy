@@ -1,6 +1,8 @@
 package logica.negocios;
 
-import datos.dtos.AgendaDTO;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunadorDTO;
 import datos.entidades.Agenda;
@@ -16,14 +18,6 @@ import logica.servicios.local.CiudadanoServiceLocal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
-
-
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 

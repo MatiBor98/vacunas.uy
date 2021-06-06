@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAutoridad.xhtml">
+    <ui:define name="titulo">
+        - Agregar Enfermedad
+    </ui:define>
+    <ui:define name="content">
+        <div class="div_body" style="background-color: white; min-height:100vh; display:block">
+            <h:form class="form-signin">
+                <h:graphicImage styleClass="mb-4"
+                                name="LogoEnfermedad.png"
+                                t:alt="LogoEnfermedad.png"
+                                t:width="90"
+                                t:height="90"
+                />
+                <h1 class="h2 mb-3 font-weight-normal">Agregar una enfermedad</h1>
+
+                <div id="errores" style="display:#{EnfermedadBean.enfermedadYaExiste}">
+                    <div class="alert alert-danger">
+                        Ya existe una enfermedad con ese nombre.
+                    </div>
+                </div>
+
+                <div id="errores" style="display:#{EnfermedadBean.enfermedadAgregada}">
+                    <div class="alert alert-success">
+                        La enfermedad fue agregada con exito.
+                    </div>
+                </div>
+
+				<p:datePicker style="display:none"></p:datePicker>
+
+                <label class="form-label">Nombre:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{EnfermedadBean.nomEnfermedad}"
+                        id="inputNombre"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse el nomrbe"
+                        required="true"
+                />
+
+                <label class="form-label">Descripcion:</label>
+                <h:inputText
+                        stlyeClsss="text-input"
+                        value="#{EnfermedadBean.descEnfermedad}"
+                        id="inputDescripcion"
+                        class="form-control text-center"
+                        t:placeholder="Ingerse la descripcion"
+                        required="true"
+                />
+
+                <h:commandButton value="Crear"
+                                 class="btn btn-lg btn-primary btn-block"
+                                 type="submit"
+                                 style="background-color:#222938; border:#222938; margin-top: 30px"
+                                 action="#{EnfermedadBean.agregarEnfermedad()}"
+                />
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

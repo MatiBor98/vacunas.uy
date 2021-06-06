@@ -19,7 +19,7 @@ public class ModificarUsuarioBackOffice implements Serializable {
 		return modificarUsuario;
 	}
 
-	public void setModificarVacuna(String modificarUsuario) {
+	public void setModificarUsuario(String modificarUsuario) {
 		this.modificarUsuario = modificarUsuario;
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ModificarUsuarioBackOffice.xhtml");
 	}
