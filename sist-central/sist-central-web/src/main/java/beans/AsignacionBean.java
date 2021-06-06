@@ -14,9 +14,7 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import datos.entidades.Ciudadano;
 import datos.entidades.PuestoVacunacion;
-import datos.entidades.Trabajos;
 import datos.entidades.Turno;
 import datos.entidades.Vacunador;
 

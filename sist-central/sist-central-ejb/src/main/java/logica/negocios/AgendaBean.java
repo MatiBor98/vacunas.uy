@@ -10,6 +10,7 @@ import datos.repositorios.IntervaloRepository;
 import datos.repositorios.ReservaRepository;
 import logica.creacion.Converter;
 import logica.servicios.local.AgendaServiceLocal;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -75,7 +76,7 @@ public class AgendaBean implements AgendaServiceLocal {
 
     @Override
     public List<VacunatorioTieneAgendaDTO> findAgendasParaCiudadanoPorDepartamento(String nombreEnfermedad, int edadCiudadano,
-                                                                             Trabajos trabajos, Departamento departamento) {
+                                                                                   Trabajo trabajos, Departamento departamento) {
          return agendaRepository.findAgendasParaCiudadanoPorDepartamento(nombreEnfermedad, edadCiudadano,
                 trabajos, departamento).stream()
                 .map(agenda -> new VacunatorioTieneAgendaDTO(
@@ -97,7 +98,8 @@ public class AgendaBean implements AgendaServiceLocal {
         reservasHechas.add(reserva);
 
         for(int i = 1; i < vacuna.getCantDosis(); i++) {
-            LocalDateTime fechaSiguienteDosis = intervalo.getFechayHora().plusDays((long) vacuna.getDosisSeparacionDias() * i);
+            LocalDateTime fechaSiguienteDosis = intervalo.getFechayHora()
+                    .plusDays((long) vacuna.getDosisSeparacionDiasMultiploSemana() * i);
             Intervalo intervaloCreadoSiguienteDosis = intervaloRepository.findOrCreate(
                     new Intervalo(fechaSiguienteDosis, intervalo.getAgenda()));
             Reserva reservaSigueinteDosis = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreadoSiguienteDosis,
@@ -130,7 +132,7 @@ public class AgendaBean implements AgendaServiceLocal {
         crearAgregarIntervalosNuevos(fechaInicio, fechaLimite, agenda, intervalosRegistrados);
 
         Predicate<Intervalo> isIntervaloDisponible = getIsIntervaloDisponible(fechaInicio, agendaId,
-                vacuna.getCantDosis(), vacuna.getDosisSeparacionDias());
+                vacuna.getCantDosis(), vacuna.getDosisSeparacionDiasMultiploSemana());
 
         return intervalosRegistrados.values()
                 .parallelStream()

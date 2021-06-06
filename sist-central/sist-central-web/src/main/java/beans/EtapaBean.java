@@ -12,7 +12,7 @@ import javax.enterprise.context.RequestScoped;
 
 import javax.inject.Named;
 
-import datos.entidades.Trabajos;
+import plataformainteroperabilidad.Trabajo;
 
 
 @Named("EtapaBean")
@@ -96,9 +96,9 @@ public class EtapaBean implements Serializable{
 			} else {
 				LocalDate localInicio = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate localFin = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				List<Trabajos> trabajosEnum = new ArrayList<>();
+				List<Trabajo> trabajosEnum = new ArrayList<>();
 				for(String trabajo:trabajos) {
-					Trabajos trab = Trabajos.valueOf(trabajo);
+					Trabajo trab = Trabajo.valueOf(trabajo);
 					trabajosEnum.add(trab);
 				}
 				etapaService.save(vacuna, localInicio, localFin, nomPlan, descripcion, trabajosEnum, edadMin, edadMax);
@@ -125,9 +125,9 @@ public class EtapaBean implements Serializable{
 			}
 			LocalDate localInicio = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			LocalDate localFin = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			List<Trabajos> trabajosEnum = new ArrayList<>();
+			List<Trabajo> trabajosEnum = new ArrayList<>();
 			for(String trabajo:trabajos) {
-				Trabajos trab = Trabajos.valueOf(trabajo);
+				Trabajo trab = Trabajo.valueOf(trabajo);
 				trabajosEnum.add(trab);
 			}
 			etapaService.save(vacuna, localInicio, localFin, nomPlan, descripcion, trabajosEnum, edadMin, edadMax);

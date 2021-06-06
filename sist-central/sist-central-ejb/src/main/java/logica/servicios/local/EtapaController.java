@@ -1,7 +1,7 @@
 package logica.servicios.local;
 
 import datos.dtos.EtapaDTO;
-import datos.entidades.Trabajos;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Local;
 
@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface EtapaController {
     EtapaDTO save(EtapaDTO etapaDTO);
     Optional<EtapaDTO> find(int id);
-    List<EtapaDTO> find(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
-    void save(String nomVac, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion, List<Trabajos> trabajos, int edadMin, int edadMax);
+    List<EtapaDTO> find(String nombreEnfermedad, int edadCiudadano, Trabajo trabajos);
+    void save(String nomVac, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion, List<Trabajo> trabajos, int edadMin, int edadMax);
 	List<String> getNombresTrabajos();
-    boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
+    boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajo trabajos);
 }

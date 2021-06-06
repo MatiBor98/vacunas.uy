@@ -15,7 +15,7 @@
             <div class="container">
                 <h1 class="h2 mb-3 font-weight-normal">Agendar Reserva</h1>
                 <h:panelGroup id="main">
-                    <h:panelGroup id="mensajeExito" rendered="#{AgendarBean.reservasRealizadas.size() gt 0}">
+                    <h:panelGroup id="mensajeExito" rendered="#{not empty AgendarBean.reservasRealizadas}">
                         <div class="alert alert-success" role="alert">
                             <h:commandLink styleClass="close"
                                            value="&times;">
@@ -35,7 +35,7 @@
                         </div>
                     </h:panelGroup>
                     <!--                Seleccionar una enfermedad-->
-                    <h:form rendered="#{AgendarBean.reservasRealizadas.size() eq 0}" p:autocomplete="off">
+                    <h:form rendered="#{empty AgendarBean.reservasRealizadas}" p:autocomplete="off">
                         <div class="form-row justify-content-center">
                             <div class="col-md-8 col-lg-6 dropdown">
                                 <!--                        Mostrar input para seleccionar-->
@@ -87,8 +87,8 @@
                     <!--                    Mensaje si no esta habilitado el ciudadano-->
                     <h:panelGroup
                             rendered="#{(AgendarBean.entrada.enfermedad != null) and !AgendarBean.ciudadanoHabilitado}">
-                        <div class="form-row">
-                            <div class="alert alert-danger col-md-12" role="alert">
+                        <div class="form-row justify-content-center">
+                            <div class="alert alert-danger col-md-8 col-lg-6" role="alert">
                                 No esta habilitado para esta enfermedad.
                             </div>
                         </div>
@@ -96,8 +96,8 @@
                     <!--                    mensaje ya tiene reserva-->
                     <h:panelGroup
                             rendered="#{(AgendarBean.entrada.enfermedad != null) and AgendarBean.yaTieneReservaCiudadano}">
-                        <div class="form-row">
-                            <div class="alert alert-danger col-md-12" role="alert">
+                        <div class="form-row justify-content-center">
+                            <div class="alert alert-danger col-md-8 col-lg-6" role="alert">
                                 Ud tiene una reserva pendiente para vacunarse contra esta enfermedad.
                             </div>
                         </div>
@@ -162,46 +162,55 @@
                                                 listener="#{AgendarBean.actualizarIntervalos}"/>
                                         <f:converter converterId="converters.WeekConverter"/>
                                     </h:inputText>
-                                    <div id="carouselIntervalos" class="carousel slide" data-ride="carousel"
-                                         data-interval="false">
-                                        <ol class="carousel-indicators">
-                                            <ui:repeat value="#{AgendarBean.diasIntervalos}" var="dia"
-                                                       varStatus="estado">
-                                                <li data-target="#carouselIntervalos" data-slide-to="#{estado.index}"
-                                                    class="#{estado.first ? 'active' : ''}"/>
-                                            </ui:repeat>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <ui:repeat value="#{AgendarBean.diasIntervalos}" var="dia"
-                                                       varStatus="estado">
-                                                <div class="carousel-item #{estado.first ? 'active' : ''}">
-                                                    <div class="row justify-content-around">
-                                                        <div class="col-12">#{AgendarBean.getDiaConFormatoUy(dia)}</div>
-                                                        <ul class="list-group col-8">
-                                                            <ui:repeat value="#{AgendarBean.getIntervalosPorDia(dia)}"
-                                                                       var="intevalo">
-                                                                <li class="list-group-item">
-                                                                    <h:commandButton styleClass="dropdown-item"
-                                                                                     value="#{of:formatDate(intevalo.fechayHora, 'dd-MM-yyyy HH:mm')}">
-                                                                        <f:ajax event="click" render="backdropRenderer"
-                                                                                listener="#{AgendarBean.elegirIntervalo(intevalo)}"/>
-                                                                    </h:commandButton>
-                                                                </li>
-                                                            </ui:repeat>
-                                                        </ul>
+                                    <h:panelGroup rendered="#{not empty AgendarBean.diasIntervalos}">
+                                        <div id="carouselIntervalos" class="carousel slide" data-ride="carousel"
+                                             data-interval="false">
+                                            <ol class="carousel-indicators">
+                                                <ui:repeat value="#{AgendarBean.diasIntervalos}" var="dia"
+                                                           varStatus="estado">
+                                                    <li data-target="#carouselIntervalos" data-slide-to="#{estado.index}"
+                                                        class="#{estado.first ? 'active' : ''}"/>
+                                                </ui:repeat>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <ui:repeat value="#{AgendarBean.diasIntervalos}" var="dia"
+                                                           varStatus="estado">
+                                                    <div class="carousel-item #{estado.first ? 'active' : ''}">
+                                                        <div class="row justify-content-around">
+                                                            <div class="col-12">#{AgendarBean.getDiaConFormatoUy(dia)}</div>
+                                                            <ul class="list-group col-8">
+                                                                <ui:repeat value="#{AgendarBean.getIntervalosPorDia(dia)}"
+                                                                           var="intevalo">
+                                                                    <li class="list-group-item">
+                                                                        <h:commandButton styleClass="dropdown-item"
+                                                                                         value="#{of:formatDate(intevalo.fechayHora, 'dd-MM-yyyy HH:mm')}">
+                                                                            <f:ajax event="click" render="backdropRenderer"
+                                                                                    listener="#{AgendarBean.elegirIntervalo(intevalo)}"/>
+                                                                        </h:commandButton>
+                                                                    </li>
+                                                                </ui:repeat>
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </ui:repeat>
+                                                </ui:repeat>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselIntervalos" role="button"
+                                               data-slide="prev">
+                                                <span class="carousel-control-prev-icon"/>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselIntervalos" role="button"
+                                               data-slide="next">
+                                                <span class="carousel-control-next-icon"/>
+                                            </a>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carouselIntervalos" role="button"
-                                           data-slide="prev">
-                                            <span class="carousel-control-prev-icon"/>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carouselIntervalos" role="button"
-                                           data-slide="next">
-                                            <span class="carousel-control-next-icon"/>
-                                        </a>
-                                    </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{empty AgendarBean.diasIntervalos}">
+                                        <div class="form-row">
+                                            <div class="alert alert-warning col-md-12" role="alert">
+                                                No hay horarios disponibles para la semana seleccionada, intente modificandola.
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
                                 </h:form>
                             </h:panelGroup>
                         </h:panelGroup>
