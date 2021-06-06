@@ -3,6 +3,7 @@ package main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import datos.entidades.Agenda;
 import datos.repositorios.AgendaRepositoryLocal;
 
 public class Main {
@@ -26,8 +28,10 @@ public class Main {
 		props.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
 		
 		Context ctx = new InitialContext(props);
-		/*String jndiName = "ejb:sist-central/sist-central-ejb/AgendaRepository!datos.repositorios.AgendaRepositoryLocal";
-		AgendaRepositoryLocal agendaRep = (AgendaRepositoryLocal)ctx.lookup(jndiName);*/
+		String jndiName = "ejb:sist-central/sist-central-ejb/AgendaRepository!datos.repositorios.AgendaRepositoryLocal";
+		AgendaRepositoryLocal agendaRep = (AgendaRepositoryLocal)ctx.lookup(jndiName);
+		
+		List<Agenda> agendas = agendaRep.find();
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Scanner in = new Scanner(System.in);

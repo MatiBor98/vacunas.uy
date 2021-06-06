@@ -1,5 +1,6 @@
 package logica.servicios.local;
 
+import datos.dtos.TurnoDTO;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
 import datos.entidades.Turno;
@@ -17,4 +18,5 @@ public interface TurnoServiceLocal {
     Optional<Turno> findById(int id);
 	int addTurno(String nombreTurno, String nomVac, LocalTime inicio, LocalTime fin);
 	List<Turno> find(String vac, String nombreTurno);
+	TurnoDTO getTurnoDTO(Turno turno);
 }

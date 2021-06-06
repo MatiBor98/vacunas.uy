@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import datos.dtos.TurnoDTO;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 import datos.entidades.Vacunatorio;
@@ -54,6 +55,12 @@ public class TurnoBean implements  TurnoServiceLocal {
     public TurnoBean() {
         // TODO Auto-generated constructor stub
     }
+
+	@Override
+	public TurnoDTO getTurnoDTO(Turno turno) {
+		TurnoDTO res = new TurnoDTO(turno.getNombre(), turno.getInicio().toString(), turno.getFin().toString(), turno.getVacunatorio().getNombre());
+		return res;
+	}
 
 
 

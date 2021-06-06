@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import datos.dtos.PuestoVacunacionDTO;
 import datos.entidades.Asignacion;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacuna;
@@ -80,5 +81,6 @@ public class PuestoVacunacionRepository implements PuestoVacunacionRepositoryLoc
 	public void addAsignacion(Asignacion asig) {
 		entityManager.persist(asig);
 	}
+
 
 }

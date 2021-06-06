@@ -2,6 +2,7 @@ package logica.negocios;
 
 import datos.dtos.AgendaDTO;
 import datos.dtos.CiudadanoDTO;
+import datos.dtos.VacunadorDTO;
 import datos.entidades.Agenda;
 import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
@@ -114,6 +115,12 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 			vac = (Vacunador) ciud;
 		}
 		return vac;
+	}
+
+	@Override
+	public VacunadorDTO getVacunadorDTO(Vacunador vacunador) {
+		VacunadorDTO vacDTO = new VacunadorDTO(vacunador.getCi(), vacunador.getEmail(), vacunador.getNombre());
+		return vacDTO;
 	}
 
 }

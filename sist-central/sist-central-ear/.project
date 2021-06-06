@@ -3,6 +3,7 @@
 	<name>sist-central-ear</name>
 	<comment></comment>
 	<projects>
+		<project>sist-central-ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

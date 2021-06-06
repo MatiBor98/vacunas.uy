@@ -1,6 +1,7 @@
 package logica.servicios.local;
 
 import datos.dtos.CiudadanoDTO;
+import datos.dtos.VacunadorDTO;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
@@ -18,4 +19,5 @@ public interface CiudadanoServiceLocal {
     void notificar(int ci);
     void updateFirebaseTokenMovil(int ci, String firebaseToken);
 	Vacunador findVacunador(int ciVac);
+	VacunadorDTO getVacunadorDTO(Vacunador vacunador);
 }

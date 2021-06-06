@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import datos.entidades.Departamento;
 import datos.entidades.Lote;
 import datos.entidades.Vacunatorio;
+import logica.schedule.DatosVacunatorio;
 
 @Local
 public interface VacunatorioControllerLocal {
@@ -21,4 +22,5 @@ public interface VacunatorioControllerLocal {
 	List<String> getNombresDepartamentos();
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);
+	DatosVacunatorio getDatosVacunatorio(String nombrevac);
 }
