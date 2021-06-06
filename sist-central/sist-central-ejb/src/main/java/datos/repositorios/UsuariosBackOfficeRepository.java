@@ -38,14 +38,17 @@ public class UsuariosBackOfficeRepository implements UsuariosBackOfficeRepositor
 		}
     }
 
+    @Override
     public List<UsuarioBO> find(){
     	return entityManager.createQuery("select u from UsuarioBO u").getResultList();
     }
     
+    @Override
     public UsuarioBO find(String email) {
     	return entityManager.find(UsuarioBO.class, email);
     }
     
+    @Override
     public void save(UsuarioBO usuario) throws EmailRegistradoException {
     	try {
         	entityManager.persist(usuario);
@@ -54,4 +57,20 @@ public class UsuariosBackOfficeRepository implements UsuariosBackOfficeRepositor
     		throw new EmailRegistradoException();
     	}
     }
+
+	@Override
+	public void AdministradorToAutoridad(String email) {
+	    	entityManager.createNativeQuery("UPDATE usuarioBO "
+	    										+ "SET TipoDeUsuario = 'autoridad' "
+	    											+ "WHERE email = " + email + ";").executeUpdate();
+	}
+
+	@Override
+	public void AutoridadToAdministrador(String email) {
+		entityManager.createNativeQuery("UPDATE usuarioBO "
+				+ "SET TipoDeUsuario = 'administrador' "
+					+ "WHERE email = " + email + ";").executeUpdate();
+	}
+	
+
 }

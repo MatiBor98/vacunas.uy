@@ -17,17 +17,26 @@ public class ConsultaBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String consultaVacunatorio;
+	private static String consultaVacunatorioStatic;
+
 	private String consultaPuesto;
+	
 	private int consultaUsuario;
 	private String consultaUsuarioNombre;
 	private String consultaUsuarioEmail;
 	private boolean consultaUsuarioVacunador;
 	private static int consultaUsuarioStatic;
+	
 	private String consultaPlanVacunacion;
-	private static String consultaVacunatorioStatic;
 	private static String consultaPlanVacunacionStatic;
+	
 	private String consultaSocioLogistico;
 	private static String consultaSocioLogisticoStatic;
+	
+	private String consultaUsuarioBackOffice;
+	private static String consultaUsuarioBackOfficeStatic;
+	private String consultaUsuarioBackOfficeRol;
+	
 	private boolean modificando;
 
 	public String getConsultaVacunatorio() {
@@ -135,5 +144,34 @@ public class ConsultaBean implements Serializable{
 		this.consultaPuesto = consultaPuesto;
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "AgregarAsignacion.xhtml");
 	}
+
+	public String getConsultaUsuarioBackOffice() {
+		return consultaUsuarioBackOffice;
+	}
+
+	public void setConsultaUsuarioBackOffice(String email, String rol) {
+		setModificando(false);
+		this.consultaUsuarioBackOffice = email;
+		this.consultaUsuarioBackOfficeRol = rol;
+		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaUsuarioBackOffice.xhtml");
+	}
+
+	public static String getConsultaUsuarioBackOfficeStatic() {
+		return consultaUsuarioBackOfficeStatic;
+	}
+
+	public static void setConsultaUsuarioBackOfficeStatic(String consultaUsuarioBackOfficeStatic) {
+		ConsultaBean.consultaUsuarioBackOfficeStatic = consultaUsuarioBackOfficeStatic;
+	}
+
+	public String getConsultaUsuarioBackOfficeRol() {
+		return consultaUsuarioBackOfficeRol;
+	}
+
+	public void setConsultaUsuarioBackOfficeRol(String consultaUsuarioBackOfficeRol) {
+		this.consultaUsuarioBackOfficeRol = consultaUsuarioBackOfficeRol;
+	}
+	
+	
 	
 }

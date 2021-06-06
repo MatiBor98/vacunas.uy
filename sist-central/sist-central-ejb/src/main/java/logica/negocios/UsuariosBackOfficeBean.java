@@ -14,7 +14,9 @@ import datos.dtos.SessionTokens;
 import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
+import datos.entidades.Ciudadano;
 import datos.entidades.UsuarioBO;
+import datos.entidades.Vacunador;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
@@ -68,14 +70,14 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	long timestamp = System.currentTimeMillis();
     	String jwt = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
-    			.setExpiration(new Date(timestamp+60000))
+    			.setExpiration(new Date(timestamp+ 1000 * 60 * 10))
     			.claim("email", usuario.getEmail())
     			.claim("rol", rol)
     			.signWith(key).compact();
     	
     	String jwtRefresh = Jwts.builder()
 				.setIssuedAt(new Date(timestamp))
-				.setExpiration(new Date(timestamp+120000))
+				.setExpiration(new Date(timestamp+1000 * 60 * 60 * 16))
 				.claim("email", usuario.getEmail())
     			.claim("rol", rol)
 				.signWith(key).compact();
@@ -103,5 +105,15 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     public List<UsuarioBackOfficeDTO> usersList(){
         return usuariosBO.find().parallelStream().map(usuarioBackOfficeConverter::convert).collect(Collectors.toList());
 
+    }
+    
+    public void overwriteUsuarioBackOffice(UsuarioBackOfficeDTO newUser) {
+    	UsuarioBO userLegacy = usuariosBO.find(newUser.getEmail());
+    	if(!(userLegacy instanceof Administrador) && (newUser.getRol().equals("autoridad"))) {
+    		usuariosBO.AdministradorToAutoridad(userLegacy.getEmail());
+    	}
+    	else if(userLegacy instanceof Autoridad && (newUser.getRol().equals("administrador"))) {
+    		usuariosBO.AutoridadToAdministrador(userLegacy.getEmail());
+    	}
     }
 }

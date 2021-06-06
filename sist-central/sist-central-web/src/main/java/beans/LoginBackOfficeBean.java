@@ -96,14 +96,14 @@ public class LoginBackOfficeBean implements Serializable{
 			//ahora creamos los parametros para la cookie
 			Map<String, Object> properties = new HashMap<String,Object>();
 			properties.put("path", "/");
-			properties.put("maxAge", 36000);
+			properties.put("maxAge", 60 * 60);
 			properties.put("httpOnly", true);
 			//aca se agrega la cookie a la response
 			ec.addResponseCookie("JWTBO", jwt, properties);
 			
 			Map<String, Object> propertiesRefresh = new HashMap<String,Object>();
 			properties.put("path", "/");
-			properties.put("maxAge", 36000);
+			properties.put("maxAge", 60 * 60 * 24);
 			properties.put("httpOnly", true);
 			//aca se agrega la cookie a la response
 			ec.addResponseCookie("JWTBORefresh", refresh, propertiesRefresh);

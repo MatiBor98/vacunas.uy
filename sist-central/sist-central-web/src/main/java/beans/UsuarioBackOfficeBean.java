@@ -1,16 +1,18 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import datos.dtos.UsuarioBackOfficeDTO;
-import datos.entidades.Enfermedad;
 import datos.exceptions.EmailRegistradoException;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
@@ -27,6 +29,9 @@ public class UsuarioBackOfficeBean implements Serializable {
 	private String password = null;
 	private String password2 = null;
 	private String rol;
+	private String busqueda;
+	private boolean realizarBusqueda;
+	private String hayBusqueda="none";
 	private String emailInvalido = "none";
 	private String passwordInvalido = "none";
 	private String usuarioAgregado = "none";
@@ -133,9 +138,28 @@ public class UsuarioBackOfficeBean implements Serializable {
 	}
 	
 	public List<UsuarioBackOfficeDTO> listarUsuarios(){
-		return usuarios.usersList();
+		List<UsuarioBackOfficeDTO> res = new ArrayList<>();
+		List<UsuarioBackOfficeDTO> usus = usuarios.usersList();
+		if (this.realizarBusqueda) {
+			Pattern pattern = Pattern.compile(this.busqueda.trim(), Pattern.CASE_INSENSITIVE);
+			for (UsuarioBackOfficeDTO usu : usus) {
+				Matcher match1 = pattern.matcher(usu.getEmail());
+				boolean matchNombre = match1.find();
+				if (matchNombre) {
+					res.add(usu);
+				}
+			}
+		} else {
+			res = usus;
+		}
+		return res;
 	}
 
+	public void overwriteUsuario(String email, String rol) {
+		UsuarioBackOfficeDTO user = new UsuarioBackOfficeDTO(email, rol);
+		usuarios.overwriteUsuarioBackOffice(user);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Usuario modificado con exito"));
+	}
 
 	public String getPassword2() {
 		return password2;
@@ -194,5 +218,38 @@ public class UsuarioBackOfficeBean implements Serializable {
 
 	public void setElegirRol(String elegirRol) {
 		this.elegirRol = elegirRol;
+	}
+	
+	public boolean esAdministrador(UsuarioBackOfficeDTO user) {
+		return user.getRol().equals("administrador");
+	}
+	
+	public String getBusqueda() {
+		return busqueda;
+	}
+	
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+	
+	public Boolean getRealizarBusqueda() {
+		return realizarBusqueda;
+	}
+	
+	public void setRealizarBusqueda(Boolean realizarBusqueda) {
+		this.realizarBusqueda = realizarBusqueda;
+		if ((this.busqueda != null) && (!this.busqueda.equals(""))) {
+			this.hayBusqueda = "block";
+		} else {
+			this.hayBusqueda = "none";
+		}
+	}
+	
+	public String getHayBusqueda() {
+		return hayBusqueda;
+	}
+	
+	public void setHayBusqueda(String hayBusqueda) {
+		this.hayBusqueda = hayBusqueda;
 	}
 }
