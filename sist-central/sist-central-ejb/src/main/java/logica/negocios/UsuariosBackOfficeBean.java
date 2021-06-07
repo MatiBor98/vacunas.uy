@@ -1,12 +1,10 @@
 package logica.negocios;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -23,7 +21,6 @@ import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import logica.creacion.Converter;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
@@ -39,9 +36,8 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
 	@Inject
 	private Converter<UsuarioBO, UsuarioBackOfficeDTO> usuarioBackOfficeConverter;
 	
-	String password = "secretKeyforJwt.secretKeyForJwt.secretKeyforJwt";
-	SecretKey key = Keys.hmacShaKeyFor(password.getBytes(StandardCharsets.UTF_8));
-	
+	@EJB
+	KeyStore keyStore;
 	
     /**
      * Default constructor. 
@@ -52,7 +48,6 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
 
     @PostConstruct
     public void  init() {
-
     	try {
     		if(usuariosBO.find("admin") == null) 
     			this.addBOUser("admin", "admin", "Administrador");
@@ -85,14 +80,14 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     			.setExpiration(new Date(timestamp+ 1000 * 60 * 10))
     			.claim("email", usuario.getEmail())
     			.claim("rol", rol)
-    			.signWith(key).compact();
+    			.signWith(keyStore.getKey()).compact();
     	
     	String jwtRefresh = Jwts.builder()
 				.setIssuedAt(new Date(timestamp))
 				.setExpiration(new Date(timestamp+1000 * 60 * 60 * 16))
 				.claim("email", usuario.getEmail())
     			.claim("rol", rol)
-				.signWith(key).compact();
+				.signWith(keyStore.getKey()).compact();
     	
     	SessionTokens token = new SessionTokens();
     	token.setAccessToken(jwt);
