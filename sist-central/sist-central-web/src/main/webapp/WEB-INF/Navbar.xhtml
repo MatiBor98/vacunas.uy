@@ -6,81 +6,85 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <nav class="navbar navbar-expand-md navbar-dark navbar-static-top sticky-top justify-content-center"
-         style="background: #222938"
-    >
-        <div class="dropdown">
-            <a
-                    class="navbar-brand nav-link dropdown-toggle media align-items-center"
-                    href="#"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-            >
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" />
+
+
+    <h:outputStylesheet name="css/frontofficeIndex.css"  />
+
+
+    <header id="header" class="sticky-top">
+
+
+
+        <div class="container d-flex align-items-center">
+
+            <h:commandLink style="display:inline" class="glyphicon glyphicon-align-left" onclick="GoBackWithRefresh();return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+            </h:commandLink>
+
+
+            <a href="index.html" class="logo me-auto">
                 <h:graphicImage name="Logo.png"
                                 p:alt="Logo.png"
                                 style="width: 6vw; height: auto;"
                 />
             </a>
-            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="../index.xhtml">Inicio</a></li>
-                <li><a class="dropdown-item" href="../backoffice/AgregarVacuna.xhtml">Agregar Vacuna</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunas.xhtml">Consultar Vacunas</a></li>
-                <li><a class="dropdown-item" href="../backoffice/AgregarLaboratorio.xhtml">Agregar Laboratorio</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaLaboratorios.xhtml">Consultar Laboratorios</a>
-                </li>
-                <li><a class="dropdown-item" href="../backoffice/AgregarEnfermedad.xhtml">Agregar Enfermedad</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaEnfermedades.xhtml">Consultar Enfermedades</a>
-                </li>
-                <li><a class="dropdown-item" href="../backoffice/AgregarVacunatorio.xhtml">Agregar Vacunatorio</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaVacunatorios.xhtml">Consultar Vacunatorios</a>
-                </li>
-                <li><a class="dropdown-item" href="../backoffice/AgregarPlanVacunacion.xhtml">Agregar Plan de Vacunacion</a></li>
-                <li><a class="dropdown-item" href="../backoffice/ConsultaPlanesVacunacion.xhtml">Consultar Planes de Vacunacion</a></li>
-            </ul>
+
+            <nav id="navbar" class="navbar order-last order-lg-0" style="padding: .5rem 1rem 0px .5rem;">
+                <ul>
+                    <li><a class="nav-link scrollto #{NavbarBean.esIndex()}" href="../frontofficeIndex.xhtml">Inicio</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esMonitor()}" href="../frontoffice/Monitor.xhtml">Monitor</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esPlanes()}" href="../frontoffice/Planes.xhtml">Planes y Etapas</a></li>
+
+
+
+                    <h:panelGroup rendered="#{empty UsuarioLogueadoBean.userName}">
+
+                        <a href="/authorize" class='appointment-btn scrollto' style="color: white; padding: 8px">
+                            <span class="d-none d-md-inline">
+                            Iniciar Sesion</span></a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.userName}">
+
+                        <li><a class="nav-link scrollto #{NavbarBean.esReservas()}" href="../frontoffice/Reservas.xhtml">Mis reservas</a></li>
+                        <li><a class="nav-link scrollto #{NavbarBean.esAgendar()}" href="../frontoffice/AgendarReserva.xhtml">Agendar</a></li>
+
+                        <div style="color: #2c4964; padding-left: 160px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    font-size: 14px;
+                                    white-space: nowrap;
+                                    margin-left: 300px;
+                                    ">
+                            <h:outputText value = "#{UsuarioLogueadoBean.userName}" />
+
+                            <!--                            <p>#{UsuarioLogueadoBean.userName} </p>-->
+                        </div>
+
+                        <a href="/Logout" class='appointment-btn scrollto' style="color: white; padding: 8px">
+                            <span class="d-none d-md-inline">
+                            Cerrar Sesion</span></a>
+                    </h:panelGroup>
+
+
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
         </div>
-        	<h:commandLink style="display:inline" class="glyphicon glyphicon-align-left" onclick="GoBackWithRefresh();return false;">
-        		<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-</svg>
-        	</h:commandLink>
-        <div class="collapse navbar-collapse">
-            <h:form class="form-inline" style="width: 60vw; font-size: 1.5vw; margin-left: 7vw" action="" method="post">
-                <input
-                        style="width: 90%; margin: auto"
-                        class="form-control form-control-underlined"
-                        type="text"
-                        placeholder="Planes, vacunas, enfermdedades..."
-                        aria-label="Search"
-                        name="busqueda"
-                />
-
-                <button type="button" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
+    </header><!-- End Header -->
 
 
-            </h:form>
 
-            <h:panelGroup rendered="#{empty UsuarioLogueadoBean.userName}">
 
-                <ul class='nav navbar-nav ml-auto'>
-                    <li class='nav-tie mx-2'><a href="/authorize">Iniciar Sesion</a></li>
-                </ul>
-            </h:panelGroup>
-            <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.userName}">
 
-                <ul class='nav navbar-nav ml-auto'>
-                    <li class='nav-tie mx-2'>#{UsuarioLogueadoBean.userName}</li>
-                </ul>
 
-                <ul class='nav navbar-nav ml-auto'>
-                    <li class='nav-tie mx-2'><a href="/Logout">Cerrar Sesion</a></li>
-                </ul>
-            </h:panelGroup>
-        </div>
-    </nav>
     <script>
     function GoBackWithRefresh(event) {
         if ('referrer' in document) {

@@ -5,6 +5,7 @@ import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoRegistradoException;
 
 import javax.ejb.Local;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +16,12 @@ public interface CiudadanoRepositoryLocal {
     void save(Ciudadano ciudadano) throws CiudadanoRegistradoException;
     Ciudadano findByNombreCi(int criterio);
     Optional<Ciudadano> find(int ci);
-	void saveVacunador(Vacunador vacunador);
+    void saveVacunador(Vacunador vacunador);
     void deleteCiudadano(Ciudadano ciudadano);
     void ciudadanoToVacunador(String ci);
     void vacunadorToCiudadano(String ci);
+    Ciudadano getCiudadanoConReservas(int ci);
 
+    List<Ciudadano> findTokenNotNull();
 }
 

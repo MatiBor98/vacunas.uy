@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/appTemplate.xhtml">
+    <ui:define name="titulo">
+        - Home
+    </ui:define>
+    <ui:define name="content">
+
+        <!-- presentacion -->
+        <section id="hero" class="d-flex align-items-center">
+            <div class="container">
+                <h1>Bienvenido a Vacunas.uy</h1>
+                <h2>La plataforma de vacunacion de los uruguayos #NosCuidamosEntreTodos</h2>
+                <a href="../frontoffice/AgendarReserva.xhtml" class="btn-get-started scrollto">Agendá tu reserva</a>
+            </div>
+        </section><!-- End Hero -->
+
+
+        <div class="div-body" style="min-height: 0px">
+            <div class="container">
+                <section id="why-us" class="why-us">
+                <div class="row pt-5 pb-2">
+                    <div class="col-4 justify-content-center" style="padding-top: 3%">
+                        <div class="content" style="margin-left: 15px;
+                                                    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.47);}">
+                        <h2 class="pb-2">Vacunas.uy</h2>
+                        <p class="pt-3" style="font-family: Open Sans;"> Esta plataforma busca cubrir diferentes aspectos, teniendo como premisa
+                            que su existencia agiliza y permite una rápida vacunación. ¡Probá agendarte!</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <h:graphicImage styleClass="mb-4"
+                                                    name="carrusel/1.png"
+                                                    t:alt="LogoEnfermedad.png"
+                                                    class="d-bloc w-100"
+                                    />
+                                </div>
+                                <div class="carousel-item">
+                                    <h:graphicImage styleClass="mb-4"
+                                                    name="carrusel/2.png"
+                                                    t:alt="LogoEnfermedad.png"
+                                                    class="d-bloc w-100"
+                                    />
+                                </div>
+                                <div class="carousel-item">
+                                    <h:graphicImage styleClass="mb-4"
+                                                    name="carrusel/3.png"
+                                                    t:alt="LogoEnfermedad.png"
+                                                    class="d-bloc w-100"
+                                    />
+                                </div>
+                                <div class="carousel-item">
+                                    <h:graphicImage styleClass="mb-4"
+                                                    name="carrusel/4.png"
+                                                    t:alt="LogoEnfermedad.png"
+                                                    class="d-bloc w-100"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-stretch">
+                        <div class="icon-boxes d-flex flex-column justify-content-center">
+                                <div class="icon-box mt-4 mt-xl-0">
+                                    <i class="bx bx-cube-alt"></i>
+                                    <h4>Accede al monitor de vacunación</h4>
+                                    <p>Obtendrás los resultados más actualizados sobre la ejecución de los planes de vacunación.</p>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                </section>
+
+                <hr/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

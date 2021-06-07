@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.Map;
 
 import javax.crypto.SecretKey;
+import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
@@ -25,6 +26,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.undertow.util.Cookies;
+import logica.servicios.local.KeyStoreLocal;
 
 /**
  * Servlet Filter implementation class autenticacionBackOfficeFilter
@@ -34,9 +36,9 @@ import io.undertow.util.Cookies;
 			description = "Verifica el jwt para acceder a las funcionalidades backoffice")
 public class autenticacionBackOfficeFilter implements Filter {
 
-	String password;
-	SecretKey key;
-
+	
+	@EJB
+	KeyStoreLocal keyStore;
 	
     /**
      * Default constructor. 
@@ -73,7 +75,7 @@ public class autenticacionBackOfficeFilter implements Filter {
 		String accessToken = cookie[iter].getValue();
 		try {
 			//aca encontramos la cookie de la token y resta verificarlalink a viewscoped bean with pages
-			Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+			Claims claims = Jwts.parserBuilder().setSigningKey(keyStore.getKey()).build().parseClaimsJws(accessToken).getBody();
 			String rol = claims.get("rol", String.class);
 			
 		    //ahora vemos a q pagina esta intentando acceder para comprobar que tiene permiso
@@ -126,24 +128,16 @@ public class autenticacionBackOfficeFilter implements Filter {
 		
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		password = "secretKeyforJwt.secretKeyForJwt.secretKeyforJwt";
-		key = Keys.hmacShaKeyFor(password.getBytes(StandardCharsets.UTF_8));
-	}
-
 	
 	protected void refreshAccesToken(String refreshToken, HttpServletResponse httpResponse ) throws JwtException{
-		Claims refreshClaims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken).getBody();
+		Claims refreshClaims = Jwts.parserBuilder().setSigningKey(keyStore.getKey()).build().parseClaimsJws(refreshToken).getBody();
     	long timestamp = System.currentTimeMillis();
 		String newAccessToken = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
     			.setExpiration(new Date(timestamp+1000 * 60 * 10))
     			.claim("email", refreshClaims.get("email", String.class))
     			.claim("rol", refreshClaims.get("rol", String.class))
-    			.signWith(key).compact();
+    			.signWith(keyStore.getKey()).compact();
 		Cookie accessCookie = new Cookie("JWTBO", newAccessToken);
 		accessCookie.setMaxAge(60 * 60); //expire could be 60 (seconds)
 		accessCookie.setHttpOnly(true);

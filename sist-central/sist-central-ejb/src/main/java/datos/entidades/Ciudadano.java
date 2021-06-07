@@ -70,5 +70,11 @@ public class Ciudadano {
 		this.firebaseTokenMovil = firebaseTokenMovil;
 	}
 
+	public Map<String, Reserva> getReservas() {
+		return reservas;
+	}
 
+	public void setReservas(Map<String, Reserva> reservas) {
+		this.reservas = reservas;
+	}
 }
