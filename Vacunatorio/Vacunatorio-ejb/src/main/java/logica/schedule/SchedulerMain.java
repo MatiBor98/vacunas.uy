@@ -11,5 +11,13 @@ public class SchedulerMain {
         time.schedule(datosVac, 0, 10000); // 10 segundos
 
 	}
+	
+	public void mainCaller() {
+		main(null);
+	}
+	
+	public SchedulerMain() {
+		
+	}
 
 }
