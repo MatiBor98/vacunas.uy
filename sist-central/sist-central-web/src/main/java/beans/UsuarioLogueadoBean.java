@@ -5,20 +5,19 @@ import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
 import io.jsonwebtoken.security.Keys;
 import logica.servicios.local.CiudadanoServiceLocal;
+import plataformainteroperabilidad.Ciudadano;
+import plataformainteroperabilidad.Ciudadanos;
+import plataformainteroperabilidad.CiudadanosService;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.Optional;
 
 @Named("UsuarioLogueadoBean")
 @ViewScoped
@@ -30,6 +29,8 @@ public class UsuarioLogueadoBean implements Serializable {
     private String userName;
     private String cid;
     private CiudadanoDTO ciudadano;
+    private Ciudadano ciudadanoPlataforma;
+
     @PostConstruct
     public void init() {
         Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");
@@ -43,6 +44,9 @@ public class UsuarioLogueadoBean implements Serializable {
             cid = getAtributeFromJWTString(payload, "numero_documento");
             try {
                 ciudadano = usuarios.findByNombreCi(Integer.parseInt(cid));
+                final CiudadanosService ciudadanosService = new CiudadanosService();
+                Ciudadanos ciudadanosPort = ciudadanosService.getCiudadanosPort();
+                ciudadanoPlataforma = ciudadanosPort.obtPersonaPorDoc(this.ciudadano.getCi());
             } catch (CiudadanoNoEncontradoException e) {
                 CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
                 try {
@@ -78,6 +82,10 @@ public class UsuarioLogueadoBean implements Serializable {
 
     public CiudadanoDTO getCiudadano() {
         return ciudadano;
+    }
+
+    public Ciudadano getCiudadanoPlataforma() {
+        return ciudadanoPlataforma;
     }
 }
 

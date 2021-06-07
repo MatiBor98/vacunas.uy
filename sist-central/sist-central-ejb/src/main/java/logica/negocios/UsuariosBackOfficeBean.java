@@ -5,27 +5,26 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.sshd.common.config.keys.loader.openssh.kdf.BCrypt;
+
 import datos.dtos.SessionTokens;
 import datos.dtos.UsuarioBackOfficeDTO;
 import datos.entidades.Administrador;
 import datos.entidades.Autoridad;
-import datos.entidades.Ciudadano;
 import datos.entidades.UsuarioBO;
-import datos.entidades.Vacunador;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
 import datos.repositorios.UsuariosBackOfficeRepositoryLocal;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import logica.creacion.Converter;
-import logica.creacion.UsuarioBackOfficeConverter;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
 /**
@@ -51,13 +50,26 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
         // TODO Auto-generated constructor stub
     }
 
+    @PostConstruct
+    public void  init() {
+
+    	try {
+    		if(usuariosBO.find("admin") == null) 
+    			this.addBOUser("admin", "admin", "Administrador");
+    		
+		} catch (EmailRegistradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     public SessionTokens auntenticarUsuario(String email, String password) throws EmailNoRegistradoException, PasswordIncorrectaException{
     	
     	UsuarioBO usuario = usuariosBO.find(email);
     	if(usuario == null) {
     		throw new EmailNoRegistradoException();
     	}
-    	if(!usuario.getPassword().equals(password)){
+    	if(!checkPass(password,usuario.getPassword())){
     		throw new PasswordIncorrectaException();
     	}
     	String rol;
@@ -98,7 +110,7 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     		nuevoUsuario = new Autoridad();
     	}
     	nuevoUsuario.setEmail(email);
-    	nuevoUsuario.setPassword(password);
+    	nuevoUsuario.setPassword(hashPassword(password));
     	usuariosBO.save(nuevoUsuario);
     }
     
@@ -116,4 +128,13 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     		usuariosBO.AutoridadToAdministrador(userLegacy.getEmail());
     	}
     }
+    
+    private String hashPassword(String plainPassword) {
+    	return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+    }
+    
+    private boolean checkPass(String plainPassword, String hashedPassword) {
+		return BCrypt.checkpw(plainPassword, hashedPassword);
+    }
+
 }

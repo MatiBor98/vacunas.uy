@@ -24,19 +24,6 @@ public class UsuariosBackOfficeRepository implements UsuariosBackOfficeRepositor
     public UsuariosBackOfficeRepository() {
         // TODO Auto-generated constructor stub
     }
-    
-    @PostConstruct
-    public void  init() {
-    	Administrador usr = new Administrador();
-    	usr.setEmail("admin");
-    	usr.setPassword("admin");
-    	try {
-			this.save(usr);
-		} catch (EmailRegistradoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
 
     @Override
     public List<UsuarioBO> find(){

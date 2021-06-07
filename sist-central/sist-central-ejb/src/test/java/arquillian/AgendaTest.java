@@ -3,7 +3,7 @@ package arquillian;
 import datos.dtos.AgendaDTO;
 import datos.dtos.EtapaDTO;
 import datos.dtos.InformacionPosiblesIntervalosDTO;
-import datos.entidades.Trabajos;
+import plataformainteroperabilidad.Trabajo;
 import logica.creacion.AgendaDTOBuilder;
 import logica.creacion.InformacionPosiblesIntervalosDTOBuilder;
 import logica.servicios.local.AgendaServiceLocal;
@@ -91,7 +91,7 @@ public class AgendaTest {
 
     @Test
     public void should_find_etapa_for_user_info_cv_20_salud() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajos.Salud);
+        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajo.SALUD);
         assertEquals(etapas.size(), 2);
         assertEquals(etapas.get(0).getId(), 1);
         assertEquals(etapas.get(1).getId(), 2);
@@ -99,14 +99,14 @@ public class AgendaTest {
 
     @Test
     public void should_find_etapa_for_user_info_cv_20_enenansa() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajos.Educacion);
+        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajo.EDUCACION);
         assertEquals(etapas.size(), 1);
         assertEquals(etapas.get(0).getId(), 2);
     }
 
     @Test
     public void should_find_etapa_for_user_info_cv_50_salud() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 50, Trabajos.Salud);
+        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 50, Trabajo.SALUD);
         assertEquals(etapas.size(), 3);
         assertEquals(etapas.get(0).getId(), 1);
         assertEquals(etapas.get(1).getId(), 2);
