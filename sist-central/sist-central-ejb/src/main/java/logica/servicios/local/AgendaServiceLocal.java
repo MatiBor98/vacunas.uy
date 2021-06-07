@@ -3,6 +3,7 @@ package logica.servicios.local;
 import datos.dtos.AgendaDTO;
 import datos.dtos.VacunatorioTieneAgendaDTO;
 import datos.entidades.*;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Local;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public interface AgendaServiceLocal {
     List<AgendaDTO> findByNombrePlan(String criterio);
     AgendaDTO save(AgendaDTO agendaDTO);
     List<VacunatorioTieneAgendaDTO>findAgendasParaCiudadanoPorDepartamento(
-            String nombreEnfermedad, int edadCiudadano, Trabajos trabajos, Departamento departamento);
+            String nombreEnfermedad, int edadCiudadano, Trabajo trabajos, Departamento departamento);
     List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicio);
     List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadano);
 

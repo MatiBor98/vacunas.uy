@@ -1,5 +1,6 @@
 package beans;
 
+import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunatorioTieneAgendaDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
@@ -10,13 +11,16 @@ import io.jsonwebtoken.lang.Strings;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
+import plataformainteroperabilidad.Ciudadano;
 
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.WeekFields;
@@ -39,6 +43,9 @@ public class AgendarBean implements Serializable {
 
     @EJB
     private ReservaRepository reservaRepository;
+
+    @Inject
+    private UsuarioLogueadoBean usuarioLogueadoBean;
 
     private Entrada entrada = new Entrada();
 
@@ -74,9 +81,12 @@ public class AgendarBean implements Serializable {
     }
 
     public List<VacunatorioTieneAgendaDTO> getAgendas() {
+        Ciudadano ciudadano = usuarioLogueadoBean.getCiudadanoPlataforma();
+        LocalDate fechaNac = LocalDate.parse(ciudadano.getFechaNacimiento());
+        int edad = Period.between(fechaNac, LocalDate.now()).getYears();
         return entrada.vacunatorioAgneda != null ? Collections.singletonList(entrada.vacunatorioAgneda) :
                 agendaServiceLocal.findAgendasParaCiudadanoPorDepartamento(entrada.enfermedad.getNombre(),
-                        50, null, entrada.departamento);
+                        edad, ciudadano.getTrabajadorEscencial(), entrada.departamento);
     }
 
     public List<DayOfWeek> getDiasIntervalos() {
@@ -144,12 +154,13 @@ public class AgendarBean implements Serializable {
     }
 
     public void elegirEnfermedad(Enfermedad enfermedad) {
+        CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
         this.entrada.enfermedad = enfermedad;
         this.enfermedaNombre = null;
         this.ciudadanoHabilitado = etapaController
                 .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), 50, null);
         this.yaTieneAgendaCiudadano = reservaRepository
-                .existeReservaPendienteByCiudadanoEnfermedad(52050756, enfermedad.getNombre());
+                .existeReservaPendienteByCiudadanoEnfermedad(ciudadano.getCi(), enfermedad.getNombre());
     }
     public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
         this.entrada.vacunatorioAgneda = vacunatorioAgneda;
@@ -173,9 +184,10 @@ public class AgendarBean implements Serializable {
 
     public void concretarAgenda() {
         try {
+            CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
             Intervalo intervalo = entrada.intervalo;
             limpiarEntrada();
-            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, 52050756);
+            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, ciudadano.getCi());
         } catch(Exception e) {
             actualizarIntervalos();
             System.out.println("No se puedo realizar la reserva!");

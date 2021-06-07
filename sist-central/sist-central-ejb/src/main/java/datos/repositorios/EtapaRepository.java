@@ -1,5 +1,6 @@
 package datos.repositorios;
 import datos.entidades.*;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -42,7 +43,7 @@ public class EtapaRepository implements EtapaRepositoryLocal {
     }
 
     @Override
-    public List<Etapa> find(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
+    public List<Etapa> find(String nombreEnfermedad, int edadCiudadano, Trabajo trabajos) {
         TypedQuery<Etapa> etapaTypedQuery = entityManager.createQuery(
                 "select e from Etapa e left join e.restricciones.filtroEmpleoEn f " +
                     "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +
@@ -65,14 +66,14 @@ public class EtapaRepository implements EtapaRepositoryLocal {
 
     @Override
 	public void save(Vacuna vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion,
-                     List<Trabajos> trabajos, int edadMin, int edadMax) {
+                     List<Trabajo> trabajos, int edadMin, int edadMax) {
 		RestriccionEtapa restricciones = new RestriccionEtapa(trabajos, edadMin, edadMax);
 		Etapa res = new Etapa(restricciones, descripcion, inicio, fin, vac, planVacunacion);
 		entityManager.persist(res);
 	}
 
 	@Override
-    public boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos) {
+    public boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajo trabajos) {
         TypedQuery<Long> etapaTypedQuery = entityManager.createQuery(
                 "select count(e) from Etapa e left join e.restricciones.filtroEmpleoEn f " +
                         "where e.planVacunacion.enfermedad.nombre = :nombreEnfermedad " +

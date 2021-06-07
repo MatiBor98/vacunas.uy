@@ -140,12 +140,12 @@ public class autenticacionBackOfficeFilter implements Filter {
     	long timestamp = System.currentTimeMillis();
 		String newAccessToken = Jwts.builder()
     			.setIssuedAt(new Date(timestamp))
-    			.setExpiration(new Date(timestamp+60000))
+    			.setExpiration(new Date(timestamp+1000 * 60 * 10))
     			.claim("email", refreshClaims.get("email", String.class))
     			.claim("rol", refreshClaims.get("rol", String.class))
     			.signWith(key).compact();
 		Cookie accessCookie = new Cookie("JWTBO", newAccessToken);
-		accessCookie.setMaxAge(36000); //expire could be 60 (seconds)
+		accessCookie.setMaxAge(60 * 60); //expire could be 60 (seconds)
 		accessCookie.setHttpOnly(true);
 		accessCookie.setPath("/");
         httpResponse.addCookie(accessCookie);
