@@ -118,6 +118,15 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 
 
 	}
+	@Override
+	public Vacunador findVacunador(int ciVac) {
+		Ciudadano ciud = ciudadanoRepository.findByNombreCi(ciVac);
+		Vacunador vac = null;
+		if (ciud instanceof Vacunador) {
+			vac = (Vacunador) ciud;
+		}
+		return vac;
+	}
 
 	@Override
 	public VacunadorDTO getVacunadorDTO(Vacunador vacunador) {

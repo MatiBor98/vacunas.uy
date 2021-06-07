@@ -18,6 +18,7 @@ public interface CiudadanoServiceLocal {
     CiudadanoDTO findByNombreCi(int criterio) throws CiudadanoNoEncontradoException;
     void overwriteCiudadano(CiudadanoDTO ciudadano);
     void updateFirebaseTokenMovil(int ci, String firebaseToken);
+    void notificar(String firebaseToken, String titulo, String cuerpo);
 	Vacunador findVacunador(int ciVac);
 	VacunadorDTO getVacunadorDTO(Vacunador vacunador);
     void notificarTodosLosUsuariosMoviles(String titulo , String cuerpo);
