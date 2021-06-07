@@ -2,13 +2,23 @@ package laboratorio.tse.repositorios;
 
 
 
+import javax.annotation.Resource;
 import javax.ejb.Asynchronous;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
+import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 import laboratorio.tse.entidades.Lote;
 
@@ -20,7 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class LoteRepository implements LoteRepositoryLocal {
-
 
     @PersistenceContext(unitName = "socio-logisticoPersistenceUnit")
     private EntityManager entityManager;
@@ -69,12 +78,10 @@ public class LoteRepository implements LoteRepositoryLocal {
 		this.find(numero).get().setFechaDespacho(fechaDespacho);
 		
 	}
-	
     @Lock(LockType.WRITE)
 	@Override
 	public void entregarLote(int numero, LocalDate fechaEntrega) {
 		this.find(numero).get().setFechaEntrega(fechaEntrega);
-		
 	}
 	
     @Lock(LockType.READ)

@@ -15,6 +15,7 @@ import laboratorio.tse.entidades.Lote;
 import laboratorio.tse.negocios.LoteServiceLocal;
 import laboratorio.tse.repositorios.LoteRepositoryLocal;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -32,12 +33,20 @@ import javax.naming.NamingException;
 import org.eclipse.microprofile.config.Config;
 
 @Named("ListarBean")
-@ViewScoped
+@RequestScoped
 public class ListarBean implements Serializable{
 	
 	
 	private static final long serialVersionUID = 1L;
-	
+    private int number;
+
+    public void increment() {
+        number++;
+    }
+
+    public int getNumber() {
+        return number;
+    }
 	
 	@EJB
 	LoteServiceLocal service;
@@ -58,7 +67,7 @@ public class ListarBean implements Serializable{
 		list = service.find();
 	}
 	
-	public void despachar(int numero) {		
+	/*public void despachar(int numero) {		
 		//TransportarThread transp= new TransportarThread(numero);
         //transp.run();
 		try {
@@ -75,14 +84,41 @@ public class ListarBean implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}*/
+	
+		public void despachar(int numero) {		
+		//TransportarThread transp= new TransportarThread(numero);
+        //transp.run();
+		try {
+			String nombreSocLog = config.getValue("socioLogistico.nombre", String.class);
+			LocalDate fechaDespacho = LocalDate.now();
+			service.despacharLote(numero,nombreSocLog, fechaDespacho);
+			System.out.println("Despachado"); 
+			service.transportarLoteAsync(numero, nombreSocLog);
+			FacesContext.getCurrentInstance().getExternalContext().redirect("transportarLotes.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 	
+	public void estado() {
+		
+	}
 	
 	public List<Lote> getList() {
 		return list;
 	}
 	
-
+	public String darEstado(int numeroLote) {
+		if (service.find(numeroLote).get().getFechaEntrega() != null) {
+			return "Entregado";
+		}
+		if(service.find(numeroLote).get().getFechaDespacho() != null) {
+			return "Entregando";
+		}
+		return "Sin Entregar";
+	}
 	
 	public void altaLote() {
 	}

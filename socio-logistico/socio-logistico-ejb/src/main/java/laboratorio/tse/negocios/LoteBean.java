@@ -1,5 +1,6 @@
 package laboratorio.tse.negocios;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -52,9 +53,22 @@ public class LoteBean implements LoteServiceLocal {
     }
 
 
-	@Override
+	/*@Override
 	public void despacharLote(int numero, LocalDate fechaDespacho) {
 		loteRepositoryLocal.despacharLote(numero, fechaDespacho);
+		
+	}*/
+	
+	@Override
+	public void despacharLote(int numero,String nombreSocLog, LocalDate fechaDespacho) {
+		loteRepositoryLocal.despacharLote(numero, fechaDespacho);
+		try {
+			informarSocLog(numero,nombreSocLog,fechaDespacho,"Despachado");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
 	
@@ -64,14 +78,14 @@ public class LoteBean implements LoteServiceLocal {
 		
 	}
 
-
+	@Asynchronous
 	@Override
 	public void transportarLoteAsync(int numero, String nombreSocLog) {
 		try {
-			LocalDate fechaDespacho = LocalDate.now();
-			despacharLote(numero,fechaDespacho);
-			System.out.println("Despachado"); 
-			informarSocLog(numero,nombreSocLog,fechaDespacho,"Despachado");
+			//LocalDate fechaDespacho = LocalDate.now();
+			//despacharLote(numero,fechaDespacho);
+			//System.out.println("Despachado"); 
+			//informarSocLog(numero,nombreSocLog,fechaDespacho,"Despachado");
 			TimeUnit.SECONDS.sleep(5);
 			LocalDate fechaEntrega = LocalDate.now();
 			entregarLote(numero,fechaEntrega);
