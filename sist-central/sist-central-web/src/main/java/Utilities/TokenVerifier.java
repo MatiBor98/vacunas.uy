@@ -76,9 +76,9 @@ public class TokenVerifier {
 
 
 
-            String nuevoIdToken = new Gson().fromJson(tokenResponse, JsonObject.class).get("id_token").getAsString();
 
             try {
+                String nuevoIdToken = new Gson().fromJson(tokenResponse, JsonObject.class).get("id_token").getAsString();
                 KeyFactory factory = KeyFactory.getInstance("RSA");
                 RSAPublicKey pub = (RSAPublicKey) factory.generatePublic(spec);
 
