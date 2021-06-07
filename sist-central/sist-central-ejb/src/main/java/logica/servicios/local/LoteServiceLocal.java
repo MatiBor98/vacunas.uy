@@ -14,5 +14,7 @@ public interface LoteServiceLocal {
     void addLote(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre, String socioLogisticoNombre);
     Optional<Lote> findById(int numLote);
     List<Lote> find();
+    void despacharLote(int numeroLote, String socioLogistico, LocalDate fechaDespacho);
+    void entregarLote(int numeroLote, String socioLogistico, LocalDate fechaEntrega);
     //List<Lote> find(String vac, String nombreLote);
 }
