@@ -31,7 +31,7 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 3);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 5);
 insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 52050756,'bpardinas@bruno.com', 'Bruno Pardiñas');
-insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 50550419,'nicolas@mail.com', 'Nicolás San Martín');
+insert into ciudadano (rol, ci, email, nombre) VALUES ('Vacunador', 50550419,'nicolas@mail.com', 'Nicolás San Martín');
 
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-10-19 10:30:00',1);
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-11-19 10:30:00',1);
@@ -45,3 +45,6 @@ insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval(
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 0);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 2);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 4);
+
+
+insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (7234927, 100, date '2021-06-07', date '2021-06-07' , date '2031-06-07',  'Pfizer')
