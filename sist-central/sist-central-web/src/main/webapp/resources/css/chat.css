@@ -115,15 +115,10 @@
 body .ui-datascroller .ui-datascroller-content{
 	background-image: url(https://image.freepik.com/vector-gratis/patron-estrellas-negras-sobre-fondo-blanco_1110-366.jpg);
 }
-#j_idt34\:float-input{
-	width: 50%;
+.ui-inputfield.ui-inputtextarea.ui-widget.ui-state-default.ui-corner-all.ui-inputtextarea-resizable {
+	width: 90%;
 }
-#j_idt34{
-	width: 100%;
-}
-#j_idt34\:j_idt35{
-	margin: 25px;
-}
+
 .ui-datascroller-content{
 	scrollbar-color: lightgray rgba(255, 255, 255, 0);
 	scrollbar-width: thin;
@@ -145,5 +140,4 @@ body .ui-datascroller .ui-datascroller-content{
 .ui-datascroller-content::-webkit-scrollbar-thumb {
   background-color: darkgrey;
 }
-
 

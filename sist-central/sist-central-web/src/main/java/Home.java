@@ -39,7 +39,7 @@ public class Home extends HttpServlet {
 		}
 		
 		RequestDispatcher dispatcher = getServletContext()
-			      .getRequestDispatcher("/index.xhtml");
+			      .getRequestDispatcher("/frontofficeIndex.xhtml");
 			    dispatcher.forward(request, response);
 	}
 

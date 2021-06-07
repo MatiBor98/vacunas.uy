@@ -81,9 +81,9 @@ public class CallbackServlet extends AbstractServlet {
             System.out.println(ex.getMessage());
             request.setAttribute("error", ex.getMessage());
         }
-        response.sendRedirect("/index.xhtml");
+        response.sendRedirect("/frontofficeIndex.xhtml");
 
-        //dispatch("/index.xhtml", request, response);
+        //dispatch("/frontofficeIndex.xhtml", request, response);
     }
 
 }

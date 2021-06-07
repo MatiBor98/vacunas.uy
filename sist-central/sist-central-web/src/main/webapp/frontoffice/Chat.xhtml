@@ -60,14 +60,16 @@
 
 		<!-- cuadro de texto -->
 		<div class="row">
-			<h:form>
+			<h:form style="width: 50%;">
 
 
 
 				<p:inputTextarea id="float-input" value="#{MensajeBeanView.text}" required="true" requiredMessage="No puedes enviar un mensaje vacío"
 				class=""
 				/>
-				<p:commandButton icon="pi pi-check"
+				<p:commandButton
+						style="margin: 25px;"
+						icon="pi pi-check"
 					styleClass="rounded-button ui-button-outlined"
 					action="#{MensajeBeanView.send}" />
 			</h:form>
