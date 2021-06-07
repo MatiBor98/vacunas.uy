@@ -2,14 +2,12 @@ package datos.repositorios;
 
 import datos.entidades.Agenda;
 import datos.entidades.Departamento;
-import datos.entidades.Intervalo;
-import datos.entidades.Trabajos;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +51,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
 
     @Override
     public List<Agenda> findAgendasParaCiudadanoPorDepartamento(String nombreEnfermedad, int edadCiudadano,
-                                                                Trabajos trabajos, Departamento departamento) {
+                                                                Trabajo trabajos, Departamento departamento) {
         TypedQuery<Agenda> etapaTypedQuery = entityManager.createQuery(
                 "select a " +
                         "from Agenda a " +
@@ -65,7 +63,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                         "and (e.restricciones.mayorIgual is null or :edadCiudadano <= e.restricciones.menorIgual) " +
                         "and a.fin is null " +
                         "and a.turno.vacunatorio.departamento = :departamento " +
-                        "group by a " +
+                        "group by a, e " +
                         "having count(f) = 0 " +
                         (trabajos != null ? "or :filtroPorEmpleo member of f " : ""), Agenda.class)
                 .setParameter("nombreEnfermedad", nombreEnfermedad)
