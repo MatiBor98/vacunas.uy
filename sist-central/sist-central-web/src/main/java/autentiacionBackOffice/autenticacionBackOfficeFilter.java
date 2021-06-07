@@ -80,7 +80,7 @@ public class autenticacionBackOfficeFilter implements Filter {
 		    String requri = ((HttpServletRequest) request).getRequestURI();
 		    String[] direcciones = requri.split("/");
 		    if(direcciones.length > 3 && direcciones[1].equals("backoffice")) {
-		    	//si accede a uno q no corresponde a su rol lo mandamos a la pagina de acceso denegado
+		    	//si accede a uno q no corresponde a su rol lo mandamos a su pagina de inicio
 		    	if(!rol.equals(direcciones[2])) {
 		    		if(rol.equals("administrador")) {
 		    			httpResponse.sendRedirect(req.getContextPath() + "/backoffice/administrador/Administrador.xhtml?accessDenied=true");
@@ -93,9 +93,9 @@ public class autenticacionBackOfficeFilter implements Filter {
 		           
 		    	}
 		    	// si accede correcto continuamos la ejecucion normalmente
-			    chain.doFilter(request, response);
+			    
 		    }
-		    
+		    chain.doFilter(request, response);
 		    
 		}
 		catch(ExpiredJwtException e) {

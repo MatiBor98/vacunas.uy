@@ -202,13 +202,17 @@
   			<type>pom</type>
 		</dependency>
 
-<dependency>
-  <groupId>com.google.firebase</groupId>
-  <artifactId>firebase-admin</artifactId>
-  <version>7.2.0</version>
-</dependency>
-
-
+		<dependency>
+		  <groupId>com.google.firebase</groupId>
+		  <artifactId>firebase-admin</artifactId>
+		  <version>7.2.0</version>
+		</dependency>
+	
+		<dependency>
+		    <groupId>org.mindrot</groupId>
+		    <artifactId>jbcrypt</artifactId>
+		    <version>0.3m</version>
+		</dependency>
 
     </dependencies>
 
