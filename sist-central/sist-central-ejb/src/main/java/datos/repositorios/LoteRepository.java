@@ -8,6 +8,7 @@ import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,10 +56,17 @@ public class LoteRepository implements LoteRepositoryLocal {
 		entityManager.persist(lote);
 		
 	}
-	
 
-    
-    
-    
-    
+    @Override
+    public void despacharLote(int numeroLote, String socioLogistico, LocalDate fechaDespacho) {
+        this.findByNumLote(numeroLote).get().setFechaDespacho(fechaDespacho);
+    }
+
+    @Override
+    public void entregarLote(int numeroLote, String socioLogistico, LocalDate fechaEntrega) {
+        this.findByNumLote(numeroLote).get().setFechaEntrega(fechaEntrega);
+
+    }
+
+
 }

@@ -1,3 +1,4 @@
+
 package plataformainteroperabilidad;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para ciudadano complex type.
+ * <p>Java class for ciudadano complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="ciudadano"&gt;
@@ -45,7 +46,7 @@ public class Ciudadano {
     protected Trabajo trabajadorEscencial;
 
     /**
-     * Obtiene el valor de la propiedad fechaNacimiento.
+     * Gets the value of the fechaNacimiento property.
      * 
      * @return
      *     possible object is
@@ -57,7 +58,7 @@ public class Ciudadano {
     }
 
     /**
-     * Define el valor de la propiedad fechaNacimiento.
+     * Sets the value of the fechaNacimiento property.
      * 
      * @param value
      *     allowed object is
@@ -69,7 +70,7 @@ public class Ciudadano {
     }
 
     /**
-     * Obtiene el valor de la propiedad nombre.
+     * Gets the value of the nombre property.
      * 
      * @return
      *     possible object is
@@ -81,7 +82,7 @@ public class Ciudadano {
     }
 
     /**
-     * Define el valor de la propiedad nombre.
+     * Sets the value of the nombre property.
      * 
      * @param value
      *     allowed object is
@@ -93,7 +94,7 @@ public class Ciudadano {
     }
 
     /**
-     * Obtiene el valor de la propiedad sexo.
+     * Gets the value of the sexo property.
      * 
      * @return
      *     possible object is
@@ -105,7 +106,7 @@ public class Ciudadano {
     }
 
     /**
-     * Define el valor de la propiedad sexo.
+     * Sets the value of the sexo property.
      * 
      * @param value
      *     allowed object is
@@ -117,7 +118,7 @@ public class Ciudadano {
     }
 
     /**
-     * Obtiene el valor de la propiedad trabajadorEscencial.
+     * Gets the value of the trabajadorEscencial property.
      * 
      * @return
      *     possible object is
@@ -129,7 +130,7 @@ public class Ciudadano {
     }
 
     /**
-     * Define el valor de la propiedad trabajadorEscencial.
+     * Sets the value of the trabajadorEscencial property.
      * 
      * @param value
      *     allowed object is
