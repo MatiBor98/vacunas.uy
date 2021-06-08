@@ -35,7 +35,8 @@ public class Intervalo implements Serializable {
 
 	@PostLoad
 	private void postLoad(){
-		cantidadReservas.compareAndSet(0, reservas.size());
+		cantidadReservas.compareAndSet(0,
+				(int) reservas.stream().map(Reserva::getEstado).filter(Estado.PENDIENTE::equals).count());
 	}
 
 	public Intervalo(LocalDateTime fechayHora, Agenda agenda) {
@@ -43,6 +44,7 @@ public class Intervalo implements Serializable {
 		this.agenda = agenda;
 		this.reservas = new LinkedList<>();
 	}
+
 	public Intervalo() {
 		this.reservas = new LinkedList<>();
 	}

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplateCiudadano.xhtml">
+    <ui:define name="titulo">
+        - Ver Mis Reservas
+    </ui:define>
+    <ui:define name="content">
+        <o:importConstants type="datos.entidades.Estado"/>
+        <f:metadata>
+            <f:viewParam name="codigoReserva" value="#{ReservasBean.codigoReserva}" required="false" />
+        </f:metadata>
+        <div class="bodytype">
+            <div class="content">
+                <h1 class="h2 mb-3 font-weight-normal">Reservas realizadas</h1>
+                <h:form id="busqueda" class="form-inline my-4 my-lg-0 mr-auto">
+                    <h:inputText
+                            value="#{ReservasBean.busqueda}"
+                            class="form-control col-10 mr-sm-2"
+                            style="width:650px"
+                            type="search"
+                            p:placeholder="Buscar vacunatorio"
+                            aria-label="Search"
+                            name="busquedaVacunatorios"
+                    />
+                    <h:commandButton id="buscar" value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
+                                     style="background-color:#222938; border:#222938; color:white">
+                        <f:ajax event="click"
+                                execute="@form"
+                                render="listado"
+                                listener="#{ReservasBean.realizarBusqueda(0)}"/>
+                    </h:commandButton>
+                </h:form>
+
+                <div class="dropdown">
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-secondary" data-target="#"
+                       href="/page.html">
+                        Ordenar Por: <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="">Alfabeticamente</a></li>
+                        <p></p>
+                        <li><a href="">Fecha</a></li>
+                    </ul>
+                </div>
+
+                <div id="busq" style="margin-top: 20px; display:#{VacunatorioBean.hayBusqueda}">
+                    <div class="alert alert-secondary">
+                        Resultado de la busqueda "#{ReservasBean.busqueda}"
+                    </div>
+                </div>
+                <h:panelGroup id="listado">
+                    <ul class="list-group" style="margin-top: 30px">
+                        <ui:repeat value="#{ReservasBean.reservas}" var="reserva">
+
+                            <li class="list-group-item" style="background-color:#{VacunatorioBean.getColor()}">
+                                <h2 style="color:#{VacunatorioBean.colorSecundario}">Reserva: #{reserva.codigo}</h2>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Enfermedad: #{reserva.intervalo.agenda.etapa.planVacunacion.enfermedad.nombre}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Vacuna: #{reserva.intervalo.agenda.etapa.vacuna.nombre}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Dosis: #{reserva.paraDosis}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Estado: <span class="badge #{reserva.estado.cssClass}">#{reserva.estado}</span></p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> fecha y hora: #{of:formatDate(reserva.intervalo.fechayHora, 'dd-MM-yyyy HH:mm')}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Vacunatorio: #{reserva.intervalo.agenda.turno.vacunatorio.nombre}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Departamento: #{reserva.intervalo.agenda.turno.vacunatorio.departamento}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Ciudad: #{reserva.intervalo.agenda.turno.vacunatorio.ciudad}</p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Direccion: #{reserva.intervalo.agenda.turno.vacunatorio.direccion}</p>
+                                <h:form rendered="#{reserva.estado eq Estado.PENDIENTE}">
+                                    <h:commandButton value="Cancelar" class="btn btn-danger"
+                                                     style="padding: 2px 6px; display: inline; margin-left: 3px">
+                                        <f:param name="codigoReserva" value="#{reserva.codigo}" />
+                                    </h:commandButton>
+                                </h:form>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                    <div class="row justify-content-center">
+                        <h:form>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <h:inputHidden value="#{ReservasBean.paginaActual}"/>
+                                    <li class="page-item">
+                                        <h:commandLink styleClass="page-link" aria-label="Anterior">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <f:ajax event="click"
+                                                    execute="@form"
+                                                    render="listado"
+                                                    listener="#{ReservasBean.anterior()}"/>
+                                        </h:commandLink>
+                                    </li>
+                                    <li class="page-item">
+                                        <h:commandLink styleClass="page-link" aria-label="Siguiente">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <f:ajax event="click"
+                                                    execute="@form"
+                                                    render="listado"
+                                                    listener="#{ReservasBean.siguiente()}"/>
+                                        </h:commandLink>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </h:form>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </div>
+        <h:outputScript>
+            $("#busqueda\\:buscar").click()
+        </h:outputScript>
+    </ui:define>
+</ui:composition>
+</html>
