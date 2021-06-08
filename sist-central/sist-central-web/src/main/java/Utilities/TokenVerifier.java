@@ -183,6 +183,12 @@ public class TokenVerifier {
         return "Basic " + encodedString;
     }
 
+    public String getAtributeFromJWTString(String payload, String param){
+        String[] user = payload.split(param+"\":\"");
+        user = user[1].split("\"");
+        return user[0];
+    }
+
     public TokenVerifier() {
     }
 }

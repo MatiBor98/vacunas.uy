@@ -1,5 +1,4 @@
 
-
 package plataformainteroperabilidad;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -59,4 +58,3 @@ public class ObtPersonaPorDoc {
     }
 
 }
-
