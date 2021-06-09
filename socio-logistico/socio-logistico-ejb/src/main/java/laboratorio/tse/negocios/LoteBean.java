@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  * Session Bean implementation class PuestoVacunacionBean
  */
 @Stateless
-@LocalBean
 public class LoteBean implements LoteServiceLocal {
 
 	@EJB
