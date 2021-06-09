@@ -116,7 +116,7 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     
     public void overwriteUsuarioBackOffice(UsuarioBackOfficeDTO newUser) {
     	UsuarioBO userLegacy = usuariosBO.find(newUser.getEmail());
-    	if(!(userLegacy instanceof Administrador) && (newUser.getRol().equals("autoridad"))) {
+    	if(userLegacy instanceof Administrador && (newUser.getRol().equals("autoridad"))) {
     		usuariosBO.AdministradorToAutoridad(userLegacy.getEmail());
     	}
     	else if(userLegacy instanceof Autoridad && (newUser.getRol().equals("administrador"))) {

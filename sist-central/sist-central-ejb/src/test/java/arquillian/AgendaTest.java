@@ -6,17 +6,24 @@ import datos.dtos.InformacionPosiblesIntervalosDTO;
 import plataformainteroperabilidad.Trabajo;
 import logica.creacion.AgendaDTOBuilder;
 import logica.creacion.InformacionPosiblesIntervalosDTOBuilder;
+import logica.negocios.CiudadanoBean;
+import logica.negocios.MensajeBean;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EtapaController;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import javax.ejb.EJB;
+
+import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -32,12 +39,19 @@ public class AgendaTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap
-                .create(JavaArchive.class)
+    	File[] files = Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .importRuntimeDependencies()
+                .resolve()
+                .withTransitivity()
+                .asFile();
+    	
+        return ShrinkWrap.create(WebArchive.class)
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("META-INF/load.sql")
-                .addPackages(true, "datos", "logica")
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+            	.addPackages(true, "datos", "logica", "plataformainteroperabilidad")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsLibraries(files);
     }
 
     @EJB

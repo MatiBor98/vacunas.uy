@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,6 +44,14 @@ public class SampleIT {
         if (f.exists() == false) {
             throw new RuntimeException("File " + f.getAbsolutePath() + " does not exist.");
         }
+        
+        File[] files = Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .importRuntimeDependencies()
+                .resolve()
+                .withTransitivity()
+                .asFile();
+        
         WebArchive war = ShrinkWrap.create(ZipImporter.class, "sist-central-web.war").importFrom(f).as(WebArchive.class);
         ear.addAsModule(war);
 
@@ -51,6 +60,7 @@ public class SampleIT {
         // Add the package containing the test classes:
         war.addPackage("facultad.tse.sist_central.test");
 
+        war.addAsLibraries(files);
         // Export the EAR file to examine it in case of problems:
         // ear.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.ear"), true);
 

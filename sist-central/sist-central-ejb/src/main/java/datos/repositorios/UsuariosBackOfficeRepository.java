@@ -47,16 +47,12 @@ public class UsuariosBackOfficeRepository implements UsuariosBackOfficeRepositor
 
 	@Override
 	public void AdministradorToAutoridad(String email) {
-	    	entityManager.createNativeQuery("UPDATE usuarioBO "
-	    										+ "SET TipoDeUsuario = 'autoridad' "
-	    											+ "WHERE email = " + email + ";").executeUpdate();
+	    entityManager.createNativeQuery("update usuariobo set tipodeusuario = 'autoridad' where email = '" + email + "';").executeUpdate();
 	}
 
 	@Override
 	public void AutoridadToAdministrador(String email) {
-		entityManager.createNativeQuery("UPDATE usuarioBO "
-				+ "SET TipoDeUsuario = 'administrador' "
-					+ "WHERE email = " + email + ";").executeUpdate();
+		entityManager.createNativeQuery("update usuariobo set tipodeusuario = 'administrador' where email = '" + email + "';").executeUpdate();
 	}
 	
 

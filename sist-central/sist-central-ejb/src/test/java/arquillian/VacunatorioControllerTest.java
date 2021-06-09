@@ -3,6 +3,7 @@ package arquillian;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.time.LocalTime;
 
 import javax.ejb.EJB;
@@ -13,10 +14,12 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
@@ -24,6 +27,8 @@ import org.junit.runner.RunWith;
 import datos.entidades.Departamento;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Vacunatorio;
+import logica.negocios.CiudadanoBean;
+import logica.negocios.MensajeBean;
 import logica.negocios.VacunatorioBean;
 import logica.servicios.local.PuestoVacunacionBeanLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
@@ -33,12 +38,19 @@ public class VacunatorioControllerTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-        	.addAsResource("META-INF/persistence.xml")
-        	.addPackages(true, "datos", "logica")
-            //.addClasses(Vacunatorio.class, PuestoVacunacion.class, VacunatorioControllerLocal.class, VacunatorioBean.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-        	//.addAsResource();
+    	File[] files = Maven.resolver()
+                .loadPomFromFile("pom.xml")
+                .importRuntimeDependencies()
+                .resolve()
+                .withTransitivity()
+                .asFile();
+    	
+        return ShrinkWrap.create(WebArchive.class)
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("META-INF/load.sql")
+            	.addPackages(true, "datos", "logica", "plataformainteroperabilidad")
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsLibraries(files);
     }
 
     @EJB
