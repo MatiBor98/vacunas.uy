@@ -1,5 +1,6 @@
 package datos.repositorios;
 
+import datos.entidades.Departamento;
 import datos.entidades.Estado;
 import datos.entidades.Reserva;
 
@@ -59,11 +60,49 @@ public class ReservaRepository {
                         "join Intervalo i on (r.intervalo.id = i.id)"
                         + " where r.intervalo.fechayHora >= :hoy and r.intervalo.fechayHora <= :maniana "
                         + " and r.ciudadano.firebaseTokenMovil is not null"
+                        + " and r.estado = :pendiente"
         )
                 .setParameter("hoy", hoy)
                 .setParameter("maniana", maniana)
+                .setParameter("pendiente", Estado.PENDIENTE)
                 .getResultList();
     }
+
+
+    public List<Reserva> findDosisDadasTotales(){
+        return entityManager.createQuery(
+                " select r from Reserva r " +
+                        "join Intervalo i on (r.intervalo.id = i.id) "
+                        + "join Agenda a on (i.agenda.id = a.id) "
+                        + "join Etapa e on (a.etapa.id = e.id) "
+                        + "join Vacuna v on (e.vacuna.nombre = v.nombre) "
+                        + "join v.enfermedades "
+                        + "where r.estado = :vacunado"
+
+        )
+                .setParameter("vacunado", Estado.VACUNADO)
+                .getResultList();
+    }
+
+    public List<Reserva> findCantidadDosisDadasDepartamento(Departamento departamento){
+        return entityManager.createQuery(
+                " select r from Reserva r " +
+                        "join Intervalo i on (r.intervalo.id = i.id) "
+                        + "join Agenda a on (i.agenda.id = a.id) "
+                        + "join Etapa e on (a.etapa.id = e.id) "
+                        + "join Vacuna v on (e.vacuna.nombre = v.nombre) "
+                        + "join v.enfermedades "
+                        + "where r.estado = :vacunado "
+                        + "and a.turno.vacunatorio.departamento = :departamento"
+
+        )
+                .setParameter("departamento", departamento)
+                .setParameter("vacunado", Estado.VACUNADO)
+                .getResultList();
+    }
+
+
+
 
     public Reserva getByCiAndCodigo(int ci, int codigo) {
         return entityManager.createQuery(

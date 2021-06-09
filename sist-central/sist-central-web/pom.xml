@@ -192,8 +192,14 @@
 			<artifactId>java-jwt</artifactId>
 			<version>3.16.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<!-- Tell Maven that the resulting file should not have a file name containing 
