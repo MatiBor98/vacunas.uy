@@ -53,9 +53,9 @@ public class UsuarioLogueadoBean implements Serializable {
         Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");
         if(cookie!= null) {
 
-            String jwtIdToken = getAtributeFromJWTString(cookie.getValue(),"id_token");
-
-            Map<String, Claim> claimMap = new TokenVerifier().performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
+            TokenVerifier tokenVerifier = new TokenVerifier();
+            String jwtIdToken = tokenVerifier.getAtributeFromJWTString(cookie.getValue(),"id_token");
+            Map<String, Claim> claimMap = tokenVerifier.performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
 
             userName = claimMap.get("nombre_completo").asString();
             userName = org.apache.commons.lang3.StringEscapeUtils.unescapeJava(userName);
@@ -95,11 +95,7 @@ public class UsuarioLogueadoBean implements Serializable {
         return cid;
     }
 
-    String getAtributeFromJWTString(String payload, String param){
-        String[] user = payload.split(param+"\":\"");
-        user = user[1].split("\"");
-        return user[0];
-    }
+
 
     public CiudadanoDTO getCiudadano() {
         return ciudadano;
