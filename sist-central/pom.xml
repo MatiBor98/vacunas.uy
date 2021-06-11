@@ -145,20 +145,68 @@
 			</dependency>
 			
 			<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>
-				wildfly-arquillian-container-managed
-			</artifactId>
-			<version>8.2.1.Final</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>sun.jdk</groupId>
-					<artifactId>jconsole</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+				<groupId>org.wildfly</groupId>
+				<artifactId>
+					wildfly-arquillian-container-managed
+				</artifactId>
+				<version>8.2.1.Final</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>sun.jdk</groupId>
+						<artifactId>jconsole</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			
+			 <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>4.12</version>
+	            <scope>test</scope>
+	        </dependency>
+	        
+	        <dependency>
+		        <groupId>org.jboss.spec</groupId>
+		        <artifactId>jboss-javaee-7.0</artifactId>
+		        <version>1.0.3.Final</version>
+		        <type>pom</type>
+		        <scope>provided</scope>
+		    </dependency>
 		
+			<dependency>
+	            <groupId>org.jboss.arquillian</groupId>
+	            <artifactId>arquillian-bom</artifactId>
+	            <version>1.4.0.Final</version>
+	            <scope>import</scope>
+	            <type>pom</type>
+	        </dependency>
+	        
+	        <dependency>
+			    <groupId>org.jboss.arquillian.junit</groupId>
+			    <artifactId>arquillian-junit-container</artifactId>
+			    <version>1.4.0.Final</version>
+			    <scope>test</scope>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.jboss.arquillian.container</groupId>
+			    <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+			    <version>1.0.0.CR9</version>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.jboss.weld</groupId>
+			    <artifactId>weld-core</artifactId>
+			    <version>2.3.5.Final</version>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.slf4j</groupId>
+			    <artifactId>slf4j-simple</artifactId>
+			    <version>1.6.4</version>
+			    <scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
@@ -193,6 +241,16 @@
 					<printSummary>true</printSummary>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            
 		</plugins>
 	</build>
 
@@ -292,6 +350,37 @@
 		      </dependency>
 		   </dependencies>
 		</profile>
+		
+	    <profile>
+	        <id>arquillian-weld-ee-embedded</id>
+	        <dependencies>
+	            <dependency>
+	                <groupId>org.jboss.spec</groupId>
+	                <artifactId>jboss-javaee-7.0</artifactId>
+	                <version>1.0.3.Final</version>
+	                <type>pom</type>
+	                <scope>provided</scope>
+	            </dependency>
+	            <dependency>
+	                <groupId>org.jboss.arquillian.container</groupId>
+	                <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+	                <version>1.0.0.CR9</version>
+	                <scope>test</scope>
+	            </dependency>
+	            <dependency>
+	                <groupId>org.jboss.weld</groupId>
+	                <artifactId>weld-core</artifactId>
+	                <version>2.3.5.Final</version>
+	                <scope>test</scope>
+	            </dependency>
+	            <dependency>
+	                <groupId>org.slf4j</groupId>
+	                <artifactId>slf4j-simple</artifactId>
+	                <version>1.6.4</version>
+	                <scope>test</scope>
+	            </dependency>
+	        </dependencies>
+	    </profile>
 	</profiles>
 
 </project>
