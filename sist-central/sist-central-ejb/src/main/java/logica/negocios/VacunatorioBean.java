@@ -83,13 +83,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	}
 	
 	
-	@Override
+	/*@Override
 	public int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio) {
 		Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
 		turnoRepositoryLocal.save(turno);
 		return turno.getId();
-	}
+	}*/
 
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados) {
 		return vacunatorioRepositoryLocal.findByDepartamento(dep, primerResultado, maximosResultados);

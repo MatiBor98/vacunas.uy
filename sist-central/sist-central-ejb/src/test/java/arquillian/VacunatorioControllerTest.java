@@ -40,8 +40,10 @@ import logica.creacion.CiudadanoDTOBuilder;
 import logica.negocios.CiudadanoBean;
 import logica.negocios.MensajeBean;
 import logica.negocios.VacunatorioBean;
+import logica.schedule.DatosVacunatorio;
 import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.PuestoVacunacionBeanLocal;
+import logica.servicios.local.TurnoServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
 @RunWith(Arquillian.class)
@@ -67,6 +69,8 @@ public class VacunatorioControllerTest {
     @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
    
+    @EJB
+    TurnoServiceLocal turnoService;
     
     String nombreVacPrueba = "VacunatorioPruebaXYZ0123";
 
@@ -82,6 +86,13 @@ public class VacunatorioControllerTest {
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
         assertEquals(vac.getDireccion(), "Calle Facultad 3027");
         assertEquals(vac.getPuestosVacunacion().isEmpty(), true);
+        
+        DatosVacunatorio datosVac = vacunatorioControllerLocal.getDatosVacunatorio(nombreVacPrueba);
+        assertEquals(nombreVacPrueba, datosVac.getVac().getNombre());
+        assertEquals(datosVac.getVac().getCiudad(), "Mdeo");
+        assertEquals(datosVac.getVac().getDepartamento(), Departamento.Artigas);
+        assertEquals(datosVac.getVac().getDireccion(), "Calle Facultad 3027");
+        assertEquals(datosVac.getVac().getPuestosVacunacion().isEmpty(), true);
     }
     
     @EJB
@@ -103,8 +114,8 @@ public class VacunatorioControllerTest {
     @Test
     @InSequence(3)
     public void should_add_Turno() {
-    	vacunatorioControllerLocal.addTurno("Matutino", LocalTime.of(8, 0), LocalTime.of(14, 0), nombreVacPrueba);
-    	vacunatorioControllerLocal.addTurno("Vespertino", LocalTime.of(16, 0), LocalTime.of(20, 0), nombreVacPrueba);
+    	turnoService.addTurno("Matutino", nombreVacPrueba,LocalTime.of(8, 0), LocalTime.of(14, 0));
+    	turnoService.addTurno("Vespertino", nombreVacPrueba,LocalTime.of(16, 0), LocalTime.of(20, 0));
     	
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(2, vac.getPuestosVacunacion().size());

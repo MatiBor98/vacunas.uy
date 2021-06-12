@@ -183,6 +183,8 @@ public class AgendaTest {
     		}
     	}
     	assertTrue(existeAgenda4);
+    	//se generan 4 al iniciar el sistema
+    	assertEquals(5, agendaServiceLocal.findByNombrePlan("Plan vacunacion covid 19").size());
     	
     	List<Intervalo> intervalos = null;
     	try {
@@ -190,6 +192,13 @@ public class AgendaTest {
     	}
     	catch(RuntimeException e){
     		fail("la fecha mandada tiene que ser de un lunes");
+    	}
+    	
+    	try {
+        	intervalos = agendaServiceLocal.getIntervalos(4, LocalDate.of(2021, 6, 22));
+    	}
+    	catch(RuntimeException e){
+    		//todo ok
     	}
     	
     	assertNotNull(intervalos);

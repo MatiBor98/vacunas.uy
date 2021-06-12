@@ -1,5 +1,6 @@
 package logica.servicios.local;
 
+import datos.dtos.LoteDTO;
 import datos.entidades.Lote;
 import datos.entidades.Turno;
 

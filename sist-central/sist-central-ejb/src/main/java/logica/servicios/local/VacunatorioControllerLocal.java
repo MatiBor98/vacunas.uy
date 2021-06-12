@@ -17,7 +17,7 @@ public interface VacunatorioControllerLocal {
 	Optional<Vacunatorio> find(String nombre);
 	Optional<Vacunatorio> findWithEverything(String nombre);
 	List<Vacunatorio> find();
-	int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio);
+	//int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio);
 	List<String> getNombresDepartamentos();
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);

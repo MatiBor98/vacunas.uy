@@ -1,6 +1,5 @@
 package arquillian;
 
-import datos.dtos.LoteDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
@@ -9,11 +8,9 @@ import datos.entidades.PlanVacunacion;
 import datos.entidades.SocioLogistico;
 import datos.entidades.Vacuna;
 import datos.entidades.Vacunatorio;
-import logica.schedule.DatosVacunatorio;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.LaboratorioServiceLocal;
 import logica.servicios.local.LoteServiceLocal;
-import logica.servicios.local.PlanVacunacionServiceLocal;
 import logica.servicios.local.SocioLogisticoControllerLocal;
 import logica.servicios.local.VacunaServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
@@ -137,14 +134,12 @@ public class SocioAndLoteTest {
        loteVacuna = lote.get();
        assertNotNull(loteVacuna.getFechaEntrega());
        assertTrue(LocalDate.of(2021, 8, 16).equals(loteVacuna.getFechaEntrega()));
-
+       
        List<Lote> lotes = loteService.find();
+       assertNotNull(lotes);
        //hay 2 creados al iniciar el sistema
        assertEquals(4, lotes.size());
        
-       DatosVacunatorio datosVac = vacunatorioController.getDatosVacunatorio("CASMU");
-       assertEquals("CASMU", datosVac.getVac().getNombre());
-       assertEquals(2, datosVac.getVac().getLotes().size());
     }
     
 }
