@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -92,15 +93,13 @@ public class AgendaDTO implements Serializable {
 
     public String getHorariosString() {
         final StringBuilder sb = new StringBuilder("");
-        horarioPorDia.forEach((dayOfWeek, informacionPosiblesIntervalosDTO) -> {
-            sb
-                .append("\n")
-                .append(dayOfWeek.getDisplayName(TextStyle.SHORT, new Locale("es", "UY")))
-                .append(" - ")
-                .append(informacionPosiblesIntervalosDTO.getInicio())
-                .append(" a ")
-                .append(informacionPosiblesIntervalosDTO.getFin());
-        });
+        horarioPorDia.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> sb
+            .append("\n")
+            .append(entry.getKey().getDisplayName(TextStyle.SHORT, new Locale("es", "UY")))
+            .append(" - ")
+            .append(entry.getValue().getInicio())
+            .append(" a ")
+            .append(entry.getValue().getFin()));
         return sb.toString();
     }
 }

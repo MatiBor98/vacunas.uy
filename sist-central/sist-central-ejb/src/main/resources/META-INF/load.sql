@@ -48,11 +48,11 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 
 insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), timestamp '2021-06-07 18:00:00.000000', 4);
 insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), timestamp ',2021-06-28 18:00:00.000000', 4);
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 1, 52050756, 1);
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 2, 52050756, 2);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 52050756, 4);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 2, 52050756, 5);
 
-insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false')
-insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer')
-insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer')
-insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982)
-insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2143)
+insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false');
+insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
+insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
+insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982);
+insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2143);
