@@ -1,10 +1,14 @@
 package arquillian;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -24,12 +28,19 @@ import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
+import datos.dtos.PuestoVacunacionDTO;
+import datos.entidades.Asignacion;
 import datos.entidades.Departamento;
 import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
+import datos.entidades.Vacunador;
 import datos.entidades.Vacunatorio;
+import datos.exceptions.CiudadanoRegistradoException;
+import logica.creacion.CiudadanoDTOBuilder;
 import logica.negocios.CiudadanoBean;
 import logica.negocios.MensajeBean;
 import logica.negocios.VacunatorioBean;
+import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.PuestoVacunacionBeanLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
@@ -62,14 +73,17 @@ public class VacunatorioControllerTest {
     @Test
     @InSequence(1)
     public void should_create_vacunatorio() {
+    	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
+    	assertEquals(19, deps.size());
+    	
         vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas);
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
         assertEquals(vac.getDireccion(), "Calle Facultad 3027");
         assertEquals(vac.getPuestosVacunacion().isEmpty(), true);
-        System.out.print("xd");
     }
+    
     @EJB
     PuestoVacunacionBeanLocal puestoVacunacionBeanLocal;
     
@@ -87,7 +101,7 @@ public class VacunatorioControllerTest {
     }
 
     @Test
-    @InSequence(2)
+    @InSequence(3)
     public void should_add_Turno() {
     	vacunatorioControllerLocal.addTurno("Matutino", LocalTime.of(8, 0), LocalTime.of(14, 0), nombreVacPrueba);
     	vacunatorioControllerLocal.addTurno("Vespertino", LocalTime.of(16, 0), LocalTime.of(20, 0), nombreVacPrueba);
@@ -96,5 +110,88 @@ public class VacunatorioControllerTest {
         assertEquals(2, vac.getPuestosVacunacion().size());
 
     }
+    
+    @EJB
+    CiudadanoServiceLocal ciudadanoService;
+    
+    
+    @Test
+    @InSequence(4)
+    public void should_add_Asignacion() {
+    	
+    	CiudadanoDTOBuilder builder = new CiudadanoDTOBuilder();
+        
+        builder.setCi(98765432);
+        builder.setEmail("vacunador@email.com");
+        builder.setNombre("Vac Un Ador");
+        builder.setVacunador(true);
+        
+        try {
+			ciudadanoService.save(builder.createCiudadanoDTO());
+		} catch (CiudadanoRegistradoException e) {
+			fail("vacunador no deberia estar registrado ya");
+		}
+        
+        Optional<Vacunatorio> vac = vacunatorioControllerLocal.find(nombreVacPrueba);
+        assertFalse(vac.isEmpty());
+        List<Turno> turnos = vac.get().getTurnos();
+        assertEquals(2, turnos.size());
+        Turno turno = null;
+        if(turnos.get(0).getNombre().equals("Matutino")) {
+        	turno = turnos.get(0);
+        }
+        else {
+        	turno = turnos.get(1);
+        }
+        
+        List<PuestoVacunacion> puestos = vac.get().getPuestosVacunacion();
+        assertEquals(2, puestos.size());
+        PuestoVacunacion puesto = null;
+        if(puestos.get(0).getNombrePuesto().equals("Puesto 2")) {
+        	puesto = puestos.get(0);
+        }
+        else {
+        	puesto = puestos.get(1);
+        }
+        List<Vacunador> vacs =  puestoVacunacionBeanLocal.getVacunadoresNoAsignados(nombreVacPrueba, "Puesto 2");
+        Vacunador vacunador = null;
+        for(Vacunador v: vacs) {
+        	if(v.getCi() == 98765432) {
+        		vacunador = v;
+        		break;
+        	}
+        }
+        
+        puestoVacunacionBeanLocal.addAsignacion(vacunador, turno, puesto, LocalDate.of(2021, 7, 1), LocalDate.of(2021, 11, 30));
+        List<PuestoVacunacion> p = puestoVacunacionBeanLocal.find(nombreVacPrueba, "Puesto 2");
+        assertEquals(1, p.size());
+        puesto = p.get(0);
+        List<Asignacion> asignaciones =  puesto.getAsignaciones();
+        assertEquals(1, asignaciones.size());
+        assertEquals(98765432, asignaciones.get(0).getVacunador().getCi());
+        assertEquals("Matutino", asignaciones.get(0).getTurno().getNombre());
+        assertEquals("Puesto 2", asignaciones.get(0).getPuestoVacunacion().getNombrePuesto());
+        assertEquals(nombreVacPrueba, asignaciones.get(0).getPuestoVacunacion().getVacunatorio().getNombre());
+        
+        vacs = puestoVacunacionBeanLocal.getVacunadoresNoAsignados(nombreVacPrueba, "Puesto 2");
+        for(Vacunador vacu: vacs) {
+        	if(vacu.getCi() == 98765432) {
+        		fail("no se registro la asignacion del vacunador");
+        	}
+        }
+    }
+    
+    @Test
+    @InSequence(5)
+    public void should_find_puestos() {
+    	
+    	Optional<Vacunatorio> vac = vacunatorioControllerLocal.find(nombreVacPrueba);
+    	assertFalse(vac.isEmpty());
+    	
+    	List<PuestoVacunacionDTO> puestos = puestoVacunacionBeanLocal.getDTO(vac.get());
+    	assertEquals(2, puestos.size());
+    	
+    }
+    
     
 }

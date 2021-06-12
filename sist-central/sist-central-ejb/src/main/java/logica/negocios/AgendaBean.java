@@ -159,7 +159,7 @@ public class AgendaBean implements AgendaServiceLocal {
     }
 
     /**
-     * Retorna un predicado que dado un inervalo chequea si este esta disponible y ademas que tenga intervalos disponibles
+     * Retorna un predicado que dado un intervalo chequea si este esta disponible y ademas que tenga intervalos disponibles
      * para las siguientes dosis.
      * @param fechaInicio  fecha inicio de la ventana de tipo que se va a mostrar los intervalos (Un Lunes )
      * @param agendaId Id de la agenda de la que se estan listando los intervalos

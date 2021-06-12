@@ -1,5 +1,6 @@
 package arquillian;
 
+import datos.dtos.LoteDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
@@ -8,6 +9,7 @@ import datos.entidades.PlanVacunacion;
 import datos.entidades.SocioLogistico;
 import datos.entidades.Vacuna;
 import datos.entidades.Vacunatorio;
+import logica.schedule.DatosVacunatorio;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.LaboratorioServiceLocal;
 import logica.servicios.local.LoteServiceLocal;
@@ -92,7 +94,8 @@ public class SocioAndLoteTest {
        
        vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas);
        List<Vacunatorio> vacs = vacunatorioController.find();
-       assertEquals(1, vacs.size());
+       //se crean 3 al iniciar el sistema
+       assertEquals(4, vacs.size());
        
        socioLogisticoService.addSocioLogistico("DHL");
        Optional<SocioLogistico> socio =  socioLogisticoService.find("DHL");
@@ -109,7 +112,7 @@ public class SocioAndLoteTest {
        assertEquals("DHL", socioLogistico.getNombre());
        assertTrue(socioLogistico.isHabilitado());
        
-       loteService.addLote(400, 20, "TheWall", LocalDate.of(2022, 7, 22), "TheWall", "DHL");
+       loteService.addLote(400, 20, "CASMU", LocalDate.of(2022, 7, 22), "TheWall", "DHL");
        Optional<Lote> lote = loteService.findById(20);
        assertFalse(lote.isEmpty());
        Lote loteVacuna = lote.get();
@@ -121,7 +124,7 @@ public class SocioAndLoteTest {
        assertNull(loteVacuna.getFechaDespacho());
        assertNull(loteVacuna.getFechaEntrega());
        
-       loteService.addLote(450, 21, "TheWall", LocalDate.of(2022, 7, 22), "TheWall", "DHL");
+       loteService.addLote(450, 21, "CASMU", LocalDate.of(2022, 7, 22), "TheWall", "DHL");
        
        loteService.despacharLote(20, "DHL", LocalDate.of(2021, 8, 15));
        lote = loteService.findById(20);
@@ -136,28 +139,12 @@ public class SocioAndLoteTest {
        assertTrue(LocalDate.of(2021, 8, 16).equals(loteVacuna.getFechaEntrega()));
 
        List<Lote> lotes = loteService.find();
-       assertEquals(2, lotes.size());
+       //hay 2 creados al iniciar el sistema
+       assertEquals(4, lotes.size());
+       
+       DatosVacunatorio datosVac = vacunatorioController.getDatosVacunatorio("CASMU");
+       assertEquals("CASMU", datosVac.getVac().getNombre());
+       assertEquals(2, datosVac.getVac().getLotes().size());
     }
-    
-    @Test
-    @InSequence(1)
-    public void should_delete_laboratorio() {
-    	
-    	vacunaService.eliminar("TheWall");
-    	List<Vacuna> vac = vacunaService.findByNombreVacuna("TheWall");
-		assertEquals(0, vac.size());
-
-    	laboratorioService.eliminar("TrumpLabs");
-    	List<Laboratorio> lab = laboratorioService.findByNombreLaboratorio("TrumpLabs");
-    	assertEquals(0, lab.size());
-   		
-		List<Enfermedad> enf = enfermedadService.findByNombreEnfermedad("COVID-19");
-		//la enfermedad no deberia eliminarse
-    	assertEquals(1, enf.size());
-    	
-		lab = laboratorioService.find();
-		assertEquals(1, lab.size());
-
-	}
     
 }

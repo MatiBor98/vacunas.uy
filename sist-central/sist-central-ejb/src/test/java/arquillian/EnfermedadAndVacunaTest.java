@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
-public class EnfermedadTest {
+public class EnfermedadAndVacunaTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -63,7 +63,7 @@ public class EnfermedadTest {
     
     @Test
     @InSequence(1)
-    public void should_create_enfermedad() {
+    public void should_create_enfermedad_and_vacuna() {
     	    	
         enfermedadService.save("COVID-19", "Te agarra una tos y alto bajon bro", new ArrayList<Vacuna>(), new ArrayList<PlanVacunacion>());
         
@@ -89,7 +89,7 @@ public class EnfermedadTest {
         
         vacunaService.save("Sputnik-V", 2, 6, 30, labs, enfermedad);
         vacunaService.save("Sputnik-Vrvgvay", 1, 36, 30, labs, enfermedad);
-
+        
         enfermedad = enfermedadService.findByNombreEnfermedad("COVID-19");
         enf = enfermedad.get(0);
         
@@ -110,7 +110,38 @@ public class EnfermedadTest {
         assertNotNull(plan);
         assertEquals("COVID-19-PLAN", plan.getNombre());
         
+        List<Vacuna> vacs = vacunaService.find();
+        for(Vacuna v: vacs) {
+        	if(v.getNombre().equals("Sputnik-V")) {
+        		assertEquals(2, v.getCantDosis());
+        		assertEquals(6, v.getInmunidadMeses());
+        		assertEquals(30, v.getDosisSeparacionDias());
+        		assertEquals("PutinLabs", v.getLaboratorios().get(0).getNombre());
+        		assertEquals("COVID-19", v.getEnfermedades().get(0).getNombre());
+        	}
+        	else if(v.getNombre().equals("Sputnik-Vrvgvay")) {
+        		assertEquals(1, v.getCantDosis());
+        		assertEquals(36, v.getInmunidadMeses());
+        		assertEquals(30, v.getDosisSeparacionDias());
+        		assertEquals("PutinLabs", v.getLaboratorios().get(0).getNombre());
+        		assertEquals("COVID-19", v.getEnfermedades().get(0).getNombre());
+        	}
+        }
         
+        enfermedadService.save("COVID-21", "Te agarra mas tos y alto bajon plus bro", new ArrayList<Vacuna>(), new ArrayList<PlanVacunacion>());
+        List<Enfermedad> enfe = enfermedadService.findByNombreEnfermedad("COVID-21");
+        assertEquals(1, enfe.size());
+        enfermedad.add(enfe.get(0));
+        
+        vacunaService.modificarVacuna("Sputnik-V", 1, 12, 15, labs, enfermedad);
+        
+        Vacuna vac = vacunaService.find("Sputnik-V");
+        assertEquals(1,vac.getCantDosis());
+        assertEquals(12, vac.getInmunidadMeses());
+        assertEquals(15, vac.getDosisSeparacionDias());
+        assertEquals(1, vac.getLaboratorios().size());
+        assertEquals("PutinLabs", vac.getLaboratorios().get(0).getNombre());
+        assertEquals(2, vac.getEnfermedades().size());
     }
     
    /* @Test
