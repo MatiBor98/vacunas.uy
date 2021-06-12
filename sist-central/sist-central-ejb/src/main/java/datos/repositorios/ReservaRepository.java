@@ -79,9 +79,11 @@ public class ReservaRepository {
         return entityManager.createQuery(
                 "select r from Reserva r " +
                         "where r.ciudadano.ci = :ci " +
-                        "and r.intervalo.agenda.id = :idAngeda", Reserva.class)
+                        "and r.intervalo.agenda.id = :idAngeda " +
+                        "and r.estado = :pendiente", Reserva.class)
                 .setParameter("ci", ci)
                 .setParameter("idAngeda", idAngeda)
+                .setParameter("pendiente", Estado.PENDIENTE)
                 .getResultList();
     }
 }
