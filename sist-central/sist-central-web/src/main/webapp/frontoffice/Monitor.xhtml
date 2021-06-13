@@ -29,8 +29,9 @@
                                 <f:selectItem itemLabel="Todas las enfermedades" itemValue=""/>
                                 <f:selectItems value="#{MonitorBean.enfermedades}"/>
 
-                                <p:ajax event="valueChange" update="Vacuna"
+                                <p:ajax event="valueChange" update="Vacuna Etapa"
                                         listener="#{MonitorBean.initVacunas}"/>
+
                             </p:selectOneMenu>
                         </div>
 

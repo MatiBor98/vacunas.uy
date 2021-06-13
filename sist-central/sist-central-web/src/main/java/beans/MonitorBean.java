@@ -39,7 +39,14 @@ public class MonitorBean implements Serializable {
     @EJB
     VacunaServiceLocal vacunaServiceLocal;
 
-    private String selEnfermedad, selVacuna, selEtapa;
+
+
+    private String selEnfermedad;
+
+
+
+    private String selVacuna;
+    private String selEtapa;
 
     private List<String> enfermedades, vacunas;
     private List<Integer>  etapas;
@@ -49,6 +56,31 @@ public class MonitorBean implements Serializable {
     private Map<String, Integer> dosisDadasDepartamento;
 
     private Integer VacunadosHoy, DosisAdministradas, AgendadosProximos;
+
+    public String getSelEnfermedad() {
+        return selEnfermedad;
+    }
+
+    public void setSelEnfermedad(String selEnfermedad) {
+        this.selEnfermedad = selEnfermedad;
+        this.selVacuna = null;
+        this.selEtapa = null;
+
+        initVacunas();
+        initEtapas();
+    }
+    public String getSelVacuna() {
+        return selVacuna;
+    }
+
+    public void setSelVacuna(String selVacuna) {
+        this.selVacuna = selVacuna;
+        this.selEtapa = null;
+        initEtapas();
+
+    }
+
+
 
     public MonitorBean() {
         this.dosisDadasDepartamento = new HashMap<>();
@@ -84,6 +116,9 @@ public class MonitorBean implements Serializable {
 
         loadData();
     }
+
+
+
 
     public void loadData(){
 
