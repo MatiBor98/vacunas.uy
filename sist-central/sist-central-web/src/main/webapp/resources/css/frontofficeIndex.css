@@ -397,3 +397,19 @@ section {
   font-size: 15px;
   color: #848484;
 }
+
+/*---------------*/
+
+.accordion {
+	height: 10px;
+	text-align: left;
+}
+
+
+.ui-tabs .ui-tabs-nav {
+            text-align: center;
+}
+.ui-tabs .ui-tabs-nav li {
+            float: none !important;
+            display: inline-block;
+}

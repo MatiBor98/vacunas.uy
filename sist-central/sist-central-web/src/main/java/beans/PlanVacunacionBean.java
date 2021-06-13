@@ -95,6 +95,13 @@ public class PlanVacunacionBean implements Serializable{
 				if (matchNombre) {
 					res.add(plan);
 				}
+				else {
+					match = pattern.matcher(plan.getEnfermedad().getNombre());
+					boolean matchEnfermedad =  match.find();
+					if(matchEnfermedad) {
+						res.add(plan);
+					}
+				}
 			}
 		} else {
 			res = planes;
@@ -249,4 +256,21 @@ public class PlanVacunacionBean implements Serializable{
 		Date res = Date.from(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return res;
 	}
+
+	//devuelve 0 si es acutal, 1 si es futuro y -1 si es pasado
+	public int esActual(LocalDate inicio, LocalDate fin) {
+		if(inicio.isAfter(LocalDate.now())) {
+			return 1;
+		}
+		else {
+			if(fin.isBefore(LocalDate.now())) {
+				return -1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+	
+	
 }
