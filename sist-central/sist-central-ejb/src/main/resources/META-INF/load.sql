@@ -1,14 +1,20 @@
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Coronavac', 2, 14, 8);
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Pfizer', 2, 17, 8);
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Astrazeneca', 1, 0, 8);
-insert into enfermedad (nombre, descripcion) values ('Corona Virus', 'La enfermedad mas ******** del mundo.');
-insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Coronavac', 'Corona Virus');
-insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Pfizer', 'Corona Virus');
-insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Astrazeneca', 'Corona Virus');
-insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Plan vacunacion covid 19', date '2020-01-01', date '2023-12-31', 'Corona Virus');
+insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Gripevac', 1, 0, 8);
+insert into enfermedad (nombre, descripcion) values ('Coronavirus', 'COVID-19');
+insert into enfermedad (nombre, descripcion) values ('Gripe 2021', 'Gripe estacional');
+insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Coronavac', 'Coronavirus');
+insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Pfizer', 'Coronavirus');
+insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Astrazeneca', 'Coronavirus');
+insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Gripevac', 'Gripe 2021');
+insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Plan vacunacion covid 19', date '2020-01-01', date '2023-12-31', 'Coronavirus');
+insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Anti gripe', date '2021-01-01', date '2021-12-31', 'Gripe 2021');
 insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion Personal de la Salud', date '2020-01-01', date '2023-12-31', null, null, 'Plan vacunacion covid 19', 'Pfizer');
 insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion Personal de la Salud y Enseñanza', date '2020-01-01', date '2023-12-31', null, null, 'Plan vacunacion covid 19', 'Astrazeneca');
 insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General', date '2020-01-01', date '2023-12-31', 40, 70, 'Plan vacunacion covid 19', 'Coronavac');
+insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General', date '2021-01-01', date '2021-12-31', 40, 70, 'Anti gripe', 'Gripevac');
+
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
@@ -56,3 +62,9 @@ insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982);
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2143);
+
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-02-01', null, 'Matutino', 4, 1);
+insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), timestamp '2021-06-07 18:00:00.000000', 5);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 1, 50550419, 6);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 52050756, 6);
+

@@ -21,12 +21,14 @@ import plataformainteroperabilidad.CiudadanosService;
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.json.JsonObject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.KeyFactory;
@@ -69,12 +71,19 @@ public class UsuarioLogueadoBean implements Serializable {
                 Ciudadanos ciudadanosPort = ciudadanosService.getCiudadanosPort();
                 ciudadanoPlataforma = ciudadanosPort.obtPersonaPorDoc(this.ciudadano.getCi());
             } catch (CiudadanoNoEncontradoException e) {
+
                 CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
                 try {
 					usuarios.save(ciud);
 				} catch (CiudadanoRegistradoException e1) {
 					e1.printStackTrace();
 				}
+
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/frontoffice/cambioEmail.xhtml");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         } else {
             email = null;

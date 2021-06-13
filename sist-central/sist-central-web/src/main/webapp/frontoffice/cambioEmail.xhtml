@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplateCiudadano.xhtml">
+    <ui:define name="content">
+        <h:form>
+
+
+            <div class="container">
+
+                <div class="row">
+                    <h6>
+                        Es su primera vez entrando en nuestra plataforme, por favor confirme su email.
+                    </h6>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <h5 style="width: 100%;">Email</h5>
+
+
+                            <p:inputText id="emailCiudadano" value="#{CambioEmailBean.email}" required="#{true}"/>
+
+                    </div>
+                    <div class="row">
+                        <h5 style="width: 100%;">Confirmar Email</h5>
+
+                            <p:inputText id="emailCiudadanoCONF" value="#{CambioEmailBean.emailConf}"
+                                         required="#{true}"/>
+
+                    </div>
+                </div>
+                <p:commandButton value="Confirmar" action="#{CambioEmailBean.cambiarEmail}" style="margin-top: 40px; margin-bottom: 40px"/>
+            </div>
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>
