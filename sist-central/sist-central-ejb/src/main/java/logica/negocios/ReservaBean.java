@@ -50,13 +50,21 @@ public class ReservaBean {
         });
     }
 
-    public Map<Departamento, Integer> getDosisPorDepartamentos(){
-        Map<Departamento, Integer> dosisDepartamentos = new HashMap<>();
+    public Map<String, Integer> getDosisPorDepartamentos( String enfermedad, String vacuna, int etapa){
+        Map<String, Integer> dosisDepartamentos = new HashMap<>();
         for (Departamento dep : Departamento.values()){
-            dosisDepartamentos.put(dep,reservaRepository.findCantidadDosisDadasDepartamento(dep).size());
+            dosisDepartamentos.put(dep.name(),reservaRepository
+                    .findCantidadDosisDadasDepartamento(dep, enfermedad, vacuna, etapa).size());
         }
 
         return dosisDepartamentos;
+    }
+
+    public Integer findVacunadosHoy(String enfermedad, String vacuna, int etapa){
+        return reservaRepository.findVacunadosHoy(enfermedad,  vacuna,  etapa);
+    }
+    public Integer findAgendadosProximos(String enfermedad, String vacuna, int etapa){
+        return reservaRepository.findAgendadosProximos(enfermedad,  vacuna,  etapa);
     }
 
 }
