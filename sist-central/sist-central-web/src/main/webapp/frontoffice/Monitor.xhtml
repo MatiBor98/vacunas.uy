@@ -24,7 +24,6 @@
                 <h:form>
                     <div class="row">
                         <div class="col-sm">
-                            <!--                     <p:outputLabel for="@next" value="Enfermedad"/>-->
                             <p:selectOneMenu id="Enfermedad" value="#{MonitorBean.selEnfermedad}">
                                 <f:selectItem itemLabel="Todas las enfermedades" itemValue=""/>
                                 <f:selectItems value="#{MonitorBean.enfermedades}"/>
@@ -36,7 +35,6 @@
                         </div>
 
                         <div class="col-sm">
-                            <!--                     <p:outputLabel for="@next" value="Vacuna"/>-->
                             <p:selectOneMenu id="Vacuna" value="#{MonitorBean.selVacuna}">
                                 <f:selectItem itemLabel="Todas las vacunas" itemValue=""/>
                                 <f:selectItems value="#{MonitorBean.vacunas}"/>
