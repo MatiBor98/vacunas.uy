@@ -67,7 +67,7 @@ public class ConsultaBean implements Serializable{
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaPlanVacunacion.xhtml");
 	}
 	public String getConsultaSocioLogistico() {
-		return consultaVacunatorio;
+		return consultaSocioLogistico;
 	}
 	public void setConsultaSocioLogistico(String soc) {
 		this.consultaSocioLogistico = soc;

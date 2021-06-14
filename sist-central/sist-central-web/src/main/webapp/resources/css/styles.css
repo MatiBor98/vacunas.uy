@@ -18,16 +18,20 @@
 
 .dropdown-menu {
     background-color: #43516c !important;
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .dropdown-item {
-    color: #ffffff;
+    color: #ffffff !important;
 }
+.dropdown-item:hover {
+    color: #000000 !important;
+}
+
 
 .dropdown-menu a:hover {
     background: #014464 !important;
-    background: linear-gradient(left, #ebd254, #c4b489);
+    background: linear-gradient(to left, #ebd254, #c4b489);
     background: -moz-linear-gradient(left, #ebd254, #c4b489) !important;
     background: -webkit-gradient(
             linear,
