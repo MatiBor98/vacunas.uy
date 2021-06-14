@@ -73,7 +73,7 @@ public class Vacuna implements Serializable{
 	}
 
 	public int getDosisSeparacionDiasMultiploSemana() {
-		return 7 * ((this.dosisSeparacionDias/7) + (this.dosisSeparacionDias%7 > 0 ? 1 : 0));
+		return (int) Math.ceil(this.dosisSeparacionDias/7d);
 	}
 
 	public void setDosisSeparacionDias(int cantDias) {
