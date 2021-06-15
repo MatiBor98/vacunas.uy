@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplateCiudadano.xhtml">
+	<ui:define name="titulo">
+        - Agregar Plan de Vacunacion
+    </ui:define>
+	<ui:define name="content">
+
+
+		<h:outputStylesheet library="css" name="chat.css" />
+
+
+		<div class="mesgs">
+
+				<h:form >
+
+					<p:remoteCommand name="borrarmsg" update="mensajesTabla"
+						action="#{chatBotReservaBeanView.borrarMensajes}" />
+					<p:remoteCommand name="addMensaje" update="mensajesTabla"
+						action="#{chatBotReservaBeanView.addMensajeDTO}" />
+
+
+					<p:dataScroller id="mensajesTabla" class="mensajesTabla"
+						value="#{chatBotReservaBeanView.mensajes}" var="mensaje" chunkSize="10"
+						mode="inline" scrollHeight="400" startAtBottom="true" >
+
+
+						<f:facet name="header" >
+                			<div class="tituloChat">Chat General</div>
+            			</f:facet>
+
+					<div class="mensajeBorder">
+						<div
+							class="#{mensaje.vacunadorCi == chatBotReservaBeanView.ciUsuario ? 'outgoing_msg' :'incoming_msg'}">
+							<div class="#{mensaje.vacunadorCi == chatBotReservaBeanView.ciUsuario ? 'sent_msg' :'received_msg'}">
+
+								<div class="#{mensaje.vacunadorCi == chatBotReservaBeanView.ciUsuario ? '' :'received_withd_msg'}">
+
+									<p style="#{chatBotReservaBeanView.colorUsuario(mensaje.vacunadorCi)}" class="nombreVacunador"><b>#{mensaje.vacunadorNombre}</b></p>
+
+									<p class="pocoMargen">#{mensaje.texto}</p>
+									<p class="fechaHoraMsj"><span class="#{mensaje.vacunadorCi == chatBotReservaBeanView.ciUsuario ? 'time_date_outgoing' :'time_date'}">
+									#{mensaje.fechaHoraFormatoLegible}</span></p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					</p:dataScroller>
+
+
+					<h:outputScript name="js/chat.js" target="head" />
+
+				</h:form>
+		</div>
+
+		<!-- cuadro de texto -->
+		<div class="row">
+			<h:form style="width: 50%;">
+
+
+
+				<p:inputTextarea id="float-input" value="#{chatBotReservaBeanView.text}" required="true" requiredMessage="No puedes enviar un mensaje vacío"
+				class=""
+				/>
+				<p:commandButton
+						style="margin: 25px;"
+						icon="pi pi-check"
+					styleClass="rounded-button ui-button-outlined"
+					action="#{chatBotReservaBeanView.send}" />
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+
+</html>
