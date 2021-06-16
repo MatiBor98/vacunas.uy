@@ -55,19 +55,31 @@ public class LoteBean implements Serializable{
 	}
 
 
-	public void agregarLote(String vac) throws NamingException {
+	public void agregarLote(String vac, String socLog) throws NamingException {
 		//falta hacer el control de que ya este ingresado
-		loteService.addLote(dosisDisponibles, numLote,vac,fechaVencimiento, vacuna,socLogistico);
-		informarSocLog(dosisDisponibles, numLote,vac,fechaVencimiento, vacuna,socLogistico);
-		this.setLoteYaExiste("none");
-		this.setLoteAgregado("block");
+		if(!loteService.findById(numLote).isPresent()) {
+			if (vacunatorio == null) {
+				loteService.addLote(dosisDisponibles, numLote, vac, fechaVencimiento, vacuna, socLogistico);
+				informarSocLog(dosisDisponibles, numLote, vac, fechaVencimiento, vacuna, socLogistico);
+			}
+			else {
+				loteService.addLote(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLog);
+				informarSocLog(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLogistico);
+
+			}
+			this.setLoteYaExiste("none");
+			this.setLoteAgregado("block");
+
+		} else{
+			this.setLoteYaExiste("block");
+			this.setLoteAgregado("none");
+		}
 		this.setVacunatorio(null);
 		this.setNumLote(null);
 		this.setSocLogistico(null);
 		this.setVacuna(null);
 		this.setDosisDisponibles(null);
 		this.setFechaVencimiento(null);
-
 
 	}
 

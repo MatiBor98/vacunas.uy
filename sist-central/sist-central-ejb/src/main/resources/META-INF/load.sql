@@ -58,8 +58,8 @@ insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 2, 52050756, 5);
 
 insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false');
-insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
-insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
+insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
+insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982);
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2143);
 

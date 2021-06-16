@@ -2,6 +2,7 @@ package datos.repositorios;
 
 import datos.entidades.Departamento;
 import datos.entidades.Etapa;
+import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 
 import javax.ejb.Singleton;
@@ -42,6 +43,12 @@ public class SocioLogisticoRepository implements SocioLogisticoRepositoryLocal {
     @Override
     public void habilitar(String nombre) {
         this.find(nombre).get().setHabilitado(true);
+    }
+
+    @Override
+    public List<Lote> getLotes(String nombreSocioLogistico) {
+        SocioLogistico socLog = find(nombreSocioLogistico).get();
+        return socLog.getLotes();
     }
 
     public Optional<SocioLogistico> find(String nombre) {

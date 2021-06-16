@@ -142,7 +142,27 @@
 									<h:form rendered="#{!VacunatorioBean.getLotes(ConsultaBean.consultaVacunatorio).isEmpty()}">
 										<ul class="list-group list-group-flush">
 											<ui:repeat value="#{VacunatorioBean.getLotes(ConsultaBean.consultaVacunatorio)}" var="lote">
-												<li class="list-group-item">#{lote.numeroLote}</li>
+												<div class="card-header" style="background-color:#222938; color:#222938">
+													<h4>
+														<li class="list-group-item">Numero de lote: #{lote.numeroLote}</li>
+													</h4>
+												</div>
+												<li class="list-group-item">Socio logistico: #{lote.socioLogistico.nombre}</li>
+												<li class="list-group-item">Fecha de vencimiento: #{lote.fechaVencimiento}</li>
+												<li class="list-group-item">Vacuna: #{lote.vacuna.nombre}</li>
+												<li class="list-group-item">Dosis Disponibles: #{lote.dosisDisponibles}</li>
+												<h:panelGroup rendered="#{lote.fechaDespacho == null}">
+													<li class="list-group-item">Fecha Despacho: Sin Despachar</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaDespacho != null}">
+													<li class="list-group-item">Fecha Despacho: #{lote.fechaDespacho}</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaEntrega == null}">
+													<li class="list-group-item">Fecha Entrega: Sin Entregar</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaEntrega != null}">
+													<li class="list-group-item">Fecha Entrega: #{lote.fechaEntrega}</li>
+												</h:panelGroup>
 											</ui:repeat>
 										</ul>
 									</h:form>
