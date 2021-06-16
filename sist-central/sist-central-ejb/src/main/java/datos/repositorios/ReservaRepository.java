@@ -39,7 +39,7 @@ public class ReservaRepository {
         return entityManager.createQuery(
                 "select r from Reserva r " +
                         "where r.ciudadano.ci = :ci " +
-                        "order by r.id", Reserva.class)
+                        "order by r.id desc", Reserva.class)
                 .setParameter("ci", ci)
                 .setFirstResult(offset)
                 .setMaxResults(limit)

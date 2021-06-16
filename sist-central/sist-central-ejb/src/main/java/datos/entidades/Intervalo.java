@@ -31,11 +31,11 @@ public class Intervalo implements Serializable {
 	private List<Reserva> reservas;
 
 	@Transient
-	private final AtomicInteger cantidadReservas = new AtomicInteger(0);
+	private final AtomicInteger cantidadReservasPendientes = new AtomicInteger(0);
 
 	@PostLoad
 	private void postLoad(){
-		cantidadReservas.compareAndSet(0,
+		cantidadReservasPendientes.compareAndSet(0,
 				(int) reservas.stream().map(Reserva::getEstado).filter(Estado.PENDIENTE::equals).count());
 	}
 
@@ -85,11 +85,15 @@ public class Intervalo implements Serializable {
 		int capacidadPorIntervalo = agenda.getHorarioPorDia().get(fechayHora.getDayOfWeek()).getCapacidadPorTurno();
 		int cant;
 		do {
-			cant = cantidadReservas.get();
+			cant = cantidadReservasPendientes.get();
 			if (cant >= capacidadPorIntervalo) {
 				throw new IntervaloNoDisponibleException();
 			}
-		} while (!cantidadReservas.compareAndSet(cant, cant + 1));
+		} while (!cantidadReservasPendientes.compareAndSet(cant, cant + 1));
 		reservas.add(reserva);
+	}
+
+	public int getCantidadReservasPendientes() {
+		return cantidadReservasPendientes.get();
 	}
 }

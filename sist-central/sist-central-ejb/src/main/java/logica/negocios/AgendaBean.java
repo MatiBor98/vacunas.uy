@@ -184,7 +184,7 @@ public class AgendaBean implements AgendaServiceLocal {
             Agenda agenda = intervalo.getAgenda();
             DayOfWeek dayOfWeek = intervalo.getFechayHora().getDayOfWeek();
 
-            if (intervalo.getReservas().size() >= agenda.getHorarioPorDia().get(dayOfWeek).getCapacidadPorTurno()) {
+            if (intervalo.getCantidadReservasPendientes() >= agenda.getHorarioPorDia().get(dayOfWeek).getCapacidadPorTurno()) {
                 return false;
             }
 
@@ -193,10 +193,10 @@ public class AgendaBean implements AgendaServiceLocal {
                         intervalo.getFechayHora().plusDays((long) dosisSeparacionDias * i)
                 );
 
-                int cnatidaReservas = Optional.ofNullable(intervaloDosis).map(Intervalo::getReservas)
-                        .map(List::size).orElse(0);
+                int cantidaReservas = Optional.ofNullable(intervaloDosis).map(Intervalo::getCantidadReservasPendientes)
+                        .orElse(0);
 
-                if (cnatidaReservas >= agenda.getHorarioPorDia().get(dayOfWeek).getCapacidadPorTurno()) {
+                if (cantidaReservas >= agenda.getHorarioPorDia().get(dayOfWeek).getCapacidadPorTurno()) {
                     return false;
                 }
             }

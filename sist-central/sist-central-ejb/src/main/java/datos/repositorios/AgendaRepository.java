@@ -71,7 +71,10 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                         "and a.fin is null " +
                         "and v.departamento = :departamento " +
                         "group by a, e, t, v, vac " +
-                        "having (select sum(l.dosisDisponibles) from v.lotes l where l.vacuna = vac) > count(r) and count(f) = 0 " +
+                        "having (" +
+                        "   select sum(l.dosisDisponibles) " +
+                        "   from v.lotes l where l.vacuna = vac and l.fechaVencimiento > current_date) > count(r) " +
+                        "and count(f) = 0 " +
                         (trabajos != null ? "or :filtroPorEmpleo member of f " : ""), Agenda.class)
                 .setParameter("nombreEnfermedad", nombreEnfermedad)
                 .setParameter("edadCiudadano", edadCiudadano)
