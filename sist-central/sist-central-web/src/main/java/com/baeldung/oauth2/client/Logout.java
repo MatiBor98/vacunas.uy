@@ -3,10 +3,13 @@ package com.baeldung.oauth2.client;
 
 
 
+import org.eclipse.microprofile.config.Config;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +22,9 @@ import javax.servlet.http.*;
 @WebServlet("/Logout")
 public class Logout extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    @Inject
+    private Config config;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,7 +42,7 @@ public class Logout extends HttpServlet {
         Optional<String> cookie =  readCookie("JWT", request);
         if(cookie != null){
             String end_session_endpoint = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout";
-            String redirect_uri = "http://localhost:8080/logout";
+            String redirect_uri = config.getValue("client.logoutUri", String.class);
             String token = getAtributeFromCookie(cookie,"id_token");
             String logoutURL = "https://auth-testing.iduruguay.gub.uy/oidc/v1/logout?id_token_hint="
                     + token + "&post_logout_redirect_uri=" + redirect_uri;
