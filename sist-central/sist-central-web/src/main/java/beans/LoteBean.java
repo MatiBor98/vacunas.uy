@@ -2,12 +2,15 @@ package beans;
 
 import logica.servicios.local.LoteServiceLocal;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
+import javax.jms.Topic;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,6 +24,11 @@ public class LoteBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private JMSContext context;
+
+	@Resource(mappedName = "java:/topic/sist-central")
+	private Topic topic;
 
 	private String vacunatorio;
 	private Integer numLote;
@@ -206,7 +214,7 @@ public class LoteBean implements Serializable{
 	}
 
 	public void informarSocLog(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre, String socioLogisticoNombre) throws NamingException {
-		String userName = "alta1";
+		/*String userName = "alta1";
 		String password = "alta1";
 		final Properties env = new Properties();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
@@ -221,7 +229,9 @@ public class LoteBean implements Serializable{
 		Destination destination = (Destination) namingContext.lookup(destinationString);
 		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
 		JMSContext context = connectionFactory.createContext(userName, password);
-		context.createProducer().send(destination, content);
+		context.createProducer().send(destination, content);*/
+		final String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
+		context.createProducer().send(topic, content);
 
 	}
 }
