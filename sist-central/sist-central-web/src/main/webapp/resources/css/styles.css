@@ -342,4 +342,7 @@ body {
     transform: scaleX(1);
 }
 
+.carousel-inner input[type=submit] {
+    color: black !important;
+}
 
