@@ -20,7 +20,6 @@ public class StartupBean {
 	@PostConstruct
 	void init() throws InterruptedException{
 		/*SchedulerMain schedulere = new SchedulerMain();
-		TimeUnit.SECONDS.sleep(10);
 		schedulere.mainCaller();*/
 	}
 	

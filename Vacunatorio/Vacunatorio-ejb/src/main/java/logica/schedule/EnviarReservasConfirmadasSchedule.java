@@ -27,10 +27,28 @@ public class EnviarReservasConfirmadasSchedule extends TimerTask {
 	private static final String PROVIDER_URL = "http-remoting://127.0.0.1:8080";
 	
     public void run() {
+    	String userName = "alta1";
+		String password = "alta1";
+		/*final Properties env = new Properties();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
+		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://127.0.0.1:8080"));
+		env.put(Context.SECURITY_PRINCIPAL, userName);
+		env.put(Context.SECURITY_CREDENTIALS, password);
+		Context namingContext = null;
+		namingContext = new InitialContext(env);
+		String connectionFactoryString = System.getProperty("connection.factory", "jms/RemoteConnectionFactory");
+		ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
+		String destinationString = System.getProperty("destination", "topic/sist-central");
+		Destination destination = (Destination) namingContext.lookup(destinationString);
+		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
+		JMSContext context = connectionFactory.createContext(userName, password);
+		context.createProducer().send(destination, content);*/
     	Context namingContext = null;
 		final Properties env = new Properties();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
 		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, PROVIDER_URL));
+		env.put(Context.SECURITY_PRINCIPAL, userName);
+		env.put(Context.SECURITY_CREDENTIALS, password);
 		try {
 			namingContext = new InitialContext(env);
 			String connectionFactoryString = System.getProperty("connection.factory", DEFAULT_CONNECTION_FACTORY);
@@ -79,7 +97,7 @@ public class EnviarReservasConfirmadasSchedule extends TimerTask {
 				}
 			}
 			String res = reservasConfirmadas + "&" + reservasCaducadas;
-			try (JMSContext context = connectionFactory.createContext()){
+			try (JMSContext context = connectionFactory.createContext(userName, password)){
 				context.createProducer().send(destination, res);
 				for(ReservaConfirmada resConf:reservasConfPendientes) {
 					//le cambio el estado para que no se manden siempre todas
