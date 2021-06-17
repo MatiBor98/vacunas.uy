@@ -72,7 +72,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
     
     public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080/rest/vacunatorios/vacunatorio/COSEM Punta Carretas"); 
+		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM Punta Carretas"); 
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);
@@ -80,7 +80,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		props.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
+		props.put(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy:80");
 		
 		Context ctx;
 		try {

@@ -25,7 +25,7 @@ public class Main {
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		props.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
+		props.put(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy:80");
 		
 		Context ctx = new InitialContext(props);
 		String jndiName = "ejb:sist-central/sist-central-ejb/AgendaRepository!datos.repositorios.AgendaRepositoryLocal";
