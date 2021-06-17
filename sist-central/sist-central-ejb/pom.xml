@@ -223,7 +223,7 @@
 		    <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
 		    <scope>test</scope>
 		</dependency>
-		
+
     </dependencies>
 
 	<build>

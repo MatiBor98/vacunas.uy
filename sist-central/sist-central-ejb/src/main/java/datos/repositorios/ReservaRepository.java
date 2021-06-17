@@ -23,37 +23,6 @@ public class ReservaRepository {
         entityManager.persist(reserva);
     }
 
-    public boolean existeReservaPendienteByCiudadanoEnfermedad(int ci, String enfermedad) {
-        return entityManager.createQuery(
-                "select count(r) from Reserva r " +
-                        "where r.ciudadano.ci = :ci " +
-                        "and r.estado = :pendiente " +
-                        "and r.intervalo.agenda.etapa.planVacunacion.enfermedad.nombre = :enfermedad", Long.class)
-                .setParameter("ci", ci)
-                .setParameter("pendiente", Estado.PENDIENTE)
-                .setParameter("enfermedad", enfermedad)
-                .getSingleResult() > 0;
-    }
-
-    public List<Reserva> listar(int offset, int limit, int ci) {
-        return entityManager.createQuery(
-                "select r from Reserva r " +
-                        "where r.ciudadano.ci = :ci " +
-                        "order by r.id desc", Reserva.class)
-                .setParameter("ci", ci)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .getResultList();
-    }
-
-    public Long listarCount(int ci) {
-        return entityManager.createQuery(
-                "select count(r) from Reserva r " +
-                        "where r.ciudadano.ci = :ci ", Long.class)
-                .setParameter("ci", ci)
-                .getSingleResult();
-    }
-
     public List<Reserva> findReservasTomorrow() {
         LocalDateTime hoy = LocalDateTime.now();
         LocalDateTime maniana = hoy.plusDays(1).withHour(23).withMinute(59);

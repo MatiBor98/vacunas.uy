@@ -16,9 +16,4 @@ public interface AgendaServiceLocal {
     Optional<AgendaDTO> find(int id);
     List<AgendaDTO> findByNombrePlan(String criterio);
     AgendaDTO save(AgendaDTO agendaDTO);
-    List<VacunatorioTieneAgendaDTO>findAgendasParaCiudadanoPorDepartamento(
-            String nombreEnfermedad, int edadCiudadano, Trabajo trabajos, Departamento departamento);
-    List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicio);
-    List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadano);
-
 }

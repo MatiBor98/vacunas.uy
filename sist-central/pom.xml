@@ -25,6 +25,7 @@
 		<module>sist-central-ejb</module>
 		<module>sist-central-web</module>
 		<module>sist-central-ear</module>
+		<module>sist-central-agendar-ejb</module>
 	</modules>
 
 	<properties>
@@ -120,6 +121,13 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>sist-central-ejb</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>sist-central-agendar-ejb</artifactId>
 				<version>${project.version}</version>
 				<type>ejb</type>
 			</dependency>

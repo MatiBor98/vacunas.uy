@@ -6,11 +6,11 @@ import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Intervalo;
 import datos.entidades.Reserva;
-import datos.repositorios.ReservaRepository;
 import io.jsonwebtoken.lang.Strings;
-import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
+import logica.servicios.remoto.AgendaServiceRemote;
+import logica.servicios.remoto.ReservaServiceRemote;
 import plataformainteroperabilidad.Ciudadano;
 
 import javax.ejb.EJB;
@@ -36,13 +36,13 @@ public class AgendarBean implements Serializable {
     private EnfermedadServiceLocal enfermedadController;
 
     @EJB
-    private AgendaServiceLocal agendaServiceLocal;
+    private AgendaServiceRemote agendaServiceRemote;
 
     @EJB
     private EtapaController etapaController;
 
     @EJB
-    private ReservaRepository reservaRepository;
+    private ReservaServiceRemote reservaServiceRemote;
 
     @Inject
     private UsuarioLogueadoBean usuarioLogueadoBean;
@@ -85,7 +85,7 @@ public class AgendarBean implements Serializable {
         LocalDate fechaNac = LocalDate.parse(ciudadano.getFechaNacimiento());
         int edad = Period.between(fechaNac, LocalDate.now()).getYears();
         return entrada.vacunatorioAgneda != null ? Collections.singletonList(entrada.vacunatorioAgneda) :
-                agendaServiceLocal.findAgendasParaCiudadanoPorDepartamento(entrada.enfermedad.getNombre(),
+                agendaServiceRemote.findAgendasParaCiudadanoPorDepartamento(entrada.enfermedad.getNombre(),
                         edad, ciudadano.getTrabajadorEscencial(), entrada.departamento);
     }
 
@@ -159,13 +159,14 @@ public class AgendarBean implements Serializable {
         this.enfermedaNombre = null;
         this.ciudadanoHabilitado = etapaController
                 .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), 50, null);
-        this.yaTieneAgendaCiudadano = reservaRepository
+        this.yaTieneAgendaCiudadano = reservaServiceRemote
                 .existeReservaPendienteByCiudadanoEnfermedad(ciudadano.getCi(), enfermedad.getNombre());
     }
+
     public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
         this.entrada.vacunatorioAgneda = vacunatorioAgneda;
-        if(vacunatorioAgneda != null) {
-            this.intevalosPorDia = agendaServiceLocal
+        if (vacunatorioAgneda != null) {
+            this.intevalosPorDia = agendaServiceRemote
                     .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
                     .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
         } else {
@@ -187,8 +188,8 @@ public class AgendarBean implements Serializable {
             CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
             Intervalo intervalo = entrada.intervalo;
             limpiarEntrada();
-            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, ciudadano.getCi());
-        } catch(Exception e) {
+            this.entrada.reservasRealizadas = reservaServiceRemote.efectuarReserva(intervalo, ciudadano.getCi());
+        } catch (Exception e) {
             actualizarIntervalos();
             System.out.println("No se puedo realizar la reserva!");
         } finally {
@@ -201,9 +202,9 @@ public class AgendarBean implements Serializable {
     }
 
     public void actualizarIntervalos() {
-        intevalosPorDia = agendaServiceLocal
+        intevalosPorDia = agendaServiceRemote
                 .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
-                .stream().collect(Collectors.groupingBy(i->i.getFechayHora().getDayOfWeek()));
+                .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
     }
 
     public String getDiaConFormatoUy(DayOfWeek dia) {
