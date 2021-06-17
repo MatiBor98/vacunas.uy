@@ -36,8 +36,9 @@ insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval(
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 3);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 5);
-insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 52050756,'bpardinas@bruno.com', 'Bruno Pardiñas');
-insert into ciudadano (rol, ci, email, nombre) VALUES ('Vacunador', 50550419,'nicolas@mail.com', 'Nicolás San Martín');
+insert into ciudadano (rol, ci, email, fechanacimiento, nombre, sexo, trabajo) VALUES ('Ciudadano', 52050756,'bpardinas@bruno.com', date '1997-01-01', 'Bruno Pardiñas', 0, 11);
+insert into ciudadano (rol, ci, email, fechanacimiento, nombre, sexo, trabajo) VALUES ('Vacunador', 50550419,'nicolas@mail.com', date '1949-01-01', 'Nicolás San Martín', 0, 0);
+insert into ciudadano (rol, ci, email, fechanacimiento, nombre, sexo, trabajo) VALUES ('Ciudadano', 12341234,'ana@mail.com', date '2000-01-01', 'Ana Rodriguez', 1, 1);
 
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-10-19 10:30:00',1);
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-11-19 10:30:00',1);
@@ -68,3 +69,9 @@ insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), 
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 1, 50550419, 6);
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 52050756, 6);
 
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 12341234, 1);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 1, 12341234, 1);
+
+
+
+insert into usuariobo(tipodeusuario, email, password) VALUES ('autoridad', '1@1', '$2a$10$ubTOrDZ6ufLdhoHQT7Hmtu9CQvxsR7YI6VNOH9ye40jdOXh7ubq1i');

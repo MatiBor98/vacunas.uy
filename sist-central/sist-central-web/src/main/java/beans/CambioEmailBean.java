@@ -8,7 +8,11 @@ import jdk.jfr.Name;
 import logica.servicios.local.CiudadanoServiceLocal;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
+import plataformainteroperabilidad.Ciudadano;
+import plataformainteroperabilidad.Ciudadanos;
+import plataformainteroperabilidad.CiudadanosService;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -17,6 +21,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Named("CambioEmailBean")
@@ -31,6 +36,31 @@ public class CambioEmailBean {
 
     public CambioEmailBean() {
     }
+
+    @PostConstruct
+    public void initUsuario(){
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");
+        TokenVerifier tokenVerifier = new TokenVerifier();
+        String jwtIdToken = tokenVerifier.getAtributeFromJWTString(cookie.getValue(), "id_token");
+        Map<String, Claim> claimMap = tokenVerifier.performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
+
+        Integer ci = Integer.parseInt(claimMap.get("numero_documento").asString());
+
+
+        try{
+            final CiudadanosService ciudadanosService = new CiudadanosService();
+            Ciudadanos ciudadanosPort = ciudadanosService.getCiudadanosPort();
+            Ciudadano ciudadanoPlataforma = ciudadanosPort.obtPersonaPorDoc(ci);
+            ciudadanoServiceLocal.setSexoFechanacimiento(ci,ciudadanoPlataforma.getSexo(),
+                    LocalDate.parse(ciudadanoPlataforma.getFechaNacimiento()), ciudadanoPlataforma.getTrabajadorEscencial());
+        }
+        catch (Exception e){
+            PrimeFaces.current().executeScript("alert('Usted no se encuentra en la base de datos de la plataforma de interoperabiliidad, " +
+                    "por favor regularice su situación con el estado uruguayo')");
+        }
+
+    }
+
 
     public void cambiarEmail(){
         if (!email.equals(emailConf)){
