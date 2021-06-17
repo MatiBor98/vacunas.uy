@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ps="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" />
+
+
+    <h:outputStylesheet name="css/frontofficeIndex.css"  />
+
+
+    <header id="header" class="sticky-top">
+
+
+
+        <div class="container d-flex align-items-center">
+
+            <h:commandLink style="display:inline" class="glyphicon glyphicon-align-left" onclick="GoBackWithRefresh();return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+            </h:commandLink>
+
+
+            <a href="index.html" class="logo me-auto">
+                <h:graphicImage name="Logo.png"
+                                ps:alt="Logo.png"
+                                style="width: 6vw; height: auto;"
+                />
+            </a>
+
+            <nav id="navbar" class="navbar order-last order-lg-0" style="padding: .5rem 1rem 0px .5rem;">
+                <ul>
+                    <li><a class="nav-link scrollto #{NavbarBean.esAdmin()}" href="/backoffice/administrador/Administrador.xhtml">Inicio</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esVacunatorios()}" href="/backoffice/ConsultaVacunatorios.xhtml">Vacunatorios</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esSociosLogisticos()}" href="/backoffice/ConsultaSociosLogisticos.xhtml">Socios Logisticos</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esUsuariosBackOffice()}" href="/backoffice/administrador/ConsultaUsuariosBackOffice.xhtml">Usuarios Back Office</a></li>
+                    <li><a class="nav-link scrollto #{NavbarBean.esUsuariosFrontOffice()}" href="/backoffice/administrador/ConsultaUsuariosFrontOffice.xhtml">Usuarios Front Office</a></li>
+
+
+                  <h:form class="pl-3">
+						<p:commandButton type="submit" value="Cerrar sesion" styleClass="rounded-button ui-button-info" action="#{LoginBO.logout()}"/>
+                  </h:form>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+
+
+
+
+
+
+    <script>
+    function GoBackWithRefresh(event) {
+        if ('referrer' in document) {
+            window.location = document.referrer;
+        } else {
+            window.history.back();
+        }
+    }
+    </script>
+</f:view>
+</html>

@@ -51,6 +51,9 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	try {
     		if(usuariosBO.find("admin") == null) 
     			this.addBOUser("admin", "admin", "Administrador");
+			//lo agregue porque me estaba volviendo chino dando de alta autoridades
+    		if(usuariosBO.find("auto") == null)
+				this.addBOUser("auto", "auto", "Autoridad");
     		
 		} catch (EmailRegistradoException e) {
 			// TODO Auto-generated catch block
@@ -116,7 +119,7 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     
     public void overwriteUsuarioBackOffice(UsuarioBackOfficeDTO newUser) {
     	UsuarioBO userLegacy = usuariosBO.find(newUser.getEmail());
-    	if(!(userLegacy instanceof Administrador) && (newUser.getRol().equals("autoridad"))) {
+    	if(userLegacy instanceof Administrador && (newUser.getRol().equals("autoridad"))) {
     		usuariosBO.AdministradorToAutoridad(userLegacy.getEmail());
     	}
     	else if(userLegacy instanceof Autoridad && (newUser.getRol().equals("administrador"))) {

@@ -45,6 +45,7 @@ public class ConsultaBean implements Serializable{
 
 	public void setConsultaVacunatorio(String vac) {
 		this.consultaVacunatorio = vac;
+		this.consultaSocioLogistico = null;
 		this.consultaVacunatorioStatic = consultaVacunatorio;
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaVacunatorio.xhtml");
 	}
@@ -67,10 +68,11 @@ public class ConsultaBean implements Serializable{
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaPlanVacunacion.xhtml");
 	}
 	public String getConsultaSocioLogistico() {
-		return consultaVacunatorio;
+		return consultaSocioLogistico;
 	}
 	public void setConsultaSocioLogistico(String soc) {
 		this.consultaSocioLogistico = soc;
+		this.consultaVacunatorio=null;
 		this.setConsultaSocioLogisticoStatic(consultaSocioLogistico);
 		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "ConsultaSocioLogistico.xhtml");
 	}

@@ -23,8 +23,12 @@
 <h:body styleClass="text-center">
     <h:outputScript src="js/main.js"/>
     <div class="page-container">
-        <ui:include src="NavbarAdministrador.xhtml">
-        </ui:include>
+    	<h:panelGroup rendered="#{param.rol eq 'autoridad'}">
+    	        <ui:include src="NavbarAuto.xhtml"/>
+    	</h:panelGroup>
+    	<h:panelGroup rendered = "#{param.rol eq null}">
+				<ui:include src="NavbarAdmin.xhtml"/>    			
+    	</h:panelGroup>
         <div class="content-wrapper">
             <ui:insert name = "content" >
             </ui:insert>

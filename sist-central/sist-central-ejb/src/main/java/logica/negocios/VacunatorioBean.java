@@ -38,8 +38,6 @@ import logica.servicios.local.VacunatorioControllerLocal;
 @LocalBean
 public class VacunatorioBean implements  VacunatorioControllerLocal {
 
-	
-
 	@EJB
 	private VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
 	
@@ -79,25 +77,18 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     	return vacunatorioRepositoryLocal.findWithEverything(nombre);
 
 	}
-    
-	
 	
 	
     public List<Vacunatorio> find() {
     	return vacunatorioRepositoryLocal.find();
     }
 
-	public void addPuestoAlVacunatorio(String nombreVacunatorio, int idPuesto) {
-		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
-		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);
-		vac.getPuestosVacunacion().add(puesto);
-	}
 
-	public void addLoteAlVacunatorio(String nombreVacunatorio, int idPuesto) {
+	/*public void addLoteAlVacunatorio(String nombreVacunatorio, int idPuesto) {
 		Vacunatorio vac = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		PuestoVacunacion puesto = puestoVacunacionRepositoryLocal.find(idPuesto).orElseThrow(PuestoVacunacionNoExistenteException::new);
 		vac.getPuestosVacunacion().add(puesto);
-	}
+	}*/
 
 	public List<Vacunatorio> findByPage(int primerResultado, int limiteResultados) {
 		return vacunatorioRepositoryLocal.find(primerResultado, limiteResultados);
@@ -105,14 +96,13 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	}
 	
 	
-	
-	@Override
+	/*@Override
 	public int addTurno(String nombreTurno, LocalTime inicio, LocalTime fin, String nombreVacunatorio) {
 		Vacunatorio vacunatorio = vacunatorioRepositoryLocal.find(nombreVacunatorio).orElseThrow(VacunatorioNoExistenteException::new);
 		Turno turno = new Turno(nombreTurno, inicio, fin, vacunatorio);
 		turnoRepositoryLocal.save(turno);
 		return turno.getId();
-	}
+	}*/
 
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados) {
 		return vacunatorioRepositoryLocal.findByDepartamento(dep, primerResultado, maximosResultados);
@@ -121,6 +111,8 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	public List<Vacunatorio> findByDepartamento(Departamento dep) {
 		return vacunatorioRepositoryLocal.findByDepartamento(dep);
 	}
+	
+	
 	public List<String> getNombresDepartamentos() {
 		List<String> res = new ArrayList<>();
 		Departamento[] deps = Departamento.values();

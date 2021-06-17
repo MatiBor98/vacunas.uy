@@ -5,6 +5,7 @@ import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
 import datos.repositorios.PlanVacunacionRepository;
+import datos.repositorios.PlanVacunacionRepositoryLocal;
 import datos.repositorios.VacunaRepository;
 import datos.repositorios.VacunaRepositoryLocal;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class EtapaDTOCoverter implements Converter<EtapaDTO, Etapa> {
 
     @EJB
-    private PlanVacunacionRepository planVacunacionRepository;
+    private PlanVacunacionRepositoryLocal planVacunacionRepository;
 
     @EJB
     private VacunaRepositoryLocal vacunaRepository;

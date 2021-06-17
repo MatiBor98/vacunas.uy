@@ -1,6 +1,7 @@
 package logica.negocios;
 
 import datos.entidades.Enfermedad;
+import datos.entidades.Etapa;
 import datos.entidades.Laboratorio;
 import datos.entidades.Vacuna;
 import datos.repositorios.VacunaRepositoryLocal;
@@ -44,4 +45,15 @@ public class VacunaBean implements VacunaServiceLocal {
 	public Vacuna find(String nomVacuna) {
 		return vacunaRepository.find(nomVacuna).get();
 	}
+
+    @Override
+    public List<Vacuna> findByEnfermedad(String enfermedad) {
+        return vacunaRepository.findByEnfermedad(enfermedad);
+    }
+
+
+    @Override
+    public List<Etapa> getEtapas(String nombreVacuna) {
+        return vacunaRepository.getEtapas(nombreVacuna);
+    }
 }

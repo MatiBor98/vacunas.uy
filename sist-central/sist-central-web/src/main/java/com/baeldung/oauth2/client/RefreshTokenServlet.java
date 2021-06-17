@@ -1,5 +1,6 @@
 package com.baeldung.oauth2.client;
 
+
 import org.eclipse.microprofile.config.Config;
 
 import javax.inject.Inject;

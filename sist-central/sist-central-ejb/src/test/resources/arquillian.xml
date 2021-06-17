@@ -18,7 +18,7 @@
 		is the most mature -->
 	<defaultProtocol type="Servlet 3.0" />
 
-	<container qualifier="wildfly-managed" default="true">
+	<container qualifier="wildfly-managed">
 	</container>
 
 

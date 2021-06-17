@@ -4,6 +4,7 @@ import datos.dtos.PlanVacunacionDTO;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 import datos.repositorios.EnfermedadRepository;
+import datos.repositorios.EnfermedadRepositoryLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -12,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class PlanVacunacionDTOConverter implements Converter<PlanVacunacionDTO, PlanVacunacion> {
 
     @EJB
-    private EnfermedadRepository enfermedadRepository;
+    private EnfermedadRepositoryLocal enfermedadRepository;
 
     @Override
     public PlanVacunacion convert(PlanVacunacionDTO source) {

@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Consulta Planes de Vacunacion
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+		        <!-- presentacion -->
+	        <section id="hero" class="d-flex align-items-center" style="background: url(#{resource['images/planes.jpg']}) top center; background-size: cover">
+	            <h:form class="form-inline my-4 my-lg-0 mr-auto mx-auto" >
+	                <div class="ui-inputgroup" >
+	                    <p:inputText
+					        value="#{PlanVacunacionBean.busqueda}"
+							style="width:40vw"
+							type="search"
+							p:placeholder="Buscar plan"
+							aria-label="Search"
+							name="busquedaVacunas"/>
+						<p:commandButton ajax="false" icon="pi pi-search" type="submit" class="btn btn-info"  style="background-color:#222938; border:#222938; color:white" action="#{PlanVacunacionBean.setRealizarBusqueda(true)}"/>
+	                </div>
+				</h:form>
+	        </section><!-- End Hero -->
+	
+	        <div class="div-body" style="min-height: 0px">
+	            <div class="container">
+	                <section id="why-us" class="why-us" style="min-width: 700px;width: 60vw;">
+		                <div class="row pt-5 pb-2">
+		                    <div class="col-6 justify-content-center mx-auto" style="padding-top: 3%">
+		                        <div class="content" style="margin-left: 15px;
+		                                                    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.47);}">
+		                        <p class="pt-3" style="font-family: Open Sans; font-size: 1.2rem;"> Explora los distintos planes que hemos desarrollado para cuidarte a vos y a todos los uruguayos</p>
+		                        </div>
+		                    </div>
+		                </div>
+	                </section>
+	
+	                <hr/>
+	            </div>
+	            <div class="container" style="margin:initial">
+					<p:tabView activeIndex="1">
+						<p:tab title="Pasados">
+							<h1 class="h2 mb-3 font-weight-normal">Planes Pasados</h1>
+					
+							<p></p>
+							
+							
+								<div id="busq" style="margin-top: 20px; display:#{PlanVacunacionBean.hayBusqueda}">
+									<div class="alert alert-secondary">
+										Resultado de la busqueda "#{PlanVacunacionBean.busqueda}"
+									</div>
+								</div>
+			
+								<div id="errores" style="margin-top: 20px; display:#{PlanVacunacionBean.hayPlanesVacunacion()}">
+									<div class="alert alert-danger">
+										No hay nignun plan de vacunacion disponible.
+									</div>
+								</div>
+								
+								<p:datePicker style="display:none"></p:datePicker>
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{PlanVacunacionBean.getPlanes()}" var="plan">
+									<h:panelGroup rendered="#{PlanVacunacionBean.esActual(plan.inicio, plan.fin) == -1}">
+									  <li class="list-group-item" style="background-color:#{PlanVacunacionBean.getColor()}" >
+									  												
+										  <h2 style="color:#{PlanVacunacionBean.colorSecundario}">#{plan.nombre}</h2>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fehca de inicio: #{plan.inicio}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fecha de fin: #{plan.fin}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Enfermedad que combate: #{plan.enfermedad.nombre}</p>
+										  <p:accordionPanel activeIndex="null" dynamic="true" cache="true" class="pb-3" >
+										  	<p:tab title="Etapas" selected="false" styleClass="accordion" id="tab">
+										  		<ul class="list-group list-group-flush">
+													  <ui:repeat value="#{plan.etapas}" var="etapa">
+													  		<div class="card" style="width: 100%;">
+																<div class="card-header" style="background-color:#222938; color:#222938">
+																	<h4>
+																		<li class="list-group-item">Etapa ID: #{etapa.id}</li>
+																	</h4>
+																</div>
+																<li class="list-group-item">Descripcion: #{etapa.descripcion}</li>
+																<li class="list-group-item">Inicio: #{etapa.inicio}</li>
+																<li class="list-group-item">Fin: #{etapa.fin}</li>
+																<li class="list-group-item">Vacuna: #{etapa.vacuna.nombre}</li>
+																<h:form rendered="#{etapa.restricciones.mayorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.mayorIgual gt -1}">
+																		<li class="list-group-item">Edad minima: #{etapa.restricciones.mayorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{etapa.restricciones.menorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.menorIgual gt -1}">
+																		<li class="list-group-item">Edad maxima: #{etapa.restricciones.menorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{!etapa.restricciones.getFiltroEmpleoEn().isEmpty()}">
+																	<li class="list-group-item">Unicamente para personal de:</li>
+																	<ui:repeat value="#{etapa.restricciones.getFiltroEmpleoEn()}" var="trabajo">
+																		<li class="list-group-item">#{trabajo.toString()}</li>
+																  	</ui:repeat>
+																</h:form>
+															</div>
+													  </ui:repeat>
+												  </ul>
+										  	</p:tab>
+										  </p:accordionPanel>
+										  <p></p>
+									  </li>
+									</h:panelGroup>
+								</ui:repeat>
+			
+							</ul>
+						</p:tab>
+						<p:tab title="Actuales">
+							<h1 class="h2 mb-3 font-weight-normal">Planes Actuales</h1>
+					
+							<p></p>
+							
+							
+								<div id="busq" style="margin-top: 20px; display:#{PlanVacunacionBean.hayBusqueda}">
+									<div class="alert alert-secondary">
+										Resultado de la busqueda "#{PlanVacunacionBean.busqueda}"
+									</div>
+								</div>
+			
+								<div id="errores" style="margin-top: 20px; display:#{PlanVacunacionBean.hayPlanesVacunacion()}">
+									<div class="alert alert-danger">
+										No hay nignun plan de vacunacion disponible.
+									</div>
+								</div>
+								
+								<p:datePicker style="display:none"></p:datePicker>
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{PlanVacunacionBean.getPlanes()}" var="plan">
+									<h:panelGroup rendered="#{PlanVacunacionBean.esActual(plan.inicio, plan.fin) == 0}">
+									  <li class="list-group-item" style="background-color:#{PlanVacunacionBean.getColor()}">
+									  												
+										  <h2 style="color:#{PlanVacunacionBean.colorSecundario}">#{plan.nombre}</h2>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fehca de inicio: #{plan.inicio}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fecha de fin: #{plan.fin}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Enfermedad que combate: #{plan.enfermedad.nombre}</p>
+										  <p:accordionPanel activeIndex="null" dynamic="true" cache="true" class="pb-3" >
+										  	<p:tab title="Etapas" selected="false" styleClass="accordion" id="tab">
+										  		<ul class="list-group list-group-flush">
+													  <ui:repeat value="#{plan.etapas}" var="etapa">
+													  		<div class="card" style="width: 100%;">
+																<div class="card-header" style="background-color:#222938; color:#222938">
+																	<h4>
+																		<li class="list-group-item">Etapa ID: #{etapa.id}</li>
+																	</h4>
+																</div>
+																<li class="list-group-item">Descripcion: #{etapa.descripcion}</li>
+																<li class="list-group-item">Inicio: #{etapa.inicio}</li>
+																<li class="list-group-item">Fin: #{etapa.fin}</li>
+																<li class="list-group-item">Vacuna: #{etapa.vacuna.nombre}</li>
+																<h:form rendered="#{etapa.restricciones.mayorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.mayorIgual gt -1}">
+																		<li class="list-group-item">Edad minima: #{etapa.restricciones.mayorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{etapa.restricciones.menorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.menorIgual gt -1}">
+																		<li class="list-group-item">Edad maxima: #{etapa.restricciones.menorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{!etapa.restricciones.getFiltroEmpleoEn().isEmpty()}">
+																	<li class="list-group-item">Unicamente para personal de:</li>
+																	<ui:repeat value="#{etapa.restricciones.getFiltroEmpleoEn()}" var="trabajo">
+																		<li class="list-group-item">#{trabajo.toString()}</li>
+																  	</ui:repeat>
+																</h:form>
+															</div>
+													  </ui:repeat>
+												  </ul>
+										  	</p:tab>
+										  </p:accordionPanel>
+										  <p></p>
+									  </li>
+									</h:panelGroup>
+								</ui:repeat>
+			
+							</ul>
+						</p:tab>
+						<p:tab title="Futuros">
+							<h1 class="h2 mb-3 font-weight-normal">Planes Futuros</h1>
+					
+							<p></p>
+							
+							
+								<div id="busq" style="margin-top: 20px; display:#{PlanVacunacionBean.hayBusqueda}">
+									<div class="alert alert-secondary">
+										Resultado de la busqueda "#{PlanVacunacionBean.busqueda}"
+									</div>
+								</div>
+			
+								<div id="errores" style="margin-top: 20px; display:#{PlanVacunacionBean.hayPlanesVacunacion()}">
+									<div class="alert alert-danger">
+										No hay nignun plan de vacunacion disponible.
+									</div>
+								</div>
+								
+								<p:datePicker style="display:none"></p:datePicker>
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{PlanVacunacionBean.getPlanes()}" var="plan">
+									<h:panelGroup rendered="#{PlanVacunacionBean.esActual(plan.inicio, plan.fin) == 1}">
+									
+									  <li class="list-group-item" style="background-color:#{PlanVacunacionBean.getColor()}">
+									  												
+										  <h2 style="color:#{PlanVacunacionBean.colorSecundario}">#{plan.nombre}</h2>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fehca de inicio: #{plan.inicio}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Fecha de fin: #{plan.fin}</p>
+										  <p style="color:#{PlanVacunacionBean.colorSecundario}"> Enfermedad que combate: #{plan.enfermedad.nombre}</p>
+										  <p:accordionPanel activeIndex="null" dynamic="true" cache="true" class="pb-3" >
+										  	<p:tab title="Etapas" selected="false" styleClass="accordion" id="tab">
+										  		<ul class="list-group list-group-flush">
+													  <ui:repeat value="#{plan.etapas}" var="etapa">
+													  		<div class="card" style="width: 100%;">
+																<div class="card-header" style="background-color:#222938; color:#222938">
+																	<h4>
+																		<li class="list-group-item">Etapa ID: #{etapa.id}</li>
+																	</h4>
+																</div>
+																<li class="list-group-item">Descripcion: #{etapa.descripcion}</li>
+																<li class="list-group-item">Inicio: #{etapa.inicio}</li>
+																<li class="list-group-item">Fin: #{etapa.fin}</li>
+																<li class="list-group-item">Vacuna: #{etapa.vacuna.nombre}</li>
+																<h:form rendered="#{etapa.restricciones.mayorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.mayorIgual gt -1}">
+																		<li class="list-group-item">Edad minima: #{etapa.restricciones.mayorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{etapa.restricciones.menorIgual ne null}">
+																	<h:form rendered="#{etapa.restricciones.menorIgual gt -1}">
+																		<li class="list-group-item">Edad maxima: #{etapa.restricciones.menorIgual}</li>
+																	</h:form>
+																</h:form>
+																<h:form rendered="#{!etapa.restricciones.getFiltroEmpleoEn().isEmpty()}">
+																	<li class="list-group-item">Unicamente para personal de:</li>
+																	<ui:repeat value="#{etapa.restricciones.getFiltroEmpleoEn()}" var="trabajo">
+																		<li class="list-group-item">#{trabajo.toString()}</li>
+																  	</ui:repeat>
+																</h:form>
+															</div>
+													  </ui:repeat>
+												  </ul>
+										  	</p:tab>
+										  </p:accordionPanel>
+										  <p></p>
+									  </li>
+									</h:panelGroup>
+								</ui:repeat>
+			
+							</ul>
+						</p:tab>
+					</p:tabView>
+					
+				</div>
+			</div>
+	     </div>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -49,4 +49,8 @@ public class IntervaloRepository {
             return intervalo;
         });
     }
+
+    public void detach(Intervalo intervalo) {
+        entityManager.detach(intervalo);
+    }
 }

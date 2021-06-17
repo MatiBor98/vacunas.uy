@@ -21,12 +21,14 @@ import plataformainteroperabilidad.CiudadanosService;
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.json.JsonObject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.KeyFactory;
@@ -53,9 +55,9 @@ public class UsuarioLogueadoBean implements Serializable {
         Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");
         if(cookie!= null) {
 
-            String jwtIdToken = getAtributeFromJWTString(cookie.getValue(),"id_token");
-
-            Map<String, Claim> claimMap = new TokenVerifier().performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
+            TokenVerifier tokenVerifier = new TokenVerifier();
+            String jwtIdToken = tokenVerifier.getAtributeFromJWTString(cookie.getValue(),"id_token");
+            Map<String, Claim> claimMap = tokenVerifier.performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
 
             userName = claimMap.get("nombre_completo").asString();
             userName = org.apache.commons.lang3.StringEscapeUtils.unescapeJava(userName);
@@ -69,12 +71,19 @@ public class UsuarioLogueadoBean implements Serializable {
                 Ciudadanos ciudadanosPort = ciudadanosService.getCiudadanosPort();
                 ciudadanoPlataforma = ciudadanosPort.obtPersonaPorDoc(this.ciudadano.getCi());
             } catch (CiudadanoNoEncontradoException e) {
+
                 CiudadanoDTO ciud = new CiudadanoDTO(Integer.parseInt(cid),userName,email,false);
                 try {
 					usuarios.save(ciud);
 				} catch (CiudadanoRegistradoException e1) {
 					e1.printStackTrace();
 				}
+
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/frontoffice/cambioEmail.xhtml");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         } else {
             email = null;
@@ -95,11 +104,7 @@ public class UsuarioLogueadoBean implements Serializable {
         return cid;
     }
 
-    String getAtributeFromJWTString(String payload, String param){
-        String[] user = payload.split(param+"\":\"");
-        user = user[1].split("\"");
-        return user[0];
-    }
+
 
     public CiudadanoDTO getCiudadano() {
         return ciudadano;

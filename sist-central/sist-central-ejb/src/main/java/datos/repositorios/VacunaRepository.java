@@ -1,6 +1,7 @@
 package datos.repositorios;
 
 import datos.entidades.Enfermedad;
+import datos.entidades.Etapa;
 import datos.entidades.Laboratorio;
 import datos.entidades.Vacuna;
 
@@ -63,5 +64,21 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	vacAModificar.setDosisSeparacionDias(dosisSeparacion);
     	vacAModificar.setLaboratorios(labs);
     	vacAModificar.setEnfermedades(enfs);
+    }
+
+    @Override
+    public List<Vacuna> findByEnfermedad(String enfermedad) {
+        return entityManager.createQuery("select vac from Enfermedad e join e.vacunas vac join vac.etapas " +
+                "where e.nombre = :enfermedad ")
+                .setParameter("enfermedad", enfermedad)
+                .getResultList();
+    }
+
+    @Override
+    public List<Etapa> getEtapas(String nombreVacuna) {
+        Vacuna vac = entityManager.find(Vacuna.class, nombreVacuna);
+        vac.getEtapas().size();
+        return vac.getEtapas();
+
     }
 }

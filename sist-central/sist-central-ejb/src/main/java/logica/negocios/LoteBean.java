@@ -4,6 +4,7 @@ import datos.dtos.EnfermedadDTO;
 import datos.dtos.LaboratorioDTO;
 import datos.dtos.LoteDTO;
 import datos.dtos.VacunaDTO;
+import datos.dtos.LoteDTO;
 import datos.entidades.*;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.*;
@@ -35,6 +36,8 @@ public class LoteBean implements LoteServiceLocal {
 	VacunaRepositoryLocal vacunaRepositoryLocal;
 	@EJB
 	SocioLogisticoRepositoryLocal socioLogisticoRepositoryLocal;
+	
+	
 
 	public void addLote(int dosisDisponibles, int numeroLote, String nomVac, LocalDate fechaVencimiento, String vacunaNombre, String socioLogisticoNombre) {
     	//Vacatorio vacunatorio = vacunatorioRepositoryLocal.find(nomVac).orElseThrow(VacunatorioNoExistenteException::new);
@@ -69,6 +72,7 @@ public class LoteBean implements LoteServiceLocal {
 		return loteRepositoryLocal.find(vac, nombreLote);
 
 	}*/
+	
 
 	/**
      * Default constructor.
@@ -92,6 +96,7 @@ public class LoteBean implements LoteServiceLocal {
 		}
 		
 	}
+
 
 
 

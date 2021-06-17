@@ -1,6 +1,7 @@
 package logica.servicios.local;
 
 import datos.entidades.Departamento;
+import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 import datos.entidades.Vacunatorio;
 
@@ -18,5 +19,6 @@ public interface SocioLogisticoControllerLocal {
 	void habilitarSocioLogistico(String nombre);
 	String getProperty();
 	void setProperty(String property);
+	List<Lote> getLotes(String nomSocLog);
 
 	}
