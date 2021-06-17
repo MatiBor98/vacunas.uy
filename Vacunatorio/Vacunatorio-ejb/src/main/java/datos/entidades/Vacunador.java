@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 
-import datos.entidades.Laboratorio;
-
 @Entity
 @DiscriminatorValue("Vacunador")
 public class Vacunador extends Ciudadano implements Serializable{

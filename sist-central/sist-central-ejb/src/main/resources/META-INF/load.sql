@@ -12,7 +12,7 @@ insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannomb
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461');
+insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'Jose Ellauri 461');
 insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982');
 insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro');
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino', 'COSEM Punta Carretas');
@@ -35,8 +35,8 @@ insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 50550419,'ni
 
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-10-19 10:30:00',1);
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2020-11-19 10:30:00',1);
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 2, 1, 50550419, 1);
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 2, 2, 50550419, 2);
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid, lote)  VALUES (nextval('reservaId'), 2, 1, 50550419, 1, '2000');
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid, lote) VALUES (nextval('reservaId'), 2, 2, 50550419, 2, '2000');
 
 
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'), TIMESTAMP '2021-6-4 10:30:00',1);
@@ -48,5 +48,9 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false')
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer')
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer')
+insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2000, 3000, date '2021-05-19', date '2021-05-20', date '2021-09-09', 'UPS', 'Pfizer')
+insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologistico_nombre, vacuna_nombre) values (2001, 500, date '2021-06-02', date '2021-06-05', date '2021-09-09', 'UPS', 'Pfizer')
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982)
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2143)
+insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2000)
+insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',2001)

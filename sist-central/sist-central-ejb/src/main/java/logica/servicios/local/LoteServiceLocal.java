@@ -1,5 +1,6 @@
 package logica.servicios.local;
 
+import datos.dtos.LoteDTO;
 import datos.entidades.Lote;
 import datos.entidades.Turno;
 
@@ -17,4 +18,6 @@ public interface LoteServiceLocal {
     void despacharLote(int numeroLote, String socioLogistico, LocalDate fechaDespacho);
     void entregarLote(int numeroLote, String socioLogistico, LocalDate fechaEntrega);
     //List<Lote> find(String vac, String nombreLote);
+	LoteDTO getLoteDTO(Lote lote);
+	void decrementar(int valueOf);
 }

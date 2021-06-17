@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class LoteRepository implements LoteRepositoryLocal {
+public class LoteRepository implements LoteRepositoryLocal, LoteRepositoryRemote {
 
 
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
@@ -53,6 +53,12 @@ public class LoteRepository implements LoteRepositoryLocal {
 	@Override
 	public void save(Lote lote) {
 		entityManager.persist(lote);
+		
+	}
+
+	@Override
+	public void drop() {
+		entityManager.createQuery("delete from Lote").executeUpdate();
 		
 	}
 	

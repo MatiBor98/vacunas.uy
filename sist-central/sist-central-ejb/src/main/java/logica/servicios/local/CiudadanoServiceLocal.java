@@ -22,5 +22,6 @@ public interface CiudadanoServiceLocal {
 	Vacunador findVacunador(int ciVac);
 	VacunadorDTO getVacunadorDTO(Vacunador vacunador);
     void notificarTodosLosUsuariosMoviles(String titulo , String cuerpo);
+	CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano);
 
 }

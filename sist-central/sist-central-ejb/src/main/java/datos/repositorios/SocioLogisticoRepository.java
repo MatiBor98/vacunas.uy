@@ -1,19 +1,14 @@
 package datos.repositorios;
 
-import datos.entidades.Departamento;
-import datos.entidades.Etapa;
 import datos.entidades.SocioLogistico;
 
+import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Session Bean implementation class VacunatorioRepository
- */
 @Singleton
 public class SocioLogisticoRepository implements SocioLogisticoRepositoryLocal {
 

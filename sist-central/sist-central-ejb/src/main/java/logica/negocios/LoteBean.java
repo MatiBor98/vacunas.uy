@@ -1,5 +1,9 @@
 package logica.negocios;
 
+import datos.dtos.EnfermedadDTO;
+import datos.dtos.LaboratorioDTO;
+import datos.dtos.LoteDTO;
+import datos.dtos.VacunaDTO;
 import datos.entidades.*;
 import datos.exceptions.VacunatorioNoExistenteException;
 import datos.repositorios.*;
@@ -11,6 +15,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +76,23 @@ public class LoteBean implements LoteServiceLocal {
     public LoteBean() {
         // TODO Auto-generated constructor stub
     }
+
+	@Override
+	public LoteDTO getLoteDTO(Lote lote) {
+		VacunaDTO vacDTO = new VacunaDTO(null, null, lote.getVacuna().getNombre(), lote.getVacuna().getCantDosis(), lote.getVacuna().getInmunidadMeses(), lote.getVacuna().getDosisSeparacionDias());
+		LoteDTO res = new LoteDTO(lote.getDosisDisponibles(), lote.getNumeroLote(), Date.from(lote.getFechaVencimiento().atStartOfDay(ZoneId.systemDefault()).toInstant()), vacDTO, Date.from(lote.getFechaEntrega().atStartOfDay(ZoneId.systemDefault()).toInstant()), Date.from(lote.getFechaDespacho().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		return res;
+	}
+
+	@Override
+	public void decrementar(int loteID) {
+		Lote lote = findById(loteID).get();
+		if((lote != null) && (lote.getDosisDisponibles() > 0)) {
+			lote.setDosisDisponibles(lote.getDosisDisponibles() - 1);
+		}
+		
+	}
+
 
 
 

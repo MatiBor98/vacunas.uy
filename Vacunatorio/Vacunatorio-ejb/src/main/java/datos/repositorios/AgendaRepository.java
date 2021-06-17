@@ -2,6 +2,7 @@ package datos.repositorios;
 
 import datos.entidades.Agenda;
 import datos.entidades.Departamento;
+import datos.entidades.Etapa;
 import datos.entidades.Intervalo;
 import datos.entidades.Trabajos;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class AgendaRepository implements AgendaRepositoryLocal {
+public class AgendaRepository implements AgendaRepositoryLocal, AgendaRepositoryRemote {
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
     private EntityManager entityManager;
 
@@ -83,4 +84,22 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     public void save(Agenda agenda) {
         entityManager.persist(agenda);
     }
+
+	@Override
+	public Agenda find(String nombre, Etapa etapa, String nombre2) {
+		Agenda res = null;
+		List<Agenda> agendas = find();
+		for(Agenda agenda:agendas) {
+			if(agenda.getNombre().equals(nombre) && agenda.getTurno().getNombre().equals(nombre2)) {
+				res = agenda;
+				break;
+			}
+		}
+		return res;
+	}
+	
+	public void drop() {
+		entityManager.createQuery("delete from Agenda").executeUpdate();	
+		
+	}
 }

@@ -1,33 +1,18 @@
 package datos.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import datos.exceptions.VacunatorioNoExistenteException;
-import logica.creacion.VacunatorioToDto;
-
-import org.hibernate.annotations.QueryHints;
 
 import datos.entidades.Vacunatorio;
-import datos.dtos.DosisVacunatorioDTO;
-import datos.dtos.LoteDTO;
-import datos.dtos.PuestoVacunacionDTO;
-import datos.dtos.TurnoDTO;
-import datos.dtos.VacunatorioDTO;
 import datos.entidades.Departamento;
-import datos.entidades.Enfermedad;
 import datos.entidades.Lote;
-import datos.entidades.PlanVacunacion;
 
 /**
  * Session Bean implementation class VacunatorioRepository

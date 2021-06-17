@@ -17,8 +17,6 @@ public class Etapa implements Serializable{
     @SequenceGenerator(name="sequenciaEtapaId",sequenceName="sequenciaEtapaId", allocationSize=1)
     private int id;
 
-    @Embedded
-    private RestriccionEtapa restricciones;
 
     private String descripcion;
 
@@ -26,8 +24,7 @@ public class Etapa implements Serializable{
 
     private LocalDate fin;
 
-	@ManyToOne
-	private Vacuna vacuna;
+	private String vacuna;
 
     @ManyToOne
     @JoinColumn(name="planNombre", nullable=false)
@@ -35,9 +32,8 @@ public class Etapa implements Serializable{
 
     public Etapa() { }
 
-    public Etapa(int id, RestriccionEtapa restricciones, String descripcion, LocalDate inicio, LocalDate fin, Vacuna vacuna, PlanVacunacion planVacunacion) {
+    public Etapa(int id, String descripcion, LocalDate inicio, LocalDate fin, String vacuna, PlanVacunacion planVacunacion) {
         this.id = id;
-        this.restricciones = restricciones;
         this.descripcion = descripcion;
         this.inicio = inicio;
         this.fin = fin;
@@ -45,8 +41,7 @@ public class Etapa implements Serializable{
         this.planVacunacion = planVacunacion;
     }
     
-    public Etapa(RestriccionEtapa restricciones, String descripcion, LocalDate inicio, LocalDate fin, Vacuna vacuna, PlanVacunacion planVacunacion) {
-        this.restricciones = restricciones;
+    public Etapa(String descripcion, LocalDate inicio, LocalDate fin, String vacuna, PlanVacunacion planVacunacion) {
         this.descripcion = descripcion;
         this.inicio = inicio;
         this.fin = fin;
@@ -61,14 +56,6 @@ public class Etapa implements Serializable{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public RestriccionEtapa getRestricciones() {
-        return restricciones;
-    }
-
-    public void setRestricciones(RestriccionEtapa restricciones) {
-        this.restricciones = restricciones;
     }
 
     public LocalDate getInicio() {
@@ -95,11 +82,11 @@ public class Etapa implements Serializable{
         this.descripcion = descripcion;
     }
 
-	public Vacuna getVacuna(){
+	public String getVacuna(){
 		return vacuna;
 	}
 	
-	public void setVacuna(Vacuna vacuna){
+	public void setVacuna(String vacuna){
 		this.vacuna = vacuna;
 	} 
 

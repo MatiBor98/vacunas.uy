@@ -1,6 +1,9 @@
 package logica.negocios;
 
 import datos.dtos.EtapaDTO;
+import datos.dtos.EtapaDTO2;
+import datos.dtos.PlanVacunacionDTO;
+import datos.dtos.PlanVacunacionDTO2;
 import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
 import plataformainteroperabilidad.Trabajo;
@@ -10,6 +13,7 @@ import datos.repositorios.PlanVacunacionRepositoryLocal;
 import datos.repositorios.VacunaRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.EtapaController;
+import logica.servicios.local.PlanVacunacionServiceLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -31,6 +35,9 @@ public class EtapaBean  implements EtapaController {
     
     @EJB
     private PlanVacunacionRepositoryLocal pVacRepository;
+    
+    @EJB
+    private PlanVacunacionServiceLocal pVacService;
     
     @Inject
     private Converter<EtapaDTO, Etapa> etapaDTOEtapaConverter;
@@ -74,5 +81,19 @@ public class EtapaBean  implements EtapaController {
     @Override
 	public List<String> getNombresTrabajos() {
 		return Stream.of(Trabajo.values()).map(Trabajo::toString).collect(Collectors.toList());
+	}
+
+	@Override
+	public EtapaDTO getEtapaDTO(Etapa etapa) {
+		PlanVacunacionDTO pVacDTO = pVacService.getPVacDTO(etapa.getPlanVacunacion());
+		EtapaDTO res = new EtapaDTO(etapa.getVacuna().getNombre(), etapa.getInicio(), etapa.getFin(), pVacDTO, etapa.getDescripcion());
+		return res;
+	}
+
+	@Override
+	public EtapaDTO2 getEtapaDTO2(Etapa etapa) {
+		PlanVacunacionDTO2 pVacDTO = pVacService.getPVacDTO2(etapa.getPlanVacunacion());
+		EtapaDTO2 res = new EtapaDTO2(etapa.getVacuna().getNombre(), etapa.getInicio().toString(), etapa.getFin().toString(), pVacDTO, etapa.getDescripcion());
+		return res;
 	}
 }

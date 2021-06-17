@@ -6,17 +6,17 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class PlanVacunacionDTO implements Serializable{
+public class PlanVacunacionDTO2 implements Serializable{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String nombre;
-    private final LocalDate inicio; 
-    private final LocalDate fin;
+    private final String inicio;
+    private final String fin;
     private final String enfermedad;
 
-    public PlanVacunacionDTO(String nombre, LocalDate inicio2, LocalDate fin2, String enfermedad) {
+    public PlanVacunacionDTO2(String nombre, String inicio2, String fin2, String enfermedad) {
         this.nombre = nombre;
         this.inicio = inicio2;
         this.fin = fin2;
@@ -27,11 +27,11 @@ public class PlanVacunacionDTO implements Serializable{
         return nombre;
     }
 
-    public LocalDate getInicio() {
+    public String getInicio() {
         return inicio;
     }
 
-    public LocalDate getFin() {
+    public String getFin() {
         return fin;
     }
 

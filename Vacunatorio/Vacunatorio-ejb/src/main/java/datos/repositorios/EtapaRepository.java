@@ -1,4 +1,5 @@
 package datos.repositorios;
+import datos.dtos.EtapaDTO2;
 import datos.entidades.*;
 
 import javax.ejb.Singleton;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton()
-public class EtapaRepository implements EtapaRepositoryLocal {
+public class EtapaRepository implements EtapaRepositoryLocal, EtapaRepositoryRemote {
 
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
 	private EntityManager entityManager;
@@ -64,10 +65,10 @@ public class EtapaRepository implements EtapaRepositoryLocal {
     }
 
     @Override
-	public void save(Vacuna vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion,
+	public void save(String vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion,
                      List<Trabajos> trabajos, int edadMin, int edadMax) {
 		RestriccionEtapa restricciones = new RestriccionEtapa(trabajos, edadMin, edadMax);
-		Etapa res = new Etapa(restricciones, descripcion, inicio, fin, vac, planVacunacion);
+		Etapa res = new Etapa(descripcion, inicio, fin, vac, planVacunacion);
 		entityManager.persist(res);
 	}
 
@@ -92,4 +93,22 @@ public class EtapaRepository implements EtapaRepositoryLocal {
 
         return etapaTypedQuery.getSingleResult() > 0;
     }
+
+	@Override
+	public Etapa find(EtapaDTO2 etapaDTO) {
+		Etapa res = null;
+		List<Etapa> etapas = find();
+		for(Etapa etapa:etapas) {
+			if(etapa.getDescripcion().equals(etapaDTO.getDescripcion()) && etapa.getVacuna().equals(etapaDTO.getVacuna()) && etapa.getPlanVacunacion().getNombre().equals(etapaDTO.getPlanVac().getNombre()) && etapa.getInicio().toString().equals(etapaDTO.getInicio()) && etapa.getFin().toString().equals(etapaDTO.getFin())) {
+				res = etapa;
+				break;
+			}
+		}
+		return res;
+	}
+	
+	public void drop() {
+		entityManager.createQuery("delete from Etapa").executeUpdate();	
+		
+	}
 }
