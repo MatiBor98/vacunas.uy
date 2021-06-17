@@ -2,7 +2,7 @@ package beans;
 
 import datos.dtos.CiudadanoDTO;
 import datos.entidades.Reserva;
-import logica.negocios.ReservaBean;
+import logica.servicios.remoto.ReservaServiceRemote;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -17,7 +17,7 @@ public class ReservasBean implements Serializable {
     private final double tamanoPagina = 2.0d;
 
     @EJB
-    private ReservaBean reservaBean;
+    private ReservaServiceRemote reservaServiceRemote;
 
     @Inject
     private UsuarioLogueadoBean usuarioLogueadoBean;
@@ -61,15 +61,15 @@ public class ReservasBean implements Serializable {
         //TODO: Esto es feo, pero quedo así para poder usar @RequestScoped
         // - Cancela la reserva si se recargo porque se apreta 'Cancelar'
         if(codigoReserva > 0) {
-            reservaBean.cancelar(ciudadano.getCi(), codigoReserva);
+            reservaServiceRemote.cancelar(ciudadano.getCi(), codigoReserva);
         }
 
-        Long cantidadReservas = reservaBean.listarCount(ciudadano.getCi());
+        Long cantidadReservas = reservaServiceRemote.listarCount(ciudadano.getCi());
         this.cantidadPaginas = (int) Math.ceil(cantidadReservas/this.tamanoPagina);
         if(pagina < cantidadPaginas && pagina >= 0) {
             paginaActual = pagina;
         }
-        this.reservas = reservaBean.listar(paginaActual * (int) tamanoPagina, (int) tamanoPagina, ciudadano.getCi());
+        this.reservas = reservaServiceRemote.listar(paginaActual * (int) tamanoPagina, (int) tamanoPagina, ciudadano.getCi());
     }
 
     public void anterior() {
