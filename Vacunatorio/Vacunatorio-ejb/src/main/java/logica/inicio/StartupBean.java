@@ -19,8 +19,8 @@ public class StartupBean {
 	
 	@PostConstruct
 	void init() throws InterruptedException{
-		/*SchedulerMain schedulere = new SchedulerMain();
-		schedulere.mainCaller();*/
+		SchedulerMain schedulere = new SchedulerMain();
+		schedulere.mainCaller();
 	}
 	
 }

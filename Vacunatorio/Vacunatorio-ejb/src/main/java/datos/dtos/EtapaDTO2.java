@@ -38,18 +38,34 @@ public class EtapaDTO2 implements Serializable{
     public String getVacuna() {
         return vacuna;
     }
+    
+    public void setVacuna(String vacuna) {
+    	this.vacuna = vacuna;
+    }
 
     public String getInicio() {
         return inicio;
+    }
+    
+    public void setInicio(String inicio) {
+    	this.inicio = inicio;
     }
 
     public String getFin() {
         return fin;
     }
+    
+    public void setFin(String fin) {
+    	this.fin = fin;
+    }
 
 
     public String getDescripcion() {
         return descripcion;
+    }
+    
+    public void setDescripcion(String descripcion) {
+    	this.descripcion = descripcion;
     }
 
     public int getId() {

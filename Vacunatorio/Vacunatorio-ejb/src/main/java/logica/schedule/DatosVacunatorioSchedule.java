@@ -72,7 +72,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
     
     public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080/rest/vacunatorios/vacunatorio/COSEM Punta Carretas"); 
+		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM_Punta_Carretas"); 
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);
@@ -116,7 +116,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/CiudadanoRepository!datos.repositorios.CiudadanoRepositoryRemote";
 			CiudadanoRepositoryRemote ciudadanoRepository = (CiudadanoRepositoryRemote)ctx.lookup(jndiName);
 			ciudadanoRepository.drop();
-			//vacRepository.drop();
+			vacRepository.drop();
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/LoteRepository!datos.repositorios.LoteRepositoryRemote";
 			LoteRepositoryRemote loteRepository = (LoteRepositoryRemote)ctx.lookup(jndiName);
 			loteRepository.drop();
@@ -125,8 +125,8 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			vacunaRepository.drop();
 			
 			VacunatorioDTO vacDTO = datos.getVac();
-			//Vacunatorio vac = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
-			//vacRepository.save(vac);
+			Vacunatorio vacunatorio = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
+			vacRepository.save(vacunatorio);
 			List<Vacunatorio> vacs = vacRepository.find();
 			Vacunatorio vac = vacs.get(0);
 			

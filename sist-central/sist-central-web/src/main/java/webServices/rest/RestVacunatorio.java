@@ -28,6 +28,7 @@ public class RestVacunatorio {
 	@GET
 	@Path("/vacunatorio/{nombreVac}")
 	public DatosVacunatorio getDatosVacunatorio(@PathParam("nombreVac") String nombreVacunatorio) {
+		nombreVacunatorio = nombreVacunatorio.replace("_", " ");
 		return vacControllerLocal.getDatosVacunatorio(nombreVacunatorio);
 	}
 
