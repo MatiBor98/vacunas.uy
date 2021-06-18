@@ -181,8 +181,8 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	public void actualizar() {
 		/*DatosVacunatorioSchedule dvs = new DatosVacunatorioSchedule();
 		dvs.run();*/
-		SchedulerMain schMain = new SchedulerMain();
-		schMain.main(null);
+		DatosVacunatorioSchedule schMain = new DatosVacunatorioSchedule();
+		schMain.run();
 	}
 
 }

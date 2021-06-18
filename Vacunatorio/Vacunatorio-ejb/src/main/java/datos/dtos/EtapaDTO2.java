@@ -12,7 +12,6 @@ public class EtapaDTO2 implements Serializable{
 	private String vacuna;
     private String inicio;
     private String fin;
-    private String planVacunacion;
     private PlanVacunacionDTO2 planVac;
     private String descripcion;
     private int id;
@@ -21,7 +20,6 @@ public class EtapaDTO2 implements Serializable{
         this.vacuna = vacuna;
         this.inicio = inicio;
         this.fin = fin;
-        this.planVacunacion = planVacunacion;
         this.descripcion = descripcion;
         this.id = id;
     }
@@ -49,9 +47,6 @@ public class EtapaDTO2 implements Serializable{
         return fin;
     }
 
-    public String getPlanVacunacion() {
-        return planVacunacion;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -68,13 +63,12 @@ public class EtapaDTO2 implements Serializable{
         EtapaDTO2 etapaDTO = (EtapaDTO2) o;
         return getId() == etapaDTO.getId() && getVacuna().equals(etapaDTO.getVacuna()) &&
                 getInicio().equals(etapaDTO.getInicio()) && getFin().equals(etapaDTO.getFin()) &&
-                getPlanVacunacion().equals(etapaDTO.getPlanVacunacion()) &&
                 getDescripcion().equals(etapaDTO.getDescripcion());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVacuna(), getInicio(), getFin(), getPlanVacunacion(), getDescripcion(), getId());
+        return Objects.hash(getVacuna(), getInicio(), getFin(), getDescripcion(), getId());
     }
 
 	public PlanVacunacionDTO2 getPlanVac() {

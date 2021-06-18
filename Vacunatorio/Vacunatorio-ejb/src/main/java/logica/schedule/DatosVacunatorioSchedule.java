@@ -72,7 +72,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
     
     public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM Punta Carretas"); 
+		WebTarget target = client.target("http://localhost:8080/rest/vacunatorios/vacunatorio/COSEM Punta Carretas"); 
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);
@@ -80,7 +80,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		props.put(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy:80");
+		props.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
 		
 		Context ctx;
 		try {
@@ -116,7 +116,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/CiudadanoRepository!datos.repositorios.CiudadanoRepositoryRemote";
 			CiudadanoRepositoryRemote ciudadanoRepository = (CiudadanoRepositoryRemote)ctx.lookup(jndiName);
 			ciudadanoRepository.drop();
-			vacRepository.drop();
+			//vacRepository.drop();
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/LoteRepository!datos.repositorios.LoteRepositoryRemote";
 			LoteRepositoryRemote loteRepository = (LoteRepositoryRemote)ctx.lookup(jndiName);
 			loteRepository.drop();
@@ -125,8 +125,10 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			vacunaRepository.drop();
 			
 			VacunatorioDTO vacDTO = datos.getVac();
-			Vacunatorio vac = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
-			vacRepository.save(vac);
+			//Vacunatorio vac = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
+			//vacRepository.save(vac);
+			List<Vacunatorio> vacs = vacRepository.find();
+			Vacunatorio vac = vacs.get(0);
 			
 			//asignaciones
 			

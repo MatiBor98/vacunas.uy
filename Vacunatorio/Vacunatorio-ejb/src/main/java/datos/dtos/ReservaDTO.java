@@ -13,7 +13,7 @@ public class ReservaDTO implements Serializable{
 	private int codigo;
 	private Estado estado;
 	private CiudadanoDTO ciudadano;
-	private IntervaloDTO intervalo;
+	private IntervaloDTO2 intervalo;
 	private int paraDosis;
 	private String lote;
 
@@ -33,11 +33,11 @@ public class ReservaDTO implements Serializable{
 		this.ciudadano = ciudadano;
 	}
 
-	public IntervaloDTO getIntervalo() {
+	public IntervaloDTO2 getIntervalo() {
 		return intervalo;
 	}
 
-	public void setIntervalo(IntervaloDTO intervalo) {
+	public void setIntervalo(IntervaloDTO2 intervalo) {
 		this.intervalo = intervalo;
 	}
 
@@ -49,7 +49,7 @@ public class ReservaDTO implements Serializable{
 		this.paraDosis = paraDosis;
 	}
 
-	public ReservaDTO(Estado estado, CiudadanoDTO ciudadano, IntervaloDTO intervalo, int paraDosis, String lote) {
+	public ReservaDTO(Estado estado, CiudadanoDTO ciudadano, IntervaloDTO2 intervalo, int paraDosis, String lote) {
 		super();
 		this.estado = estado;
 		this.ciudadano = ciudadano;
