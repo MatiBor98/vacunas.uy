@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 @RequestScoped
 @Path("/vacunatorios")
-@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 public class RestVacunatorio {
 
 	@EJB
@@ -27,6 +27,7 @@ public class RestVacunatorio {
 	@GET
 	@Path("/vacunatorio/{nombreVac}")
 	public DatosVacunatorio getDatosVacunatorio(@PathParam("nombreVac") String nombreVacunatorio) {
+		nombreVacunatorio = nombreVacunatorio.replace('_', ' ');
 		return vacControllerLocal.getDatosVacunatorio(nombreVacunatorio);
 	}
 
