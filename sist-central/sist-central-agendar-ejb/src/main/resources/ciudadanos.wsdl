@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservices.samples.jboss.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ciudadanosService" targetNamespace="http://webservices.samples.jboss.org/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.samples.jboss.org/" elementFormDefault="unqualified" targetNamespace="http://webservices.samples.jboss.org/" version="1.0">
+
+  <xs:element name="ciudadano" type="tns:ciudadano"/>
+
+  <xs:element name="obtPersonaPorDoc" type="tns:obtPersonaPorDoc"/>
+
+  <xs:element name="obtPersonaPorDocResponse" type="tns:obtPersonaPorDocResponse"/>
+
+  <xs:complexType name="obtPersonaPorDoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtPersonaPorDocResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:ciudadano"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ciudadano">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="sexo" type="tns:sexo"/>
+      <xs:element minOccurs="0" name="trabajadorEscencial" type="tns:trabajo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="sexo">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hombre"/>
+      <xs:enumeration value="Mujer"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="trabajo">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Desempleado"/>
+      <xs:enumeration value="Agricultura"/>
+      <xs:enumeration value="Alimentacion"/>
+      <xs:enumeration value="Comercio"/>
+      <xs:enumeration value="Construccion"/>
+      <xs:enumeration value="Educacion"/>
+      <xs:enumeration value="Fabricacion"/>
+      <xs:enumeration value="Publico"/>
+      <xs:enumeration value="Hoteleria"/>
+      <xs:enumeration value="Quimica"/>
+      <xs:enumeration value="Comunicacion"/>
+      <xs:enumeration value="Servicios"/>
+      <xs:enumeration value="Salud"/>
+      <xs:enumeration value="Finanzas"/>
+      <xs:enumeration value="Textil"/>
+      <xs:enumeration value="Transporte"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtPersonaPorDoc">
+    <wsdl:part element="tns:obtPersonaPorDoc" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtPersonaPorDocResponse">
+    <wsdl:part element="tns:obtPersonaPorDocResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ciudadanos">
+    <wsdl:operation name="obtPersonaPorDoc">
+      <wsdl:input message="tns:obtPersonaPorDoc" name="obtPersonaPorDoc">
+    </wsdl:input>
+      <wsdl:output message="tns:obtPersonaPorDocResponse" name="obtPersonaPorDocResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ciudadanosServiceSoapBinding" type="tns:ciudadanos">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtPersonaPorDoc">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtPersonaPorDoc">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtPersonaPorDocResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ciudadanosService">
+    <wsdl:port binding="tns:ciudadanosServiceSoapBinding" name="ciudadanosPort">
+      <soap:address location="https://interoperabilidad.web.elasticloud.uy/ciudadanos"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
