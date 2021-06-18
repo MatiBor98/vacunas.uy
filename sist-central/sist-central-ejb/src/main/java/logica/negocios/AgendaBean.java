@@ -1,13 +1,6 @@
 package logica.negocios;
 
-import datos.dtos.AgendaDTO;
-import datos.dtos.AgendaDTO2;
-import datos.dtos.EtapaDTO;
-import datos.dtos.EtapaDTO2;
-import datos.dtos.IntervaloDTO;
-import datos.dtos.TurnoDTO;
-import datos.dtos.VacunatorioDTO;
-import datos.dtos.VacunatorioTieneAgendaDTO;
+import datos.dtos.*;
 import datos.entidades.*;
 import datos.repositorios.AgendaRepositoryLocal;
 import datos.repositorios.CiudadanoRepositoryLocal;
@@ -232,9 +225,9 @@ public class AgendaBean implements AgendaServiceLocal {
     }
 
 	@Override
-	public IntervaloDTO getIntervaloDTO(Intervalo intervalo) {
+	public IntervaloDTO2 getIntervaloDTO(Intervalo intervalo) {
 		AgendaDTO2 agendaDTO = getAgendaDTO2(intervalo.getAgenda());
-		IntervaloDTO intDTO = new IntervaloDTO(intervalo.getFechayHora().toString(), agendaDTO);
+		IntervaloDTO2 intDTO = new IntervaloDTO2(intervalo.getFechayHora().toString(), agendaDTO);
 		return intDTO;
 	}
 }

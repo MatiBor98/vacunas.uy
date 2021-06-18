@@ -1,10 +1,11 @@
 package datos.dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Map;
-
+@XmlRootElement
 public class AgendaDTO2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 

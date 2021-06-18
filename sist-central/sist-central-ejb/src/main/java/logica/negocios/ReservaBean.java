@@ -2,6 +2,7 @@ package logica.negocios;
 
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.IntervaloDTO;
+import datos.dtos.IntervaloDTO2;
 import datos.dtos.ReservaDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Estado;
@@ -97,7 +98,7 @@ public class ReservaBean implements ReservaServiceLocal{
 			resDTO.setParaDosis(reserva.getParaDosis());
 			resDTO.setLote(reserva.getLote());
 			CiudadanoDTO ciudDTO = ciudadanoServiceLocal.getCiudadanoDTO(reserva.getCiudadano());
-			IntervaloDTO intDTO = agendaServiceLocal.getIntervaloDTO(reserva.getIntervalo());
+			IntervaloDTO2 intDTO =agendaServiceLocal.getIntervaloDTO(reserva.getIntervalo());
 			resDTO.setCiudadano(ciudDTO);
 			resDTO.setIntervalo(intDTO);
 			res.add(resDTO);

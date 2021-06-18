@@ -1,9 +1,11 @@
 package datos.dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlRootElement
 public class EtapaDTO2 implements Serializable{
     /**
 	 * 
@@ -12,16 +14,14 @@ public class EtapaDTO2 implements Serializable{
 	private String vacuna;
     private String inicio;
     private String fin;
-    private String planVacunacion;
     private PlanVacunacionDTO2 planVac;
     private String descripcion;
     private int id;
 
-    public EtapaDTO2(String vacuna, String inicio, String fin, String planVacunacion, String descripcion, int id) {
+    public EtapaDTO2(String vacuna, String inicio, String fin, String descripcion, int id) {
         this.vacuna = vacuna;
         this.inicio = inicio;
         this.fin = fin;
-        this.planVacunacion = planVacunacion;
         this.descripcion = descripcion;
         this.id = id;
     }
@@ -49,9 +49,6 @@ public class EtapaDTO2 implements Serializable{
         return fin;
     }
 
-    public String getPlanVacunacion() {
-        return planVacunacion;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -68,13 +65,12 @@ public class EtapaDTO2 implements Serializable{
         EtapaDTO etapaDTO = (EtapaDTO) o;
         return getId() == etapaDTO.getId() && getVacuna().equals(etapaDTO.getVacuna()) &&
                 getInicio().equals(etapaDTO.getInicio()) && getFin().equals(etapaDTO.getFin()) &&
-                getPlanVacunacion().equals(etapaDTO.getPlanVacunacion()) &&
                 getDescripcion().equals(etapaDTO.getDescripcion());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVacuna(), getInicio(), getFin(), getPlanVacunacion(), getDescripcion(), getId());
+        return Objects.hash(getVacuna(), getInicio(), getFin(), getDescripcion(), getId());
     }
 
 	public PlanVacunacionDTO2 getPlanVac() {

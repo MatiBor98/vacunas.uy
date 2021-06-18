@@ -6,19 +6,20 @@ import datos.entidades.Lote;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
+@XmlRootElement
 public class VacunatorioDTO implements Serializable{
 	
 	static final long serialVersionUID = 1L;
 	
-	private final String nombre;
-	private final String ciudad;
-	private final String direccion;
-	private final Departamento departamento;
+	private String nombre;
+	private String ciudad;
+	private String direccion;
+	private Departamento departamento;
 	private List<PuestoVacunacionDTO> puestosVacunacion;
 	private List<TurnoDTO> turnos;
 	private Set<LoteDTO> lotes;
@@ -38,6 +39,8 @@ public class VacunatorioDTO implements Serializable{
 		this.direccion = direccion;
 		this.departamento = departamento;
 	}
+
+	public VacunatorioDTO(){};
 
 	@Override
 	public boolean equals(Object o) {

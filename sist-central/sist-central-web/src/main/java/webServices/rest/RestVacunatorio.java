@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @RequestScoped
@@ -30,5 +31,11 @@ public class RestVacunatorio {
 		return vacControllerLocal.getDatosVacunatorio(nombreVacunatorio);
 	}
 
+	@GET
+	@Path("/vacunatorio2/{nombreVac}")
+	public Response getDatosVacunatorio2(@PathParam("nombreVac") String nombreVacunatorio) {
+		return Response.ok(vacControllerLocal.getDatosVacunatorio(nombreVacunatorio)).build();
+
+	}
 
 }

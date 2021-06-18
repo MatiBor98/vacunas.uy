@@ -5,13 +5,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.io.Serializable;
 import java.util.List;
-
+@XmlRootElement
 public class VacunaDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -77,7 +78,5 @@ public class VacunaDTO implements Serializable{
 		this.dosisSeparacionDias = dosisSeparacionDias;
 	}
 
-	public VacunaDTO() {
-		super();
-	}
+	public VacunaDTO() {}
 }
