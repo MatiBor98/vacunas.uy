@@ -1,10 +1,14 @@
 
 package plataformainteroperabilidad;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+import javax.xml.ws.WebEndpoint;
+import javax.xml.ws.WebServiceClient;
+import javax.xml.ws.WebServiceException;
+import javax.xml.ws.WebServiceFeature;
 
 
 /**
@@ -13,7 +17,7 @@ import java.net.URL;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://webservices.samples.jboss.org/", wsdlLocation = "file:/C:/Users/User/git/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl")
+@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://webservices.samples.jboss.org/", wsdlLocation = "file:/C:/Users/bruno/Documents/TSE/laboratorio-tse-2021/sist-central/sist-central-agendar-ejb/src/main/resources/ciudadanos.wsdl")
 public class CiudadanosService
     extends Service
 {
@@ -26,7 +30,7 @@ public class CiudadanosService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Users/User/git/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl");
+            url = new URL("file:/C:/Users/bruno/Documents/TSE/laboratorio-tse-2021/sist-central/sist-central-agendar-ejb/src/main/resources/ciudadanos.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
