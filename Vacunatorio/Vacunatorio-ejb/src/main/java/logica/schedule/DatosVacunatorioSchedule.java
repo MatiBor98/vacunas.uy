@@ -116,7 +116,7 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/CiudadanoRepository!datos.repositorios.CiudadanoRepositoryRemote";
 			CiudadanoRepositoryRemote ciudadanoRepository = (CiudadanoRepositoryRemote)ctx.lookup(jndiName);
 			ciudadanoRepository.drop();
-			//vacRepository.drop();
+			vacRepository.drop();
 			jndiName = "ejb:Vacunatorio/Vacunatorio-ejb/LoteRepository!datos.repositorios.LoteRepositoryRemote";
 			LoteRepositoryRemote loteRepository = (LoteRepositoryRemote)ctx.lookup(jndiName);
 			loteRepository.drop();
@@ -125,8 +125,8 @@ public class DatosVacunatorioSchedule extends TimerTask {
 			vacunaRepository.drop();
 			
 			VacunatorioDTO vacDTO = datos.getVac();
-			//Vacunatorio vac = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
-			//vacRepository.save(vac);
+			Vacunatorio vacunatorio = new Vacunatorio(vacDTO.getNombre(), vacDTO.getCiudad(), vacDTO.getDireccion(), vacDTO.getDepartamento());
+			vacRepository.save(vacunatorio);
 			List<Vacunatorio> vacs = vacRepository.find();
 			Vacunatorio vac = vacs.get(0);
 			

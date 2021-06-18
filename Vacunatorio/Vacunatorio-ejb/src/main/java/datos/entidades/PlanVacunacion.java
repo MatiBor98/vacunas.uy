@@ -7,6 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +43,7 @@ public class PlanVacunacion implements Serializable {
         this.inicio = inicio;
         this.fin = fin;
         this.enfermedad = enfermedad;
+        this.etapas = new ArrayList<>();
     }
 
     public LocalDate getInicio() {

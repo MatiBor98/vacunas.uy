@@ -49,7 +49,6 @@ public class IntervaloRepository implements IntervaloRepositoryLocal, IntervaloR
     public List<Intervalo> findByFecha(int agendaId, LocalDateTime inicio) {
         return entityManager.createQuery(
                 "select distinct i from Intervalo i " +
-                        "join fetch i.reservas " +
                         "where i.agenda.id = :agendaId " +
                         "and i.fechayHora = :inicio ", Intervalo.class)
                 .setParameter("inicio", inicio)
