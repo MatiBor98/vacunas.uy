@@ -4,7 +4,6 @@ import datos.dtos.AgendaDTO;
 import datos.dtos.VacunatorioDTO;
 import datos.dtos.VacunatorioTieneAgendaDTO;
 import datos.entidades.*;
-import datos.repositorios.AgendaRepositoryLocal;
 import repositorios.AgendaRepository;
 import repositorios.IntervaloRepository;
 import logica.creacion.Converter;
@@ -28,9 +27,6 @@ import java.util.stream.Collectors;
 public class AgendaBean implements AgendaServiceRemote {
     @EJB
     private AgendaRepository agendaRepository;
-
-    @EJB
-    private AgendaRepositoryLocal agendaRepositoryLocal;
 
     @EJB
     private IntervaloRepository intervaloRepository;
@@ -64,7 +60,7 @@ public class AgendaBean implements AgendaServiceRemote {
         LocalDate fechaInicio = fechaInicioSemana.isBefore(LocalDate.now()) ?
                 LocalDate.now().plusDays(1) :
                 fechaInicioSemana;
-        Agenda agenda = agendaRepositoryLocal.find(agendaId).orElseThrow(RuntimeException::new);
+        Agenda agenda = agendaRepository.find(agendaId).orElseThrow(RuntimeException::new);
         Vacuna vacuna = agenda.getEtapa().getVacuna();
         LocalDate fechaLimite = fechaInicioSemana.plusWeeks(1);
 

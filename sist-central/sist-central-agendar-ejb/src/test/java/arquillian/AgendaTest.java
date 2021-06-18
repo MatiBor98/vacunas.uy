@@ -5,7 +5,6 @@ import datos.entidades.Departamento;
 import datos.entidades.Estado;
 import datos.entidades.Intervalo;
 import datos.entidades.Reserva;
-import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.remoto.AgendaServiceRemote;
 import logica.servicios.remoto.ReservaServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -19,6 +18,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import plataformainteroperabilidad.Trabajo;
+import repositorios.AgendaRepository;
 
 import javax.ejb.EJB;
 import java.io.File;
@@ -52,7 +52,7 @@ public class AgendaTest {
     @EJB
     private AgendaServiceRemote agendaServiceRemote;
     @EJB
-    private AgendaServiceLocal agendaServiceLocal;
+    private AgendaRepository agendaRepository;
 
     @Test
     @InSequence(7)
@@ -94,7 +94,7 @@ public class AgendaTest {
         }
         assertTrue(existeAgenda4);
         //se generan 4 al iniciar el sistema
-        assertEquals(5, agendaServiceLocal.findByNombrePlan("Plan vacunacion covid 19").size());
+        assertEquals(5, agendaRepository.findByNombrePlan("Plan vacunacion covid 19").size());
 
         List<Intervalo> intervalos = null;
         try {

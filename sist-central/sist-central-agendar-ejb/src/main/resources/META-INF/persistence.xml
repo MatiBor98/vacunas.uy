@@ -8,7 +8,7 @@
     <persistence-unit name="sist-centralPersistenceUnit" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/SistCentralDS</jta-data-source>
-
+        <jar-file>sist-central-ejb-datos</jar-file>
         <class>datos.entidades.Agenda</class>
         <class>datos.entidades.Asignacion</class>
         <class>datos.entidades.Ciudadano</class>

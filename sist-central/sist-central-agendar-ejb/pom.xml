@@ -28,8 +28,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sist-central-ejb</artifactId>
-            <type>ejb</type>
+            <classifier>datos</classifier>
+            <type>jar</type>
+            <version>${project.version}</version>
         </dependency>
+
         <!-- Import the CDI API, we use provided scope as the API is included in
             WildFly / JBoss EAP -->
         <dependency>

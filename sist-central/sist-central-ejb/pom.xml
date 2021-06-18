@@ -278,6 +278,32 @@
 					<sourceDestDir>src/main/java</sourceDestDir>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>datos</classifier>
+							<includes>
+								<include>**/datos/**</include>
+								<include>**/logica/creacion/Agenda*</include>
+								<include>**/logica/creacion/Vacunatorio*</include>
+								<include>**/logica/creacion/Converter*</include>
+								<include>**/plataformainteroperabilidad/Trabajo*</include>
+							</includes>
+							<excludes>
+								<include>**/datos/repositorios/**</include>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

@@ -1,8 +1,8 @@
 package logica.negocios;
 
 import datos.entidades.*;
-import datos.repositorios.CiudadanoRepositoryLocal;
 import logica.servicios.remoto.ReservaServiceRemote;
+import repositorios.CiudadanoRepository;
 import repositorios.IntervaloRepository;
 import repositorios.ReservaRepository;
 
@@ -23,7 +23,7 @@ public class ReservaBean implements ReservaServiceRemote {
     private IntervaloRepository intervaloRepository;
 
     @EJB
-    private CiudadanoRepositoryLocal ciudadanoRepository;
+    private CiudadanoRepository ciudadanoRepository;
 
     @Override
     public List<Reserva> listar(int offset, int limit, int ci) {

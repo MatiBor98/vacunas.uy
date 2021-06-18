@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 @LocalBean
@@ -56,5 +57,24 @@ public class AgendaRepository {
         }
 
         return etapaTypedQuery.getResultList();
+    }
+
+    public Optional<Agenda> find(int id) {
+        List<Agenda> resultado = entityManager.createQuery(
+                "select a from Agenda a where a.id = :id", Agenda.class)
+                .setParameter("id", id)
+                .setMaxResults(1)
+                .getResultList();
+        return resultado.isEmpty() ? Optional.empty() : Optional.of(resultado.get(0));
+    }
+
+    public List<Agenda> findByNombrePlan(String criterio) {
+        return entityManager.createQuery(
+                "select distinct a from Agenda a " +
+                        "join fetch a.etapa e " +
+                        "join fetch e.planVacunacion p " +
+                        "where lower(p.nombre) like :criterio", Agenda.class)
+                .setParameter("criterio", "%" + criterio.toLowerCase() + "%")
+                .getResultList();
     }
 }
