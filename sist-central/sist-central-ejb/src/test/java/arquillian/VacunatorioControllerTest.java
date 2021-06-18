@@ -28,6 +28,8 @@ import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
+import com.vividsolutions.jts.geom.Point;
+
 import datos.dtos.PuestoVacunacionDTO;
 import datos.entidades.Asignacion;
 import datos.entidades.Departamento;
@@ -36,6 +38,7 @@ import datos.entidades.Turno;
 import datos.entidades.Vacunador;
 import datos.entidades.Vacunatorio;
 import datos.exceptions.CiudadanoRegistradoException;
+import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.negocios.CiudadanoBean;
 import logica.negocios.MensajeBean;
@@ -67,6 +70,9 @@ public class VacunatorioControllerTest {
     }
 
     @EJB
+    VacunatorioRepositoryLocal vacunatorioRepository;
+    
+    @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
    
     @EJB
@@ -77,6 +83,12 @@ public class VacunatorioControllerTest {
     @Test
     @InSequence(1)
     public void should_create_vacunatorio() {
+    	//primero vamos a ver si se cargaron los del script de carga
+    	
+    	List<Vacunatorio> vacs = vacunatorioRepository.find();
+    	assertEquals(3, vacs.size());
+    	
+    	//ahora si creamos uno
     	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
     	assertEquals(19, deps.size());
     	

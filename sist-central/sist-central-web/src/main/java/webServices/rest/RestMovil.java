@@ -88,7 +88,7 @@ public class RestMovil {
 
             res.add(new VacunatorioEnfermedadesDTO(
                     vac.getNombre(), vac.getCiudad(), vac.getDireccion(), vac.getDepartamento(),
-                    enfermedadesFlat));
+                    enfermedadesFlat, vac.getUbicacion()));
         }
 
         return res;
