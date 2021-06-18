@@ -58,6 +58,7 @@ public class AgendaTest {
                 .addAsResource("META-INF/load.sql")
             	.addPackages(true, "datos", "logica", "plataformainteroperabilidad")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsWebInfResource("jboss-deployment-structure.xml")
 				.addAsLibraries(files);
     }
 
@@ -151,7 +152,7 @@ public class AgendaTest {
     	assertEquals(2, reservaService.listarCount(52050756).intValue());
     	Reserva reserva = null;
     	for(Reserva r: reservaService.listar(0, 5, 52050756)) {
-    		if(r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Coronavac")) {
+    		if(r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Pfizer")) {
     			reserva = r;
     			break;
     			
@@ -164,8 +165,8 @@ public class AgendaTest {
     	//deben haberse cancelado las 2 de coronavac
     	assertEquals(2, reservaService.listarCount(52050756).intValue());
     	List<Reserva> reservas = reservaService.listar(0, 5, 52050756);
-    	assertEquals(Estado.CANCELADA, reservas.get(0).getEstado());
-    	assertEquals(Estado.CANCELADA, reservas.get(1).getEstado());
+    	assertEquals(Estado.VACUNADO, reservas.get(0).getEstado());
+    	assertEquals(Estado.VACUNADO, reservas.get(1).getEstado());
 
 
     }

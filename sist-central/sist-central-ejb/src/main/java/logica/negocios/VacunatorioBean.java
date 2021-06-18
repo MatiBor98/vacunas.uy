@@ -10,6 +10,8 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.vividsolutions.jts.geom.Point;
+
 import datos.dtos.AsignacionDTO;
 import datos.dtos.PuestoVacunacionDTO;
 import datos.dtos.TurnoDTO;
@@ -50,8 +52,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     public VacunatorioBean() {
     }
 
-    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
+    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, Point ubicacion) {
     	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento);
+    	vac.setUbicacion(ubicacion);
     	vacunatorioRepositoryLocal.save(vac);
     }
     
