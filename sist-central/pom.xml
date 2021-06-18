@@ -25,7 +25,8 @@
 		<module>sist-central-ejb</module>
 		<module>sist-central-web</module>
 		<module>sist-central-ear</module>
-	</modules>
+        <module>sist-central-datos-jar</module>
+    </modules>
 
 	<properties>
 		<!-- Explicitly declaring the source encoding eliminates the following 
