@@ -9,6 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class IntervaloDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +20,7 @@ public class IntervaloDTO implements Serializable {
 	private AgendaDTO agenda;
 	private AgendaDTO2 agenda2;
 	private List<ReservaDTO> reservas;
-	private final AtomicInteger cantidadReservas = new AtomicInteger(0);
+	private AtomicInteger cantidadReservas = new AtomicInteger(0);
 
 	public IntervaloDTO(String fechayHora, AgendaDTO agenda) {
 		this.fechayHora = fechayHora;

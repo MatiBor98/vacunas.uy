@@ -6,7 +6,9 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class LoteDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -21,8 +23,7 @@ public class LoteDTO implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") 
 	private Date fechaDespacho;
 	private SocioLogisticoDTO socioLogistico;
-    public LoteDTO() {
-        super();
+    public LoteDTO(){
     }
     
     public LoteDTO(int dosisDisponibles, int numeroLote, Date fechaVencimiento, VacunaDTO vacuna, SocioLogisticoDTO socioLogistico) {

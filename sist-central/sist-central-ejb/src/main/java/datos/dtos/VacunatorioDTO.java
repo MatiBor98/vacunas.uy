@@ -6,13 +6,14 @@ import datos.entidades.Lote;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
+@XmlRootElement
 public class VacunatorioDTO implements Serializable{
 	
 	static final long serialVersionUID = 1L;
@@ -46,7 +47,7 @@ public class VacunatorioDTO implements Serializable{
 	}
 	
 	public VacunatorioDTO() {}
-
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

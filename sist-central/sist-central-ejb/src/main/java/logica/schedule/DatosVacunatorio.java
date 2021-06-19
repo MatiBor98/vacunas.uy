@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import datos.dtos.ReservaDTO;
 import datos.dtos.VacunatorioDTO;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class DatosVacunatorio implements Serializable{
 	
 

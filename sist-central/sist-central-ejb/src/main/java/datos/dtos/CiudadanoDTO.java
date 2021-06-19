@@ -1,7 +1,8 @@
 package datos.dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-
+@XmlRootElement
 public class CiudadanoDTO implements Serializable{
 
 

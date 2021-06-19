@@ -48,13 +48,13 @@
                     <!-- Default context root of the web app is /Vacunatorio-web.
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
-                    <!--
+                    
                     <webModule>
                         <groupId>${project.groupId}</groupId>
                         <artifactId>Vacunatorio-web</artifactId>
-                        <contextRoot>/Vacunatorio</contextRoot>
+                        <contextRoot>/</contextRoot>
                     </webModule>
-                    -->
+                    
                     </modules>
                     <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                 </configuration>
