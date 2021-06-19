@@ -7,7 +7,6 @@ import datos.entidades.Vacuna;
 
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.LaboratorioServiceLocal;
-import logica.servicios.local.PlanVacunacionServiceLocal;
 import logica.servicios.local.VacunaServiceLocal;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -23,7 +22,6 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

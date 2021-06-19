@@ -11,21 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
-import org.junit.Assert;
 import org.junit.runner.RunWith;
 
 import datos.dtos.PuestoVacunacionDTO;
@@ -37,9 +32,6 @@ import datos.entidades.Vacunador;
 import datos.entidades.Vacunatorio;
 import datos.exceptions.CiudadanoRegistradoException;
 import logica.creacion.CiudadanoDTOBuilder;
-import logica.negocios.CiudadanoBean;
-import logica.negocios.MensajeBean;
-import logica.negocios.VacunatorioBean;
 import logica.schedule.DatosVacunatorio;
 import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.PuestoVacunacionBeanLocal;

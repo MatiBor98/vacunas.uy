@@ -17,6 +17,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>sist-central-datos-jar</artifactId>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>sist-central-ejb</artifactId>
 			<type>ejb</type>
 		</dependency>
@@ -49,7 +55,7 @@
 							custom context root is needed, uncomment the following snippet to register 
 							our War as a web module and set the contextRoot property -->
 						<webModule> <groupId>${project.groupId}</groupId> <artifactId>sist-central-web</artifactId> 
-							<contextRoot>/</contextRoot> </webModule> 
+							<contextRoot>/</contextRoot> </webModule>
 					</modules>
 					<outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
 				</configuration>

@@ -13,7 +13,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -25,8 +24,6 @@ import datos.dtos.UsuarioBackOfficeDTO;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
-import logica.negocios.CiudadanoBean;
-import logica.negocios.MensajeBean;
 import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 
 @RunWith(Arquillian.class)

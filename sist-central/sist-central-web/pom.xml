@@ -25,7 +25,12 @@
 	<description>This is the web POM file</description>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>sist-central-datos-jar</artifactId>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Import the CDI API, we use provided scope as the API is included in 
 			WildFly / JBoss EAP -->
 		<dependency>

@@ -115,6 +115,12 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>sist-central-datos-jar</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
 
 			<!-- Define the version of the EJB jar so that we don't need to repeat 
 				ourselves in every module -->
