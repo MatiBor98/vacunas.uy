@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/Template.xhtml">
+	<ui:define name="titulo">
+		- Inicio
+	</ui:define>
+	<ui:define name="content">
+	<div style="background-image: url('web-resources/Home.png');background-position: center;background-size: cover;background-repeat: no-repeat;background-attachment: fixed">
+	<p style="color:white">hola</p>
+	<div class="card shadow-lg p-8 mb-5 rounded" style="width:70rem; height:8.5rem; background-color:#EEEDE7; position:unset; margin-top:70px">
+		<div class="card-body">
+			<h1 class="card-title" style="font-size:80px; color:#222938; text-shadow: 8px 2px 10px grey;font-family: 'Courier New', monospace;">HOSPITAL DE ARTIGAS</h1>	    
+		</div>
+		<p class="card-text" style="font-family: 'Courier New', monospace;">ARTIGAS     -     CIUDAD DE ARTIGAS     -     EDUARDO M. CASTRO</p>
+	</div>
+	<div class="container" style="margin-top:450px">
+	  <div class="row">
+	    <div class="col-sm" style="margin-top:30px">
+		<div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
+		  <img src="web-resources/Vacunador.jpg" class="card-img-top" style="height:150px" alt="..."/>
+		  <div class="card-body">
+		    <h5 class="card-title">Asignaciones</h5>
+		    <p class="card-text">Mira que vacunadores estan asignados a que puestos con sus respectivos turnos.</p>
+		    <a href="ConsultaVacunatorio.xhtml" class="btn" style="background-color:#222938; color:white">Ver Asignaciones</a>
+		  </div>
+		</div>
+	    </div>
+	    <div class="col-sm">
+	      <div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
+		  <img src="web-resources/COSEM.jpg" class="card-img-top" alt="..."/>
+		  <div class="card-body">
+		    <h5 class="card-title">Dosis</h5>
+		    <p class="card-text">Gestionar la cantidad de dosis disponibles para cada vacuna.</p>
+		    <a href="ConsultaLotes.xhtml" class="btn" style="background-color:#222938; color:white">Ver Dosis</a>
+		  </div>
+		</div>
+	    </div>
+	    <div class="col-sm" style="margin-top:30px">
+	      <div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
+		  <img src="web-resources/Agenda.jpg" class="card-img-top"  style="height:150px" alt="..."/>
+		  <div class="card-body">
+		    <h5 class="card-title">Reservas</h5>
+		    <p class="card-text">Gestionar las reservas de los ciudadanos para actos de vacunacion.</p>
+		    <a href="ConsultaReservas.xhtml" class="btn" style="background-color:#222938; color:white">Ver Reservas</a>
+		  </div>
+		</div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	</ui:define>
+	
+</ui:composition>
+</html>
