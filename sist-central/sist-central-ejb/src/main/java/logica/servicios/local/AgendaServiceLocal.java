@@ -20,8 +20,6 @@ public interface AgendaServiceLocal {
     AgendaDTO save(AgendaDTO agendaDTO);
     List<VacunatorioTieneAgendaDTO>findAgendasParaCiudadanoPorDepartamento(
             String nombreEnfermedad, int edadCiudadano, Trabajo trabajos, Departamento departamento);
-    List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicio);
-    List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadano);
 	IntervaloDTO2 getIntervaloDTO(Intervalo intervalo);
 
 

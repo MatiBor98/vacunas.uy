@@ -8,9 +8,11 @@ import datos.entidades.Intervalo;
 import datos.entidades.Reserva;
 import datos.repositorios.ReservaRepository;
 import io.jsonwebtoken.lang.Strings;
+import logica.negocios.ReservaBean;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
+import logica.servicios.local.IntervaloServiceLocal;
 import plataformainteroperabilidad.Ciudadano;
 
 import javax.ejb.EJB;
@@ -39,10 +41,16 @@ public class AgendarBean implements Serializable {
     private AgendaServiceLocal agendaServiceLocal;
 
     @EJB
+    private IntervaloServiceLocal intervaloServiceLocal;
+
+    @EJB
     private EtapaController etapaController;
 
     @EJB
     private ReservaRepository reservaRepository;
+
+    @EJB
+    private ReservaBean reservaService;
 
     @Inject
     private UsuarioLogueadoBean usuarioLogueadoBean;
@@ -165,8 +173,8 @@ public class AgendarBean implements Serializable {
     public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
         this.entrada.vacunatorioAgneda = vacunatorioAgneda;
         if(vacunatorioAgneda != null) {
-            this.intevalosPorDia = agendaServiceLocal
-                    .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
+            this.intevalosPorDia = intervaloServiceLocal
+                    .getIntervalosByAgendaAndSemana(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
                     .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
         } else {
             this.intevalosPorDia = null;
@@ -187,7 +195,7 @@ public class AgendarBean implements Serializable {
             CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
             Intervalo intervalo = entrada.intervalo;
             limpiarEntrada();
-            this.entrada.reservasRealizadas = agendaServiceLocal.efectuarReserva(intervalo, ciudadano.getCi());
+            this.entrada.reservasRealizadas = reservaService.efectuarReserva(intervalo, ciudadano.getCi());
         } catch(Exception e) {
             actualizarIntervalos();
             System.out.println("No se puedo realizar la reserva!");
@@ -201,8 +209,8 @@ public class AgendarBean implements Serializable {
     }
 
     public void actualizarIntervalos() {
-        intevalosPorDia = agendaServiceLocal
-                .getIntervalos(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
+        intevalosPorDia = intervaloServiceLocal
+                .getIntervalosByAgendaAndSemana(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
                 .stream().collect(Collectors.groupingBy(i->i.getFechayHora().getDayOfWeek()));
     }
 

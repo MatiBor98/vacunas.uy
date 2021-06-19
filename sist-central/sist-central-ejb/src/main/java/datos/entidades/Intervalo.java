@@ -7,6 +7,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -79,6 +80,17 @@ public class Intervalo implements Serializable {
 
 	public List<Reserva> getReservas() {
 		return new LinkedList<>(reservas);
+	}
+
+	/**
+	 * Esto lo que busca es retornar una representacion del intervalo para usar como lock id
+	 * en este caso no es unica ya que podría darse que la suma de la agendaId y el epoch coincidan
+	 * con otra agenda e intervalo. Pero es muy pero muy poco probable y en el caso de que pasara
+	 * el único efecto adverso sería esperar innecesariamente
+	 * @return El identificador casi unico del intervalo.
+	 */
+	public long getLockId() {
+		return this.getFechayHora().toEpochSecond(ZoneOffset.UTC) + this.agenda.getId();
 	}
 
 	public void addReserva(Reserva reserva) {
