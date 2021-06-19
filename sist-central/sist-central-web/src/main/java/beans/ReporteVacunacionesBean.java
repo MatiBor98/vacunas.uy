@@ -37,7 +37,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Named("ReporteVacunacionesBean")
-@SessionScoped
+@ViewScoped
 public class ReporteVacunacionesBean extends MonitorBean implements Serializable {
 
     private BarChartModel barModelDosisTiempo;

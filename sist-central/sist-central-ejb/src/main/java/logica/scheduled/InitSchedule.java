@@ -6,14 +6,12 @@ import datos.repositorios.DosisReporteReporteBean;
 import datos.repositorios.ReservaRepository;
 import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.servicios.local.CiudadanoServiceLocal;
-import logica.servicios.local.LoteServiceLocal;
 
 import javax.ejb.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Singleton
 @Startup
@@ -62,7 +60,7 @@ public class InitSchedule {
                 String nomVacuna = vacunaActual.getNombre();
                 //Primer vez de esta vacuna
                 if (datosVacunatorio.get(nomVacuna) == null){
-                    datosVacunatorio.put( nomVacuna , new DatosDosis(hoy, vac.getNombre(),nomVacuna, lot.getDosisDisponibles()));
+                    datosVacunatorio.put( nomVacuna , new DatosDosis(hoy, vac.getNombre(),nomVacuna, vac.getDepartamento(), lot.getDosisDisponibles()));
                 }
                 // ya existe en map
                 else {

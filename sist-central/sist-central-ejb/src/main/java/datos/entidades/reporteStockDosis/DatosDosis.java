@@ -1,14 +1,13 @@
 package datos.entidades.reporteStockDosis;
 
-import datos.entidades.Enfermedad;
+import datos.entidades.Departamento;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @IdClass(diaVacunatorioVacuna.class)
-public class DatosDosis {
+public class DatosDosis implements Comparable<DatosDosis> {
     @Id
     private LocalDate fecha;
     @Id
@@ -16,15 +15,18 @@ public class DatosDosis {
     @Id
     private String nombreVacuna;
 
+    private Departamento departamento;
+
     private Integer cantidad;
 
     public DatosDosis() {
     }
 
-    public DatosDosis(LocalDate fecha, String nombreVacunatorio, String nombreVacuna, Integer cantidad) {
+    public DatosDosis(LocalDate fecha, String nombreVacunatorio, String nombreVacuna, Departamento departamento, Integer cantidad) {
         this.fecha = fecha;
         this.nombreVacunatorio = nombreVacunatorio;
         this.nombreVacuna = nombreVacuna;
+        this.departamento = departamento;
         this.cantidad = cantidad;
     }
 
@@ -58,6 +60,19 @@ public class DatosDosis {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    @Override
+    public int compareTo(DatosDosis o) {
+        return this.getFecha().toString().compareTo(o.getFecha().toString());
     }
 }
 

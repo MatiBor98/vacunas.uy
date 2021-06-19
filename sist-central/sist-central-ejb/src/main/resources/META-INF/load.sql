@@ -75,3 +75,18 @@ insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES
 
 
 insert into usuariobo(tipodeusuario, email, password) VALUES ('autoridad', '1@1', '$2a$10$ubTOrDZ6ufLdhoHQT7Hmtu9CQvxsR7YI6VNOH9ye40jdOXh7ubq1i');
+
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-17','COSEM Punta Carretas','Pfizer', 1300)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-16','COSEM Punta Carretas','Pfizer', 1200)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-15','COSEM Punta Carretas','Pfizer', 1100)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-14','COSEM Punta Carretas','Pfizer', 800)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-13','COSEM Punta Carretas','Pfizer', 900)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-12','COSEM Punta Carretas','Pfizer', 500)
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-11','COSEM Punta Carretas','Pfizer', 200)
+
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-17','COSEM Punta Carretas','Coronavac', 300)
+
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-17','COSEM Punta Carretas','Gripevac', 200)
+
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-17','Hospital De Clínicas','Coronavac', 350)
+
