@@ -1,13 +1,12 @@
 package logica.negocios;
 
+import datos.DistributedLock;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.IntervaloDTO;
 import datos.dtos.IntervaloDTO2;
 import datos.dtos.ReservaDTO;
-import datos.entidades.Departamento;
-import datos.entidades.Estado;
-import datos.entidades.Reserva;
-import datos.entidades.Vacunatorio;
+import datos.entidades.*;
+import datos.repositorios.CiudadanoRepositoryLocal;
 import datos.repositorios.IntervaloRepository;
 import datos.repositorios.ReservaRepository;
 import logica.servicios.local.AgendaServiceLocal;
@@ -19,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,10 @@ import java.util.Map;
 
 @Stateless
 @LocalBean
-public class ReservaBean implements ReservaServiceLocal{
+public class ReservaBean implements ReservaServiceLocal {
+    @EJB
+    private CiudadanoRepositoryLocal ciudadanoRepository;
+
     @EJB
     private ReservaRepository reservaRepository;
 
@@ -42,6 +45,9 @@ public class ReservaBean implements ReservaServiceLocal{
 	@EJB
 	private LoteServiceLocal loteServiceLocal;
 
+	@EJB
+    private DistributedLock distributedLock;
+
     public List<Reserva> listar(int offset, int limit, int ci) {
         return reservaRepository.listar(offset, limit, ci);
     }
@@ -52,22 +58,36 @@ public class ReservaBean implements ReservaServiceLocal{
 
     public void cancelar(int ci, int codigo) {
         Reserva reserva = reservaRepository.getByCiAndCodigo(ci, codigo);
-        reserva.getEstado().visit(new Estado.Visitor<Void>() {
-            @Override
-            public Void pendiente() {
-                if(reserva.getIntervalo().getAgenda().getEtapa().getVacuna().getCantDosis() > 1) {
-                    reservaRepository.getPendientesByCiAndCodigoAgenda(ci, reserva.getIntervalo().getAgenda().getId())
-                    .forEach(reservaCancelar -> {
-                        reservaCancelar.setEstado(Estado.CANCELADA);
-                        intervaloRepository.detach(reservaCancelar.getIntervalo());
-                    });
-                } else {
-                    reserva.setEstado(Estado.CANCELADA);
-                    intervaloRepository.detach(reserva.getIntervalo());
-                }
-                return null;
-            }
-        });
+        efectuarCancelacion(reserva);
+    }
+
+    public List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadanoCi) {
+        Ciudadano ciudadano = ciudadanoRepository.find(ciudadanoCi).orElseThrow(RuntimeException::new);
+        Vacuna vacuna = intervalo.getAgenda().getEtapa().getVacuna();
+        List<Reserva> reservasHechas = new ArrayList<>(vacuna.getCantDosis());
+
+        //bloqueo el accesso solo para los que reservan el mismo intervalo
+        distributedLock.blockingLock(intervalo.getLockId());
+        
+        Intervalo intervaloCreado = intervaloRepository.findOrCreate(intervalo);
+        Reserva reserva = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreado, 1);
+        intervaloCreado.addReserva(reserva);
+        reservaRepository.save(reserva);
+        reservasHechas.add(reserva);
+
+        for(int i = 1; i < vacuna.getCantDosis(); i++) {
+            LocalDateTime fechaSiguienteDosis = intervalo.getFechayHora()
+                    .plusDays((long) vacuna.getDosisSeparacionDiasMultiploSemana() * i);
+            Intervalo intervaloCreadoSiguienteDosis = intervaloRepository.findOrCreate(
+                    new Intervalo(fechaSiguienteDosis, intervalo.getAgenda()));
+            Reserva reservaSigueinteDosis = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreadoSiguienteDosis,
+                    i + 1);
+            intervaloCreadoSiguienteDosis.addReserva(reservaSigueinteDosis);
+            reservaRepository.save(reservaSigueinteDosis);
+            reservasHechas.add(reservaSigueinteDosis);
+        }
+
+        return reservasHechas;
     }
 
     public Map<String, Integer> getDosisPorDepartamentos( String enfermedad, String vacuna, int etapa){
@@ -121,9 +141,24 @@ public class ReservaBean implements ReservaServiceLocal{
 	public void cancelarVacuna(int codigo) {
 		Reserva res = reservaRepository.findByID(codigo);
 		if(res != null) {
-			res.setEstado(Estado.CANCELADA);
+            efectuarCancelacion(res);
 		}
-		
 	}
+
+	private void efectuarCancelacion(Reserva reserva) {
+        reserva.getEstado().visit(new Estado.Visitor<Void>() {
+            @Override
+            public Void pendiente() {
+                if(reserva.getIntervalo().getAgenda().getEtapa().getVacuna().getCantDosis() > 1) {
+                    reservaRepository.getPendientesByCiAndCodigoAgenda(reserva.getCiudadano().getCi(),
+                            reserva.getIntervalo().getAgenda().getId())
+                            .forEach(reservaCancelar -> reservaCancelar.setEstado(Estado.CANCELADA));
+                } else {
+                    reserva.setEstado(Estado.CANCELADA);
+                }
+                return null;
+            }
+        });
+    }
 
 }
