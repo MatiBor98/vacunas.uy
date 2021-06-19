@@ -1,8 +1,18 @@
 package beans;
 
 import logica.servicios.local.LoteServiceLocal;
+import org.eclipse.microprofile.config.Config;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import javax.annotation.Resource;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,6 +25,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.Serializable;
+import java.security.spec.KeySpec;
 import java.time.LocalDate;
 import java.util.Properties;
 
@@ -29,6 +40,9 @@ public class LoteBean implements Serializable{
 
 	@Resource(mappedName = "java:/topic/sist-central")
 	private Topic topic;
+
+	@Inject
+	private Config config;
 
 	private String vacunatorio;
 	private Integer numLote;
@@ -56,16 +70,17 @@ public class LoteBean implements Serializable{
 
 
 	public void agregarLote(String vac, String socLog) throws NamingException {
-		//falta hacer el control de que ya este ingresado
 		if(!loteService.findById(numLote).isPresent()) {
 			if (vacunatorio == null) {
 				loteService.addLote(dosisDisponibles, numLote, vac, fechaVencimiento, vacuna, socLogistico);
 				informarSocLog(dosisDisponibles, numLote, vac, fechaVencimiento, vacuna, socLogistico);
 			}
-			else {
+			else if(socLogistico == null){
 				loteService.addLote(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLog);
+				informarSocLog(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLog);
+			} else {
+				loteService.addLote(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLogistico);
 				informarSocLog(dosisDisponibles, numLote, vacunatorio, fechaVencimiento, vacuna, socLogistico);
-
 			}
 			this.setLoteYaExiste("none");
 			this.setLoteAgregado("block");
@@ -242,8 +257,31 @@ public class LoteBean implements Serializable{
 		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
 		JMSContext context = connectionFactory.createContext(userName, password);
 		context.createProducer().send(destination, content);*/
-		final String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
+		String mensaje = dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre;
+		String mySecret = config.getValue( socioLogisticoNombre + ".secretKey", String.class);
+		final String content = System.getProperty("message.content", encrypt(mensaje, mySecret));
 		context.createProducer().send(topic, content);
 
+	}
+
+	public static String encrypt(String strToEncrypt,String secretKeyString) {
+		try {
+			String SALT = "ssshhhhhhhhhhh!!!!";
+			byte[] iv = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+			IvParameterSpec ivspec = new IvParameterSpec(iv);
+
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+			KeySpec spec = new PBEKeySpec(secretKeyString.toCharArray(), SALT.getBytes(), 65536, 256);
+			SecretKey tmp = factory.generateSecret(spec);
+			SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
+			return Base64.getEncoder()
+					.encodeToString(cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8)));
+		} catch (Exception e) {
+			System.out.println("Error while encrypting: " + e.toString());
+		}
+		return null;
 	}
 }
