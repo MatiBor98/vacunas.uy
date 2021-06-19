@@ -1,0 +1,5 @@
+beans\ConfirmarReservaBean.class
+beans\LoteBean.class
+beans\ReservaBean.class
+beans\VacunatorioBean.class
+beans\ConsultaBean.class

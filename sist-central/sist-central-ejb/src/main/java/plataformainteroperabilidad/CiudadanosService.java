@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://webservices.samples.jboss.org/", wsdlLocation = "file:/home/matibor98/Desktop/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl")
+@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://webservices.samples.jboss.org/", wsdlLocation = "file:/C:/Users/bruno/Documents/TSE/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl")
 public class CiudadanosService
     extends Service
 {
@@ -30,7 +30,7 @@ public class CiudadanosService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/home/matibor98/Desktop/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl");
+            url = new URL("file:/C:/Users/bruno/Documents/TSE/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

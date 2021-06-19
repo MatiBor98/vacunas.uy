@@ -104,7 +104,7 @@ public class DatosVacunatorioSchedule {
     
     public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM_Punta_Carretas"); 
+		WebTarget target = client.target("http://localhost:8080/rest/vacunatorios/vacunatorio/COSEM_Punta_Carretas"); 
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);
