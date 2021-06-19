@@ -18,8 +18,9 @@ public class Reserva implements Serializable{
 	private int codigo;
 
 	private Estado estado;
+	private String lote;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="ciCiudadano", nullable=false)
 	private Ciudadano ciudadano;
 
@@ -75,10 +76,19 @@ public class Reserva implements Serializable{
 		this.ciudadano = ciudadano;
 		this.intervalo = intervalo;
 		this.paraDosis = paraDosis;
+		this.lote = null;
 	}
 
 	public Reserva() {
 		super();
+	}
+
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
 	}
 
 

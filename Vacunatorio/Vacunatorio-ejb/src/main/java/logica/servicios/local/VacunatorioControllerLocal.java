@@ -8,6 +8,8 @@ import javax.ejb.Local;
 
 import datos.entidades.Departamento;
 import datos.entidades.Lote;
+import datos.entidades.Reserva;
+import datos.entidades.ReservaConfirmada;
 import datos.entidades.Vacunatorio;
 import logica.schedule.DatosVacunatorio;
 
@@ -22,4 +24,9 @@ public interface VacunatorioControllerLocal {
 	List<String> getNombresDepartamentos();
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);
+	List<Reserva> findReservas();
+	ReservaConfirmada findReservaConfirmada(int codigo);
+	void saveReservaConfirmada(ReservaConfirmada resConf);
+	List<Lote> findLotes();
+	void actualizar();
 }

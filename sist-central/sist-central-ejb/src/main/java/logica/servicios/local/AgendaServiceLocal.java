@@ -1,6 +1,8 @@
 package logica.servicios.local;
 
 import datos.dtos.AgendaDTO;
+import datos.dtos.IntervaloDTO;
+import datos.dtos.IntervaloDTO2;
 import datos.dtos.VacunatorioTieneAgendaDTO;
 import datos.entidades.*;
 import plataformainteroperabilidad.Trabajo;
@@ -20,5 +22,7 @@ public interface AgendaServiceLocal {
             String nombreEnfermedad, int edadCiudadano, Trabajo trabajos, Departamento departamento);
     List<Intervalo> getIntervalos(int agendaId, LocalDate fechaInicio);
     List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadano);
+	IntervaloDTO2 getIntervaloDTO(Intervalo intervalo);
+
 
 }

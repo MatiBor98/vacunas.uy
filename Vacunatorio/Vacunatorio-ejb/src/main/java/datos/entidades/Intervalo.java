@@ -27,24 +27,15 @@ public class Intervalo implements Serializable {
 	@JoinColumn(name="agendaId", nullable=false)
 	private Agenda agenda;
 
-	@OneToMany(mappedBy = "intervalo")
-	private List<Reserva> reservas;
 
-	@Transient
-	private final AtomicInteger cantidadReservas = new AtomicInteger(0);
 
-	@PostLoad
-	private void postLoad(){
-		cantidadReservas.compareAndSet(0, reservas.size());
-	}
+
 
 	public Intervalo(LocalDateTime fechayHora, Agenda agenda) {
 		this.fechayHora = fechayHora;
 		this.agenda = agenda;
-		this.reservas = new LinkedList<>();
 	}
 	public Intervalo() {
-		this.reservas = new LinkedList<>();
 	}
 
 	public static long getSerialVersionUID() {
@@ -75,19 +66,5 @@ public class Intervalo implements Serializable {
 		this.agenda = agenda;
 	}
 
-	public List<Reserva> getReservas() {
-		return new LinkedList<>(reservas);
-	}
-
-	public void addReserva(Reserva reserva) {
-		int capacidadPorIntervalo = agenda.getHorarioPorDia().get(fechayHora.getDayOfWeek()).getCapacidadPorTurno();
-		int cant;
-		do {
-			cant = cantidadReservas.get();
-			if (cant >= capacidadPorIntervalo) {
-				throw new IntervaloNoDisponibleException();
-			}
-		} while (!cantidadReservas.compareAndSet(cant, cant + 1));
-		reservas.add(reserva);
-	}
+	
 }

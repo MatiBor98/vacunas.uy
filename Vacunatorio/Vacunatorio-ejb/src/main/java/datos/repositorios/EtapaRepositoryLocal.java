@@ -1,5 +1,6 @@
 package datos.repositorios;
 
+import datos.dtos.EtapaDTO2;
 import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Trabajos;
@@ -16,6 +17,8 @@ public interface EtapaRepositoryLocal {
     void save(Etapa etapa);
     Optional<Etapa> find(int id);
     List<Etapa> find(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
-	void save(Vacuna vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion, List<Trabajos> trabajos, int edadMin, int edadMax);
+	void save(String vac, LocalDate inicio, LocalDate fin, PlanVacunacion planVacunacion, String descripcion, List<Trabajos> trabajos, int edadMin, int edadMax);
     boolean existeEtapaParaCiudadano(String nombreEnfermedad, int edadCiudadano, Trabajos trabajos);
+	Etapa find(EtapaDTO2 etapaDTO);
+	void drop();
 }

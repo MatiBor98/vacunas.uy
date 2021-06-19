@@ -134,4 +134,10 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 		return vacDTO;
 	}
 
+	@Override
+	public CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano) {
+		CiudadanoDTO ciudDTO = new CiudadanoDTO(ciudadano.getCi(), ciudadano.getNombre(), ciudadano.getEmail(), false);
+		return ciudDTO;
+	}
+
 }

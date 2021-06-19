@@ -1,7 +1,5 @@
 package datos.repositorios;
 
-import datos.entidades.Enfermedad;
-import datos.entidades.Laboratorio;
 import datos.entidades.Vacuna;
 
 import javax.ejb.Singleton;
@@ -10,11 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.mapping.Collection;
+
 import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class VacunaRepository implements VacunaRepositoryLocal {
+public class VacunaRepository implements VacunaRepositoryLocal, VacunaRepositoryRemote {
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
     private EntityManager entityManager;
 
@@ -45,7 +45,7 @@ public class VacunaRepository implements VacunaRepositoryLocal {
 
     @Override
    
-    public void save(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs) {
+    public void save(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, Collection labs, Collection enfs) {
     	Vacuna vac = new Vacuna(labs, enfs, nombre, cantDosis, inmunidadMeses, dosisSeparacion);
         entityManager.persist(vac);
     }
@@ -56,7 +56,7 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	entityManager.remove(vac);
     }
     
-    public void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs) {
+    public void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, Collection labs, Collection enfs) {
     	Vacuna vacAModificar = findByNombreVacuna(nombre).get(0);
     	vacAModificar.setCantDosis(cantDosis);
     	vacAModificar.setInmunidadMeses(inmunidadMeses);
@@ -64,4 +64,10 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	vacAModificar.setLaboratorios(labs);
     	vacAModificar.setEnfermedades(enfs);
     }
+
+	@Override
+	public void drop() {
+		entityManager.createQuery("delete from Vacuna").executeUpdate();
+		
+	}
 }

@@ -4,20 +4,26 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class LoteDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	private int dosisDisponibles;
 	private Integer numeroLote;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")  
 	private Date fechaVencimiento;
 	private VacunaDTO vacuna;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") 
 	private Date fechaEntrega;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") 
 	private Date fechaDespacho;
 	private SocioLogisticoDTO socioLogistico;
-    public LoteDTO() {
-        super();
+    public LoteDTO(){
     }
     
     public LoteDTO(int dosisDisponibles, int numeroLote, Date fechaVencimiento, VacunaDTO vacuna, SocioLogisticoDTO socioLogistico) {
@@ -29,6 +35,17 @@ public class LoteDTO implements Serializable{
     	this.socioLogistico = socioLogistico;
     	this.fechaEntrega = null;
     	this.fechaDespacho = null;
+    }
+    
+    public LoteDTO(int dosisDisponibles, int numeroLote, Date fechaVencimiento, VacunaDTO vacuna, Date fechaEntrega, Date fechaDespacho) {
+    	super();
+    	this.dosisDisponibles = dosisDisponibles;
+    	this.numeroLote = numeroLote;
+    	this.fechaVencimiento = fechaVencimiento;
+    	this.vacuna = vacuna;
+    	this.socioLogistico = null;;
+    	this.fechaEntrega = fechaEntrega;
+    	this.fechaDespacho = fechaDespacho;
     }
     
     public int getDosisDisponibles() {

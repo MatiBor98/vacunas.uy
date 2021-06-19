@@ -1,8 +1,6 @@
 package logica.negocios;
 
-import datos.dtos.AgendaDTO;
-import datos.dtos.VacunatorioDTO;
-import datos.dtos.VacunatorioTieneAgendaDTO;
+import datos.dtos.*;
 import datos.entidades.*;
 import datos.repositorios.AgendaRepositoryLocal;
 import datos.repositorios.CiudadanoRepositoryLocal;
@@ -10,6 +8,8 @@ import datos.repositorios.IntervaloRepository;
 import datos.repositorios.ReservaRepository;
 import logica.creacion.Converter;
 import logica.servicios.local.AgendaServiceLocal;
+import logica.servicios.local.EtapaController;
+import logica.servicios.local.TurnoServiceLocal;
 import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.EJB;
@@ -38,6 +38,12 @@ public class AgendaBean implements AgendaServiceLocal {
 
     @EJB
     private ReservaRepository reservaRepository;
+    
+    @EJB
+    private EtapaController etapaController;
+    
+    @EJB
+    private TurnoServiceLocal turnoService;
 
     @Inject
     private Converter<AgendaDTO, Agenda> agendaConverter;
@@ -204,4 +210,24 @@ public class AgendaBean implements AgendaServiceLocal {
             return true;
         };
     }
+    
+    public AgendaDTO2 getAgendaDTO2(Agenda agenda) {
+    	EtapaDTO2 etapaDTO = etapaController.getEtapaDTO2(agenda.getEtapa());
+    	TurnoDTO turnoDTO = turnoService.getTurnoDTO(agenda.getTurno());
+    	String fin;
+    	if(agenda.getFin() == null) {
+    		fin = "";
+    	} else {
+    		fin = agenda.getFin().toString();
+    	}
+    	AgendaDTO2 res = new AgendaDTO2(agenda.getNombre(), agenda.getInicio().toString(), fin, etapaDTO, turnoDTO);
+    	return res;
+    }
+
+	@Override
+	public IntervaloDTO2 getIntervaloDTO(Intervalo intervalo) {
+		AgendaDTO2 agendaDTO = getAgendaDTO2(intervalo.getAgenda());
+		IntervaloDTO2 intDTO = new IntervaloDTO2(intervalo.getFechayHora().toString(), agendaDTO);
+		return intDTO;
+	}
 }

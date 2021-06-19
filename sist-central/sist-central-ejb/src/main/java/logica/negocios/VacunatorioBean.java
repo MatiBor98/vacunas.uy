@@ -3,15 +3,19 @@ package logica.negocios;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datos.dtos.AsignacionDTO;
+import datos.dtos.LoteDTO;
 import datos.dtos.PuestoVacunacionDTO;
+import datos.dtos.ReservaDTO;
 import datos.dtos.TurnoDTO;
 import datos.dtos.VacunatorioDTO;
 import datos.entidades.*;
@@ -22,7 +26,10 @@ import datos.repositorios.TurnoRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.creacion.VacunatorioToDto;
 import logica.schedule.DatosVacunatorio;
+import logica.servicios.local.LoteServiceLocal;
 import logica.servicios.local.PuestoVacunacionBeanLocal;
+import logica.servicios.local.ReservaServiceLocal;
+import logica.servicios.local.SocioLogisticoControllerLocal;
 import logica.servicios.local.TurnoServiceLocal;
 import logica.servicios.local.VacunatorioControllerLocal;
 
@@ -45,6 +52,12 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 	@EJB
 	private TurnoServiceLocal turnoBean;
+	
+	@EJB
+	private ReservaServiceLocal reservaBean;
+	
+	@EJB
+	private LoteServiceLocal loteBean;
 	
 	
     public VacunatorioBean() {
@@ -112,16 +125,31 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	public DatosVacunatorio getDatosVacunatorio(String nombreVacunatorio) {
 		Date now = new Date();
 		Vacunatorio vac = find(nombreVacunatorio).get();
-		VacunatorioDTO res = new VacunatorioDTO(nombreVacunatorio, vac.getCiudad(), vac.getDireccion(), vac.getDepartamento());
+		VacunatorioDTO vacDTO = new VacunatorioDTO(nombreVacunatorio, vac.getCiudad(), vac.getDireccion(), vac.getDepartamento());
+		//asignaciones
 		List<PuestoVacunacionDTO> pVacs = pVacBean.getDTO(vac);
-		res.setPuestosVacunacion(pVacs);
+		vacDTO.setPuestosVacunacion(pVacs);
 		List<TurnoDTO> turnosDTO = new ArrayList<>();
 		for(Turno turno:vac.getTurnos()) {
 			TurnoDTO turnoDTO = turnoBean.getTurnoDTO(turno);
 			turnosDTO.add(turnoDTO);
 		}
-		res.setTurnos(turnosDTO);
-		DatosVacunatorio datos = new DatosVacunatorio(now, res);
+		vacDTO.setTurnos(turnosDTO);
+		//reservas
+		List<ReservaDTO> reservas = reservaBean.getReservasDTO(vac);
+		//lotes
+		Set<Lote> lotes = vac.getLotes();
+		Set<LoteDTO> lotesDTO = new HashSet<> ();
+		for(Lote lote:lotes) {
+			//si es null el lote aun no fue entregado
+			if(lote.getFechaEntrega() != null) {
+				LoteDTO loteDTO = loteBean.getLoteDTO(lote);
+				lotesDTO.add(loteDTO);
+			}
+		}
+		vacDTO.setLotes(lotesDTO);
+		DatosVacunatorio datos = new DatosVacunatorio(now, vacDTO, reservas);
 		return datos;
+		
 	}
 }

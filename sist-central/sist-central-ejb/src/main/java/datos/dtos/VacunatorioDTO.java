@@ -6,19 +6,22 @@ import datos.entidades.Lote;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
+@XmlRootElement
 public class VacunatorioDTO implements Serializable{
 	
 	static final long serialVersionUID = 1L;
 	
-	private final String nombre;
-	private final String ciudad;
-	private final String direccion;
-	private final Departamento departamento;
+	private String nombre;
+	private String ciudad;
+	private String direccion;
+	private Departamento departamento;
 	private List<PuestoVacunacionDTO> puestosVacunacion;
 	private List<TurnoDTO> turnos;
 	private Set<LoteDTO> lotes;
@@ -30,6 +33,10 @@ public class VacunatorioDTO implements Serializable{
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
+		this.puestosVacunacion = new ArrayList<>();
+		this.turnos = new ArrayList<>();
+		this.lotes = new HashSet<>();
+		this.dosisVacunatorios = new ArrayList<>();
 	}
 	
 	public VacunatorioDTO(String nombre, String ciudad, String direccion, Departamento departamento, List<PuestoVacunacionDTO> puestosVacunacion, List<TurnoDTO> turnos, Set<LoteDTO> lotes, List<DosisVacunatorioDTO> dosisVacunatorios) {
@@ -38,6 +45,10 @@ public class VacunatorioDTO implements Serializable{
 		this.direccion = direccion;
 		this.departamento = departamento;
 	}
+	
+	public VacunatorioDTO() {}
+
+	public VacunatorioDTO(){};
 
 	@Override
 	public boolean equals(Object o) {
@@ -56,17 +67,33 @@ public class VacunatorioDTO implements Serializable{
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public String getCiudad() {
 		return ciudad;
+	}
+	
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public String getDireccion() {
 		return direccion;
 	}
 
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
 	public Departamento getDepartamento() {
 		return departamento;
+	}
+	
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 	public List<PuestoVacunacionDTO> getPuestosVacunacion() {

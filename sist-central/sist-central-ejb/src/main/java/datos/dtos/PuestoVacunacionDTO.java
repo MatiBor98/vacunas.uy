@@ -1,9 +1,11 @@
 package datos.dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement
 public class PuestoVacunacionDTO implements Serializable{
 	
 	/**
@@ -38,10 +40,7 @@ public class PuestoVacunacionDTO implements Serializable{
 		this.asignaciones = new ArrayList<AsignacionDTO>();
 	}
 
-	public PuestoVacunacionDTO() {
-		super();
-		this.asignaciones = new ArrayList<AsignacionDTO>();
-	}
+	public PuestoVacunacionDTO() {}
 	public List<AsignacionDTO> getAsignaciones() {
 		return asignaciones;
 	}

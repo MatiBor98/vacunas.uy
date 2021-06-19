@@ -24,7 +24,6 @@ import datos.dtos.PuestoVacunacionDTO;
 import datos.dtos.TurnoDTO;
 import datos.dtos.VacunatorioDTO;
 import datos.entidades.Departamento;
-import datos.entidades.Enfermedad;
 import datos.entidades.Lote;
 import datos.entidades.PlanVacunacion;
 

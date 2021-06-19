@@ -1,45 +1,54 @@
 package datos.dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class EtapaDTO implements Serializable{
+@XmlRootElement
+public class EtapaDTO2 implements Serializable{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String vacuna;
-    private final LocalDate inicio;
-    private final LocalDate fin;
-    private final String planVacunacion;
-    private final String descripcion;
-    private final int id;
+	private String vacuna;
+    private String inicio;
+    private String fin;
+    private PlanVacunacionDTO2 planVac;
+    private String descripcion;
+    private int id;
 
-    public EtapaDTO(String vacuna, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion, int id) {
+    public EtapaDTO2(String vacuna, String inicio, String fin, String descripcion, int id) {
         this.vacuna = vacuna;
         this.inicio = inicio;
         this.fin = fin;
-        this.planVacunacion = planVacunacion;
         this.descripcion = descripcion;
         this.id = id;
+    }
+    
+    public EtapaDTO2(String vacuna, String inicio, String fin, PlanVacunacionDTO2 planVacunacion, String descripcion) {
+        this.vacuna = vacuna;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.setPlanVac(planVacunacion);
+        this.descripcion = descripcion;
+    }
+    
+    public EtapaDTO2() {
     }
 
     public String getVacuna() {
         return vacuna;
     }
 
-    public LocalDate getInicio() {
+    public String getInicio() {
         return inicio;
     }
 
-    public LocalDate getFin() {
+    public String getFin() {
         return fin;
     }
 
-    public String getPlanVacunacion() {
-        return planVacunacion;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -56,12 +65,20 @@ public class EtapaDTO implements Serializable{
         EtapaDTO etapaDTO = (EtapaDTO) o;
         return getId() == etapaDTO.getId() && getVacuna().equals(etapaDTO.getVacuna()) &&
                 getInicio().equals(etapaDTO.getInicio()) && getFin().equals(etapaDTO.getFin()) &&
-                getPlanVacunacion().equals(etapaDTO.getPlanVacunacion()) &&
                 getDescripcion().equals(etapaDTO.getDescripcion());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVacuna(), getInicio(), getFin(), getPlanVacunacion(), getDescripcion(), getId());
+        return Objects.hash(getVacuna(), getInicio(), getFin(), getDescripcion(), getId());
     }
+
+	public PlanVacunacionDTO2 getPlanVac() {
+		return planVac;
+	}
+
+	public void setPlanVac(PlanVacunacionDTO2 planVac) {
+		this.planVac = planVac;
+	}
 }
+

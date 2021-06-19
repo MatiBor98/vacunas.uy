@@ -36,16 +36,18 @@ public class Lote implements Serializable{
         super();
     }
     
-    public Lote(int dosisDisponibles, int numeroLote, LocalDate fechaVencimiento, Vacuna vacuna, SocioLogistico socioLogistico) {
+    public Lote(int dosisDisponibles, int numeroLote, LocalDate fechaVencimiento, Vacuna vacuna, LocalDate fechaEntrega, LocalDate fechaDespacho) {
     	super();
     	this.dosisDisponibles = dosisDisponibles;
     	this.numeroLote = numeroLote;
     	this.fechaVencimiento = fechaVencimiento;
     	this.vacuna = vacuna;
-    	this.socioLogistico = socioLogistico;
-    	this.fechaEntrega = null;
-    	this.fechaDespacho = null;
+    	this.socioLogistico = null;
+    	this.fechaEntrega = fechaEntrega;
+    	this.fechaDespacho = fechaDespacho;
     }
+    
+    
     
     public int getDosisDisponibles() {
     	return dosisDisponibles;
