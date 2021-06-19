@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@LocalBean
 public class ReservaBean implements ReservaServiceRemote {
     @EJB
     private ReservaRepository reservaRepository;

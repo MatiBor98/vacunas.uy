@@ -23,14 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 @Stateless
-@LocalBean
 public class ReservaBean implements ReservaServiceLocal{
     @EJB
     private ReservaRepository reservaRepository;
 
-    @EJB
-    private IntervaloRepository intervaloRepository;
-    
 	@EJB
 	private CiudadanoServiceLocal ciudadanoServiceLocal;
 	
@@ -40,35 +36,8 @@ public class ReservaBean implements ReservaServiceLocal{
 	@EJB
 	private LoteServiceLocal loteServiceLocal;
 
-    public List<Reserva> listar(int offset, int limit, int ci) {
-        return reservaRepository.listar(offset, limit, ci);
-    }
-
-    public Long listarCount(int ci) {
-        return reservaRepository.listarCount(ci);
-    }
-
-    public void cancelar(int ci, int codigo) {
-        Reserva reserva = reservaRepository.getByCiAndCodigo(ci, codigo);
-        reserva.getEstado().visit(new Estado.Visitor<Void>() {
-            @Override
-            public Void pendiente() {
-                if(reserva.getIntervalo().getAgenda().getEtapa().getVacuna().getCantDosis() > 1) {
-                    reservaRepository.getPendientesByCiAndCodigoAgenda(ci, reserva.getIntervalo().getAgenda().getId())
-                    .forEach(reservaCancelar -> {
-                        reservaCancelar.setEstado(Estado.CANCELADA);
-                        intervaloRepository.detach(reservaCancelar.getIntervalo());
-                    });
-                } else {
-                    reserva.setEstado(Estado.CANCELADA);
-                    intervaloRepository.detach(reserva.getIntervalo());
-                }
-                return null;
-            }
-        });
-    }
-
-    public Map<String, Integer> getDosisPorDepartamentos( String enfermedad, String vacuna, int etapa){
+    @Override
+    public Map<String, Integer> getDosisPorDepartamentos( String enfermedad, String vacuna, int etapa) {
         Map<String, Integer> dosisDepartamentos = new HashMap<>();
         for (Departamento dep : Departamento.values()){
             dosisDepartamentos.put(dep.name(),reservaRepository
@@ -78,10 +47,13 @@ public class ReservaBean implements ReservaServiceLocal{
         return dosisDepartamentos;
     }
 
-    public Integer findVacunadosHoy(String enfermedad, String vacuna, int etapa){
+    @Override
+    public Integer findVacunadosHoy(String enfermedad, String vacuna, int etapa) {
         return reservaRepository.findVacunadosHoy(enfermedad,  vacuna,  etapa);
     }
-    public Integer findAgendadosProximos(String enfermedad, String vacuna, int etapa){
+
+    @Override
+    public Integer findAgendadosProximos(String enfermedad, String vacuna, int etapa) {
         return reservaRepository.findAgendadosProximos(enfermedad,  vacuna,  etapa);
     }
     
@@ -101,6 +73,7 @@ public class ReservaBean implements ReservaServiceLocal{
 			resDTO.setIntervalo(intDTO);
 			res.add(resDTO);
 		}
+
 		return res;
 	}
 
@@ -112,7 +85,6 @@ public class ReservaBean implements ReservaServiceLocal{
 			res.setLote(idLote);
 			loteServiceLocal.decrementar(Integer.valueOf(idLote));
 		}
-		
 	}
 
 	@Override

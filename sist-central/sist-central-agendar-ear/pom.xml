@@ -28,9 +28,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.parent.artifactId}</finalName>
+		<finalName>${project.parent.artifactId}-agendar</finalName>
 		<plugins>
-			<!--EAR plugin: format of output file -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
@@ -38,8 +37,8 @@
 				<configuration>
 					<!-- Tell Maven we are using Jakarta EE -->
 					<version>8</version>
-					<!-- Use Jakarta EE ear libraries as needed. Jakarta EE ear libraries 
-						are in easy way to package any libraries needed in the ear, and automatically 
+					<!-- Use Jakarta EE ear libraries as needed. Jakarta EE ear libraries
+						are in easy way to package any libraries needed in the ear, and automatically
 						have any modules (EJB-JARs and WARs) use them -->
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>

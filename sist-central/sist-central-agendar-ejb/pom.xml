@@ -223,38 +223,23 @@
     <build>
         <finalName>${project.parent.artifactId}</finalName>
         <plugins>
-            <!--EAR plugin: format of output file -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <version>${version.ear.plugin}</version>
-                <configuration>
-                    <!-- Tell Maven we are using Jakarta EE -->
-                    <version>8</version>
-                    <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
-                </configuration>
-            </plugin>
+            <!--Configure the EJB plugin: we create EJB 3.2. If not specified, an
+                error will arise because the plugin expects an Ejb-jar by default. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.ejb.plugin}</version>
                 <configuration>
-                    <ejbVersion>3.0</ejbVersion>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
+                    <!-- Tell Maven we are using EJB 3.2 -->
+                    <ejbVersion>3.2</ejbVersion>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>

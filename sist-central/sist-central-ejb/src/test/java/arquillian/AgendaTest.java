@@ -13,6 +13,7 @@ import logica.creacion.InformacionPosiblesIntervalosDTOBuilder;
 import logica.negocios.ReservaBean;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EtapaController;
+import logica.servicios.remoto.ReservaServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -62,9 +63,9 @@ public class AgendaTest {
 
     @EJB
     private EtapaController etapaController;
-    
-    @EJB
-    private ReservaBean reservaService;
+
+    @EJB(lookup = "java:global/sist-central-agendar/sist-central-agendar-ejb/ReservaBean!logica.servicios.remoto.ReservaServiceRemote")
+    private ReservaServiceRemote reservaService;
 
     @Test
     @InSequence(1)
