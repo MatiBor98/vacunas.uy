@@ -62,7 +62,6 @@ import datos.repositorios.VacunatorioRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryRemote;
 import logica.schedule.DatosVacunatorio;
 import logica.schedule.DatosVacunatorioSchedule;
-import logica.schedule.SchedulerMain;
 import logica.servicios.local.VacunatorioControllerLocal;
 
 
