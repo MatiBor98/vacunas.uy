@@ -28,7 +28,10 @@ import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.PrecisionModel;
 
 import datos.dtos.PuestoVacunacionDTO;
 import datos.entidades.Asignacion;
@@ -92,7 +95,9 @@ public class VacunatorioControllerTest {
     	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
     	assertEquals(19, deps.size());
     	
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas);
+    	GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+    	
+        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas, geomFactory.createPoint(new Coordinate(-34.9181706,-56.1665725)));
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);

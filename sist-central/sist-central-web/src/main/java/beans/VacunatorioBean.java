@@ -10,6 +10,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.PrecisionModel;
+
 import datos.entidades.*;
 
 @Named("VacunatorioBean")
@@ -32,6 +36,8 @@ public class VacunatorioBean implements Serializable{
 	private String nomVacunatorio = null;
 	private String ciudadVacunatorio = null;
 	private String depVacunatorio = null;
+	private Double ubicacionX = null;
+	private Double ubicacionY = null;
 
 	@EJB
 	logica.servicios.local.VacunatorioControllerLocal ContVacunatorio;
@@ -53,7 +59,11 @@ public class VacunatorioBean implements Serializable{
 		} else {
 			depVacunatorio = depVacunatorio.replaceAll("\\s", "");
 			Departamento dep = Departamento.valueOf(depVacunatorio);
-			ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep);
+			GeometryFactory geomFactory = new GeometryFactory( new PrecisionModel(PrecisionModel.FLOATING), 4326);
+			if (ubicacionX != null && ubicacionY != null) {
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, geomFactory.createPoint(new Coordinate(ubicacionX.doubleValue(),ubicacionY.doubleValue())));
+			}
+			ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, null);
 			this.setElegirDepartamento("none");
 			this.setVacunatorioYaExiste("none");
 			this.setVacunatorioAgregado("block");
@@ -236,5 +246,20 @@ public class VacunatorioBean implements Serializable{
 		Optional<Vacunatorio> vac = ContVacunatorio.find(nombre);
 		return vac.get().getLotes();
 	}
+	
+	public Double getUbicacionX() {
+		return ubicacionX;
+	}
+	public void setUbicacionX(Double ubicacionX) {
+		this.ubicacionX = ubicacionX;
+	}
+	public Double getUbicacionY() {
+		return ubicacionY;
+	}
+	public void setUbicacionY(Double ubicacionY) {
+		this.ubicacionY = ubicacionY;
+	}
+	
+	
 	
 }
