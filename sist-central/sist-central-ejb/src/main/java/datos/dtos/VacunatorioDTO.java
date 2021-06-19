@@ -48,7 +48,7 @@ public class VacunatorioDTO implements Serializable{
 	
 	public VacunatorioDTO() {}
 
-	public VacunatorioDTO(){};
+
 
 	@Override
 	public boolean equals(Object o) {
