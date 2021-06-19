@@ -38,7 +38,7 @@ public class LoteBean implements Serializable{
 	@Inject
 	private JMSContext context;
 
-	//@Resource(mappedName = "java:/topic/sist-central")
+	@Resource(mappedName = "java:/topic/sist-central")
 	private Topic topic;
 
 	@Inject
