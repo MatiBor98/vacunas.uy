@@ -4,11 +4,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import datos.dtos.AgendaDTO;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunadorDTO;
-import datos.entidades.Agenda;
-import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
@@ -21,13 +18,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
+import plataformainteroperabilidad.Sexo;
+import plataformainteroperabilidad.Trabajo;
 
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,6 +82,14 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	userLegacy.setEmail(userNew.getEmail());
     	userLegacy.setNombre(userNew.getNombre());
     }
+
+    public void setSexoFechanacimiento(Integer ci, Sexo sexo, LocalDate fechaNacimiento, Trabajo trabajo){
+		ciudadanoRepository.find(ci).ifPresent(ciudadano -> {
+			ciudadano.setSexo(sexo);
+			ciudadano.setFechaNacimiento(fechaNacimiento);
+			ciudadano.setTrabajo(trabajo);
+		});
+	}
 
 
     @Override
