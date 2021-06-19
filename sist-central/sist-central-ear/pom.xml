@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>sist-central-datos-jar</artifactId>
+			<artifactId>sist-central-common-jar</artifactId>
 			<type>jar</type>
 		</dependency>
 

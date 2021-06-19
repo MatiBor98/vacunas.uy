@@ -1,10 +1,9 @@
 package beans;
 
-import java.io.Serializable;
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named
 @SessionScoped

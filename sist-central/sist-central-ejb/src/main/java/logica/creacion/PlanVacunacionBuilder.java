@@ -4,7 +4,6 @@ import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class PlanVacunacionBuilder {
     private String nombre;

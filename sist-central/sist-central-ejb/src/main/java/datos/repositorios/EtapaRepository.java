@@ -1,12 +1,15 @@
 package datos.repositorios;
-import datos.entidades.*;
+
+import datos.entidades.Etapa;
+import datos.entidades.PlanVacunacion;
+import datos.entidades.RestriccionEtapa;
+import datos.entidades.Vacuna;
 import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

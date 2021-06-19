@@ -1,7 +1,6 @@
 package converters;
 
 
-import beans.Constantes;
 import io.jsonwebtoken.lang.Strings;
 
 import javax.faces.component.UIComponent;
@@ -10,8 +9,6 @@ import javax.faces.convert.DateTimeConverter;
 import javax.faces.convert.FacesConverter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
-import java.time.temporal.WeekFields;
 
 @FacesConverter(value = WeekConverter.ID)
 public class WeekConverter extends DateTimeConverter {

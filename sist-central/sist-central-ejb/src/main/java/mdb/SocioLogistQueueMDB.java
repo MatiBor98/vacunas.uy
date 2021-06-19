@@ -4,7 +4,6 @@ package mdb;
 import logica.servicios.local.LoteServiceLocal;
 
 import javax.ejb.ActivationConfigProperty;
-
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;

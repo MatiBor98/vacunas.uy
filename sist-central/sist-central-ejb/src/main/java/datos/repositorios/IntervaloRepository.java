@@ -1,13 +1,11 @@
 package datos.repositorios;
 
 import datos.entidades.Intervalo;
-import datos.entidades.Reserva;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

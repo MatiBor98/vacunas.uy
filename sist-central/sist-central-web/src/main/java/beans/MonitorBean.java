@@ -2,11 +2,9 @@ package beans;
 
 
 import com.google.gson.Gson;
-import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Etapa;
 import datos.entidades.Vacuna;
-import jdk.jfr.DataAmount;
 import logica.negocios.ReservaBean;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.VacunaServiceLocal;
@@ -15,7 +13,6 @@ import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;

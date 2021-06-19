@@ -1,6 +1,5 @@
 package datos.repositorios;
 
-import datos.entidades.Etapa;
 import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 

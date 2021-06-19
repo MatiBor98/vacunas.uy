@@ -1,13 +1,6 @@
 package logica.negocios;
 
-import datos.dtos.AgendaDTO;
-import datos.dtos.AgendaDTO2;
-import datos.dtos.EtapaDTO;
-import datos.dtos.EtapaDTO2;
-import datos.dtos.IntervaloDTO;
-import datos.dtos.TurnoDTO;
-import datos.dtos.VacunatorioDTO;
-import datos.dtos.VacunatorioTieneAgendaDTO;
+import datos.dtos.*;
 import datos.entidades.*;
 import datos.repositorios.AgendaRepositoryLocal;
 import datos.repositorios.CiudadanoRepositoryLocal;

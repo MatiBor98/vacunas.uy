@@ -15,8 +15,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import javax.ejb.EJB;
 
+import javax.ejb.EJB;
 import java.io.File;
 import java.util.List;
 

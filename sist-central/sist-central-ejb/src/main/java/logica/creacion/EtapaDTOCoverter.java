@@ -4,15 +4,11 @@ import datos.dtos.EtapaDTO;
 import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
-import datos.repositorios.PlanVacunacionRepository;
 import datos.repositorios.PlanVacunacionRepositoryLocal;
-import datos.repositorios.VacunaRepository;
 import datos.repositorios.VacunaRepositoryLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import java.time.LocalDate;
-import java.util.Optional;
 
 @ApplicationScoped
 public class EtapaDTOCoverter implements Converter<EtapaDTO, Etapa> {

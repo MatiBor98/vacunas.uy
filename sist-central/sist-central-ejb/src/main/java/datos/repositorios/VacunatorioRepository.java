@@ -1,18 +1,16 @@
 package datos.repositorios;
 
-import java.util.List;
-import java.util.Optional;
+import datos.entidades.Departamento;
+import datos.entidades.Lote;
+import datos.entidades.Vacunatorio;
+import datos.exceptions.VacunatorioNoExistenteException;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-
-import datos.exceptions.VacunatorioNoExistenteException;
-
-import datos.entidades.Vacunatorio;
-import datos.entidades.Departamento;
-import datos.entidades.Lote;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Session Bean implementation class VacunatorioRepository

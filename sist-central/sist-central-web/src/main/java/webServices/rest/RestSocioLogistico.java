@@ -1,20 +1,12 @@
 package webServices.rest;
 
-import datos.dtos.VacunatorioEnfermedadesDTO;
-import datos.entidades.*;
 import logica.servicios.local.SocioLogisticoControllerLocal;
-import logica.servicios.local.VacunatorioControllerLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @RequestScoped
 @Path("/socioLogistico")

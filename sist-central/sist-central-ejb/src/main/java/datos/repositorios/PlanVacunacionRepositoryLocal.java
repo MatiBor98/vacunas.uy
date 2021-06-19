@@ -1,15 +1,12 @@
 package datos.repositorios;
 
+import datos.entidades.Enfermedad;
+import datos.entidades.PlanVacunacion;
+
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import javax.ejb.Local;
-
-import datos.entidades.Enfermedad;
-import datos.entidades.PlanVacunacion;
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Vacunatorio;
 
 @Local
 public interface PlanVacunacionRepositoryLocal {

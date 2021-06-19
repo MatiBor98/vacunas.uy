@@ -1,10 +1,7 @@
 package datos.repositorios;
 
-import datos.dtos.ReservaDTO;
-import datos.entidades.Ciudadano;
 import datos.entidades.Departamento;
 import datos.entidades.Estado;
-import datos.entidades.Lote;
 import datos.entidades.Reserva;
 import datos.entidades.Vacunatorio;
 
@@ -13,7 +10,6 @@ import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

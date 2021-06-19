@@ -1,11 +1,8 @@
 package datos.repositorios;
 
-import datos.entidades.Departamento;
-import datos.entidades.Etapa;
 import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 
-import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

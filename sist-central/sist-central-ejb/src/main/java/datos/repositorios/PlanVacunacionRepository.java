@@ -1,11 +1,11 @@
 package datos.repositorios;
+
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

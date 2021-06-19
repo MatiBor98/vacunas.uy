@@ -1,20 +1,19 @@
 package com.baeldung.oauth2.client;
 
 
-
-
 import org.eclipse.microprofile.config.Config;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
-
 import javax.inject.Inject;
-import javax.json.JsonObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Servlet implementation class Home

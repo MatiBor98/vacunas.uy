@@ -17,7 +17,6 @@ import logica.servicios.local.ReservaServiceLocal;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

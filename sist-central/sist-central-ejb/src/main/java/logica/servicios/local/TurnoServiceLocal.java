@@ -1,13 +1,9 @@
 package logica.servicios.local;
 
 import datos.dtos.TurnoDTO;
-import datos.entidades.Enfermedad;
-import datos.entidades.Laboratorio;
 import datos.entidades.Turno;
-import datos.entidades.Vacuna;
 
 import javax.ejb.Local;
-
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;

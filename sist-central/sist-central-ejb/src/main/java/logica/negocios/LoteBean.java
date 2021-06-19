@@ -1,23 +1,20 @@
 package logica.negocios;
 
-import datos.dtos.EnfermedadDTO;
-import datos.dtos.LaboratorioDTO;
 import datos.dtos.LoteDTO;
 import datos.dtos.VacunaDTO;
-import datos.dtos.LoteDTO;
-import datos.entidades.*;
-import datos.exceptions.VacunatorioNoExistenteException;
-import datos.repositorios.*;
+import datos.entidades.Lote;
+import datos.entidades.SocioLogistico;
+import datos.entidades.Vacuna;
+import datos.repositorios.LoteRepositoryLocal;
+import datos.repositorios.SocioLogisticoRepositoryLocal;
+import datos.repositorios.VacunaRepositoryLocal;
+import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.servicios.local.LoteServiceLocal;
-import logica.servicios.local.TurnoServiceLocal;
 
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

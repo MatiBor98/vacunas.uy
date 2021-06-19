@@ -1,17 +1,14 @@
 package arquillian;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-
-import javax.ejb.EJB;
-
+import datos.dtos.PuestoVacunacionDTO;
+import datos.entidades.*;
+import datos.exceptions.CiudadanoRegistradoException;
+import logica.creacion.CiudadanoDTOBuilder;
+import logica.schedule.DatosVacunatorio;
+import logica.servicios.local.CiudadanoServiceLocal;
+import logica.servicios.local.PuestoVacunacionBeanLocal;
+import logica.servicios.local.TurnoServiceLocal;
+import logica.servicios.local.VacunatorioControllerLocal;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -23,20 +20,14 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import datos.dtos.PuestoVacunacionDTO;
-import datos.entidades.Asignacion;
-import datos.entidades.Departamento;
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Turno;
-import datos.entidades.Vacunador;
-import datos.entidades.Vacunatorio;
-import datos.exceptions.CiudadanoRegistradoException;
-import logica.creacion.CiudadanoDTOBuilder;
-import logica.schedule.DatosVacunatorio;
-import logica.servicios.local.CiudadanoServiceLocal;
-import logica.servicios.local.PuestoVacunacionBeanLocal;
-import logica.servicios.local.TurnoServiceLocal;
-import logica.servicios.local.VacunatorioControllerLocal;
+import javax.ejb.EJB;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class VacunatorioControllerTest {

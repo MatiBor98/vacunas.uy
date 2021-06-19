@@ -1,27 +1,21 @@
 package beans;
 
+import datos.entidades.Enfermedad;
+import datos.entidades.Etapa;
+import datos.entidades.PlanVacunacion;
+
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-
-import datos.dtos.PlanVacunacionDTO;
-import datos.entidades.Enfermedad;
-import datos.entidades.Etapa;
-import datos.entidades.Laboratorio;
-import datos.entidades.PlanVacunacion;
-import datos.entidades.Vacuna;
 
 @Named("PlanVacunacionBean")
 @RequestScoped

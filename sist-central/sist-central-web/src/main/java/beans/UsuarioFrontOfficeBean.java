@@ -1,20 +1,15 @@
 package beans;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Optional;
+import datos.dtos.CiudadanoDTO;
+import datos.exceptions.CiudadanoRegistradoException;
+import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-
-import datos.dtos.CiudadanoDTO;
-import datos.dtos.UsuarioBackOfficeDTO;
-import datos.entidades.Ciudadano;
-import datos.exceptions.CiudadanoRegistradoException;
-import logica.servicios.local.CiudadanoServiceLocal;
+import java.io.Serializable;
 
 @Named
 @SessionScoped

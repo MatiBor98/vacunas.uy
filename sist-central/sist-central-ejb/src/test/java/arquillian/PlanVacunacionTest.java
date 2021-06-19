@@ -6,8 +6,6 @@ import logica.creacion.EtapaDTOBuilder;
 import logica.creacion.PlanVacunacionDTOBuilder;
 import logica.servicios.local.EtapaController;
 import logica.servicios.local.PlanVacunacionServiceLocal;
-import plataformainteroperabilidad.Trabajo;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -17,9 +15,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.EJB;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;

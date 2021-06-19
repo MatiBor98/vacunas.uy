@@ -1,37 +1,20 @@
 package logica.negocios;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import datos.dtos.*;
+import datos.entidades.Departamento;
+import datos.entidades.Lote;
+import datos.entidades.Turno;
+import datos.entidades.Vacunatorio;
+import datos.repositorios.PuestoVacunacionRepositoryLocal;
+import datos.repositorios.TurnoRepositoryLocal;
+import datos.repositorios.VacunatorioRepositoryLocal;
+import logica.schedule.DatosVacunatorio;
+import logica.servicios.local.*;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
-import datos.dtos.AsignacionDTO;
-import datos.dtos.LoteDTO;
-import datos.dtos.PuestoVacunacionDTO;
-import datos.dtos.ReservaDTO;
-import datos.dtos.TurnoDTO;
-import datos.dtos.VacunatorioDTO;
-import datos.entidades.*;
-import datos.exceptions.PuestoVacunacionNoExistenteException;
-import datos.exceptions.VacunatorioNoExistenteException;
-import datos.repositorios.PuestoVacunacionRepositoryLocal;
-import datos.repositorios.TurnoRepositoryLocal;
-import datos.repositorios.VacunatorioRepositoryLocal;
-import logica.creacion.VacunatorioToDto;
-import logica.schedule.DatosVacunatorio;
-import logica.servicios.local.LoteServiceLocal;
-import logica.servicios.local.PuestoVacunacionBeanLocal;
-import logica.servicios.local.ReservaServiceLocal;
-import logica.servicios.local.SocioLogisticoControllerLocal;
-import logica.servicios.local.TurnoServiceLocal;
-import logica.servicios.local.VacunatorioControllerLocal;
+import java.util.*;
 
 
 @Stateless

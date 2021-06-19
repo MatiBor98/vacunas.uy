@@ -1,14 +1,13 @@
 package datos.repositorios;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.ejb.Local;
-
 import datos.entidades.Enfermedad;
 import datos.entidades.Etapa;
 import datos.entidades.Laboratorio;
 import datos.entidades.Vacuna;
+
+import javax.ejb.Local;
+import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface VacunaRepositoryLocal {

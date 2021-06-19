@@ -1,7 +1,6 @@
 package webServices.rest;
 
 import logica.schedule.DatosVacunatorio;
-
 import logica.servicios.local.VacunatorioControllerLocal;
 
 import javax.ejb.EJB;

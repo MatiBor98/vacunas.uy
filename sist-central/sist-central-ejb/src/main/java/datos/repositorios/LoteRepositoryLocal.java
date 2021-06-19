@@ -1,13 +1,11 @@
 package datos.repositorios;
 
 import datos.entidades.Lote;
-import datos.entidades.Turno;
 
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import javax.ejb.Local;
 
 @Local
 public interface LoteRepositoryLocal {

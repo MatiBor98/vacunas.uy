@@ -1,12 +1,9 @@
 package logica.servicios.local;
 
-import datos.entidades.Departamento;
 import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
-import datos.entidades.Vacunatorio;
 
 import javax.ejb.Local;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 

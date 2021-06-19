@@ -1,16 +1,14 @@
 package beans;
 
+import datos.entidades.Turno;
+
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-
-import javax.inject.Named;
-
-import datos.entidades.Turno;
 
 @Named("TurnoBean")
 @RequestScoped

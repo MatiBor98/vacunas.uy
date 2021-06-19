@@ -1,14 +1,10 @@
 package arquillian;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.util.List;
-
-import javax.ejb.EJB;
-
+import datos.dtos.UsuarioBackOfficeDTO;
+import datos.exceptions.EmailNoRegistradoException;
+import datos.exceptions.EmailRegistradoException;
+import datos.exceptions.PasswordIncorrectaException;
+import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -20,11 +16,11 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import datos.dtos.UsuarioBackOfficeDTO;
-import datos.exceptions.EmailNoRegistradoException;
-import datos.exceptions.EmailRegistradoException;
-import datos.exceptions.PasswordIncorrectaException;
-import logica.servicios.local.UsuariosBackOfficeBeanLocal;
+import javax.ejb.EJB;
+import java.io.File;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class UsuariosBackOfficeTest {

@@ -1,14 +1,10 @@
 package logica.negocios;
 
 import datos.entidades.Enfermedad;
-
-
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
 import datos.repositorios.EnfermedadRepositoryLocal;
-
 import logica.servicios.local.EnfermedadServiceLocal;
-
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

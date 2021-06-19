@@ -8,7 +8,6 @@ import datos.entidades.Departamento;
 import datos.entidades.Estado;
 import datos.entidades.Intervalo;
 import datos.entidades.Reserva;
-import plataformainteroperabilidad.Trabajo;
 import logica.creacion.AgendaDTOBuilder;
 import logica.creacion.InformacionPosiblesIntervalosDTOBuilder;
 import logica.negocios.ReservaBean;
@@ -24,8 +23,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import javax.ejb.EJB;
+import plataformainteroperabilidad.Trabajo;
 
+import javax.ejb.EJB;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;

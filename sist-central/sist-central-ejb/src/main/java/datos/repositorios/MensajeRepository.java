@@ -1,13 +1,12 @@
 package datos.repositorios;
 
-import java.util.List;
+import datos.entidades.Mensaje;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import datos.entidades.Mensaje;
+import java.util.List;
 
 /**
  * Session Bean implementation class ChatRepository

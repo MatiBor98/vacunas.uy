@@ -1,14 +1,12 @@
 package datos.repositorios;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.ejb.Local;
-
-import datos.dtos.VacunatorioDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Lote;
 import datos.entidades.Vacunatorio;
+
+import javax.ejb.Local;
+import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface VacunatorioRepositoryLocal {

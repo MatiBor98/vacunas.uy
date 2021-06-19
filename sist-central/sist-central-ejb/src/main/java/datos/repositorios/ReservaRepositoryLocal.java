@@ -1,12 +1,10 @@
 package datos.repositorios;
 
-import datos.dtos.ReservaDTO;
 import datos.entidades.Reserva;
 import datos.entidades.Vacunatorio;
 
-import java.util.List;
-
 import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface ReservaRepositoryLocal {

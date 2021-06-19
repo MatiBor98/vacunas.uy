@@ -2,8 +2,8 @@ package datos.repositorios;
 
 import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
-import plataformainteroperabilidad.Trabajo;
 import datos.entidades.Vacuna;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Local;
 import java.time.LocalDate;

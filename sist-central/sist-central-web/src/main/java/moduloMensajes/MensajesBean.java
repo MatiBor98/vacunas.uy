@@ -1,11 +1,10 @@
 package moduloMensajes;
 
+import com.google.gson.Gson;
+import datos.dtos.MensajesChangedEvent;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-
-import com.google.gson.Gson;
-
-import datos.dtos.MensajesChangedEvent;
 
 
 @ApplicationScoped

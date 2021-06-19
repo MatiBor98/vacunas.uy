@@ -1,14 +1,12 @@
 package logica.schedule;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import datos.dtos.ReservaDTO;
 import datos.dtos.VacunatorioDTO;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class DatosVacunatorio implements Serializable{
 	

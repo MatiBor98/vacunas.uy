@@ -4,16 +4,13 @@ import Utilities.TokenVerifier;
 import com.auth0.jwt.interfaces.Claim;
 import datos.dtos.CiudadanoDTO;
 import datos.exceptions.CiudadanoNoEncontradoException;
-import jdk.jfr.Name;
 import logica.servicios.local.CiudadanoServiceLocal;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import java.io.IOException;

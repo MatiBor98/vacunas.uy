@@ -1,6 +1,7 @@
 package logica.negocios;
 
-import datos.entidades.*;
+import datos.entidades.Lote;
+import datos.entidades.SocioLogistico;
 import datos.repositorios.SocioLogisticoRepositoryLocal;
 import logica.servicios.local.SocioLogisticoControllerLocal;
 

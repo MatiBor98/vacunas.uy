@@ -1,15 +1,12 @@
 package logica.servicios.local;
 
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-
-import javax.ejb.Local;
-
 import datos.entidades.Departamento;
-import datos.entidades.Lote;
 import datos.entidades.Vacunatorio;
 import logica.schedule.DatosVacunatorio;
+
+import javax.ejb.Local;
+import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface VacunatorioControllerLocal {

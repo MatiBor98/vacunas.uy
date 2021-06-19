@@ -3,7 +3,9 @@ package logica.servicios.local;
 import datos.dtos.AgendaDTO;
 import datos.dtos.IntervaloDTO;
 import datos.dtos.VacunatorioTieneAgendaDTO;
-import datos.entidades.*;
+import datos.entidades.Departamento;
+import datos.entidades.Intervalo;
+import datos.entidades.Reserva;
 import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Local;

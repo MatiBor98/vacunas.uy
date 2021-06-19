@@ -6,7 +6,6 @@ import datos.dtos.PlanVacunacionDTO;
 import datos.dtos.PlanVacunacionDTO2;
 import datos.entidades.Etapa;
 import datos.entidades.PlanVacunacion;
-import plataformainteroperabilidad.Trabajo;
 import datos.entidades.Vacuna;
 import datos.repositorios.EtapaRepositoryLocal;
 import datos.repositorios.PlanVacunacionRepositoryLocal;
@@ -14,11 +13,11 @@ import datos.repositorios.VacunaRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.EtapaController;
 import logica.servicios.local.PlanVacunacionServiceLocal;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

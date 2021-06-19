@@ -1,18 +1,17 @@
 package main;
 
+import datos.entidades.Agenda;
+import datos.repositorios.AgendaRepositoryLocal;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import datos.entidades.Agenda;
-import datos.repositorios.AgendaRepositoryLocal;
 
 public class Main {
 	

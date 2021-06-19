@@ -1,16 +1,13 @@
 package datos.repositorios;
 
-import java.util.List;
+import datos.entidades.UsuarioBO;
+import datos.exceptions.EmailRegistradoException;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import datos.entidades.Administrador;
-import datos.entidades.UsuarioBO;
-import datos.exceptions.EmailRegistradoException;
+import java.util.List;
 
 /**
  * Session Bean implementation class UsuariosBackOfficeRepository

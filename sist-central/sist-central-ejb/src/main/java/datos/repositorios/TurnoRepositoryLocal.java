@@ -1,9 +1,9 @@
 package datos.repositorios;
 
+import datos.entidades.Turno;
+
 import java.util.List;
 import java.util.Optional;
-
-import datos.entidades.Turno;
 
 public interface TurnoRepositoryLocal {
 

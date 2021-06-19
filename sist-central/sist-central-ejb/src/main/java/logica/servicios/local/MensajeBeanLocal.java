@@ -1,8 +1,8 @@
 package logica.servicios.local;
 
-import javax.ejb.Local;
-
 import datos.dtos.MensajeDTO;
+
+import javax.ejb.Local;
 
 @Local
 public interface MensajeBeanLocal {

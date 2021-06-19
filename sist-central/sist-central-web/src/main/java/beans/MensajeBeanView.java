@@ -1,24 +1,20 @@
 package beans;
 
+import Utilities.TokenVerifier;
+import com.auth0.jwt.interfaces.Claim;
+import com.google.gson.Gson;
+import datos.dtos.MensajeDTO;
+import org.primefaces.PrimeFaces;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.servlet.http.Cookie;
-
-import Utilities.TokenVerifier;
-import com.auth0.jwt.interfaces.Claim;
-import org.primefaces.PrimeFaces;
-
-import com.google.gson.Gson;
-
-import datos.dtos.MensajeDTO;
 
 @Named("MensajeBeanView")
 @SessionScoped

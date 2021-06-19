@@ -4,20 +4,18 @@ import datos.dtos.PlanVacunacionDTO;
 import datos.dtos.PlanVacunacionDTO2;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
-import datos.repositorios.PlanVacunacionRepository;
 import datos.repositorios.PlanVacunacionRepositoryLocal;
 import logica.creacion.Converter;
 import logica.servicios.local.PlanVacunacionServiceLocal;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 @Stateless
 public class PlanVacunacionBean implements PlanVacunacionServiceLocal {

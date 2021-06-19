@@ -1,22 +1,19 @@
 package beans;
 
+import datos.entidades.PuestoVacunacion;
+import datos.entidades.Turno;
+import datos.entidades.Vacunador;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-
-import javax.inject.Named;
-
-import org.apache.commons.lang3.StringUtils;
-
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Turno;
-import datos.entidades.Vacunador;
 
 
 @Named("AsignacionBean")

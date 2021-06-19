@@ -1,11 +1,10 @@
 package logica.servicios.local;
 
-import java.util.List;
-
-import javax.ejb.Local;
-
 import datos.dtos.ReservaDTO;
 import datos.entidades.Vacunatorio;
+
+import javax.ejb.Local;
+import java.util.List;
 @Local
 public interface ReservaServiceLocal {
 

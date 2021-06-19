@@ -4,12 +4,10 @@ import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
 import datos.entidades.PlanVacunacion;
 import datos.entidades.Vacuna;
-
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.LaboratorioServiceLocal;
 import logica.servicios.local.PlanVacunacionServiceLocal;
 import logica.servicios.local.VacunaServiceLocal;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -20,8 +18,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import javax.ejb.EJB;
 
+import javax.ejb.EJB;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;

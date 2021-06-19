@@ -1,7 +1,7 @@
 package logica.creacion;
 
-import datos.dtos.DosisDadaDTO;
 import datos.dtos.CertificadoVacunacionDTO;
+import datos.dtos.DosisDadaDTO;
 import datos.entidades.*;
 import datos.repositorios.CiudadanoRepositoryLocal;
 

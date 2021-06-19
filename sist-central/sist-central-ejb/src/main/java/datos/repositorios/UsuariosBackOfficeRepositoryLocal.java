@@ -1,11 +1,10 @@
 package datos.repositorios;
 
-import java.util.List;
-
-import javax.ejb.Local;
-
 import datos.entidades.UsuarioBO;
 import datos.exceptions.EmailRegistradoException;
+
+import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface UsuariosBackOfficeRepositoryLocal {

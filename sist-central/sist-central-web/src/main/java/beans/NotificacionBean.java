@@ -1,6 +1,5 @@
 package beans;
 
-import logica.negocios.CiudadanoBean;
 import logica.servicios.local.CiudadanoServiceLocal;
 
 import javax.ejb.EJB;

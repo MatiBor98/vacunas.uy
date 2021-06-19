@@ -1,21 +1,15 @@
 package datos.repositorios;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import datos.entidades.Asignacion;
+import datos.entidades.PuestoVacunacion;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import datos.dtos.PuestoVacunacionDTO;
-import datos.entidades.Asignacion;
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Vacuna;
-import datos.entidades.Vacunatorio;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Session Bean implementation class PuestoVacunacionRepository

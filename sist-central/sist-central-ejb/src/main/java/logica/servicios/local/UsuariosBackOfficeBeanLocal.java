@@ -1,15 +1,13 @@
 package logica.servicios.local;
 
-import java.util.List;
-
-import javax.ejb.Local;
-
 import datos.dtos.SessionTokens;
 import datos.dtos.UsuarioBackOfficeDTO;
-import datos.entidades.UsuarioBO;
 import datos.exceptions.EmailNoRegistradoException;
 import datos.exceptions.EmailRegistradoException;
 import datos.exceptions.PasswordIncorrectaException;
+
+import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface UsuariosBackOfficeBeanLocal {

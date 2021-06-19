@@ -1,41 +1,23 @@
 package beans;
 
 import Utilities.TokenVerifier;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import datos.dtos.CiudadanoDTO;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import logica.servicios.local.CiudadanoServiceLocal;
 import plataformainteroperabilidad.Ciudadano;
 import plataformainteroperabilidad.Ciudadanos;
 import plataformainteroperabilidad.CiudadanosService;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
 import javax.ejb.EJB;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.json.JsonObject;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.RSAPublicKeySpec;
-import java.util.Base64;
 import java.util.Map;
 
 @Named("UsuarioLogueadoBean")

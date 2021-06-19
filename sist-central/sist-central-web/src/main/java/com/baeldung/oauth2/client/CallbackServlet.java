@@ -1,11 +1,7 @@
 package com.baeldung.oauth2.client;
 
-import datos.dtos.CiudadanoDTO;
-import logica.servicios.local.CiudadanoServiceLocal;
-import logica.servicios.local.UsuariosBackOfficeBeanLocal;
 import org.eclipse.microprofile.config.Config;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -21,7 +17,6 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.util.Base64;
 
 @WebServlet("/")
 public class CallbackServlet extends AbstractServlet {

@@ -3,7 +3,6 @@ package logica.creacion;
 import datos.dtos.PlanVacunacionDTO;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
-import datos.repositorios.EnfermedadRepository;
 import datos.repositorios.EnfermedadRepositoryLocal;
 
 import javax.ejb.EJB;

@@ -5,12 +5,11 @@ import datos.dtos.PlanVacunacionDTO2;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 
+import javax.ejb.Local;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import javax.ejb.Local;
 
 @Local
 public interface PlanVacunacionServiceLocal {

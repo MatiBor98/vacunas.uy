@@ -2,21 +2,15 @@ package beans;
 
 import logica.servicios.local.LoteServiceLocal;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.Topic;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Properties;
 
 @Named("LoteBean")
 @RequestScoped

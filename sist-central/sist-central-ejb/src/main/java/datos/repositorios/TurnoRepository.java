@@ -1,14 +1,11 @@
 package datos.repositorios;
 
-import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

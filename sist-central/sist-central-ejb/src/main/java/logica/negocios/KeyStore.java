@@ -1,14 +1,14 @@
 package logica.negocios;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import logica.servicios.local.KeyStoreLocal;
+
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import logica.servicios.local.KeyStoreLocal;
 
 /**
  * Session Bean implementation class KeyStore

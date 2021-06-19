@@ -1,10 +1,9 @@
 package datos.repositorios;
 
-import java.util.List;
+import datos.entidades.Mensaje;
 
 import javax.ejb.Local;
-
-import datos.entidades.Mensaje;
+import java.util.List;
 
 @Local
 public interface MensajeRepositoryLocal {

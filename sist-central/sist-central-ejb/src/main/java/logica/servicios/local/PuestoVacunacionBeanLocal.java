@@ -1,16 +1,15 @@
 package logica.servicios.local;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-import javax.ejb.Local;
-
 import datos.dtos.PuestoVacunacionDTO;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 import datos.entidades.Vacunador;
 import datos.entidades.Vacunatorio;
+
+import javax.ejb.Local;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Local
 public interface PuestoVacunacionBeanLocal {
