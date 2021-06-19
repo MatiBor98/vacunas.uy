@@ -2,13 +2,10 @@ package logica.negocios;
 
 import datos.DistributedLock;
 import datos.dtos.CiudadanoDTO;
-import datos.dtos.IntervaloDTO;
 import datos.dtos.IntervaloDTO2;
 import datos.dtos.ReservaDTO;
 import datos.entidades.*;
-import datos.repositorios.CiudadanoRepositoryLocal;
-import datos.repositorios.IntervaloRepository;
-import datos.repositorios.ReservaRepository;
+import datos.repositorios.*;
 import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.CiudadanoServiceLocal;
 import logica.servicios.local.LoteServiceLocal;
@@ -48,6 +45,9 @@ public class ReservaBean implements ReservaServiceLocal {
 	@EJB
     private DistributedLock distributedLock;
 
+	@EJB
+    private VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+
     public List<Reserva> listar(int offset, int limit, int ci) {
         return reservaRepository.listar(offset, limit, ci);
     }
@@ -68,7 +68,21 @@ public class ReservaBean implements ReservaServiceLocal {
 
         //bloqueo el accesso solo para los que reservan el mismo intervalo
         distributedLock.blockingLock(intervalo.getLockId());
-        
+
+        long cantidadDosisDisponiblesVacuna = vacunatorioRepositoryLocal.getDosisDisponiblesVacunaCount(
+                intervalo.getAgenda().getTurno().getVacunatorio().getNombre(),
+                vacuna.getNombre()
+        );
+
+        long cantidadReservasPendientes = vacunatorioRepositoryLocal.getReservasPendientesVacunaCount(
+                intervalo.getAgenda().getTurno().getVacunatorio().getNombre(),
+                vacuna.getNombre()
+        );
+
+        if (vacuna.getCantDosis() > (cantidadDosisDisponiblesVacuna - cantidadReservasPendientes)) {
+            throw new RuntimeException("No hay dosis papá");
+        }
+
         Intervalo intervaloCreado = intervaloRepository.findOrCreate(intervalo);
         Reserva reserva = new Reserva(Estado.PENDIENTE, ciudadano, intervaloCreado, 1);
         intervaloCreado.addReserva(reserva);

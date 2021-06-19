@@ -84,6 +84,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				.setParameter("departamento", dep)
 				.getResultList();
 	}
+
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados ) {
 		return entityManager.createQuery(
 				"select distinct v from Vacunatorio v"
@@ -96,6 +97,38 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				.setFirstResult(primerResultado)
                 .setMaxResults(maximosResultados)
 				.getResultList();
+	}
+
+	@Override
+	public long getDosisDisponiblesVacunaCount(String vacunatorio, String vacuna) {
+		return entityManager.createQuery(
+				"select sum(lot.dosisDisponibles) from Vacunatorio vio"
+						+ " inner join vio.lotes lot"
+						+ " inner join lot.vacuna vna"
+						+ " where vio.id = :vacunaotrio "
+						+ " and vna.id = :vacuna "
+						+ " and lot.fechaVencimiento > current_date ", Long.class)
+				.setParameter("vacunaotrio", vacunatorio)
+				.setParameter("vacuna", vacuna)
+				.getSingleResult();
+	}
+
+	@Override
+	public long getReservasPendientesVacunaCount(String vacunatorio, String vacuna) {
+		return entityManager.createQuery(
+				"select count(distinct r.id) from Vacunatorio vio"
+						+ " inner join Turno t on t.vacunatorio=vio "
+						+ " inner join Agenda a on a.turno=t "
+						+ " inner join Intervalo i on i.agenda = a "
+						+ " inner join a.etapa e "
+						+ " inner join e.vacuna vna "
+						+ " inner join i.reservas r "
+						+ " where vio.id = :vacunaotrio "
+						+ " and vna.id = :vacuna "
+						+ " and r.estado = datos.entidades.Estado.PENDIENTE ", Long.class)
+				.setParameter("vacunaotrio", vacunatorio)
+				.setParameter("vacuna", vacuna)
+				.getSingleResult();
 	}
 }
 

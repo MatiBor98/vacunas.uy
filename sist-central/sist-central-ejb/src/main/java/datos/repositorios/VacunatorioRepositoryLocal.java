@@ -20,4 +20,8 @@ public interface VacunatorioRepositoryLocal {
 	 void addLoteAVacuantorio(Lote lote, String nombreVacunatorio);
 	 Optional<Vacunatorio> find(String nombre);
 	 Optional<Vacunatorio> findWithEverything(String nombre);
+
+    long getDosisDisponiblesVacunaCount(String vacunatorio, String vacuna);
+
+	long getReservasPendientesVacunaCount(String vacunatorio, String vacuna);
 }

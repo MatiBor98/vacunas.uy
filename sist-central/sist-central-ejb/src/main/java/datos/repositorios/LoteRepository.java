@@ -67,6 +67,4 @@ public class LoteRepository implements LoteRepositoryLocal {
         this.findByNumLote(numeroLote).get().setFechaEntrega(fechaEntrega);
 
     }
-
-
 }
