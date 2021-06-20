@@ -63,6 +63,7 @@ public class ReservaBean implements ReservaServiceLocal {
         efectuarCancelacion(reserva);
     }
 
+    @Override
     public List<Reserva> efectuarReserva(Intervalo intervalo, int ciudadanoCi) {
         Ciudadano ciudadano = ciudadanoRepository.find(ciudadanoCi).orElseThrow(RuntimeException::new);
         Vacuna vacuna = intervalo.getAgenda().getEtapa().getVacuna();

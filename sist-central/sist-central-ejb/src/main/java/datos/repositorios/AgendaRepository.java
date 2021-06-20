@@ -4,14 +4,17 @@ import datos.entidades.Agenda;
 import datos.entidades.Departamento;
 import plataformainteroperabilidad.Trabajo;
 
+import javax.ejb.AccessTimeout;
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
-@Singleton
+@Stateless
 public class AgendaRepository implements AgendaRepositoryLocal {
     @PersistenceContext(unitName = "sist-centralPersistenceUnit")
     private EntityManager entityManager;
