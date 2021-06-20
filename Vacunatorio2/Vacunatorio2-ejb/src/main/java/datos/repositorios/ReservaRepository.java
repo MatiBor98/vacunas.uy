@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Singleton
-@LocalBean
 public class ReservaRepository implements ReservaRepositoryLocal, ReservaRepositoryRemote{
     @PersistenceContext(unitName = "Vacunatorio2PersistenceUnit")
     private EntityManager entityManager;

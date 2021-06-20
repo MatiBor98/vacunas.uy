@@ -7,11 +7,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/WEB-INF/Template.xhtml">
+
 	<ui:define name="titulo">
 		- Inicio
 	</ui:define>
 	<ui:define name="content">
-	<div style="background-image: url('web-resources/Home.png');background-position: center;background-size: cover;background-repeat: no-repeat;background-attachment: fixed">
+	<h:outputStylesheet library="css" name = "index.css"/>
+	<div class="home">
 	<p style="color:white">hola</p>
 	<div class="card shadow-lg p-8 mb-5 rounded" style="width:70rem; height:8.5rem; background-color:#EEEDE7; position:unset; margin-top:70px">
 		<div class="card-body">
@@ -23,7 +25,7 @@
 	  <div class="row">
 	    <div class="col-sm" style="margin-top:30px">
 		<div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
-		  <img src="web-resources/Vacunador.jpg" class="card-img-top" style="height:150px" alt="..."/>
+		  <h:graphicImage name="Vacunador.jpg" class="card-img-top" style="height:150px" alt="..."/>
 		  <div class="card-body">
 		    <h5 class="card-title">Asignaciones</h5>
 		    <p class="card-text">Mira que vacunadores estan asignados a que puestos con sus respectivos turnos.</p>
@@ -33,7 +35,7 @@
 	    </div>
 	    <div class="col-sm">
 	      <div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
-		  <img src="web-resources/Hospital_de_Artigas.jpg" class="card-img-top" alt="..."/>
+		  <h:graphicImage name="COSEM.jpg" class="card-img-top" alt="..."/>
 		  <div class="card-body">
 		    <h5 class="card-title">Dosis</h5>
 		    <p class="card-text">Gestionar la cantidad de dosis disponibles para cada vacuna.</p>
@@ -43,7 +45,7 @@
 	    </div>
 	    <div class="col-sm" style="margin-top:30px">
 	      <div class="card shadow-lg p-3 mb-5 rounded" style="width: 18rem;background-color:#EEEDE7">
-		  <img src="web-resources/Agenda.jpg" class="card-img-top"  style="height:150px" alt="..."/>
+		  <h:graphicImage name="Agenda.jpg" class="card-img-top"  style="height:150px" alt="..."/>
 		  <div class="card-body">
 		    <h5 class="card-title">Reservas</h5>
 		    <p class="card-text">Gestionar las reservas de los ciudadanos para actos de vacunacion.</p>

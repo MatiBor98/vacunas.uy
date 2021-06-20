@@ -54,9 +54,8 @@ import datos.repositorios.TurnoRepositoryRemote;
 import datos.repositorios.VacunaRepositoryRemote;
 import datos.repositorios.VacunatorioRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryRemote;
+import logica.inicio.StartupBean;
 import logica.schedule.DatosVacunatorio;
-import logica.schedule.DatosVacunatorioSchedule;
-import logica.schedule.SchedulerMain;
 import logica.servicios.local.VacunatorioControllerLocal;
 
 
@@ -80,6 +79,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 	
 	@EJB
 	private LoteRepositoryLocal loteRepositoryLocal;
+	
+	@EJB
+	private StartupBean startUpBean;
 	
 	
 	
@@ -179,10 +181,11 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 
 	@Override
 	public void actualizar() {
+		startUpBean.run();
 		/*DatosVacunatorioSchedule dvs = new DatosVacunatorioSchedule();
 		dvs.run();*/
-		DatosVacunatorioSchedule schMain = new DatosVacunatorioSchedule();
-		schMain.run();
+		//DatosVacunatorioSchedule schMain = new DatosVacunatorioSchedule();
+		//schMain.run();
 	}
 
 }

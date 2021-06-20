@@ -8,7 +8,7 @@
 	<persistence-unit name="Vacunatorio2PersistenceUnit" transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/Vacunatorio2DS</jta-data-source>
-
+		
 		<class>datos.entidades.Agenda</class>
 		<class>datos.entidades.Asignacion</class>
 		<class>datos.entidades.Ciudadano</class>
