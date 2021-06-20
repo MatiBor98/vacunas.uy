@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-@LocalBean
 public class IntervaloRepository implements IntervaloRepositoryLocal, IntervaloRepositoryRemote{
     @PersistenceContext(unitName = "Vacunatorio2PersistenceUnit")
     private EntityManager entityManager;

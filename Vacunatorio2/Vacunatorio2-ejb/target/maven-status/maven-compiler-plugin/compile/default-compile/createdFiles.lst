@@ -1,4 +1,3 @@
-logica\schedule\SchedulerMain.class
 datos\entidades\Departamento$4.class
 datos\exceptions\PasswordIncorrectaException.class
 datos\exceptions\CiudadanoRegistradoException.class
@@ -34,7 +33,6 @@ datos\repositorios\PuestoVacunacionRepository.class
 datos\dtos\PlanVacunacionDTO2.class
 datos\entidades\Vacuna.class
 datos\repositorios\SocioLogisticoRepositoryLocal.class
-mdb\QueueMDB.class
 datos\entidades\SocioLogistico.class
 datos\repositorios\CiudadanoRepositoryLocal.class
 datos\entidades\PlanVacunacion.class
@@ -74,13 +72,11 @@ datos\dtos\SocioLogisticoDTO.class
 datos\exceptions\PuestoVacunacionNoExistenteException.class
 datos\repositorios\EtapaRepositoryRemote.class
 datos\repositorios\VacunatorioRepositoryLocal.class
-logica\schedule\DatosVacunatorioSchedule.class
 datos\repositorios\VacunatorioRepositoryRemote.class
 datos\dtos\AgendaDTO.class
 datos\exceptions\AgendaFechaIncorrectaException.class
 logica\servicios\local\VacunatorioControllerLocal.class
 datos\entidades\Estado.class
-logica\schedule\EnviarReservasConfirmadasSchedule.class
 datos\entidades\Ciudadano.class
 datos\entidades\Intervalo.class
 datos\dtos\LaboratorioDTO.class

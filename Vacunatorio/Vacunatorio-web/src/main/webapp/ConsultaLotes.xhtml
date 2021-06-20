@@ -37,6 +37,13 @@
 	                                     action="#{LoteBean.setRealizarBusqueda(true)}"/>
 	                </h:form>
 	                <p></p>
+	                
+	                <h:form>
+
+	                    <h:commandButton value="Actualizar" type="submit" class="btn btn-success my-2 my-sm-0"
+	                    				 style="display:inline; width:200px;"
+	                                     action="#{ConsultaBean.actualizar()}"/>
+	                </h:form>
 	
 	                <div id="busq" style="margin-top: 20px; display:#{LoteBean.hayBusqueda}">
 	                    <div class="alert alert-secondary">

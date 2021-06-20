@@ -8,7 +8,10 @@ import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.eclipse.microprofile.config.Config;
 
 import datos.entidades.*;
 
@@ -35,6 +38,8 @@ public class VacunatorioBean implements Serializable{
 
 	@EJB
 	logica.servicios.local.VacunatorioControllerLocal ContVacunatorio;
+	@Inject
+	Config config;
 	
 	public List<String> getNombresDepartamentos() {
 		return ContVacunatorio.getNombresDepartamentos();
@@ -222,14 +227,22 @@ public class VacunatorioBean implements Serializable{
 		return vac.get().getCiudad();
 	}
 	
-	public List<PuestoVacunacion> getPuestos(String nombre) {
-		Optional<Vacunatorio> vac = ContVacunatorio.find(nombre);
-		return vac.get().getPuestosVacunacion();
+	public List<PuestoVacunacion> getPuestos() {
+		List<PuestoVacunacion> res = new ArrayList<>();
+		Optional<Vacunatorio> vac = ContVacunatorio.find(config.getValue("nombre", String.class));
+		if (!vac.isEmpty()) {
+			res = vac.get().getPuestosVacunacion();
+		}
+		return res;
 	}
 	
-	public List<Turno> getTurnos(String nombre) {
-		Optional<Vacunatorio> vac = ContVacunatorio.find(nombre);
-		return vac.get().getTurnos();
+	public List<Turno> getTurnos() {
+		List<Turno> res = new ArrayList<>();
+		Optional<Vacunatorio> vac = ContVacunatorio.find(config.getValue("nombre", String.class));
+		if (!vac.isEmpty()) {
+			res = vac.get().getTurnos();
+		}
+		return res;
 	}
 
 	public Set<Lote> getLotes(String nombre) {

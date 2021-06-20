@@ -5,6 +5,9 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
                 
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="Vacunatorio2-web.war" deploy-path="/" handle="module:/resource/Vacunatorio2-web/Vacunatorio2-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="Vacunatorio2-ejb.jar" deploy-path="/" handle="module:/resource/Vacunatorio2-ejb/Vacunatorio2-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -237,9 +240,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="wildfly-http-transaction-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-http-client/wildfly-http-transaction-client/1.1.2.Final/wildfly-http-transaction-client-1.1.2.Final.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="Vacunatorio2-web.war" deploy-path="/" handle="module:/resource/Vacunatorio2-web/Vacunatorio2-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
             

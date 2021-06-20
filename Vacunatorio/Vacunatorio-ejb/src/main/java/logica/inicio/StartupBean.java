@@ -16,6 +16,7 @@ import javax.ejb.LockType;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
@@ -24,6 +25,9 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.config.Config;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -95,6 +99,8 @@ public class StartupBean {
     private LoteRepositoryLocal loteRepository;
 	@EJB
     private VacunaRepositoryLocal vacunaRepository;
+	@Inject
+	Config config;
 	
 
 	
@@ -112,7 +118,7 @@ public class StartupBean {
 	
 	public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM_Punta_Carretas"); 
+		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class)); 
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);
@@ -120,7 +126,7 @@ public class StartupBean {
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		props.put(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/COSEM_Punta_Carretas:80");
+		props.put(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class));
 		reservaRepository.drop();
 		intervaloRepository.drop();
 		agendaRepository.drop();
@@ -332,7 +338,6 @@ public class StartupBean {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-
     }
 	
 }
