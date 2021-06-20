@@ -27,6 +27,12 @@
 			<artifactId>sist-central-web</artifactId>
 			<type>war</type>
 		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>sist-central-test</artifactId>
+			<type>war</type>
+		</dependency>
 	</dependencies>
 
 	<build>
