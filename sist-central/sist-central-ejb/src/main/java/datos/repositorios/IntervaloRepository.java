@@ -38,8 +38,10 @@ public class IntervaloRepository {
                         "and i.fechayHora = :inicio ", Intervalo.class)
                 .setParameter("inicio", inicio)
                 .setParameter("agendaId", agendaId)
+                .setMaxResults(1)
                 .getResultList()
                 .stream()
+                .peek(entityManager::refresh)
                 .findFirst();
     }
 
@@ -48,9 +50,5 @@ public class IntervaloRepository {
             entityManager.persist(intervalo);
             return intervalo;
         });
-    }
-
-    public void detach(Intervalo intervalo) {
-        entityManager.detach(intervalo);
     }
 }
