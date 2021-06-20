@@ -2,10 +2,14 @@ package datos.entidades;
 
 
 import org.apache.commons.collections.map.HashedMap;
+import plataformainteroperabilidad.Sexo;
+import plataformainteroperabilidad.Trabajo;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ejb.Local;
 import javax.persistence.*;
 
 
@@ -25,7 +29,19 @@ public class Ciudadano {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
 	@MapKey(name = "codigo")
 	protected Map<String, Reserva> reservas;
-	
+
+	private Sexo sexo;
+	private LocalDate fechaNacimiento;
+	private Trabajo trabajo;
+
+	public Trabajo getTrabajo() {
+		return trabajo;
+	}
+
+	public void setTrabajo(Trabajo trabajo) {
+		this.trabajo = trabajo;
+	}
+
 	public Ciudadano() {}
 
 	public Ciudadano(int ci, String nombre, String email) {
@@ -33,6 +49,33 @@ public class Ciudadano {
 		this.nombre = nombre;
 		this.email = email;
 		this.reservas = new HashMap<String, Reserva>();
+		this.sexo = null;
+		this.fechaNacimiento = null;
+	}
+
+	public Ciudadano(int ci, String nombre, String email, Sexo sexo, LocalDate fechaNacimiento) {
+		this.ci = ci;
+		this.nombre = nombre;
+		this.email = email;
+		this.reservas = new HashMap<String, Reserva>();
+		this.sexo = sexo;
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public int getCi() {

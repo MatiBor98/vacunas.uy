@@ -47,3 +47,60 @@ function count(){
         });
     });
 }
+
+
+var ctx;
+var myBarChart;
+
+function evolucionChart(datosMapJson){
+    let datosMap = JSON.parse(datosMapJson);
+    console.log(datosMap);
+    ctx = document.getElementById('myChart');
+
+    if (myBarChart != null){
+        myBarChart.destroy();
+    }
+
+    myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: '# de Dosis',
+                data: datosMap,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value) {if (value % 1 === 0) {return value;}}
+                    }
+                }
+            }
+        }
+    });
+
+    /*let chart = new Chart(ctx, {
+        type: 'bar',
+        data: datosMap,
+        options: {
+            //scales: {
+            //    xAxis: {
+                    // The axis for this scale is determined from the first letter of the id as `'x'`
+                    // It is recommended to specify `position` and / or `axis` explicitly.
+            //        type: 'time',
+            //    }
+            //}
+        }
+    });*/
+
+}

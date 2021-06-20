@@ -6,8 +6,11 @@ import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
+import plataformainteroperabilidad.Sexo;
+import plataformainteroperabilidad.Trabajo;
 
 import javax.ejb.Local;
+import java.time.LocalDate;
 import java.util.List;
 
 @Local
@@ -22,6 +25,7 @@ public interface CiudadanoServiceLocal {
 	Vacunador findVacunador(int ciVac);
 	VacunadorDTO getVacunadorDTO(Vacunador vacunador);
     void notificarTodosLosUsuariosMoviles(String titulo , String cuerpo);
+    void setSexoFechanacimiento(Integer ci, Sexo sexo, LocalDate fechaNacimiento, Trabajo trabajo);
 	CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano);
 
 }

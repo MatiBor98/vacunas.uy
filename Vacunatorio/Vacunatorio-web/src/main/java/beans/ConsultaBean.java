@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.eclipse.microprofile.config.Config;
+
 import datos.entidades.Reserva;
 
 @Named("ConsultaBean")
@@ -19,6 +23,9 @@ public class ConsultaBean implements Serializable{
 	
 	@EJB
 	logica.servicios.local.VacunatorioControllerLocal ContVacunatorio;
+	
+	@Inject
+    private Config config;
 
 	public Reserva getConsultaReserva() {
 		return consultaReserva;
@@ -40,6 +47,22 @@ public class ConsultaBean implements Serializable{
 	
 	public void actualizar() {
 		ContVacunatorio.actualizar();
+	}
+	
+	public String getNombreVacunatorio() {
+		return config.getValue("nombre", String.class);
+	}
+	
+	public String getCiudadVacunatorio() {
+		return config.getValue("ciudad", String.class);
+	}
+	
+	public String getDepartamentoVacunatorio() {
+		return config.getValue("departamento", String.class);
+	}
+	
+	public String getDireccionVacunatorio() {
+		return config.getValue("direccion", String.class);
 	}
 	
 	

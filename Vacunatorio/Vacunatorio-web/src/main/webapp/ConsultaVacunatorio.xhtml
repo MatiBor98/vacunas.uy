@@ -13,8 +13,7 @@
 	<ui:define name="content">
 		<div class="bodytype" style="margin-top:100px">
 			<div>
-				<img
-								src="web-resources/LogoVacunatorio.png"
+				<h:graphicImage name="LogoVacunatorio.png"
 								alt="LogoVacunatorio.png"
 								width="90"
 								height="90"
@@ -28,6 +27,14 @@
 
 				<p></p>
 				
+				<h:form>
+
+	                    <h:commandButton value="Actualizar" type="submit" class="btn btn-success my-2 my-sm-0"
+	                    				 style="display:inline; width:200px;"
+	                                     action="#{ConsultaBean.actualizar()}"/>
+	                </h:form>
+	                <p></p>
+				
 				<p:datePicker style="display:none"></p:datePicker>
 				
 						
@@ -38,14 +45,14 @@
 									<div class="card-header" style="background-color:#222938; color:white">
 										<h2>Puestos y Asignaciones</h2>
 									</div>
-									<h:form rendered="#{VacunatorioBean.getPuestos('COSEM Punta Carretas').isEmpty()}">
+									<h:form rendered="#{VacunatorioBean.getPuestos().isEmpty()}">
 									  <ul class="list-group list-group-flush">
 										<li class="list-group-item">No hay puestos asignados a este vacunatorio.</li>
 									  </ul>
 									</h:form>
-									<h:form rendered="#{!VacunatorioBean.getPuestos('COSEM Punta Carretas').isEmpty()}">
+									<h:form rendered="#{!VacunatorioBean.getPuestos().isEmpty()}">
 									  <ul class="list-group list-group-flush">
-										  <ui:repeat value="#{VacunatorioBean.getPuestos('COSEM Punta Carretas')}" var="puesto">
+										  <ui:repeat value="#{VacunatorioBean.getPuestos()}" var="puesto">
 										  	<div class="card" style="width:960px; background-color:#c6c6c6; border:0px">
 										  		<div class="card-header" style="background-color:#222938; color:#222938">
 										  		  <h3>
@@ -84,14 +91,14 @@
 									<div class="card-header" style="background-color:#222938; color:white">
 										<h2>Turnos</h2>
 									</div>
-									<h:form rendered="#{VacunatorioBean.getTurnos('COSEM Punta Carretas').isEmpty()}">
+									<h:form rendered="#{VacunatorioBean.getTurnos().isEmpty()}">
 									  <ul class="list-group list-group-flush">
 										<li class="list-group-item">No hay turnos asignados a este vacunatorio.</li>
 									  </ul>
 									</h:form>
-									<h:form rendered="#{!VacunatorioBean.getTurnos('COSEM Punta Carretas').isEmpty()}">
+									<h:form rendered="#{!VacunatorioBean.getTurnos().isEmpty()}">
 									  <ul class="list-group list-group-flush">
-										  <ui:repeat value="#{VacunatorioBean.getTurnos('COSEM Punta Carretas')}" var="turno">
+										  <ui:repeat value="#{VacunatorioBean.getTurnos()}" var="turno">
 										  		<div class="card" style="width:960px">
 													<div class="card-header" style="background-color:#222938; color:#222938">
 														<h4>

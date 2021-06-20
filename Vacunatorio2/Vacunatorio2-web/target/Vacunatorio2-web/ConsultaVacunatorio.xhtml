@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/Template.xhtml">
+	<ui:define name="titulo">
+		- Asignaciones
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype" style="margin-top:100px">
+			<div>
+				<h:graphicImage name="LogoVacunatorio.png"
+								alt="LogoVacunatorio.png"
+								width="90"
+								height="90"
+				/>
+				<h1 class="h2 mb-3 font-weight-normal">Asignaciones</h1>
+
+				<div style="display:inline">
+				  <button id="botonPuestos" type="button" class="btn" style="padding: 12px 100px; background-color:#222938; color:white; border-color:#222938" onclick="mostrarPuestos()">Puestos/Asignaciones</button>
+				  <button id="botonTurnos" type="button" class="btn" style="padding: 12px 150px; background-color:white; color:#222938; border-color:#222938" onclick="mostrarTurnos()">Turnos</button>
+				</div>
+
+				<p></p>
+				
+				<p:datePicker style="display:none"></p:datePicker>
+				
+						
+
+						<div class="card" style="background-color:#c6c6c6; width:1000px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px">
+						  <div class="card-body text-center" style="background-color:#c6c6c6; border:0px">
+								<div class="bodytype" id="puestos" style="display:block">
+									<div class="card-header" style="background-color:#222938; color:white">
+										<h2>Puestos y Asignaciones</h2>
+									</div>
+									<h:form rendered="#{VacunatorioBean.getPuestos('Hospital de Artigas').isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										<li class="list-group-item">No hay puestos asignados a este vacunatorio.</li>
+									  </ul>
+									</h:form>
+									<h:form rendered="#{!VacunatorioBean.getPuestos('Hospital de Artigas').isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										  <ui:repeat value="#{VacunatorioBean.getPuestos('Hospital de Artigas')}" var="puesto">
+										  	<div class="card" style="width:960px; background-color:#c6c6c6; border:0px">
+										  		<div class="card-header" style="background-color:#222938; color:#222938">
+										  		  <h3>
+													<li class="list-group-item">#{puesto.nombrePuesto}</li>
+												  </h3>
+												</div>
+												<h:form rendered="#{puesto.getAsignaciones().isEmpty()}">
+													<li class="list-group-item">No hay vacunadores asignados a este puesto</li>
+												</h:form>
+												<h:form rendered="#{!puesto.getAsignaciones().isEmpty()}">
+													<h5>
+														<li class="list-group-item" style="background-color:#99cddd">Asignaciones:</li>
+													</h5>
+													<ui:repeat value="#{puesto.getAsignaciones()}" var="asig">
+														<div class="card" style="width:960px; background-color:#c6c6c6">
+															<div class="card-header" style="background-color:#99cddd; color:#222938">
+															  <h5>
+																<li class="list-group-item">Vacunador: #{asig.vacunador.nombre} - #{asig.vacunador.ci}</li>
+															  </h5>
+															</div>
+															<li class="list-group-item">Turno: #{asig.turno.nombre} (#{asig.turno.inicio} - #{asig.turno.fin})</li>
+															<li class="list-group-item">Desde: #{asig.fechaInicio}</li>
+															<li class="list-group-item">Hasta: #{asig.fechaFin}</li>
+														</div>
+													</ui:repeat>
+												</h:form>
+											</div>
+										  </ui:repeat>
+									  </ul>
+									</h:form>
+									<h:form>
+									</h:form>
+								</div>
+
+								<div class="bodytype"  id="turnos" style="display:none">
+									<div class="card-header" style="background-color:#222938; color:white">
+										<h2>Turnos</h2>
+									</div>
+									<h:form rendered="#{VacunatorioBean.getTurnos('Hospital de Artigas').isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										<li class="list-group-item">No hay turnos asignados a este vacunatorio.</li>
+									  </ul>
+									</h:form>
+									<h:form rendered="#{!VacunatorioBean.getTurnos('Hospital de Artigas').isEmpty()}">
+									  <ul class="list-group list-group-flush">
+										  <ui:repeat value="#{VacunatorioBean.getTurnos('Hospital de Artigas')}" var="turno">
+										  		<div class="card" style="width:960px">
+													<div class="card-header" style="background-color:#222938; color:#222938">
+														<h4>
+															<li class="list-group-item">#{turno.nombre}</li>
+														</h4>
+													</div>
+													<li class="list-group-item">Inicio: #{turno.inicio}</li>
+													<li class="list-group-item">Fin: #{turno.fin}</li>
+												</div>
+										  </ui:repeat>
+									  </ul>
+									</h:form>
+								</div>
+						  </div>
+						</div>
+					</div>
+
+				</div>
+		<scripts>
+	<script type="text/javascript">
+		function mostrarPuestos() {
+			document.getElementById("puestos").style.display = "block";
+			document.getElementById("turnos").style.display = "none";
+			document.getElementById("botonPuestos").style = "padding: 12px 100px; background-color:#222938; color:white; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 150px; background-color:white; color:#222938; border-color:#222938";
+	
+		}
+	</script>
+	<script type="text/javascript">
+		function mostrarTurnos() {
+			document.getElementById("puestos").style.display = "none";
+			document.getElementById("turnos").style.display = "block";
+			document.getElementById("botonPuestos").style = "padding: 12px 100px; background-color:white; color:#222938; border-color:#222938";
+			document.getElementById("botonTurnos").style = "padding: 12px 150px; background-color:#222938; color:white; border-color:#222938";
+	
+		}
+	</script>
+</scripts>
+		
+	</ui:define>
+</ui:composition>
+</html>

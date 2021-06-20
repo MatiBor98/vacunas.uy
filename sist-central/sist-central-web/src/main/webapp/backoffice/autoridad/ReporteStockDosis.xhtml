@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+>
+<ui:composition template="/WEB-INF/appTemplateAutoridad.xhtml">
+    <ui:define name="titulo">
+        - Home
+    </ui:define>
+    <ui:define name="content">
+
+        <h:outputScript name="js/dosis.js" target="head" />
+
+        <div class="div-body" style="min-height: 0px">
+
+            <!--Filtro-->
+            <div class="container">
+
+                <h:form>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p:selectOneMenu id="Enfermedad" value="#{ReporteStockDosisBean.selEnfermedad}">
+                                <f:selectItem itemLabel="Todas las enfermedades" itemValue=""/>
+                                <f:selectItems value="#{ReporteStockDosisBean.enfermedades}"/>
+
+                                <p:ajax event="valueChange" update="Vacuna"
+                                        listener="#{ReporteStockDosisBean.initVacunas}"/>
+
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="col-sm">
+                            <p:selectOneMenu id="Vacuna" value="#{ReporteStockDosisBean.selVacunaaa}">
+                                <f:selectItem itemLabel="Todas las vacunas" itemValue=""/>
+                                <f:selectItems value="#{ReporteStockDosisBean.vacunas}"/>
+
+                                <p:ajax event="valueChange"
+                                        listener="#{ReporteStockDosisBean.averVacuna}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-sm">
+                            <p:selectOneMenu id="Departamento" value="#{ReporteStockDosisBean.selDepartamento}">
+                                <f:selectItem itemLabel="Todo el país" itemValue=""/>
+                                <f:selectItems value="#{ReporteStockDosisBean.departamentos}"/>
+                                <p:ajax event="valueChange" update="Vacunatorio"
+                                        listener="#{ReporteStockDosisBean.initVacunatorios}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-sm">
+                            <p:selectOneMenu id="Vacunatorio" value="#{ReporteStockDosisBean.selVacunatorio}">
+                                <f:selectItem itemLabel="Todos los vacunatorios" itemValue=""/>
+                                <f:selectItems value="#{ReporteStockDosisBean.vacunatorios}"/>
+
+                                <p:ajax event="valueChange"
+                                        listener="#{ReporteStockDosisBean.averVTorio}"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p:outputLabel for="inicio" value="Inicio" style="margin-right: 20px"/>
+                            <p:datePicker id="inicio" value="#{ReporteStockDosisBean.dateFechainicio}" >
+                                <p:ajax event="dateSelect" listener="#{ReporteStockDosisBean.onDateSelectInicio}"
+                                />
+                            </p:datePicker>
+
+                        </div>
+
+                        <div class="col-sm">
+                            <p:outputLabel for="fin" value="Fin" style="margin-right: 20px"/>
+                            <p:datePicker id="fin" value="#{ReporteStockDosisBean.dateFechaFin}" >
+                                <p:ajax event="dateSelect" listener="#{ReporteStockDosisBean.onDateSelectFin}"
+                                />
+                            </p:datePicker>
+                        </div>
+                    </div>
+                </h:form>
+
+
+            </div>
+            <!-- -->
+
+            <!-- Mostrar -->
+
+            <h:form>
+                <p:commandButton type="button" value="Consultar">
+                    <p:ajax event="click" listener="#{ReporteStockDosisBean.loadData}" process="@this"/>
+                </p:commandButton>
+
+
+
+
+                <div class="container why-us" id="mapaUru">
+
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="icon-boxes d-flex flex-column justify-content-center">
+                                <div class="icon-box mt-4 mt-xl-0" >
+
+                                    <div>
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container" style="max-width: 1340px;">
+                    <section id="why-us" class="why-us">
+                        <div class="row pb-2">
+
+
+                            <div class="col-3 ">
+                                <div class="icon-boxes d-flex flex-column justify-content-center">
+                                    <div class="icon-box mt-4 mt-xl-0">
+                                        <i class="bx bx-cube-alt"></i>
+                                        <h4>Dosis a día de hoy</h4>
+                                        <h6 class="count"  id="dosisActuales">#{ReporteStockDosisBean.dosisAdministradas}</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-3 ">
+                                <div class="icon-boxes d-flex flex-column justify-content-center">
+                                    <div class="icon-box mt-4 mt-xl-0">
+                                        <p:commandButton action="#{ReporteStockDosisBean.generarDatosHoy}" value="Recalcular dosis de la fecha de hoy" ></p:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+            </h:form>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/Template.xhtml">
+    <ui:define name="titulo">
+        - Consulta Lotes
+    </ui:define>
+    <ui:define name="content">
+        <div class="bodytype" style="margin-top:100px">
+            <div class="content">
+                <h:graphicImage name="LogoVacunatorio.png"
+								alt="LogoVacunatorio.png"
+								width="90"
+								height="90"
+				/>
+                <h1 class="h2 mb-3 font-weight-normal">Lotes disponibles</h1>
+                <div style="width:600px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
+	                <h:form class="form-inline my-4 my-lg-0 mr-auto">
+	                    <h:inputText
+	                            value="#{LoteBean.busqueda}"
+	                            class="form-control col-10 mr-sm-2"
+	                            style="width:650px"
+	                            type="search"
+	                            p:placeholder="Buscar lote por numero"
+	                            aria-label="Search"
+	                            name="busquedaLotes"
+	                    />
+	                    <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
+	                                     style="background-color:#222938; border:#222938; color:white"
+	                                     action="#{LoteBean.setRealizarBusqueda(true)}"/>
+	                </h:form>
+	                <p></p>
+	
+	                <div id="busq" style="margin-top: 20px; display:#{LoteBean.hayBusqueda}">
+	                    <div class="alert alert-secondary">
+	                        Resultado de la busqueda "#{LoteBean.busqueda}"
+	                    </div>
+	                </div>
+	                
+	                <div id="errores" style="margin-top: 20px; display:#{LoteBean.hayLotes()}">
+	                    <div class="alert alert-danger">
+	                        No hay nignun lote disponible.
+	                    </div>
+	                </div>
+	             </div>   
+                <p:datePicker style="display:none"></p:datePicker>
+                
+                <ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
+                    <ui:repeat value="#{LoteBean.getLotes()}" var="lote">
+
+                        <li class="list-group-item" style="background-color:#{LoteBean.getColor()}">
+                            <h2 style="color:#{LoteBean.colorSecundario}">Lote numero: #{lote.numeroLote}</h2>
+                            <p style="color:#{LoteBean.colorSecundario}"> Vacunas: #{lote.vacuna.nombre}</p>
+                            <p style="color:#{LoteBean.colorSecundario}"> Cantidad de dosis disponibles: #{lote.dosisDisponibles}</p>
+                            <p style="color:#{LoteBean.colorSecundario}"> Fecha de entrega: #{lote.fechaEntrega}</p>
+                            <p style="color:#{LoteBean.colorSecundario}"> Fecha de vencimiento: #{lote.fechaVencimiento}</p>
+                        </li>
+
+                    </ui:repeat>
+
+                </ul>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
+</html>

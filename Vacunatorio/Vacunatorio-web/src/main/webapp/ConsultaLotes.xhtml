@@ -15,8 +15,7 @@
     <ui:define name="content">
         <div class="bodytype" style="margin-top:100px">
             <div class="content">
-                <img
-								src="web-resources/LogoVacunatorio.png"
+                <h:graphicImage name="LogoVacunatorio.png"
 								alt="LogoVacunatorio.png"
 								width="90"
 								height="90"
@@ -38,6 +37,13 @@
 	                                     action="#{LoteBean.setRealizarBusqueda(true)}"/>
 	                </h:form>
 	                <p></p>
+	                
+	                <h:form>
+
+	                    <h:commandButton value="Actualizar" type="submit" class="btn btn-success my-2 my-sm-0"
+	                    				 style="display:inline; width:200px;"
+	                                     action="#{ConsultaBean.actualizar()}"/>
+	                </h:form>
 	
 	                <div id="busq" style="margin-top: 20px; display:#{LoteBean.hayBusqueda}">
 	                    <div class="alert alert-secondary">

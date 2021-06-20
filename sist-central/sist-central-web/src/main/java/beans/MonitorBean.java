@@ -41,21 +41,21 @@ public class MonitorBean implements Serializable {
 
 
 
-    private String selEnfermedad;
+    protected String selEnfermedad;
 
 
 
-    private String selVacuna;
-    private String selEtapa;
+    protected String selVacuna;
+    protected String selEtapa;
 
-    private List<String> enfermedades, vacunas;
-    private List<Integer>  etapas;
+    protected List<String> enfermedades, vacunas;
+    protected List<Integer>  etapas;
 
 
-    //private Integer rn,pa,fs,ar,sj,co,ro,mo,ma,la,fd,ca,tt,ta,rv,du,cl,so,sa;
-    private Map<String, Integer> dosisDadasDepartamento;
+    //protected Integer rn,pa,fs,ar,sj,co,ro,mo,ma,la,fd,ca,tt,ta,rv,du,cl,so,sa;
+    protected Map<String, Integer> dosisDadasDepartamento;
 
-    private Integer VacunadosHoy, DosisAdministradas, AgendadosProximos;
+    protected Integer VacunadosHoy, DosisAdministradas, AgendadosProximos;
 
     public String getSelEnfermedad() {
         return selEnfermedad;
@@ -111,7 +111,7 @@ public class MonitorBean implements Serializable {
     }
 
     @PostConstruct
-    private void initEnfermedades(){
+    protected void initEnfermedades(){
         this.enfermedades = enfermedadServiceLocal.find().stream().map(Enfermedad::getNombre).collect(Collectors.toList());
 
         loadData();
@@ -128,7 +128,7 @@ public class MonitorBean implements Serializable {
         if(selEnfermedad == null){ selEnfermedad = "";}
         if(selVacuna == null){ selVacuna = "";}
 
-        dosisDadasDepartamento = reservaBean.getDosisPorDepartamentos(selEnfermedad,selVacuna,etapaInt);
+        dosisDadasDepartamento = reservaBean.getDosisPorDepartamentos(selEnfermedad,selVacuna,etapaInt, null, null);
         String dosisDadasDepartamentoJSON = new Gson().toJson(dosisDadasDepartamento).toString();
         String scriptUpdateMapa = String.format("updateMapa('%s');", dosisDadasDepartamentoJSON);
         PrimeFaces.current().executeScript(scriptUpdateMapa);
