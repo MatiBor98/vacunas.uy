@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
-public class EnfermedadAndVacunaTest {
+public class EnfermedadTest {
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -109,7 +109,10 @@ public class EnfermedadAndVacunaTest {
         assertEquals(1, enf.getPlanesVacunacion().size());
         assertNotNull(plan);
         assertEquals("COVID-19-PLAN", plan.getNombre());
-        
+    }
+    @Test
+    @InSequence(2)
+    public void should_find_vacuna() {
         List<Vacuna> vacs = vacunaService.find();
         for(Vacuna v: vacs) {
         	if(v.getNombre().equals("Sputnik-V")) {
@@ -127,6 +130,10 @@ public class EnfermedadAndVacunaTest {
         		assertEquals("COVID-19", v.getEnfermedades().get(0).getNombre());
         	}
         }
+        
+        List<Enfermedad> enfermedad = enfermedadService.findByNombreEnfermedad("COVID-19");
+        List<Laboratorio> labs =  laboratorioService.findByNombreLaboratorio("PutinLabs");
+
         
         enfermedadService.save("COVID-21", "Te agarra mas tos y alto bajon plus bro", new ArrayList<Vacuna>(), new ArrayList<PlanVacunacion>());
         List<Enfermedad> enfe = enfermedadService.findByNombreEnfermedad("COVID-21");

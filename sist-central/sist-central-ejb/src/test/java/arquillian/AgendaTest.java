@@ -58,7 +58,6 @@ public class AgendaTest {
                 .addAsResource("META-INF/load.sql")
             	.addPackages(true, "datos", "logica", "plataformainteroperabilidad")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsWebInfResource("jboss-deployment-structure.xml")
 				.addAsLibraries(files);
     }
 

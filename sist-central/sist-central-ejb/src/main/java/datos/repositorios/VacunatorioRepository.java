@@ -42,7 +42,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
     }
 
     public List<Vacunatorio> find() {
-        return entityManager.createQuery("select e from Vacunatorio e", Vacunatorio.class)
+        return entityManager.createQuery("SELECT e FROM Vacunatorio e", Vacunatorio.class)
                 .getResultList();
     }
 

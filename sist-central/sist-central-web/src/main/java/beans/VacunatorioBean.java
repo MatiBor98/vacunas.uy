@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -17,7 +18,7 @@ import com.vividsolutions.jts.geom.PrecisionModel;
 import datos.entidades.*;
 
 @Named("VacunatorioBean")
-@RequestScoped
+@ViewScoped
 public class VacunatorioBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +37,8 @@ public class VacunatorioBean implements Serializable{
 	private String nomVacunatorio = null;
 	private String ciudadVacunatorio = null;
 	private String depVacunatorio = null;
-	private Double ubicacionX = null;
+	private boolean ubicacion;
+	private Double ubicacionX = null; 
 	private Double ubicacionY = null;
 
 	@EJB
@@ -59,11 +61,14 @@ public class VacunatorioBean implements Serializable{
 		} else {
 			depVacunatorio = depVacunatorio.replaceAll("\\s", "");
 			Departamento dep = Departamento.valueOf(depVacunatorio);
-			GeometryFactory geomFactory = new GeometryFactory( new PrecisionModel(PrecisionModel.FLOATING), 4326);
-			if (ubicacionX != null && ubicacionY != null) {
-				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, geomFactory.createPoint(new Coordinate(ubicacionX.doubleValue(),ubicacionY.doubleValue())));
+			if (ubicacion) {
+				GeometryFactory geomFactory = new GeometryFactory( new PrecisionModel(PrecisionModel.FLOATING), 4326);
+				double x = ubicacionX.doubleValue();
+				double y = ubicacionY.doubleValue();
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, geomFactory.createPoint(new Coordinate(x,y)));
+			}else {
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, null);
 			}
-			ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, null);
 			this.setElegirDepartamento("none");
 			this.setVacunatorioYaExiste("none");
 			this.setVacunatorioAgregado("block");
@@ -258,6 +263,12 @@ public class VacunatorioBean implements Serializable{
 	}
 	public void setUbicacionY(Double ubicacionY) {
 		this.ubicacionY = ubicacionY;
+	}
+	public boolean isUbicacion() {
+		return ubicacion;
+	}
+	public void setUbicacion(boolean ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 	
 	

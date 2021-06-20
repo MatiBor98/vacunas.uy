@@ -71,9 +71,6 @@ public class VacunatorioControllerTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsLibraries(files);
     }
-
-    @EJB
-    VacunatorioRepositoryLocal vacunatorioRepository;
     
     @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
@@ -88,7 +85,7 @@ public class VacunatorioControllerTest {
     public void should_create_vacunatorio() {
     	//primero vamos a ver si se cargaron los del script de carga
     	
-    	List<Vacunatorio> vacs = vacunatorioRepository.find();
+    	List<Vacunatorio> vacs = vacunatorioControllerLocal.find();
     	assertEquals(3, vacs.size());
     	
     	//ahora si creamos uno
