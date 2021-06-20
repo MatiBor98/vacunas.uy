@@ -1,0 +1,15 @@
+.card-title{
+    padding: 15px;
+}
+.row{
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+}
+
+.hexagon-bckg{
+    background: url("#{resource['images/hexagonBackground.jpg']}") top center;
+}
+
+.card{
+    width: 100%;
+}

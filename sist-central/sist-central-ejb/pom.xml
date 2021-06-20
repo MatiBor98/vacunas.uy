@@ -266,13 +266,14 @@
 					</execution>
 				</executions>
 				<configuration>
-<!--					<wsdlUrls>-->
-<!--						<wsdlUrl>https://interoperabilidad.web.elasticloud.uy/ciudadanos?wsdl</wsdlUrl>-->
-<!--					</wsdlUrls>-->
-					<wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>
-					<wsdlFiles>
-						<wsdlFile>ciudadanos.wsdl</wsdlFile>
-					</wsdlFiles>
+					<wsdlUrls>
+						<wsdlUrl>
+							https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl</wsdlUrl>-->
+					</wsdlUrls>
+<!--					<wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>-->
+<!--					<wsdlFiles>-->
+<!--						<wsdlFile>ciudadanos.wsdl</wsdlFile>-->
+<!--					</wsdlFiles>-->
 					<keep>true</keep>
 					<packageName>plataformainteroperabilidad</packageName>
 					<sourceDestDir>src/main/java</sourceDestDir>
