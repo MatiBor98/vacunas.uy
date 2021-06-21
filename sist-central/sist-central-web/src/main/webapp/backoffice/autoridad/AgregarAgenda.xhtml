@@ -42,7 +42,7 @@
                                 <f:selectItem noSelectionOption="true" itemLabel="Eliga una etapa" itemValue="0"/>
                                 <f:selectItems value="#{agendaCrearBean.etapas}"
                                                var="etapa"
-                                               itemLabel="#{etapa.descripcion}"
+                                               itemLabel="#{etapa.planVacunacion.nombre} - #{etapa.descripcion}"
                                                itemValue="#{etapa.id}"/>
                                 <f:ajax execute="@form" render="@form" event="change"/>
                             </h:selectOneMenu>

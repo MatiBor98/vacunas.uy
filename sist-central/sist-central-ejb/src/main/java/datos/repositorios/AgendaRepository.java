@@ -76,7 +76,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                         "group by a, e, t, v, vac " +
                         "having (" +
                         "   select sum(l.dosisDisponibles) " +
-                        "   from v.lotes l where l.vacuna = vac and l.fechaVencimiento > current_date) " +
+                        "   from v.lotes l where l.vacuna = vac and l.fechaVencimiento > current_date and l.fechaEntrega is not null) " +
                         "           >= count(r) + vac.cantDosis " +
                         "and count(f) = 0 " +
                         (trabajos != null ? "or :filtroPorEmpleo member of f " : ""), Agenda.class)
