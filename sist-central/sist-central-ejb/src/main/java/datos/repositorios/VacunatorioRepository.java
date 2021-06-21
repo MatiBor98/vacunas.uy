@@ -107,7 +107,8 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 						+ " inner join lot.vacuna vna"
 						+ " where vio.id = :vacunaotrio "
 						+ " and vna.id = :vacuna "
-						+ " and lot.fechaVencimiento > current_date ", Long.class)
+						+ " and lot.fechaVencimiento > current_date "
+						+ " and lot.fechaEntrega is not null ", Long.class)
 				.setParameter("vacunaotrio", vacunatorio)
 				.setParameter("vacuna", vacuna)
 				.getSingleResult();
