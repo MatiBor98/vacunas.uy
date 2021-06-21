@@ -12,7 +12,7 @@
     </ui:define>
     <ui:define name="content">
         <div class="div_body" style="background-color: white; min-height:100vh; display:block">
-            <h:form class="form-signin">
+            <h:form id="altaVacunatorio" class="form-signin">
                 <h:graphicImage styleClass="mb-4"
                                 name="LogoVacunatorio.png"
                                 t:alt="LogoVacunatorio.png"
@@ -74,7 +74,29 @@
                         t:placeholder="Ingrese la direccion"
                         required="true"
                 />
-
+                <p:selectBooleanCheckbox id="location" value="#{VacunatorioBean.ubicacion}" itemLabel="Ubicacion">
+                	<p:ajax update="inputUbicacionX"/>
+                	<p:ajax update="inputUbicacionY"/>
+                </p:selectBooleanCheckbox>
+                
+                <label class="form-label">Ubicacion</label>
+                <p:inputNumber
+						value="#{VacunatorioBean.ubicacionX}"
+                        id="inputUbicacionX"
+                        t:placeholder="Ingrese la latitud"
+                        required="#{VacunatorioBean.ubicacion}"
+                        disabled="#{not VacunatorioBean.ubicacion}"
+                        decimalPlaces="7"
+                       
+                />
+                <p:inputNumber
+						value="#{VacunatorioBean.ubicacionY}"
+                        id="inputUbicacionY"
+                        t:placeholder="Ingrese la longitud"
+                        required="#{VacunatorioBean.ubicacion}"
+                        disabled="#{not VacunatorioBean.ubicacion}"
+                        decimalPlaces="7"
+                />
                 <h:commandButton value="Crear"
                                  class="btn btn-lg btn-primary btn-block"
                                  type="submit"

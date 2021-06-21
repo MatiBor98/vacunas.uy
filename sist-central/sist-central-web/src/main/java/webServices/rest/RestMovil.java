@@ -88,7 +88,38 @@ public class RestMovil {
 
             res.add(new VacunatorioEnfermedadesDTO(
                     vac.getNombre(), vac.getCiudad(), vac.getDireccion(), vac.getDepartamento(),
-                    enfermedadesFlat));
+                    enfermedadesFlat, vac.getUbicacion()));
+        }
+
+        return res;
+    }
+    
+    @GET
+    @Path("/vacunatorios/{coordX}/{coordY}")
+    public List<VacunatorioEnfermedadesDTO> getVacunatoriosCercanos(@PathParam("coordX") Double x, @PathParam("coordY") Double y){
+    	
+    	List<Vacunatorio> vacunatorios = vacunatorioControllerLocal.getVacunatoriosCercanos(x, y);
+        ArrayList<VacunatorioEnfermedadesDTO> res = new ArrayList<VacunatorioEnfermedadesDTO>();
+
+        //Converter de Vacunatorio a VacunatorioEnfermedadesDTO
+        for (Vacunatorio vac : vacunatorios) {
+            List<List<Enfermedad>> enfermedades = vac.getLotes().stream().map(Lote::getVacuna).map(Vacuna::getEnfermedades)
+                    .collect(toList());
+
+
+            List<String> enfermedadesFlat = new ArrayList<>();
+
+            for (List<Enfermedad> listaEnfermedades : enfermedades) {
+                List<String> stringListaEnfermedades = listaEnfermedades.stream().map(Enfermedad::getNombre).collect(toList());
+                enfermedadesFlat.addAll(stringListaEnfermedades);
+            }
+
+            enfermedadesFlat = new ArrayList<>(new HashSet<>(enfermedadesFlat)); // Remover duplicados
+
+
+            res.add(new VacunatorioEnfermedadesDTO(
+                    vac.getNombre(), vac.getCiudad(), vac.getDireccion(), vac.getDepartamento(),
+                    enfermedadesFlat, vac.getUbicacion()));
         }
 
         return res;

@@ -224,6 +224,22 @@
 		    <scope>test</scope>
 		</dependency>
 		
+		<dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-spatial</artifactId>
+        </dependency>
+		
+		<dependency>
+			    <groupId>com.vividsolutions</groupId>
+			    <artifactId>jts</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>net.postgis</groupId>
+		    <artifactId>postgis-jdbc</artifactId>
+		    <version>2.5.0</version>
+		</dependency>
+
     </dependencies>
 
 	<build>

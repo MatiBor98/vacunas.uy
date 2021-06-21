@@ -87,11 +87,10 @@ public class UsuarioLogueadoBean implements Serializable {
     public String getUserName() {
         return userName;
     }
+
     public String getCid() {
         return cid;
     }
-
-
 
     public CiudadanoDTO getCiudadano() {
         return ciudadano;
