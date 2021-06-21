@@ -21,6 +21,7 @@ public class AgendaDTO implements Serializable {
     private final int turnoId;
     private final LocalDate inicio;
     private final LocalDate fin;
+    private final String nombre;
     private final int id;
 
     @JsonCreator
@@ -30,13 +31,15 @@ public class AgendaDTO implements Serializable {
             int turnoId,
             int etapaId,
             LocalDate inicio,
-            LocalDate fin) {
+            LocalDate fin,
+            String nombre) {
         this.horarioPorDia = horarioPorDia;
         this.turnoId = turnoId;
         this.etapaId = etapaId;
         this.inicio = inicio;
         this.fin = fin;
         this.id = id;
+        this.nombre = nombre;
     }
 
     public Map<DayOfWeek, InformacionPosiblesIntervalosDTO> getHorarioPorDia() {
@@ -61,6 +64,10 @@ public class AgendaDTO implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     @Override
