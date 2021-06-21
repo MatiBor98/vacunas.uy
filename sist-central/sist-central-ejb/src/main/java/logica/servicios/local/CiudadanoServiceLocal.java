@@ -2,6 +2,7 @@ package logica.servicios.local;
 
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunadorDTO;
+import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
@@ -27,5 +28,6 @@ public interface CiudadanoServiceLocal {
     void notificarTodosLosUsuariosMoviles(String titulo , String cuerpo);
     void setSexoFechanacimiento(Integer ci, Sexo sexo, LocalDate fechaNacimiento, Trabajo trabajo);
 	CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano);
+	List<Asignacion> findAsignacionesVacunador(String cid);
 
 }

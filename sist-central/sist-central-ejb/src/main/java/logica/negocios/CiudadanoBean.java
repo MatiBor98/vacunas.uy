@@ -6,6 +6,7 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunadorDTO;
+import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoNoEncontradoException;
@@ -141,6 +142,13 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 	public CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano) {
 		CiudadanoDTO ciudDTO = new CiudadanoDTO(ciudadano.getCi(), ciudadano.getNombre(), ciudadano.getEmail(), false);
 		return ciudDTO;
+	}
+
+	@Override
+	public List<Asignacion> findAsignacionesVacunador(String cid) {
+		int ci = Integer.valueOf(cid);
+		return ciudadanoRepository.findAsignacionesVacunador(ci);
+
 	}
 
 }
