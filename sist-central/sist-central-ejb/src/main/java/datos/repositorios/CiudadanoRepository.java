@@ -94,7 +94,7 @@ public class CiudadanoRepository implements CiudadanoRepositoryLocal{
 	@Override
 	public List<Asignacion> findAsignacionesVacunador(int cid) {
 		return entityManager.createQuery(
-                "select a from Asignacion a where a.ciVacunador = :cedula", Asignacion.class)
+                "select a from Asignacion a where a.vacunador.ci = :cedula", Asignacion.class)
 				.setParameter("cedula", cid)
                 .getResultList();
 	}
