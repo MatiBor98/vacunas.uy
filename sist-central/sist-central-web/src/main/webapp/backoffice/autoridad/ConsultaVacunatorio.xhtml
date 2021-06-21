@@ -141,7 +141,19 @@
 									<h:form rendered="#{!VacunatorioBean.getLotes(ConsultaBean.consultaVacunatorio).isEmpty()}">
 										<ul class="list-group list-group-flush">
 											<ui:repeat value="#{VacunatorioBean.getLotes(ConsultaBean.consultaVacunatorio)}" var="lote">
-												<li class="list-group-item">#{lote.numeroLote}</li>
+												<div class="card" style="width:960px">
+													<div class="card-header" style="background-color:#222938; color:#222938">
+														<h4>
+															<li class="list-group-item">Numero de lote: #{lote.numeroLote}</li>
+														</h4>
+													</div>
+													<li class="list-group-item">Vacuna: #{lote.vacuna.nombre}</li>
+													<li class="list-group-item">Dosis disponibles: #{lote.dosisDisponibles}</li>
+													<li class="list-group-item">Socio logistico: #{lote.socioLogistico.nombre}</li>
+													<li class="list-group-item">Fecha de despacho: #{lote.fechaDespacho}</li>
+													<li class="list-group-item">Fecha de entrega: #{lote.fechaEntrega}</li>
+													<li class="list-group-item">Fecha de vencimiento: #{lote.fechaVencimiento}</li>
+												</div>
 											</ui:repeat>
 										</ul>
 									</h:form>
