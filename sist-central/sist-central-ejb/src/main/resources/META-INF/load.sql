@@ -4,7 +4,7 @@ ALTER SEQUENCE intervaloid RESTART WITH 1;
 ALTER SEQUENCE reservaid RESTART WITH 1;
 ALTER SEQUENCE sequenciaagendaid RESTART WITH 1;
 ALTER SEQUENCE sequenciaetapaid RESTART WITH 1;
-ALTER SEQUENCE seqsequenciaturnoid RESTART WITH 1;
+ALTER SEQUENCE sequenciaturnoid RESTART WITH 1;
 
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Coronavac', 2, 14, 8);
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Pfizer', 2, 17, 8);
