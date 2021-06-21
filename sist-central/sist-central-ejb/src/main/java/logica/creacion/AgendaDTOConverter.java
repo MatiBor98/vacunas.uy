@@ -41,6 +41,7 @@ public class AgendaDTOConverter implements Converter<AgendaDTO, Agenda> {
         return builder.setInicio(agendaDTO.getInicio())
                 .setId(agendaDTO.getId())
                 .setFin(agendaDTO.getFin())
+                .setNombre(agendaDTO.getNombre())
                 .setHorarioPorDia(horariosPorDia)
                 .setTurno(turno)
                 .setEtapa(etapa)
