@@ -121,7 +121,7 @@ public class LoginBackOfficeBean implements Serializable{
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/backoffice/autoridad/Autoridad.xhtml");
 			}
 		} catch (EmailNoRegistradoException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El email ingresado no se ecnuentra registrado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El email ingresado no se encuentra registrado"));
 		} catch (PasswordIncorrectaException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Constrasena incorrecta"));
 		} catch (IOException e) {
