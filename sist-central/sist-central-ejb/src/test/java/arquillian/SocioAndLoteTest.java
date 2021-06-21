@@ -89,7 +89,7 @@ public class SocioAndLoteTest {
        List<Vacuna> vac = vacunaService.findByNombreVacuna("TheWall");
        assertEquals(1, vac.size());
        
-       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas, null);
+       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas/*, null*/);
        List<Vacunatorio> vacs = vacunatorioController.find();
        //se crean 3 al iniciar el sistema
        assertEquals(4, vacs.size());
@@ -138,7 +138,7 @@ public class SocioAndLoteTest {
        List<Lote> lotes = loteService.find();
        assertNotNull(lotes);
        //hay 2 creados al iniciar el sistema
-       assertEquals(4, lotes.size());
+       assertEquals(8, lotes.size());
        
     }
     

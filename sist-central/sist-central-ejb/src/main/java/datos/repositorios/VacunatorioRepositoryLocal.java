@@ -24,5 +24,5 @@ public interface VacunatorioRepositoryLocal {
     long getDosisDisponiblesVacunaCount(String vacunatorio, String vacuna);
 
 	long getReservasPendientesVacunaCount(String vacunatorio, String vacuna);
-	List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY);
+	//List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY);
 }

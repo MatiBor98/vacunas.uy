@@ -141,13 +141,14 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				.setParameter("vacuna", vacuna)
 				.getSingleResult();
 	}
-	public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {
+	
+	/*public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {*/
     	
 		/*return entityManager.createNativeQuery(
 				"SELECT * FROM vacunatorio WHERE ST_DWithin( ST_SetSRID(ubicacion, 4326)::geography , ST_GeomFromText('POINT("+ coordX.doubleValue() +" "+ coordY.doubleValue()+  ")', 4326)::geography, 50000)", Vacunatorio.class)
 				.getResultList();*/
 		
-		return entityManager.createNativeQuery(
+	/*	return entityManager.createNativeQuery(
 				"select * " +
 				"from vacunatorio " +
 				"WHERE ST_DWithin(ST_SetSRID(vacunatorio.ubicacion, 4326), " +
@@ -155,7 +156,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				                 "0.4)", Vacunatorio.class)
 				.getResultList();
 		
-	}
+	}*/
 	
 }
 

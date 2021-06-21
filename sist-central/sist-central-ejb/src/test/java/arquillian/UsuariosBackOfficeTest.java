@@ -148,7 +148,7 @@ public class UsuariosBackOfficeTest {
     			nuevoAdmin = usuario;
     		}
     	}
-    	assertEquals(3, usuarios.size()); // hay 3 pq el sistema crea uno al iniciar
+    	assertEquals(5, usuarios.size()); // hay 3 pq el sistema crea 3 al iniciar
     	
     	assertNotEquals(null, nuevoAdmin);
     	assertNotEquals(null, nuevoAuto);
@@ -166,7 +166,7 @@ public class UsuariosBackOfficeTest {
     	usuarioBackOfficeBean.overwriteUsuarioBackOffice(nuevoAdmin);
     	
     	usuarios = usuarioBackOfficeBean.usersList();
-    	assertEquals(3, usuarios.size());
+    	assertEquals(5, usuarios.size());
     	
     	for(UsuarioBackOfficeDTO usuario: usuarios) {
     		if(usuario.getEmail().equals("admin@email.com")) {

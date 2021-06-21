@@ -65,9 +65,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     public VacunatorioBean() {
     }
 
-    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, Point ubicacion) {
+    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento/*, Point ubicacion*/) {
     	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento);
-    	vac.setUbicacion(ubicacion);
+    	//vac.setUbicacion(ubicacion);
     	vacunatorioRepositoryLocal.save(vac);
     }
     
@@ -156,7 +156,7 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		
 	}
 	
-	public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY){
+	/*public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY){
 		return vacunatorioRepositoryLocal.findVacunatorioCercano(coordX, coordY);
-	}
+	}*/
 }

@@ -91,6 +91,7 @@ public class AgendaTest {
                 .setInicio(LocalDate.parse("2021-05-14"))
                 .setFin(LocalDate.parse("2021-05-14").plusYears(1))
                 .setHorarioPorDia(informaciones)
+                .setNombre("Matutino")
                 .createAgendaDTO();
 
         AgendaDTO agendaId = agendaServiceLocal.save(agendaDTO);
@@ -111,7 +112,7 @@ public class AgendaTest {
     @Test
     @InSequence(3)
     public void should_find_etapa_for_user_info_cv_50_null() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 50, null);
+        List<EtapaDTO> etapas = etapaController.find("Coronavirus", 50, null);
         assertEquals(etapas.size(), 1);
         assertEquals(etapas.get(0).getId(), 3);
     }
@@ -119,24 +120,28 @@ public class AgendaTest {
     @Test
     @InSequence(4)
     public void should_find_etapa_for_user_info_cv_20_salud() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajo.SALUD);
-        assertEquals(etapas.size(), 2);
+        List<EtapaDTO> etapas = etapaController.find("Coronavirus", 20, Trabajo.SALUD);
+        assertEquals(etapas.size(), 3);
         assertEquals(etapas.get(0).getId(), 1);
         assertEquals(etapas.get(1).getId(), 2);
+        assertEquals(etapas.get(2).getId(), 3);
+
     }
 
     @Test
     @InSequence(5)
     public void should_find_etapa_for_user_info_cv_20_enenansa() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 20, Trabajo.EDUCACION);
-        assertEquals(etapas.size(), 1);
+        List<EtapaDTO> etapas = etapaController.find("Coronavirus", 20, Trabajo.EDUCACION);
+        assertEquals(etapas.size(), 2);
         assertEquals(etapas.get(0).getId(), 2);
+        assertEquals(etapas.get(1).getId(), 3);
+
     }
 
     @Test
     @InSequence(6)
     public void should_find_etapa_for_user_info_cv_50_salud() {
-        List<EtapaDTO> etapas = etapaController.find("Corona Virus", 50, Trabajo.SALUD);
+        List<EtapaDTO> etapas = etapaController.find("Coronavirus", 50, Trabajo.SALUD);
         assertEquals(etapas.size(), 3);
         assertEquals(etapas.get(0).getId(), 1);
         assertEquals(etapas.get(1).getId(), 2);
@@ -146,10 +151,10 @@ public class AgendaTest {
 
     @Test
     @InSequence(7)
-    public void should_cancel_reserva() {
+    public void should__not_cancel_reserva() {
 
     	
-    	assertEquals(2, reservaService.listarCount(52050756).intValue());
+    	assertEquals(3, reservaService.listarCount(52050756).intValue());
     	Reserva reserva = null;
     	for(Reserva r: reservaService.listar(0, 5, 52050756)) {
     		if(r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Pfizer")) {
@@ -162,21 +167,22 @@ public class AgendaTest {
     	assertNotNull(reserva);
     	reservaService.cancelar(52050756, reserva.getCodigo());
     	
-    	//deben haberse cancelado las 2 de coronavac
-    	assertEquals(2, reservaService.listarCount(52050756).intValue());
+    	//no deben haberse cancelado las 2 de pfizer
+    	assertEquals(3, reservaService.listarCount(52050756).intValue());
     	List<Reserva> reservas = reservaService.listar(0, 5, 52050756);
     	assertEquals(Estado.VACUNADO, reservas.get(0).getEstado());
     	assertEquals(Estado.VACUNADO, reservas.get(1).getEstado());
+    	assertEquals(Estado.VACUNADO, reservas.get(2).getEstado());
 
 
     }
-
+    
     @Test
     @InSequence(8)
     public void should_confirm_reserva() {
-        List<VacunatorioTieneAgendaDTO> agendasVacunatorios = agendaServiceLocal.findAgendasParaCiudadanoPorDepartamento("Corona Virus", 50, Trabajo.SALUD, Departamento.Montevideo);
+        List<VacunatorioTieneAgendaDTO> agendasVacunatorios = agendaServiceLocal.findAgendasParaCiudadanoPorDepartamento("Coronavirus", 50, Trabajo.SALUD, Departamento.Montevideo);
         //3 agendas creadas al iniciar el sistema y una en estos tests
-        assertEquals(4, agendasVacunatorios.size());
+        assertEquals(1, agendasVacunatorios.size());
         boolean existeAgenda4 = false;
         for (VacunatorioTieneAgendaDTO vacAg : agendasVacunatorios) {
             if (vacAg.getAgenda().getId() == 4) {
@@ -214,7 +220,34 @@ public class AgendaTest {
         assertEquals(4, reservas.get(0).getIntervalo().getAgenda().getId());
         assertTrue(reservas.get(0).getIntervalo().getReservas().contains(reservas.get(0)));
 
-        assertEquals(4, reservaService.listarCount(52050756).intValue());
+        assertEquals(5, reservaService.listarCount(52050756).intValue());
+
+    }
+    
+    @Test
+    @InSequence(9)
+    public void should_cancel_reserva() {
+
+    	
+    	assertEquals(5, reservaService.listarCount(50550419).intValue());
+    	Reserva reserva = null;
+    	for(Reserva r: reservaService.listar(0, 10, 50550419)) {
+    		if(r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Gripevac")) {
+    			reserva = r;
+    			break;
+    			
+    		}
+    	}
+    	
+    	assertNotNull(reserva);
+    	reservaService.cancelar(50550419, reserva.getCodigo());
+    	
+    	//no deben haberse cancelado las 1 de gripevac
+    	assertEquals(5, reservaService.listarCount(50550419).intValue());
+    	List<Reserva> reservas = reservaService.listar(0, 5, 50550419);
+    	assertEquals(Estado.CANCELADA, reservas.get(0).getEstado());
+
+
 
     }
 }

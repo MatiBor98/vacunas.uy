@@ -88,13 +88,13 @@ public class RestMovil {
 
             res.add(new VacunatorioEnfermedadesDTO(
                     vac.getNombre(), vac.getCiudad(), vac.getDireccion(), vac.getDepartamento(),
-                    enfermedadesFlat, vac.getUbicacion()));
+                    enfermedadesFlat/*, vac.getUbicacion()*/));
         }
 
         return res;
     }
     
-    @GET
+    /*@GET
     @Path("/vacunatorios/{coordX}/{coordY}")
     public List<VacunatorioEnfermedadesDTO> getVacunatoriosCercanos(@PathParam("coordX") Double x, @PathParam("coordY") Double y){
     	
@@ -123,7 +123,7 @@ public class RestMovil {
         }
 
         return res;
-    }
+    }*/
 
     @POST
     @Path("/token/{ci}")
