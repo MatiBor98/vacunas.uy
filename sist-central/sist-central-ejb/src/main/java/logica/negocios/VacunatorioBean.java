@@ -127,4 +127,8 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		DatosVacunatorio datos = new DatosVacunatorio(now, res);
 		return datos;
 	}
+	
+	public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY){
+		return vacunatorioRepositoryLocal.findVacunatorioCercano(coordX, coordY);
+	}
 }

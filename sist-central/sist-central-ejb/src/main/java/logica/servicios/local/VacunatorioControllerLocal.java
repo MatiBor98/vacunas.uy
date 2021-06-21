@@ -24,4 +24,5 @@ public interface VacunatorioControllerLocal {
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);
 	DatosVacunatorio getDatosVacunatorio(String nombrevac);
+	public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY);
 }

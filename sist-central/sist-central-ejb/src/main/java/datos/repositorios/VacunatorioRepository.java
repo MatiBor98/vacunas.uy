@@ -10,6 +10,7 @@ import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -17,6 +18,13 @@ import datos.exceptions.VacunatorioNoExistenteException;
 import logica.creacion.VacunatorioToDto;
 
 import org.hibernate.annotations.QueryHints;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.util.GeometricShapeFactory;
 
 import datos.entidades.Vacunatorio;
 import datos.dtos.DosisVacunatorioDTO;
@@ -112,5 +120,23 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
                 .setMaxResults(maximosResultados)
 				.getResultList();
 	}
+
+	@Override
+	public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {
+    	
+		/*return entityManager.createNativeQuery(
+				"SELECT * FROM vacunatorio WHERE ST_DWithin( ST_SetSRID(ubicacion, 4326)::geography , ST_GeomFromText('POINT("+ coordX.doubleValue() +" "+ coordY.doubleValue()+  ")', 4326)::geography, 50000)", Vacunatorio.class)
+				.getResultList();*/
+		
+		return entityManager.createNativeQuery(
+				"select * " +
+				"from vacunatorio " +
+				"WHERE ST_DWithin(ST_SetSRID(vacunatorio.ubicacion, 4326), " +
+				                 "ST_GeomFromText('POINT("+ coordX +" "+ coordY +")', 4326), " +
+				                 "0.4)", Vacunatorio.class)
+				.getResultList();
+		
+	}
+	
 }
 

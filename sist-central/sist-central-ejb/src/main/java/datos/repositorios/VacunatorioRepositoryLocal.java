@@ -20,4 +20,5 @@ public interface VacunatorioRepositoryLocal {
 	 void addLoteAVacuantorio(Lote lote, String nombreVacunatorio);
 	 Optional<Vacunatorio> find(String nombre);
 	 Optional<Vacunatorio> findWithEverything(String nombre);
+	List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY);
 }
