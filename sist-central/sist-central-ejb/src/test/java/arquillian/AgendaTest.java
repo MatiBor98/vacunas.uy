@@ -148,24 +148,25 @@ public class AgendaTest {
     @InSequence(7)
     public void should_cancel_reserva() {
 
-        assertEquals(2, reservaService.listarCount(52050756).intValue());
-        Reserva reserva = null;
-        for (Reserva r : reservaService.listar(0, 5, 52050756)) {
-            if (r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Coronavac")) {
-                reserva = r;
-                break;
-
-            }
-        }
-
-        assertNotNull(reserva);
-        reservaService.cancelar(52050756, reserva.getCodigo());
-
-        //deben haberse cancelado las 2 de coronavac
-        assertEquals(2, reservaService.listarCount(52050756).intValue());
-        List<Reserva> reservas = reservaService.listar(0, 5, 52050756);
-        assertEquals(Estado.CANCELADA, reservas.get(0).getEstado());
-        assertEquals(Estado.CANCELADA, reservas.get(1).getEstado());
+    	
+    	assertEquals(2, reservaService.listarCount(52050756).intValue());
+    	Reserva reserva = null;
+    	for(Reserva r: reservaService.listar(0, 5, 52050756)) {
+    		if(r.getIntervalo().getAgenda().getEtapa().getVacuna().getNombre().equals("Pfizer")) {
+    			reserva = r;
+    			break;
+    			
+    		}
+    	}
+    	
+    	assertNotNull(reserva);
+    	reservaService.cancelar(52050756, reserva.getCodigo());
+    	
+    	//deben haberse cancelado las 2 de coronavac
+    	assertEquals(2, reservaService.listarCount(52050756).intValue());
+    	List<Reserva> reservas = reservaService.listar(0, 5, 52050756);
+    	assertEquals(Estado.VACUNADO, reservas.get(0).getEstado());
+    	assertEquals(Estado.VACUNADO, reservas.get(1).getEstado());
 
 
     }

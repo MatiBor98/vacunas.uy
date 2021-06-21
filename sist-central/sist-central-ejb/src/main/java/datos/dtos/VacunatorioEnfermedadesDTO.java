@@ -3,6 +3,7 @@ package datos.dtos;
 import java.io.Serializable;
 import java.util.List;
 
+import com.vividsolutions.jts.geom.Point;
 
 import datos.entidades.Departamento;
 import datos.entidades.DosisVacunatorio;
@@ -17,6 +18,8 @@ public class VacunatorioEnfermedadesDTO implements Serializable{
 	private String direccion;
 	private Departamento departamento;
 	private List<String> enfermedades;
+	private Double ubicacionX;
+	private Double ubicacionY;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -87,16 +90,43 @@ public class VacunatorioEnfermedadesDTO implements Serializable{
 
 
 
+	public Double getUbicacionX() {
+		return ubicacionX;
+	}
+
+
+
+	public void setUbicacionX(Double ubicacionX) {
+		this.ubicacionX = ubicacionX;
+	}
+
+	
+	public Double getUbicacionY() {
+		return ubicacionY;
+	}
+
+
+
+	public void setUbicacionY(Double ubicacionY) {
+		this.ubicacionX = ubicacionY;
+	}
+
 	public VacunatorioEnfermedadesDTO(String nombre, String ciudad, String direccion, Departamento departamento,
-			List<String> enfermedades) {
+			List<String> enfermedades, Point ubicacion) {
 		super();
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
 		this.enfermedades = enfermedades;
+		this.ubicacionX = null;
+		this.ubicacionY = null;
+		if(ubicacion != null) {
+			this.ubicacionX = ubicacion.getX();
+			this.ubicacionY = ubicacion.getY();
+		}
+		
 	}
-
 	
 	
 }

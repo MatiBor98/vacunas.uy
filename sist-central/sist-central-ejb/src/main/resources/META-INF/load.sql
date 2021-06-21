@@ -26,9 +26,11 @@ insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannomb
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'Jose Ellauri 461');
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982');
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro');
+
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461', ST_GeomFromText('POINT(-34.9218912 -56.1583385)', 4326));
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982', ST_GeomFromText('POINT(-34.8913639 -56.1539307)', 4326));
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro', ST_GeomFromText('POINT(-30.4028157 -56.4608542)', 4326));
+
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino', 'COSEM Punta Carretas');
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '13:00:00', time '17:00:00', 'Vespertino', 'COSEM Punta Carretas');
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno', 'COSEM Punta Carretas');

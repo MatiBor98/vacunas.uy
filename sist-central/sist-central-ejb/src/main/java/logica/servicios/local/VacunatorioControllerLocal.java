@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.ejb.Local;
 
+import com.vividsolutions.jts.geom.Point;
+
 import datos.entidades.Departamento;
 import datos.entidades.Lote;
 import datos.entidades.Vacunatorio;
@@ -13,7 +15,7 @@ import logica.schedule.DatosVacunatorio;
 
 @Local
 public interface VacunatorioControllerLocal {
-	void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento);
+	void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, Point ubicacion);
 	Optional<Vacunatorio> find(String nombre);
 	Optional<Vacunatorio> findWithEverything(String nombre);
 	List<Vacunatorio> find();
@@ -22,4 +24,5 @@ public interface VacunatorioControllerLocal {
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);
 	DatosVacunatorio getDatosVacunatorio(String nombrevac);
+	public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY);
 }

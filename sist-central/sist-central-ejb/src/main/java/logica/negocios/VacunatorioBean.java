@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.vividsolutions.jts.geom.Point;
+
 import datos.dtos.AsignacionDTO;
 import datos.dtos.LoteDTO;
 import datos.dtos.PuestoVacunacionDTO;
@@ -63,8 +65,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     public VacunatorioBean() {
     }
 
-    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
+    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, Point ubicacion) {
     	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento);
+    	vac.setUbicacion(ubicacion);
     	vacunatorioRepositoryLocal.save(vac);
     }
     
@@ -151,5 +154,9 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		DatosVacunatorio datos = new DatosVacunatorio(now, vacDTO, reservas);
 		return datos;
 		
+	}
+	
+	public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY){
+		return vacunatorioRepositoryLocal.findVacunatorioCercano(coordX, coordY);
 	}
 }
