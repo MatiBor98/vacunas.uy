@@ -13,6 +13,9 @@ import java.util.Optional;
 @Local
 public interface EtapaRepositoryLocal {
     List<Etapa> find();
+
+    List<Etapa> findVigentes();
+
     void save(Etapa etapa);
     Optional<Etapa> find(int id);
     List<Etapa> find(String nombreEnfermedad, int edadCiudadano, Trabajo trabajos);
