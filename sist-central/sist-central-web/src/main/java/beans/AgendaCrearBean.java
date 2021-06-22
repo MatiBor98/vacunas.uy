@@ -122,7 +122,7 @@ public class AgendaCrearBean implements Serializable {
                 });
             }};
             agendaService.save(new AgendaDTO(0, horarioPorDia, turnoId, etapaId, inicio, null, nombre));
-            return "Autoridad";
+            return "ConsultaAgenda";
         } catch (EJBException ejbException)  {
             error = ejbException.getCause().getMessage();
             return null;
@@ -166,6 +166,10 @@ public class AgendaCrearBean implements Serializable {
 
     public int getPaginaActual() {
         return paginaActual;
+    }
+
+    public void setPaginaActual(int paginaActual) {
+        this.paginaActual = paginaActual;
     }
 
     public int getCantidadPaginas() {

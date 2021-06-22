@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+    <ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+        <ui:define name="titulo">
+            - Consulta Agenda
+        </ui:define>
+        <ui:define name="content">
+            <div class="bodytype">
+                <div class="container" style="padding: 15px 0">
+                    <h:form>
+                        <div class="form-row">
+                            <h:outputLabel styleClass="form-label col-1" for="search" value="Buscar:"/>
+                            <h:inputText id="search" styleClass="form-control col-9" value="#{agendaListarBean.nombrePlan}"/>
+                            <h:commandButton styleClass="btn btn-primary col-1 offset-1" value="Buscar">
+                                <f:ajax execute="@form" render="agendas pagina" listener="#{agendaListarBean.buscarPorNombrePlan()}" />
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+                <h:panelGroup id="agendas">
+                    <ul class="list-group" style="margin-top: 30px">
+                        <ui:repeat value="#{agendaListarBean.agendas}" var="vacAge">
+                            <li class="list-group-item" style="background-color:#{agendaListarBean.getColor()}">
+                                <h2 style="color:#{agendaListarBean.colorSecundario}">#{vacAge.vacunatorio.nombre}</h2>
+                                <h4 style="color:#{agendaListarBean.colorSecundario}">#{vacAge.agenda.nombre}</h4>
+                                <p style="color:#{agendaListarBean.colorSecundario}" class="mb-0"> Horarios:</p>
+                                <ul style="display: inline-block;" class="mb-3">
+                                    <ui:repeat value="#{vacAge.agenda.horariosAsString}" var="horario">
+                                        <li style="width: max-content; color:#{agendaListarBean.colorSecundario}">#{horario}</li>
+                                    </ui:repeat>
+                                </ul>
+                                <p style="color:#{agendaListarBean.colorSecundario}"> Plan: #{vacAge.etapa.planVacunacion}</p>
+                                <p style="color:#{agendaListarBean.colorSecundario}"> Etapa: #{vacAge.etapa.descripcion}</p>
+                                <h:panelGroup rendered="#{not empty vacAge.agenda.fin}">
+                                    <p style="color:#{agendaListarBean.colorSecundario}"><span class="badge bg-danger">Eliminada</span></p>
+                                </h:panelGroup>
+                                <h:form rendered="#{empty vacAge.agenda.fin}">
+                                    <h:commandButton value="Eliminar" type="submit" class="btn btn-danger" style="padding: 2px 6px">
+                                        <f:ajax listener="#{agendaListarBean.eliminarAgenda(vacAge.agenda.id)}"
+                                                render="agendas"/>
+                                    </h:commandButton>
+                                </h:form>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+                <div class="justify-content-center mt-3">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <h:inputHidden value="#{agendaListarBean.paginaActual}"/>
+                            <li class="page-item">
+                                <h:commandLink styleClass="page-link" aria-label="Anterior">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <f:ajax event="click"
+                                            execute="@form"
+                                            render="agendas pagina"
+                                            listener="#{agendaListarBean.anterior()}"/>
+                                </h:commandLink>
+                            </li>
+                            <h:panelGroup id="pagina">
+                                <li class="page-item disabled">
+                                    <span class="page-link">#{agendaListarBean.paginaActual + 1}/#{agendaListarBean.cantidadPaginas}</span>
+                                </li>
+                            </h:panelGroup>
+                            <li class="page-item">
+                                <h:commandLink styleClass="page-link" aria-label="Siguiente">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <f:ajax event="click"
+                                            execute="@form"
+                                            render="agendas pagina"
+                                            listener="#{agendaListarBean.siguiente()}"/>
+                                </h:commandLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

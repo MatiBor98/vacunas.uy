@@ -1,5 +1,5 @@
 ###
-GET http://localhost:8080/sist-central-test/api/agendar?ci=52050756&enfermedad=Coronavirus&depto=Montevideo&trabajo=Salud&edad=50&fecha=2021-06-28T19:30
+GET http://localhost:8080/sist-central-test/api/agendar/ejecutar?ci=52050756&enfermedad=Coronavirus&depto=Montevideo&trabajo=Salud&edad=50&fecha=2021-06-28T19:30
 
 ###
-GET http://localhost:8080/sist-central-test/api/agendar?cant=1000&agendaId=6&fecha=2021-06-28
+GET http://localhost:8080/sist-central-test/api/agendar/datos?cant=1000&agendaId=6&fecha=2021-06-28
