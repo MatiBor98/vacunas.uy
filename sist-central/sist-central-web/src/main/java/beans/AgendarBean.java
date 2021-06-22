@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import beans.Constantes;
 
 @Named("AgendarBean")
 @ViewScoped
@@ -162,13 +163,17 @@ public class AgendarBean implements Serializable {
     }
 
     public void elegirEnfermedad(Enfermedad enfermedad) {
-        CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
+        Ciudadano ciudadano = usuarioLogueadoBean.getCiudadanoPlataforma();
+        CiudadanoDTO ciudadanoDTO = usuarioLogueadoBean.getCiudadano();
+        LocalDate fechaNac = LocalDate.parse(ciudadano.getFechaNacimiento());
+        int edad = Period.between(fechaNac, LocalDate.now()).getYears();
+
         this.entrada.enfermedad = enfermedad;
         this.enfermedaNombre = null;
         this.ciudadanoHabilitado = etapaController
-                .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), 50, null);
+                .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), edad, ciudadano.getTrabajadorEscencial());
         this.yaTieneAgendaCiudadano = reservaRepository
-                .existeReservaPendienteByCiudadanoEnfermedad(ciudadano.getCi(), enfermedad.getNombre());
+                .existeReservaPendienteByCiudadanoEnfermedad(ciudadanoDTO.getCi(),enfermedad.getNombre());
     }
     public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
         this.entrada.vacunatorioAgneda = vacunatorioAgneda;

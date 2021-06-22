@@ -137,7 +137,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -192,7 +192,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -224,7 +224,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -270,7 +270,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)

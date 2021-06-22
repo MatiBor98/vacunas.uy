@@ -1,5 +1,6 @@
 package datos.repositorios;
 
+import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
 import datos.exceptions.CiudadanoRegistradoException;
@@ -23,5 +24,6 @@ public interface CiudadanoRepositoryLocal {
     Ciudadano getCiudadanoConReservas(int ci);
 
     List<Ciudadano> findTokenNotNull();
+	List<Asignacion> findAsignacionesVacunador(int cid);
 }
 

@@ -28,6 +28,11 @@ import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.PrecisionModel;
+
 import datos.dtos.PuestoVacunacionDTO;
 import datos.entidades.Asignacion;
 import datos.entidades.Departamento;
@@ -36,6 +41,7 @@ import datos.entidades.Turno;
 import datos.entidades.Vacunador;
 import datos.entidades.Vacunatorio;
 import datos.exceptions.CiudadanoRegistradoException;
+import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.negocios.CiudadanoBean;
 import logica.negocios.MensajeBean;
@@ -65,7 +71,7 @@ public class VacunatorioControllerTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsLibraries(files);
     }
-
+    
     @EJB
     VacunatorioControllerLocal vacunatorioControllerLocal;
    
@@ -77,10 +83,18 @@ public class VacunatorioControllerTest {
     @Test
     @InSequence(1)
     public void should_create_vacunatorio() {
+    	//primero vamos a ver si se cargaron los del script de carga
+    	
+    	List<Vacunatorio> vacs = vacunatorioControllerLocal.find();
+    	assertEquals(3, vacs.size());
+    	
+    	//ahora si creamos uno
     	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
     	assertEquals(19, deps.size());
     	
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas);
+    	//GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+    	
+        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas/*, geomFactory.createPoint(new Coordinate(-34.9181706,-56.1665725))*/);
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
@@ -203,6 +217,21 @@ public class VacunatorioControllerTest {
     	assertEquals(2, puestos.size());
     	
     }
+    
+    /*@Test
+    @InSequence(6)
+    public void should_find_vacunatorios_nearby() {
+    	
+    	GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+    	
+        vacunatorioControllerLocal.addVacunatorio("SI", "Mdeo", "Calle Facultad 3027", Departamento.Durazno, geomFactory.createPoint(new Coordinate(1,1.3)));
+        vacunatorioControllerLocal.addVacunatorio("NO", "Mdeo", "Calle Facultad 3021", Departamento.Durazno, geomFactory.createPoint(new Coordinate(1.2,1.2)));
+        
+        List<Vacunatorio> vacCercanos = vacunatorioControllerLocal.getVacunatoriosCercanos(0.9, 1.1);
+        assertEquals(2, vacCercanos.size());
+        
+        
+    }*/
     
     
 }

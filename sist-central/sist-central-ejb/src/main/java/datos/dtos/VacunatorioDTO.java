@@ -1,10 +1,6 @@
 package datos.dtos;
 
 import datos.entidades.Departamento;
-import datos.entidades.DosisVacunatorio;
-import datos.entidades.Lote;
-import datos.entidades.PuestoVacunacion;
-import datos.entidades.Turno;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -13,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import com.vividsolutions.jts.geom.Point;
+
 @XmlRootElement
 public class VacunatorioDTO implements Serializable{
 	
@@ -26,6 +24,7 @@ public class VacunatorioDTO implements Serializable{
 	private List<TurnoDTO> turnos;
 	private Set<LoteDTO> lotes;
 	private List<DosisVacunatorioDTO> dosisVacunatorios;
+	private Point ubicacion;
 
 
 	public VacunatorioDTO(String nombre, String ciudad, String direccion, Departamento departamento) {
@@ -39,11 +38,12 @@ public class VacunatorioDTO implements Serializable{
 		this.dosisVacunatorios = new ArrayList<>();
 	}
 	
-	public VacunatorioDTO(String nombre, String ciudad, String direccion, Departamento departamento, List<PuestoVacunacionDTO> puestosVacunacion, List<TurnoDTO> turnos, Set<LoteDTO> lotes, List<DosisVacunatorioDTO> dosisVacunatorios) {
+	public VacunatorioDTO(String nombre, String ciudad, String direccion, Departamento departamento, List<PuestoVacunacionDTO> puestosVacunacion, List<TurnoDTO> turnos, Set<LoteDTO> lotes, List<DosisVacunatorioDTO> dosisVacunatorios, Point ubicacion) {
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
+		this.ubicacion = ubicacion;
 	}
 	
 	public VacunatorioDTO() {}
@@ -127,4 +127,13 @@ public class VacunatorioDTO implements Serializable{
 	public void setDosisVacunatorios(List<DosisVacunatorioDTO> dosisVacunatorios) {
 		this.dosisVacunatorios = dosisVacunatorios;
 	}
+
+	public Point getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Point ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
 }

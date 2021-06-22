@@ -118,7 +118,7 @@ public class StartupBean {
 	
 	public void run() {
     	Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class)); 
+		WebTarget target = client.target("https://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class));
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();		
 		datos = response.readEntity(DatosVacunatorio.class);

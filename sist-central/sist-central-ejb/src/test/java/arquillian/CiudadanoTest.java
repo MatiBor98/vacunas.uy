@@ -143,8 +143,8 @@ public class CiudadanoTest {
     public void should_overwrite_ciudadanos() {
         
         List<CiudadanoDTO> usuarios = ciudadanoServiceLocal.find();
-        //son 4 pq 2 se levantan cuando arranca el sistema
-        assertEquals(4,usuarios.size());
+        //son 6 pq 4 se levantan cuando arranca el sistema
+        assertEquals(6,usuarios.size());
         CiudadanoDTO ciudadano = null;
         CiudadanoDTO vacunador = null;
         for(CiudadanoDTO usuario: usuarios) {

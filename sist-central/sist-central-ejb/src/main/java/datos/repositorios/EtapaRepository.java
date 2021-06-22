@@ -27,6 +27,13 @@ public class EtapaRepository implements EtapaRepositoryLocal {
     }
 
     @Override
+    public List<Etapa> findVigentes() {
+        return entityManager.createQuery("select e from Etapa e where e.fin is null " +
+                "or (e.fin > current_date )", Etapa.class)
+                .getResultList();
+    }
+
+    @Override
     public void save(Etapa etapa) {
         entityManager.persist(etapa);
     }

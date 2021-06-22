@@ -16,9 +16,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -33,6 +37,12 @@ public class ReporteStockDosisBean implements Serializable {
 
     public void generarDatosHoy(){
         initSchedule.guardarDatosStockDosis();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ReporteStockDosisBean() {
@@ -138,7 +148,7 @@ public class ReporteStockDosisBean implements Serializable {
 
 
     public void initVacunatorios(){
-        if (selDepartamento == null || selDepartamento.equals("")) {
+        if (selDepartamento == null) {
             this.vacunatorios = new ArrayList<>();
         }
         else {
@@ -174,7 +184,7 @@ public class ReporteStockDosisBean implements Serializable {
         if(selVacunatorio == null){ selVacunatorio = "";}
 
 
-        List<DatosDosis> datosDosisList = dosisReporteReporteBean.findDatos(selEnfermedad, selVacunaaa, selVacunatorio, dateFechainicio, dateFechaFin);
+        List<DatosDosis> datosDosisList = dosisReporteReporteBean.findDatos(selEnfermedad, selVacunaaa, selVacunatorio, selDepartamento, dateFechainicio, dateFechaFin);
         Collections.sort(datosDosisList);
 
 

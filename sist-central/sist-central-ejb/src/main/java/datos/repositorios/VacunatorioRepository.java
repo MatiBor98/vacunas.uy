@@ -6,9 +6,19 @@ import java.util.Optional;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import datos.exceptions.VacunatorioNoExistenteException;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.util.GeometricShapeFactory;
 
 import datos.entidades.Vacunatorio;
 import datos.entidades.Departamento;
@@ -27,7 +37,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
     }
 
     public List<Vacunatorio> find() {
-        return entityManager.createQuery("select e from Vacunatorio e", Vacunatorio.class)
+        return entityManager.createQuery("SELECT e FROM Vacunatorio e", Vacunatorio.class)
                 .getResultList();
     }
 
@@ -107,7 +117,8 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 						+ " inner join lot.vacuna vna"
 						+ " where vio.id = :vacunaotrio "
 						+ " and vna.id = :vacuna "
-						+ " and lot.fechaVencimiento > current_date ", Long.class)
+						+ " and lot.fechaVencimiento > current_date "
+						+ " and lot.fechaEntrega is not null ", Long.class)
 				.setParameter("vacunaotrio", vacunatorio)
 				.setParameter("vacuna", vacuna)
 				.getSingleResult();
@@ -130,5 +141,22 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				.setParameter("vacuna", vacuna)
 				.getSingleResult();
 	}
+	
+	/*public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {*/
+    	
+		/*return entityManager.createNativeQuery(
+				"SELECT * FROM vacunatorio WHERE ST_DWithin( ST_SetSRID(ubicacion, 4326)::geography , ST_GeomFromText('POINT("+ coordX.doubleValue() +" "+ coordY.doubleValue()+  ")', 4326)::geography, 50000)", Vacunatorio.class)
+				.getResultList();*/
+		
+	/*	return entityManager.createNativeQuery(
+				"select * " +
+				"from vacunatorio " +
+				"WHERE ST_DWithin(ST_SetSRID(vacunatorio.ubicacion, 4326), " +
+				                 "ST_GeomFromText('POINT("+ coordX +" "+ coordY +")', 4326), " +
+				                 "0.4)", Vacunatorio.class)
+				.getResultList();
+		
+	}*/
+	
 }
 

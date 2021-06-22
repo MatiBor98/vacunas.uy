@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:o="http://omnifaces.org/ui" xmlns:of="http://omnifaces.org/functions">
+<h:body>
+    <ui:composition template="../../WEB-INF/appTemplateAutoridad.xhtml">
+        <ui:define name="content">
+            <div class="container">
+                <o:form styleClass="container" id="formulario">
+
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-md-6">
+                            <h:outputLabel for="nombre" value="Nombre"/>
+                            <h:inputText value="#{agendaCrearBean.nombre}" styleClass="form-control" id="nombre"
+                                         a:type="text">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-md-6">
+                            <h:outputLabel for="fechaIni" value="Fecha inicio"/>
+                            <h:inputText value="#{agendaCrearBean.inicio}" styleClass="form-control" id="fechaIni"
+                                         a:type="date">
+                                <f:converter converterId="facultad.tse.converters.LocalDateConverter"/>
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-md-6">
+                            <h:outputLabel for="etapa" value="Etapa"/>
+                            <h:selectOneMenu id="etapa"
+                                             styleClass="form-control"
+                                             hideNoSelectionOption="#{agendaCrearBean.etapaId != 0}"
+                                             value="#{agendaCrearBean.etapaId}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Eliga una etapa" itemValue="0"/>
+                                <f:selectItems value="#{agendaCrearBean.etapas}"
+                                               var="etapa"
+                                               itemLabel="#{etapa.planVacunacion.nombre} - #{etapa.descripcion}"
+                                               itemValue="#{etapa.id}"/>
+                                <f:ajax execute="@form" render="@form" event="change"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <h:dataTable id="tablaTurnos"
+                                     value="#{agendaCrearBean.turnos}"
+                                     var="turno"
+                                     styleClass="table">
+                            <h:column>
+                                <f:facet name="header">Nombre</f:facet>
+                                #{turno.vacunatorio.nombre}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Direccion</f:facet>
+                                #{turno.vacunatorio.direccion}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Turno</f:facet>
+                                #{turno.nombre} (#{of:formatDate(turno.inicio, 'HH:mm')} - #{of:formatDate(turno.fin, 'HH:mm')})
+                            </h:column>
+                            <h:column footerClass="align-middle">
+                                <f:facet name="header"> </f:facet>
+                                <h:commandButton
+                                        styleClass="input-group-text border-0 select #{agendaCrearBean.turnoId != 0 ?  'd-none' : ''}">
+                                    <f:ajax event="click" render="@form"
+                                            listener="#{agendaCrearBean.setTurnoId(turno.id)}"/>
+                                </h:commandButton>
+                                <h:commandButton
+                                        styleClass="input-group-text border-0 selected #{agendaCrearBean.turnoId == 0 ?  'd-none' : ''}">
+                                    <f:ajax event="click" render="@form"
+                                            listener="#{agendaCrearBean.setTurnoId(0)}"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                        <h:panelGroup rendered="#{agendaCrearBean.turnoId == 0}">
+                            <div class="justify-content-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <h:inputHidden value="#{ReservasBean.paginaActual}"/>
+                                        <li class="page-item">
+                                            <h:commandLink styleClass="page-link" aria-label="Anterior">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                <f:ajax event="click"
+                                                        execute="@form"
+                                                        render="@form"
+                                                        listener="#{agendaCrearBean.anterior()}"/>
+                                            </h:commandLink>
+                                        </li>
+                                        <li class="page-item disabled">
+                                            <span class="page-link">#{agendaCrearBean.paginaActual + 1}/#{agendaCrearBean.cantidadPaginas}</span>
+                                        </li>
+                                        <li class="page-item">
+                                            <h:commandLink styleClass="page-link" aria-label="Siguiente">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <f:ajax event="click"
+                                                        execute="@form"
+                                                        render="@form"
+                                                        listener="#{agendaCrearBean.siguiente()}"/>
+                                            </h:commandLink>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="form-row">
+                        <h:dataTable id="tablaAgendas"
+                                     value="#{agendaCrearBean.dias}" var="dia"
+                                     styleClass="table">
+                            <h:column>
+                                <f:facet name="header">Habilitar</f:facet>
+                                <h:selectBooleanCheckbox value="#{dia.value.habilitado}">
+                                </h:selectBooleanCheckbox>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Dia</f:facet>
+                                #{agendaCrearBean.getDiaEnEsUy(dia.key)}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Hora inicio</f:facet>
+                                <h:inputText id="inicio" a:type="time" value="#{dia.value.inicio}">
+                                    <f:converter converterId="facultad.tse.converters.LocalTimeConverter"/>
+                                </h:inputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Hora Fin</f:facet>
+                                <h:inputText id="fin" a:type="time" value="#{dia.value.fin}">
+                                    <f:converter converterId="facultad.tse.converters.LocalTimeConverter"/>
+                                </h:inputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet id="minutos" name="header">Minutos en Turno</f:facet>
+                                <h:inputText value="#{dia.value.minutosTurno}">
+                                </h:inputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Capasidad Turno</f:facet>
+                                <h:inputText id="capasidad" value="#{dia.value.capasidadPorTurno}">
+                                </h:inputText>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+
+                    <h:panelGroup id="error">
+                        <h:panelGroup rendered="#{not empty agendaCrearBean.error}">
+                            <div class="form-row">
+                                <div class="alert alert-danger col-md-12" role="alert">
+                                    #{agendaCrearBean.error}
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                    <div class="form-row">
+                        <h:commandButton styleClass="btn btn-primary col-12"
+                                         value="Crear Agenda"
+                                         action="#{agendaCrearBean.guardarAgenda}">
+                            <f:ajax execute="@form" render="error"/>
+                        </h:commandButton>
+                    </div>
+                </o:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
