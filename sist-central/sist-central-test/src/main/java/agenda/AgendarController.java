@@ -43,6 +43,7 @@ public class AgendarController {
 
 
     @GET
+    @Path("/ejecutar")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(
             @QueryParam("ci") int ci,
@@ -75,6 +76,7 @@ public class AgendarController {
     }
 
     @GET
+    @Path("/datos")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHorarios(
             @QueryParam("agendaId") int agendaId,
