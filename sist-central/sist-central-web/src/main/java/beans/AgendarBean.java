@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import beans.Constantes;
 
 @Named("AgendarBean")
 @ViewScoped
@@ -173,11 +172,12 @@ public class AgendarBean implements Serializable {
         this.ciudadanoHabilitado = etapaController
                 .existeEtapaParaCiudadano(entrada.enfermedad.getNombre(), edad, ciudadano.getTrabajadorEscencial());
         this.yaTieneAgendaCiudadano = reservaRepository
-                .existeReservaPendienteByCiudadanoEnfermedad(ciudadanoDTO.getCi(),enfermedad.getNombre());
+                .existeReservaPendienteByCiudadanoEnfermedad(ciudadanoDTO.getCi(), enfermedad.getNombre());
     }
+
     public void elegirVacunatorioAgneda(VacunatorioTieneAgendaDTO vacunatorioAgneda) {
         this.entrada.vacunatorioAgneda = vacunatorioAgneda;
-        if(vacunatorioAgneda != null) {
+        if (vacunatorioAgneda != null) {
             this.intevalosPorDia = intervaloServiceLocal
                     .getIntervalosByAgendaAndSemana(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
                     .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
@@ -201,7 +201,7 @@ public class AgendarBean implements Serializable {
             Intervalo intervalo = entrada.intervalo;
             limpiarEntrada();
             this.entrada.reservasRealizadas = reservaService.efectuarReserva(intervalo, ciudadano.getCi());
-        } catch(Exception e) {
+        } catch (Exception e) {
             actualizarIntervalos();
             System.out.println("No se puedo realizar la reserva!");
         } finally {
@@ -216,7 +216,7 @@ public class AgendarBean implements Serializable {
     public void actualizarIntervalos() {
         intevalosPorDia = intervaloServiceLocal
                 .getIntervalosByAgendaAndSemana(entrada.vacunatorioAgneda.getAgenda().getId(), semana)
-                .stream().collect(Collectors.groupingBy(i->i.getFechayHora().getDayOfWeek()));
+                .stream().collect(Collectors.groupingBy(i -> i.getFechayHora().getDayOfWeek()));
     }
 
     public String getDiaConFormatoUy(DayOfWeek dia) {

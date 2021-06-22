@@ -1,5 +1,6 @@
 package arquillian;
 
+import datos.dtos.LoteDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
@@ -139,7 +140,18 @@ public class SocioAndLoteTest {
        assertNotNull(lotes);
        //hay 2 creados al iniciar el sistema
        assertEquals(8, lotes.size());
+       Lote lote4000 = null;
+       for(Lote l: lotes) {
+    	   if(l.getNumeroLote().intValue() == 4000) {
+    		   lote4000 = l;
+    		   break;
+    	   }
+       }
        
+       assertNotNull(lote4000);
+       LoteDTO lotedto = loteService.getLoteDTO(lote4000);
+       assertEquals(4000, lotedto.getNumeroLote().intValue());
+       assertEquals("Gripevac", lotedto.getVacuna().getNombre());
     }
     
 }

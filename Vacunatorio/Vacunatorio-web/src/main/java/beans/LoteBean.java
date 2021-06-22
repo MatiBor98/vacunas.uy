@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -101,11 +102,11 @@ public class LoteBean implements Serializable{
 	}
 	
 	
-	public List<String> getNombresLotesConDosis() {
+	public List<String> getNombresLotesConDosis(String nomVacuna) {
 		List<Lote> lotes = ContVacunatorio.findLotes();
 		List<String> nombres = new ArrayList<>();
 		for(Lote lote:lotes) {
-			if(lote.getDosisDisponibles() > 0)
+			if(lote.getVacuna().getNombre().equals(nomVacuna) && lote.getDosisDisponibles() > 0 && lote.getFechaVencimiento().isAfter(LocalDate.now()))
 				nombres.add(lote.getNumeroLote().toString());
 		}
 		return nombres;

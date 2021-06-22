@@ -57,7 +57,7 @@
                 </ul>
                 	<label style="display:block">Seleccione el lote de la vacuna que se utilizara:</label>
 	                <h:selectOneMenu value="#{ConfirmarReservaBean.lote}" class="form-control" style="width:800px;  display:inline">
-		                	<f:selectItems value="#{LoteBean.getNombresLotesConDosis()}"/>     
+		                	<f:selectItems value="#{LoteBean.getNombresLotesConDosis(ConsultaBean.consultaReserva.intervalo.agenda.etapa.vacuna)}"/>     
 		            </h:selectOneMenu>
 	            <p></p>     
 	                <h:commandButton value="Confirmar"

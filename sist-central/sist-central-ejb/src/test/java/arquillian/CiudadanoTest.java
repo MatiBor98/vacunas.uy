@@ -5,6 +5,9 @@ import datos.exceptions.CiudadanoNoEncontradoException;
 import datos.exceptions.CiudadanoRegistradoException;
 import logica.creacion.CiudadanoDTOBuilder;
 import logica.servicios.local.CiudadanoServiceLocal;
+import plataformainteroperabilidad.Sexo;
+import plataformainteroperabilidad.Trabajo;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -18,6 +21,7 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -62,6 +66,7 @@ public class CiudadanoTest {
 		} catch (CiudadanoRegistradoException e) {
 			fail("agustin no deberia estar registrado ya");
 		}
+        ciudadanoServiceLocal.setSexoFechanacimiento(50427444, Sexo.HOMBRE, LocalDate.of(1999, 6, 1), Trabajo.TEXTIL);
 
         CiudadanoDTO usuario = null;
 		try {
@@ -76,6 +81,7 @@ public class CiudadanoTest {
         assertEquals("Agustin Ruiz Diaz", usuario.getNombre());
         assertEquals("agustin@email.com", usuario.getEmail());
         assertFalse(usuario.getVacunador());
+                
     }
     
     @Test
@@ -191,4 +197,6 @@ public class CiudadanoTest {
 		
 
     }
+    
+    
 }

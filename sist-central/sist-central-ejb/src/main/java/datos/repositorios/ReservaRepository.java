@@ -249,7 +249,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
     }
 
 
-        public List<Reserva> findAllDosisDadas(String enfermedad, String vacuna, int etapa, LocalDate comienzo, LocalDate fin){
+    public List<Reserva> findAllDosisDadas(String enfermedad, String vacuna, int etapa, LocalDate comienzo, LocalDate fin){
 
         if (comienzo == null || fin == null){
             return findAllDosisDadas(enfermedad,vacuna,etapa);

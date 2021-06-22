@@ -19,4 +19,4 @@ Se pueden sobreescribir estos valores definidos en el archivo ya sea aplicando a
 Esta solución contiene la aplicación móvil en https://gitlab.fing.edu.uy/nicolas.san.martin/laboratorio-tse-2021-movil
 
 Demo móvil:  https://www.youtube.com/watch?v=xfdW-7cR8a8
-Demo web: https://www.youtube.com/watch?v=mJPxW149Uxk
+Demo web: https://youtu.be/gDR38xLWOXs

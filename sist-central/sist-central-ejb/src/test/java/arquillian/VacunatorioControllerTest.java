@@ -88,6 +88,9 @@ public class VacunatorioControllerTest {
     	List<Vacunatorio> vacs = vacunatorioControllerLocal.find();
     	assertEquals(3, vacs.size());
     	
+    	vacs = vacunatorioControllerLocal.findByDepartamento(Departamento.Artigas);
+    	assertEquals(1, vacs.size());
+    	
     	//ahora si creamos uno
     	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
     	assertEquals(19, deps.size());
