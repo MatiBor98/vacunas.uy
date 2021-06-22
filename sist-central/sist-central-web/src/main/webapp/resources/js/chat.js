@@ -1,6 +1,6 @@
 if (window.WebSocket) {
 	console.log('abriendo socket');
-    var ws = new WebSocket("ws://vacunas.web.elasticloud.uy/push");
+    var ws = new WebSocket("wss://vacunas.web.elasticloud.uy/push");
     ws.onmessage = function(event) {
         let jsonMensajes = JSON.parse(event.data);
         console.log(jsonMensajes);
