@@ -84,7 +84,7 @@ public class AgendarController {
         AtomicReference<LocalDate> fechaIni = new AtomicReference<>(LocalDate.parse(fechaStr));
         List<LocalDateTime> fechas = new ArrayList<>(cant);
         while (fechas.size() < cant) {
-            intervaloServiceLocal.getIntervalosByAgendaAndSemana(agendaId, fechaIni.get()).stream().forEach(intervalo -> {
+            intervaloServiceLocal.getIntervalosByAgendaAndSemana(agendaId, fechaIni.get()).forEach(intervalo -> {
                 int capacidadPorTurno = intervalo.getAgenda()
                         .getHorarioPorDia()
                         .get(intervalo.getFechayHora().getDayOfWeek())

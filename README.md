@@ -14,8 +14,9 @@ En el sub-sistema del Vacunatorio también se configura un *microprofile-config.
 
 En el sub-sistema del Socio logístico el archivo *microprofile-config.properties* . Se configura el nombre del vacunatorio, que deberá coincidir con el nombre del vacunatorio al que pertenezca este nodo, para permitir la comunicación con el sistema central. 
 
- 
+Se pueden sobreescribir estos valores definidos en el archivo ya sea aplicando argumentos a la VM de java con `-DXX=YY ` o con `export XXX=yyy` en bash.
 
 Esta solución contiene la aplicación móvil en https://gitlab.fing.edu.uy/nicolas.san.martin/laboratorio-tse-2021-movil
 
 Demo móvil:  https://www.youtube.com/watch?v=xfdW-7cR8a8
+Demo web: https://youtu.be/gDR38xLWOXs

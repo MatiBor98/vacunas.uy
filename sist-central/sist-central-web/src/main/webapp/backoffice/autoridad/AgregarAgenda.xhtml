@@ -9,6 +9,9 @@
       xmlns:o="http://omnifaces.org/ui" xmlns:of="http://omnifaces.org/functions">
 <h:body>
     <ui:composition template="../../WEB-INF/appTemplateAutoridad.xhtml">
+        <ui:define name="titulo">
+            - Agregar Agenda
+        </ui:define>
         <ui:define name="content">
             <div class="container">
                 <o:form styleClass="container" id="formulario">
@@ -84,7 +87,7 @@
                             <div class="justify-content-center">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination">
-                                        <h:inputHidden value="#{ReservasBean.paginaActual}"/>
+                                        <h:inputHidden value="#{agendaCrearBean.paginaActual}"/>
                                         <li class="page-item">
                                             <h:commandLink styleClass="page-link" aria-label="Anterior">
                                                 <span aria-hidden="true">&laquo;</span>

@@ -1,7 +1,9 @@
 package beans;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,10 +111,10 @@ public class ReservaBean implements Serializable{
 	
 	public Boolean mostrarBoton(Reserva reserva) {
 		Boolean res = false;
-		//Date fechaVacuna = Date.from(reserva.getIntervalo().getFechayHora().atZone(ZoneId.systemDefault()).toInstant());
-		//Date now = new Date();
+		Date fechaVacuna = Date.from(reserva.getIntervalo().getFechayHora().atZone(ZoneId.systemDefault()).toInstant());
+		Date now = new Date();
 		
-		if (reserva.getEstado().toString().equals("PENDIENTE") && ContVacunatorio.findReservaConfirmada(reserva.getCodigo()) == null /*&& (fechaVacuna.compareTo(now) == 0)*/) {
+		if (reserva.getEstado().toString().equals("PENDIENTE") && ContVacunatorio.findReservaConfirmada(reserva.getCodigo()) == null && (fechaVacuna.compareTo(now) == 0)) {
 			res = true;
 			
 		}

@@ -2,17 +2,15 @@ package datos.repositorios;
 
 import datos.entidades.Agenda;
 import datos.entidades.Departamento;
+import io.jsonwebtoken.lang.Strings;
 import plataformainteroperabilidad.Trabajo;
 
-import javax.ejb.AccessTimeout;
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Stateless
 public class AgendaRepository implements AgendaRepositoryLocal {
@@ -23,11 +21,35 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     }
 
     @Override
+    public List<Agenda> find(int offSet, int size) {
+        return entityManager.createQuery(
+                "select distinct a from Agenda a " +
+                        "join fetch a.etapa e " +
+                        "join fetch e.planVacunacion p", Agenda.class)
+                .setFirstResult(offSet)
+                .setMaxResults(size)
+                .getResultList();
+    }
+
+    @Override
+    public List<Agenda> findByNombrePlan(int offSet, int size, String criterio) {
+        return entityManager.createQuery(
+                "select distinct a from Agenda a " +
+                        "join fetch a.etapa e " +
+                        "join fetch e.planVacunacion p " +
+                        "where lower(p.nombre) like :criterio", Agenda.class)
+                .setParameter("criterio", "%" + criterio.toLowerCase() + "%")
+                .setFirstResult(offSet)
+                .setMaxResults(size)
+                .getResultList();
+    }
+
+    @Override
     public List<Agenda> find() {
         return entityManager.createQuery(
                 "select distinct a from Agenda a " +
-                    "join fetch a.etapa e " +
-                    "join fetch e.planVacunacion p", Agenda.class)
+                        "join fetch a.etapa e " +
+                        "join fetch e.planVacunacion p", Agenda.class)
                 .getResultList();
     }
 
@@ -44,7 +66,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     @Override
     public List<Agenda> findByNombrePlan(String criterio) {
         return entityManager.createQuery(
-                    "select distinct a from Agenda a " +
+                "select distinct a from Agenda a " +
                         "join fetch a.etapa e " +
                         "join fetch e.planVacunacion p " +
                         "where lower(p.nombre) like :criterio", Agenda.class)
@@ -84,7 +106,7 @@ public class AgendaRepository implements AgendaRepositoryLocal {
                 .setParameter("edadCiudadano", edadCiudadano)
                 .setParameter("departamento", departamento);
 
-        if(trabajos != null) {
+        if (trabajos != null) {
             etapaTypedQuery.setParameter("filtroPorEmpleo", trabajos);
         }
 
@@ -94,5 +116,15 @@ public class AgendaRepository implements AgendaRepositoryLocal {
     @Override
     public void save(Agenda agenda) {
         entityManager.persist(agenda);
+    }
+
+    @Override
+    public long findCount(String criterio) {
+        String criterioQuery = Strings.hasText(criterio) ? "where lower(a.etapa.planVacunacion.nombre) like :criterio" : "";
+        TypedQuery<Long> query = entityManager.createQuery("select count(a) from Agenda a " + criterioQuery, Long.class);
+        if (Strings.hasText(criterio)) {
+            query.setParameter("criterio", "%" + criterio.toLowerCase() + "%");
+        }
+        return query.getSingleResult();
     }
 }
