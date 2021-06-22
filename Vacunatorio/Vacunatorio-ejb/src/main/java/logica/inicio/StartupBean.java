@@ -138,6 +138,10 @@ public class StartupBean {
 		
     	/*Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("http://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class)); 
+=======
+    	Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("https://vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class));
+>>>>>>> branch 'master' of https://gitlab.fing.edu.uy/nicolas.san.martin/laboratorio-tse-2021.git
 		Invocation invocation = target.request().buildGet();
 		Response response = invocation.invoke();
 		datos = response.readEntity(DatosVacunatorio.class);*/

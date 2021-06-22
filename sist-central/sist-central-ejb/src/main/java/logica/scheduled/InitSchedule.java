@@ -56,16 +56,18 @@ public class InitSchedule {
             Set<Lote> lotes = vac.getLotes();
             Map<String, DatosDosis> datosVacunatorio = new HashMap<>();
             for (Lote lot : lotes){
-                Vacuna vacunaActual = lot.getVacuna();
-                String nomVacuna = vacunaActual.getNombre();
-                //Primer vez de esta vacuna
-                if (datosVacunatorio.get(nomVacuna) == null){
-                    datosVacunatorio.put( nomVacuna , new DatosDosis(hoy, vac.getNombre(),nomVacuna, vac.getDepartamento(), lot.getDosisDisponibles()));
-                }
-                // ya existe en map
-                else {
-                    Integer cantidadAntes = datosVacunatorio.get(nomVacuna).getCantidad();
-                    datosVacunatorio.get(nomVacuna).setCantidad(cantidadAntes + lot.getDosisDisponibles());
+                if (lot.getFechaEntrega() != null) {
+                    Vacuna vacunaActual = lot.getVacuna();
+                    String nomVacuna = vacunaActual.getNombre();
+                    //Primer vez de esta vacuna
+                    if (datosVacunatorio.get(nomVacuna) == null) {
+                        datosVacunatorio.put(nomVacuna, new DatosDosis(hoy, vac.getNombre(), nomVacuna, vac.getDepartamento(), lot.getDosisDisponibles()));
+                    }
+                    // ya existe en map
+                    else {
+                        Integer cantidadAntes = datosVacunatorio.get(nomVacuna).getCantidad();
+                        datosVacunatorio.get(nomVacuna).setCantidad(cantidadAntes + lot.getDosisDisponibles());
+                    }
                 }
             }
             datosDosisList.addAll(datosVacunatorio.values());

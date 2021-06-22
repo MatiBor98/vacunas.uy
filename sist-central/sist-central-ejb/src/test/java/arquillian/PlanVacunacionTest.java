@@ -67,7 +67,7 @@ public class PlanVacunacionTest {
         EtapaDTOBuilder etapaBuilder = new EtapaDTOBuilder();
 
         PlanVacunacionDTO planVacunacion = planVacunacionBuilder
-                .setEnfermedad("Corona Virus")
+                .setEnfermedad("Coronavirus")
                 .setNombre("Este es un plan de prueba")
                 .setInicio(LocalDate.parse("2021-05-14"))
                 .setFin(LocalDate.parse("2021-05-14").plusYears(1))
@@ -87,7 +87,7 @@ public class PlanVacunacionTest {
         assertNotNull(etapaDTO);
         assertTrue(etapaDTO.isPresent());
         assertEquals(etapaConId,etapaDTO.get());
-        assertTrue(etapaController.existeEtapaParaCiudadano("Corona Virus", 23, Trabajo.PUBLICO));
+        assertTrue(etapaController.existeEtapaParaCiudadano("Coronavirus", 23, Trabajo.PUBLICO));
         
         List<Trabajo> trabajos = new ArrayList<Trabajo>();
         trabajos.add(Trabajo.PUBLICO);
@@ -96,7 +96,7 @@ public class PlanVacunacionTest {
         assertFalse(planVacunacionServiceLocal.find("Este es un plan de prueba").isEmpty());
         assertEquals(2, planVacunacionServiceLocal.find("Este es un plan de prueba").get().getEtapas().size());
         
-        assertEquals(2, planVacunacionServiceLocal.find().size());
+        assertEquals(3, planVacunacionServiceLocal.find().size());
 
     }
 }

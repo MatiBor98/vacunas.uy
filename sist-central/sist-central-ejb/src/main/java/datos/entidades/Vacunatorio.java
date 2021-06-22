@@ -9,6 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.vividsolutions.jts.geom.Point;
+
+
+
 
 @Entity
 @XmlRootElement
@@ -37,7 +41,9 @@ public class Vacunatorio implements Serializable {
 	@OneToMany
 	private List<DosisVacunatorio> dosisVacunatorios;
 
-
+	/*@Column(columnDefinition = "geometry(Point,4326)")
+	private Point ubicacion;*/
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -95,6 +101,14 @@ public class Vacunatorio implements Serializable {
 		this.lotes = lotes;
 	}
 
+	/*public Point getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Point ubicacion) {
+		this.ubicacion = ubicacion;
+	}*/
+
 	public Vacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
 		super();
 		this.nombre = nombre;
@@ -105,6 +119,7 @@ public class Vacunatorio implements Serializable {
 		this.dosisVacunatorios = Collections.emptyList();
 		this.lotes = Collections.emptySet();
 		this.turnos = Collections.emptyList();
+		//this.ubicacion = null;
 	}
 
 	public Vacunatorio() {

@@ -13,6 +13,7 @@ import javax.persistence.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class VacunaRepository implements VacunaRepositoryLocal {
@@ -68,10 +69,14 @@ public class VacunaRepository implements VacunaRepositoryLocal {
 
     @Override
     public List<Vacuna> findByEnfermedad(String enfermedad) {
-        return entityManager.createQuery("select vac from Enfermedad e join e.vacunas vac join vac.etapas " +
-                "where e.nombre = :enfermedad ")
-                .setParameter("enfermedad", enfermedad)
-                .getResultList();
+
+        Enfermedad enfermedadObj = entityManager.find(Enfermedad.class, enfermedad);
+
+        List<Vacuna> vacunas = enfermedadObj.getVacunas();
+
+        vacunas.stream().map(Vacuna::getEtapas).collect(Collectors.toList()).size();
+
+        return vacunas;
     }
 
     @Override

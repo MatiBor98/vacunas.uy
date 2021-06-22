@@ -4,7 +4,7 @@ ALTER SEQUENCE intervaloid RESTART WITH 1;
 ALTER SEQUENCE reservaid RESTART WITH 1;
 ALTER SEQUENCE sequenciaagendaid RESTART WITH 1;
 ALTER SEQUENCE sequenciaetapaid RESTART WITH 1;
-ALTER SEQUENCE seqsequenciaturnoid RESTART WITH 1;
+ALTER SEQUENCE sequenciaturnoid RESTART WITH 1;
 
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Coronavac', 2, 14, 8);
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Pfizer', 2, 17, 8);
@@ -26,9 +26,24 @@ insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannomb
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'Jose Ellauri 461');
+
+/*
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461'
+, ST_GeomFromText('POINT(-34.9218912 -56.1583385)', 4326)
+);
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982'
+, ST_GeomFromText('POINT(-34.8913639 -56.1539307)', 4326)
+);
+insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro'
+, ST_GeomFromText('POINT(-30.4028157 -56.4608542)', 4326)
+);
+*/
+insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461');
 insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982');
 insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro');
+
+
+
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino', 'COSEM Punta Carretas');
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '13:00:00', time '17:00:00', 'Vespertino', 'COSEM Punta Carretas');
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno', 'COSEM Punta Carretas');
@@ -66,7 +81,7 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 2);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 4);
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
-    insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
+insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (2000, 3000, date '2021-05-19', date '2021-05-20', date '2021-09-09', 'UPS', 'Pfizer');
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (2001, 500, date '2021-06-02', date '2021-06-05', date '2021-09-09', 'UPS', 'Pfizer');
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982);
@@ -104,7 +119,7 @@ insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId')
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 0, 1, 52667157, 7);
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 0, 1, 50550419, 8);
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (4000, 1000, date '2021-04-19', date '2021-04-20', date '2022-09-09', 'UPS', 'Gripevac');
-    insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (4001, 600, date '2021-05-02', date '2021-05-05', date '2022-09-09', 'UPS', 'Gripevac');
+insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (4001, 600, date '2021-05-02', date '2021-05-05', date '2022-09-09', 'UPS', 'Gripevac');
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('Hospital de Artigas',4000);
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('Hospital de Artigas',4001);
 
@@ -113,7 +128,7 @@ insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('Hos
 insert into usuariobo(tipodeusuario, email, password) VALUES ('autoridad', '1@1', '$2a$10$ubTOrDZ6ufLdhoHQT7Hmtu9CQvxsR7YI6VNOH9ye40jdOXh7ubq1i');
 
 insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-17','COSEM Punta Carretas','Pfizer', 1300);
-    insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-16','COSEM Punta Carretas','Pfizer', 1200);
+insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-16','COSEM Punta Carretas','Pfizer', 1200);
 insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-15','COSEM Punta Carretas','Pfizer', 1100);
 insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-14','COSEM Punta Carretas','Pfizer', 800);
 insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (date '2021-06-13','COSEM Punta Carretas','Pfizer', 900);
