@@ -137,7 +137,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -192,7 +192,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -224,7 +224,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)
@@ -249,7 +249,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
     }
 
 
-        public List<Reserva> findAllDosisDadas(String enfermedad, String vacuna, int etapa, LocalDate comienzo, LocalDate fin){
+    public List<Reserva> findAllDosisDadas(String enfermedad, String vacuna, int etapa, LocalDate comienzo, LocalDate fin){
 
         if (comienzo == null || fin == null){
             return findAllDosisDadas(enfermedad,vacuna,etapa);
@@ -270,7 +270,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
         if (!vacuna.equals(""))
             qlString += " and v.nombre = :vacuna ";
         if (etapa != -1)
-            qlString += " and e.id = :id ";
+            qlString += " and e.id = :etapa ";
 
         Query query = entityManager.createQuery(
                 qlString)

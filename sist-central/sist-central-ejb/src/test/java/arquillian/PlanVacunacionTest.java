@@ -2,6 +2,7 @@ package arquillian;
 
 import datos.dtos.EtapaDTO;
 import datos.dtos.PlanVacunacionDTO;
+import datos.entidades.PlanVacunacion;
 import logica.creacion.EtapaDTOBuilder;
 import logica.creacion.PlanVacunacionDTOBuilder;
 import logica.negocios.CiudadanoBean;
@@ -25,6 +26,7 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 
 import java.io.File;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +85,12 @@ public class PlanVacunacionTest {
         EtapaDTO etapaConId = etapaController.save(etapa);
 
         Optional<EtapaDTO> etapaDTO = etapaController.find(etapaConId.getId());
-
+        
         assertNotNull(etapaDTO);
         assertTrue(etapaDTO.isPresent());
         assertEquals(etapaConId,etapaDTO.get());
         assertTrue(etapaController.existeEtapaParaCiudadano("Coronavirus", 23, Trabajo.PUBLICO));
+        
         
         List<Trabajo> trabajos = new ArrayList<Trabajo>();
         trabajos.add(Trabajo.PUBLICO);
@@ -97,6 +100,24 @@ public class PlanVacunacionTest {
         assertEquals(2, planVacunacionServiceLocal.find("Este es un plan de prueba").get().getEtapas().size());
         
         assertEquals(3, planVacunacionServiceLocal.find().size());
+
+       
+
+       
+       List<PlanVacunacion> planes = planVacunacionServiceLocal.find();
+       
+       PlanVacunacion plan = null;
+       for(PlanVacunacion pV: planes) {
+    	   if(pV.getNombre().equals("Este es un plan de prueba")) {
+    		   plan = pV;
+    		   break;
+    	   }
+       }
+       
+       assertNotNull(plan);
+       EtapaDTO etapadto = etapaController.getEtapaDTO(plan.getEtapas().get(0));
+       assertEquals(0, etapadto.getId());
+       assertEquals("Coronavac", etapadto.getVacuna());
 
     }
 }
