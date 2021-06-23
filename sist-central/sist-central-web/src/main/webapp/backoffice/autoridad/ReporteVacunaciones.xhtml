@@ -52,6 +52,7 @@
                             <p:selectOneMenu id="Etapa" value="#{ReporteVacunacionesBean.selEtapa}">
                                 <f:selectItem itemLabel="Todas las etapas" itemValue=""/>
                                 <f:selectItems value="#{ReporteVacunacionesBean.etapas}"/>
+                                <p:ajax event="valueChange" process="@this"/>
                             </p:selectOneMenu>
                         </div>
                     </div>
