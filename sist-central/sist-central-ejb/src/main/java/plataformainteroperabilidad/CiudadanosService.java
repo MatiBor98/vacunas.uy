@@ -31,11 +31,8 @@ public class CiudadanosService
         URL url = null;
         WebServiceException e = null;
         try {
-<<<<<<< HEAD
-            url = new URL("file:/home/agus/git/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl");
-=======
+
             url = new URL("https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl");
->>>>>>> refs/heads/master
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
