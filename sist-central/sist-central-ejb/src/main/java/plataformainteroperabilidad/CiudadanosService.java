@@ -17,7 +17,6 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-
 @WebServiceClient(name = "ciudadanosService", targetNamespace = "http://services.tse.facultad/", wsdlLocation = "https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl")
 public class CiudadanosService
     extends Service
@@ -31,7 +30,6 @@ public class CiudadanosService
         URL url = null;
         WebServiceException e = null;
         try {
-
             url = new URL("https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);

@@ -228,7 +228,7 @@ public class VacunatorioControllerTest {
     	GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
     	
         vacunatorioControllerLocal.addVacunatorio("SI", "Mdeo", "Calle Facultad 3027", Departamento.Durazno, geomFactory.createPoint(new Coordinate(1,1.3)));
-        vacunatorioControllerLocal.addVacunatorio("NO", "Mdeo", "Calle Facultad 3021", Departamento.Durazno, geomFactory.createPoint(new Coordinate(1.2,1.2)));
+        vacunatorioControllerLocal.addVacunatorio("TMB", "Mdeo", "Calle Facultad 3021", Departamento.Durazno, geomFactory.createPoint(new Coordinate(1.2,1.2)));
         
         List<Vacunatorio> vacCercanos = vacunatorioControllerLocal.getVacunatoriosCercanos(0.9, 1.1);
         assertEquals(2, vacCercanos.size());

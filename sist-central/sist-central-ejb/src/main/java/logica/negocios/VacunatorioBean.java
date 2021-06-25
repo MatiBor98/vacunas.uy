@@ -67,7 +67,7 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 
     public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, Point ubicacion) {
     	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento);
-    	//vac.setUbicacion(ubicacion);
+    	vac.setUbicacion(ubicacion);
     	vacunatorioRepositoryLocal.save(vac);
     }
     
