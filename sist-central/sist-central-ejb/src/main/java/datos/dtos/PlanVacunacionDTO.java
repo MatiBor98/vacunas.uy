@@ -12,7 +12,9 @@ public class PlanVacunacionDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String nombre;
-    private final LocalDate inicio; 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-M-yyyy")  
+    private final LocalDate inicio;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-M-yyyy")  
     private final LocalDate fin;
     private final String enfermedad;
 

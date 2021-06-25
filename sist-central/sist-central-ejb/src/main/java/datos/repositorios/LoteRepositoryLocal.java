@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ejb.Local;
+
+@Local
 public interface LoteRepositoryLocal {
     Optional<Lote> findByNumLote(int numeroLote);
     List<Lote> find();

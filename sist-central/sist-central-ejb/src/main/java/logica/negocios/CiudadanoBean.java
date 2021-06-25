@@ -4,10 +4,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import datos.dtos.AgendaDTO;
 import datos.dtos.CiudadanoDTO;
 import datos.dtos.VacunadorDTO;
-import datos.entidades.Agenda;
 import datos.entidades.Asignacion;
 import datos.entidades.Ciudadano;
 import datos.entidades.Vacunador;
@@ -21,13 +19,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
+import plataformainteroperabilidad.Sexo;
+import plataformainteroperabilidad.Trabajo;
 
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,6 +84,14 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
     	userLegacy.setNombre(userNew.getNombre());
     }
 
+    public void setSexoFechanacimiento(Integer ci, Sexo sexo, LocalDate fechaNacimiento, Trabajo trabajo){
+		ciudadanoRepository.find(ci).ifPresent(ciudadano -> {
+			ciudadano.setSexo(sexo);
+			ciudadano.setFechaNacimiento(fechaNacimiento);
+			ciudadano.setTrabajo(trabajo);
+		});
+	}
+
 
     @Override
     public void notificarTodosLosUsuariosMoviles(String titulo, String cuerpo) {
@@ -132,6 +136,19 @@ public class CiudadanoBean implements CiudadanoServiceLocal {
 	public VacunadorDTO getVacunadorDTO(Vacunador vacunador) {
 		VacunadorDTO vacDTO = new VacunadorDTO(vacunador.getCi(), vacunador.getEmail(), vacunador.getNombre());
 		return vacDTO;
+	}
+
+	@Override
+	public CiudadanoDTO getCiudadanoDTO(Ciudadano ciudadano) {
+		CiudadanoDTO ciudDTO = new CiudadanoDTO(ciudadano.getCi(), ciudadano.getNombre(), ciudadano.getEmail(), false);
+		return ciudDTO;
+	}
+
+	@Override
+	public List<Asignacion> findAsignacionesVacunador(String cid) {
+		int ci = Integer.valueOf(cid);
+		return ciudadanoRepository.findAsignacionesVacunador(ci);
+
 	}
 
 }

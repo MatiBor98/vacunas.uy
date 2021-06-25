@@ -6,10 +6,8 @@ import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AgendaDTO implements Serializable {
     /**
@@ -21,6 +19,7 @@ public class AgendaDTO implements Serializable {
     private final int turnoId;
     private final LocalDate inicio;
     private final LocalDate fin;
+    private final String nombre;
     private final int id;
 
     @JsonCreator
@@ -30,13 +29,15 @@ public class AgendaDTO implements Serializable {
             int turnoId,
             int etapaId,
             LocalDate inicio,
-            LocalDate fin) {
+            LocalDate fin,
+            String nombre) {
         this.horarioPorDia = horarioPorDia;
         this.turnoId = turnoId;
         this.etapaId = etapaId;
         this.inicio = inicio;
         this.fin = fin;
         this.id = id;
+        this.nombre = nombre;
     }
 
     public Map<DayOfWeek, InformacionPosiblesIntervalosDTO> getHorarioPorDia() {
@@ -61,6 +62,10 @@ public class AgendaDTO implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     @Override
@@ -95,11 +100,27 @@ public class AgendaDTO implements Serializable {
         final StringBuilder sb = new StringBuilder("");
         horarioPorDia.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> sb
             .append("\n")
-            .append(entry.getKey().getDisplayName(TextStyle.SHORT, new Locale("es", "UY")))
+            .append(esUy(entry.getKey(), TextStyle.SHORT))
             .append(" - ")
             .append(entry.getValue().getInicio())
             .append(" a ")
             .append(entry.getValue().getFin()));
         return sb.toString();
+    }
+
+    public List<String> getHorariosAsString() {
+        return horarioPorDia.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry ->
+                        esUy(entry.getKey(), TextStyle.FULL) +
+                        ": de " +
+                        entry.getValue().getInicio() +
+                        " a " +
+                        entry.getValue().getFin())
+                .collect(Collectors.toList());
+    }
+
+    private String esUy(DayOfWeek day, TextStyle style) {
+        return day.getDisplayName(style, new Locale("es", "UY"));
     }
 }

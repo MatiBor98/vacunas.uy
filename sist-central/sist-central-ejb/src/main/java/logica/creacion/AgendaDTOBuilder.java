@@ -14,6 +14,7 @@ public class AgendaDTOBuilder {
     private int etapaId;
     private LocalDate inicio;
     private LocalDate fin;
+    private String nombre;
 
     public AgendaDTOBuilder setHorarioPorDia(Map<DayOfWeek, InformacionPosiblesIntervalosDTO> horarioPorDia) {
         this.horarioPorDia = horarioPorDia;
@@ -45,7 +46,12 @@ public class AgendaDTOBuilder {
         return this;
     }
 
+    public AgendaDTOBuilder setNombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
     public AgendaDTO createAgendaDTO() {
-        return new AgendaDTO(id, horarioPorDia, turnoId, etapaId, inicio, fin);
+        return new AgendaDTO(id, horarioPorDia, turnoId, etapaId, inicio, fin, nombre);
     }
 }

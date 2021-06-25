@@ -17,20 +17,25 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://webservices.samples.jboss.org/", wsdlLocation = "file:/home/agus/git/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl")
+
+@WebServiceClient(name = "ciudadanosService", targetNamespace = "http://services.tse.facultad/", wsdlLocation = "https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl")
 public class CiudadanosService
     extends Service
 {
 
     private final static URL CIUDADANOSSERVICE_WSDL_LOCATION;
     private final static WebServiceException CIUDADANOSSERVICE_EXCEPTION;
-    private final static QName CIUDADANOSSERVICE_QNAME = new QName("http://webservices.samples.jboss.org/", "ciudadanosService");
+    private final static QName CIUDADANOSSERVICE_QNAME = new QName("http://services.tse.facultad/", "ciudadanosService");
 
     static {
         URL url = null;
         WebServiceException e = null;
         try {
+<<<<<<< HEAD
             url = new URL("file:/home/agus/git/laboratorio-tse-2021/sist-central/sist-central-ejb/src/main/resources/ciudadanos.wsdl");
+=======
+            url = new URL("https://plataforma-interoperabilidad.herokuapp.com/ws/ciudadanoWS?wsdl");
+>>>>>>> refs/heads/master
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -69,7 +74,7 @@ public class CiudadanosService
      */
     @WebEndpoint(name = "ciudadanosPort")
     public Ciudadanos getCiudadanosPort() {
-        return super.getPort(new QName("http://webservices.samples.jboss.org/", "ciudadanosPort"), Ciudadanos.class);
+        return super.getPort(new QName("http://services.tse.facultad/", "ciudadanosPort"), Ciudadanos.class);
     }
 
     /**
@@ -81,7 +86,7 @@ public class CiudadanosService
      */
     @WebEndpoint(name = "ciudadanosPort")
     public Ciudadanos getCiudadanosPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://webservices.samples.jboss.org/", "ciudadanosPort"), Ciudadanos.class, features);
+        return super.getPort(new QName("http://services.tse.facultad/", "ciudadanosPort"), Ciudadanos.class, features);
     }
 
     private static URL __getWsdlLocation() {

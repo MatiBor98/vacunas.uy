@@ -1,5 +1,5 @@
 package datos.repositorios;
-import datos.entidades.Enfermedad;
+import datos.entidades.Ciudadano;
 import datos.entidades.PlanVacunacion;
 
 import javax.ejb.Singleton;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton()
-public class PlanVacunacionRepository implements PlanVacunacionRepositoryLocal{
+public class PlanVacunacionRepository implements PlanVacunacionRepositoryLocal, PlanVacunacionRepositoryRemote{
 
 
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
@@ -38,8 +38,19 @@ public class PlanVacunacionRepository implements PlanVacunacionRepositoryLocal{
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 
-	public void save(String nombre, LocalDate inicio, LocalDate fin, Enfermedad enfermedad) {
+	public void save(String nombre, LocalDate inicio, LocalDate fin, String enfermedad) {
 		PlanVacunacion planVac = new PlanVacunacion(nombre, inicio, fin, enfermedad);
 		entityManager.persist(planVac);
 	}
+	
+	public void drop() {
+		entityManager.createQuery("delete from PlanVacunacion").executeUpdate();	
+		
+	}
+	
+	public PlanVacunacion findByNombre(String criterio) {
+    	return entityManager.find(PlanVacunacion.class, criterio);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package datos.repositorios;
 
 import datos.entidades.Enfermedad;
+import datos.entidades.Etapa;
 import datos.entidades.Laboratorio;
 import datos.entidades.Vacuna;
 
@@ -12,6 +13,7 @@ import javax.persistence.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class VacunaRepository implements VacunaRepositoryLocal {
@@ -63,5 +65,25 @@ public class VacunaRepository implements VacunaRepositoryLocal {
     	vacAModificar.setDosisSeparacionDias(dosisSeparacion);
     	vacAModificar.setLaboratorios(labs);
     	vacAModificar.setEnfermedades(enfs);
+    }
+
+    @Override
+    public List<Vacuna> findByEnfermedad(String enfermedad) {
+
+        Enfermedad enfermedadObj = entityManager.find(Enfermedad.class, enfermedad);
+
+        List<Vacuna> vacunas = enfermedadObj.getVacunas();
+
+        vacunas.stream().map(Vacuna::getEtapas).collect(Collectors.toList()).size();
+
+        return vacunas;
+    }
+
+    @Override
+    public List<Etapa> getEtapas(String nombreVacuna) {
+        Vacuna vac = entityManager.find(Vacuna.class, nombreVacuna);
+        vac.getEtapas().size();
+        return vac.getEtapas();
+
     }
 }

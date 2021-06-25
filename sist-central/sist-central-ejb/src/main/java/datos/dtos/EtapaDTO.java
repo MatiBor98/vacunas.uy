@@ -4,17 +4,22 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EtapaDTO implements Serializable{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String vacuna;
-    private final LocalDate inicio;
-    private final LocalDate fin;
-    private final String planVacunacion;
-    private final String descripcion;
-    private final int id;
+	private String vacuna;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-M-yyyy")  
+    private LocalDate inicio;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-M-yyyy")  
+    private LocalDate fin;
+    private String planVacunacion;
+    private PlanVacunacionDTO planVac;
+    private String descripcion;
+    private int id;
 
     public EtapaDTO(String vacuna, LocalDate inicio, LocalDate fin, String planVacunacion, String descripcion, int id) {
         this.vacuna = vacuna;
@@ -23,6 +28,18 @@ public class EtapaDTO implements Serializable{
         this.planVacunacion = planVacunacion;
         this.descripcion = descripcion;
         this.id = id;
+    }
+    
+    public EtapaDTO(String vacuna, LocalDate inicio, LocalDate fin, PlanVacunacionDTO planVacunacion, String descripcion) {
+        this.vacuna = vacuna;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.planVac = planVacunacion;
+        this.descripcion = descripcion;
+    }
+    
+    public EtapaDTO() {
+    	
     }
 
     public String getVacuna() {
@@ -64,4 +81,8 @@ public class EtapaDTO implements Serializable{
     public int hashCode() {
         return Objects.hash(getVacuna(), getInicio(), getFin(), getPlanVacunacion(), getDescripcion(), getId());
     }
+
+	public PlanVacunacionDTO getPlanVac() {
+		return planVac;
+	}
 }

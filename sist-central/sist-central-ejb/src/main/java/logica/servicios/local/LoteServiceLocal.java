@@ -18,4 +18,6 @@ public interface LoteServiceLocal {
     void despacharLote(int numeroLote, String socioLogistico, LocalDate fechaDespacho);
     void entregarLote(int numeroLote, String socioLogistico, LocalDate fechaEntrega);
     //List<Lote> find(String vac, String nombreLote);
+	LoteDTO getLoteDTO(Lote lote);
+	void decrementar(int valueOf);
 }

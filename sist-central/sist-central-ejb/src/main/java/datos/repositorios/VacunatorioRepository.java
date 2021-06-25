@@ -1,23 +1,17 @@
 package datos.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import datos.exceptions.VacunatorioNoExistenteException;
-import logica.creacion.VacunatorioToDto;
-
-import org.hibernate.annotations.QueryHints;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
@@ -27,15 +21,8 @@ import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.util.GeometricShapeFactory;
 
 import datos.entidades.Vacunatorio;
-import datos.dtos.DosisVacunatorioDTO;
-import datos.dtos.LoteDTO;
-import datos.dtos.PuestoVacunacionDTO;
-import datos.dtos.TurnoDTO;
-import datos.dtos.VacunatorioDTO;
 import datos.entidades.Departamento;
-import datos.entidades.Enfermedad;
 import datos.entidades.Lote;
-import datos.entidades.PlanVacunacion;
 
 /**
  * Session Bean implementation class VacunatorioRepository
@@ -107,6 +94,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				.setParameter("departamento", dep)
 				.getResultList();
 	}
+
 	public List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados ) {
 		return entityManager.createQuery(
 				"select distinct v from Vacunatorio v"
@@ -122,13 +110,45 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 	}
 
 	@Override
-	public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {
+	public long getDosisDisponiblesVacunaCount(String vacunatorio, String vacuna) {
+		return entityManager.createQuery(
+				"select sum(lot.dosisDisponibles) from Vacunatorio vio"
+						+ " inner join vio.lotes lot"
+						+ " inner join lot.vacuna vna"
+						+ " where vio.id = :vacunaotrio "
+						+ " and vna.id = :vacuna "
+						+ " and lot.fechaVencimiento > current_date "
+						+ " and lot.fechaEntrega is not null ", Long.class)
+				.setParameter("vacunaotrio", vacunatorio)
+				.setParameter("vacuna", vacuna)
+				.getSingleResult();
+	}
+
+	@Override
+	public long getReservasPendientesVacunaCount(String vacunatorio, String vacuna) {
+		return entityManager.createQuery(
+				"select count(distinct r.id) from Vacunatorio vio"
+						+ " inner join Turno t on t.vacunatorio=vio "
+						+ " inner join Agenda a on a.turno=t "
+						+ " inner join Intervalo i on i.agenda = a "
+						+ " inner join a.etapa e "
+						+ " inner join e.vacuna vna "
+						+ " inner join i.reservas r "
+						+ " where vio.id = :vacunaotrio "
+						+ " and vna.id = :vacuna "
+						+ " and r.estado = datos.entidades.Estado.PENDIENTE ", Long.class)
+				.setParameter("vacunaotrio", vacunatorio)
+				.setParameter("vacuna", vacuna)
+				.getSingleResult();
+	}
+	
+	/*public List<Vacunatorio> findVacunatorioCercano(Double coordX, Double coordY) {*/
     	
 		/*return entityManager.createNativeQuery(
 				"SELECT * FROM vacunatorio WHERE ST_DWithin( ST_SetSRID(ubicacion, 4326)::geography , ST_GeomFromText('POINT("+ coordX.doubleValue() +" "+ coordY.doubleValue()+  ")', 4326)::geography, 50000)", Vacunatorio.class)
 				.getResultList();*/
 		
-		return entityManager.createNativeQuery(
+	/*	return entityManager.createNativeQuery(
 				"select * " +
 				"from vacunatorio " +
 				"WHERE ST_DWithin(ST_SetSRID(vacunatorio.ubicacion, 4326), " +
@@ -136,7 +156,7 @@ public class VacunatorioRepository implements VacunatorioRepositoryLocal {
 				                 "0.4)", Vacunatorio.class)
 				.getResultList();
 		
-	}
+	}*/
 	
 }
 

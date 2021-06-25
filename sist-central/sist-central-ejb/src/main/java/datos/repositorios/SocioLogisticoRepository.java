@@ -2,18 +2,16 @@ package datos.repositorios;
 
 import datos.entidades.Departamento;
 import datos.entidades.Etapa;
+import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 
+import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Session Bean implementation class VacunatorioRepository
- */
 @Singleton
 public class SocioLogisticoRepository implements SocioLogisticoRepositoryLocal {
 
@@ -42,6 +40,12 @@ public class SocioLogisticoRepository implements SocioLogisticoRepositoryLocal {
     @Override
     public void habilitar(String nombre) {
         this.find(nombre).get().setHabilitado(true);
+    }
+
+    @Override
+    public List<Lote> getLotes(String nombreSocioLogistico) {
+        SocioLogistico socLog = find(nombreSocioLogistico).get();
+        return socLog.getLotes();
     }
 
     public Optional<SocioLogistico> find(String nombre) {

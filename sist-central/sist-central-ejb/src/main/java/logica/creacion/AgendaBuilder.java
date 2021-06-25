@@ -4,9 +4,9 @@ import datos.entidades.Agenda;
 import datos.entidades.Etapa;
 import datos.entidades.InformacionPosiblesIntervalos;
 import datos.entidades.Turno;
+import io.jsonwebtoken.lang.Strings;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
+import java.time.*;
 import java.util.Map;
 
 public class AgendaBuilder {
@@ -59,6 +59,41 @@ public class AgendaBuilder {
     }
 
     private void validar() {
-        //TODO: Agregar Validaciones
+        LocalTime inicioTurno = turno.getInicio();
+        LocalTime finTurno = turno.getFin();
+
+        if(!Strings.hasText(nombre)) {
+            throw new RuntimeException("El nombre es obligatorio");
+        }
+        if(inicio == null) {
+            throw new RuntimeException("Fecha de inicio es obligatoria");
+        }
+        if(horarioPorDia.size() == 0) {
+            throw new RuntimeException("No se puede crear una agenda sin horarios");
+        }
+        if(!horarioPorDia.values().stream().allMatch(i -> i.getInicio() != null && i.getFin() != null)) {
+            throw new RuntimeException("Debe completar toda la informacion para los dias habilitados");
+        }
+        if(!horarioPorDia.values().stream().allMatch(i -> i.getInicio().isBefore(i.getFin()))) {
+            throw new RuntimeException("La fecha de inicio debe ser menor que la fcha de fin para todos los dias");
+        }
+        if(!horarioPorDia.values().stream().allMatch(c -> c.getCapacidadPorTurno() > 0)) {
+            throw new RuntimeException("La capasidad debe ser un numero positivo");
+        }
+        if(!horarioPorDia.values().stream().allMatch(c -> c.getMinutosTurno() > 0)) {
+            throw new RuntimeException("Los minutos en el turno debe ser un numero positivo");
+        }
+        if (!horarioPorDia.values().stream()
+                .allMatch(i -> (Duration.between(i.getInicio(), i.getFin()).toMinutes() % i.getMinutosTurno()) == 0)) {
+            throw new RuntimeException("La duracion del turno debe coincidir con el inicio y fin");
+        }
+        if (!horarioPorDia.values().stream().map(InformacionPosiblesIntervalos::getInicio)
+                .map(inicioTurno::compareTo).allMatch(res -> res <= 0)) {
+            throw new RuntimeException("La hora de inicio de la agenda debe ser posterior al del turno para todos los dias");
+        }
+        if (!horarioPorDia.values().stream().map(InformacionPosiblesIntervalos::getFin).map(finTurno::compareTo)
+                .allMatch(res -> res >= 0)) {
+            throw new RuntimeException("La hora de inicio de la agenda debe ser posterior al del turno para todos los dias");
+        }
     }
 }

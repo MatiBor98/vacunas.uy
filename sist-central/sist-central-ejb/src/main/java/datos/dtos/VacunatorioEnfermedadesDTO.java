@@ -18,8 +18,8 @@ public class VacunatorioEnfermedadesDTO implements Serializable{
 	private String direccion;
 	private Departamento departamento;
 	private List<String> enfermedades;
-	private Double ubicacionX;
-	private Double ubicacionY;
+	/*private Double ubicacionX;
+	private Double ubicacionY;*/
 	
 	private static final long serialVersionUID = 1L;
 
@@ -90,7 +90,7 @@ public class VacunatorioEnfermedadesDTO implements Serializable{
 
 
 
-	public Double getUbicacionX() {
+	/*public Double getUbicacionX() {
 		return ubicacionX;
 	}
 
@@ -109,22 +109,22 @@ public class VacunatorioEnfermedadesDTO implements Serializable{
 
 	public void setUbicacionY(Double ubicacionY) {
 		this.ubicacionX = ubicacionY;
-	}
+	}*/
 
 	public VacunatorioEnfermedadesDTO(String nombre, String ciudad, String direccion, Departamento departamento,
-			List<String> enfermedades, Point ubicacion) {
+			List<String> enfermedades/*, Point ubicacion*/) {
 		super();
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
 		this.enfermedades = enfermedades;
-		this.ubicacionX = null;
+		/*this.ubicacionX = null;
 		this.ubicacionY = null;
 		if(ubicacion != null) {
 			this.ubicacionX = ubicacion.getX();
 			this.ubicacionY = ubicacion.getY();
-		}
+		}*/
 		
 	}
 	

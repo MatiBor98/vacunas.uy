@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/Template.xhtml">
+    <ui:define name="titulo">
+        - Confirmar Reserva
+    </ui:define>
+    <ui:define name="content">
+    <h:form>
+        <div class="bodytype" style="margin-top:100px">
+            <div class="content">
+                <h:graphicImage name="LogoVacunatorio.png"
+								alt="LogoVacunatorio.png"
+								width="90"
+								height="90"
+				/>
+                <h1 class="h2 mb-3 font-weight-normal">Confirmar reserva</h1>
+                <div style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
+	
+	                <div style="margin-top: 20px; display:#{ConfirmarReservaBean.reservaConfirmada}">
+	                    <div class="alert alert-success">
+	                        Se ha confirmado la reserva.
+	                    </div>
+	                </div>
+	                <div style="margin-top: 20px; display:#{ConfirmarReservaBean.elegirLote}">
+	                    <div class="alert alert-danger">
+	                        Seleccione un lote.
+	                    </div>
+	                </div>
+	                <div style="margin-top: 20px; display:#{ConfirmarReservaBean.reservaYaConfirmada}">
+	                    <div class="alert alert-danger">
+	                        Ya se ha confirmado esta reserva.
+	                    </div>
+	                </div>
+	             </div>  
+	            </div> 
+                <p:datePicker style="display:none"></p:datePicker>
+                
+                <ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
+                        <li class="list-group-item" style="background-color:#222938">
+                            <h2 style="color:white">#{ConsultaBean.consultaReserva.ciudadano.nombre} - #{ConsultaBean.consultaReserva.ciudadano.ci}</h2>
+                            <p style="color:white"> Enfermedad: #{ConsultaBean.consultaReserva.intervalo.agenda.etapa.planVacunacion.enfermedad}</p>
+                            <p style="color:white"> Vacuna: #{ConsultaBean.consultaReserva.intervalo.agenda.etapa.vacuna}</p>
+                            <p style="color:white"> Dosis: #{ConsultaBean.consultaReserva.paraDosis}</p>
+                            <p style="color:white"> Fecha y hora: #{ConsultaBean.consultaReserva.intervalo.fechayHora}</p>
+                            <p style="color:white"> Plan de Vacunacion: #{ConsultaBean.consultaReserva.intervalo.agenda.etapa.planVacunacion.nombre}</p>
+                            <p style="color:white"> Agenda para turno: #{ConsultaBean.consultaReserva.intervalo.agenda.nombre}</p>
+                            <p></p>
+                        </li>
+                </ul>
+                	<label style="display:block">Seleccione el lote de la vacuna que se utilizara:</label>
+	                <h:selectOneMenu value="#{ConfirmarReservaBean.lote}" class="form-control" style="width:800px;  display:inline">
+		                	<f:selectItems value="#{LoteBean.getNombresLotesConDosis(ConsultaBean.consultaReserva.intervalo.agenda.etapa.vacuna)}"/>     
+		            </h:selectOneMenu>
+	            <p></p>     
+	                <h:commandButton value="Confirmar"
+	                                 class="btn btn-lg btn-primary btn-block"
+	                                 type="submit"
+	                                 style="background-color:#222938; border:#222938; margin-top: 30px; width:800px; align:center; display:unset"
+	                                 action="#{ConfirmarReservaBean.confirmar()}"
+	                />    
+            </div>
+    </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

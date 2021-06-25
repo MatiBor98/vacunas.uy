@@ -1,26 +1,44 @@
 package beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Cookie;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.auth0.jwt.interfaces.Claim;
+
+import Utilities.TokenVerifier;
+import datos.dtos.CiudadanoDTO;
+import datos.entidades.Asignacion;
+import datos.entidades.Laboratorio;
 import datos.entidades.PuestoVacunacion;
 import datos.entidades.Turno;
 import datos.entidades.Vacunador;
+import datos.exceptions.CiudadanoNoEncontradoException;
+import datos.exceptions.CiudadanoRegistradoException;
+import plataformainteroperabilidad.Ciudadano;
+import plataformainteroperabilidad.Ciudadanos;
+import plataformainteroperabilidad.CiudadanosService;
+import javax.faces.view.ViewScoped;
 
 
 @Named("AsignacionBean")
-@RequestScoped
+@ViewScoped
 public class AsignacionBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +53,13 @@ public class AsignacionBean implements Serializable{
 	private String antesDeHoy = "none";
 	private Date fechaInicio;
 	private Date fechaFin;
+	//variables de la consulta frontoffice
+	private String cid;
+	private String hayBusqueda = "none";
+	private String color = "white";
+	private String colorSecundario = "#222938";
+	private String busqueda = null;
+	private Boolean realizarBusqueda = false;
 
 	@EJB
 	logica.servicios.local.PuestoVacunacionBeanLocal pVacService;
@@ -42,6 +67,23 @@ public class AsignacionBean implements Serializable{
 	logica.servicios.local.CiudadanoServiceLocal ciudadanoService;
 	@EJB
 	logica.servicios.local.TurnoServiceLocal turnoService;
+	
+	
+	@PostConstruct
+    public void init() {
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("JWT");
+        if(cookie!= null) {
+
+            TokenVerifier tokenVerifier = new TokenVerifier();
+            String jwtIdToken = tokenVerifier.getAtributeFromJWTString(cookie.getValue(),"id_token");
+            Map<String, Claim> claimMap = tokenVerifier.performActionWithFreshToken(jwtIdToken, FacesContext.getCurrentInstance().getExternalContext());
+            cid = claimMap.get("numero_documento").asString();
+
+        } else {
+            cid = null;
+        }
+
+    }
 	
 	public void agregarAsignacion(String  nombreVacunatorio, String nombrePuesto) {
 		if (vacunador == null || vacunador.equals("")) {
@@ -176,6 +218,84 @@ public class AsignacionBean implements Serializable{
 		}
 		return res;
 	}
+	public String hayAsignaciones() {
+		String res;
+		List<Asignacion> asigs = (List<Asignacion>) ciudadanoService.findAsignacionesVacunador(cid);
+		if (asigs.isEmpty()) {
+			res = "block";
+			
+		} else {
+			res = "none";
+		}
+		return res;
+	}
 	
+	public List<Asignacion> getAsignaciones() {
+		List<Asignacion> res = new ArrayList<>();
+		List<Asignacion> asigs = (List<Asignacion>) ciudadanoService.findAsignacionesVacunador(cid);
+		if (this.realizarBusqueda) {
+			Pattern pattern = Pattern.compile(this.busqueda.trim(), Pattern.CASE_INSENSITIVE);
+			for (Asignacion asig : asigs) {
+				Matcher match = pattern.matcher(asig.getPuestoVacunacion().getVacunatorio().getNombre());
+				boolean matchNombre = match.find();
+				if (matchNombre) {
+					res.add(asig);
+				}
+			}
+		} else {
+			res = asigs;
+		}
+		return res;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+	
+	public String getColor() {
+		if (this.color.equals("white")) {
+			this.color = "#222938";
+			this.colorSecundario = "white";
+		} else {
+			this.color = "white";
+			this.colorSecundario = "#222938";
+		}
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public String getColorSecundario() {
+		return colorSecundario;
+	}
+	public void setColorSecundario(String colorSecundario) {
+		this.colorSecundario = colorSecundario;
+	}
+	
+	public String getBusqueda() {
+		return busqueda;
+	}
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+	public Boolean getRealizarBusqueda() {
+		return realizarBusqueda;
+	}
+	public void setRealizarBusqueda(Boolean realizarBusqueda) {
+		this.realizarBusqueda = realizarBusqueda;
+		if ((this.busqueda != null) && (!this.busqueda.equals(""))) {
+			this.hayBusqueda = "block";
+		} else {
+			this.hayBusqueda = "none";
+		}
+	}
+	public String getHayBusqueda() {
+		return hayBusqueda;
+	}
+	public void setHayBusqueda(String hayBusqueda) {
+		this.hayBusqueda = hayBusqueda;
+	}
 	
 }

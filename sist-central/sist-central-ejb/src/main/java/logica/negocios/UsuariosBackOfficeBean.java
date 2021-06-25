@@ -51,6 +51,9 @@ public class UsuariosBackOfficeBean implements UsuariosBackOfficeBeanLocal {
     	try {
     		if(usuariosBO.find("admin") == null) 
     			this.addBOUser("admin", "admin", "Administrador");
+			//lo agregue porque me estaba volviendo chino dando de alta autoridades
+    		if(usuariosBO.find("auto") == null)
+				this.addBOUser("auto", "auto", "Autoridad");
     		
 		} catch (EmailRegistradoException e) {
 			// TODO Auto-generated catch block

@@ -65,9 +65,9 @@ public class VacunatorioBean implements Serializable{
 				GeometryFactory geomFactory = new GeometryFactory( new PrecisionModel(PrecisionModel.FLOATING), 4326);
 				double x = ubicacionX.doubleValue();
 				double y = ubicacionY.doubleValue();
-				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, geomFactory.createPoint(new Coordinate(x,y)));
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep/*, geomFactory.createPoint(new Coordinate(x,y))*/);
 			}else {
-				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, null);
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep/*, null*/);
 			}
 			this.setElegirDepartamento("none");
 			this.setVacunatorioYaExiste("none");

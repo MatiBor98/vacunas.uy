@@ -49,6 +49,14 @@ public class Agenda implements Serializable {
         this.horarioPorDia = horarioPorDia;
         this.turno = turno;
     }
+    
+    public Agenda(String nombre, LocalDate inicio, LocalDate fin, Etapa etapa, Turno turno) {
+	  this.nombre = nombre;
+	  this.inicio = inicio;
+	  this.fin = fin;
+	  this.etapa = etapa;
+	  this.turno = turno;
+	}
 
     public int getId() {
         return id;

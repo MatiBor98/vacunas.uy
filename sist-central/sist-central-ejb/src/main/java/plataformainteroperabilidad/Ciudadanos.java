@@ -5,9 +5,9 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
+import javax.xml.ws.Action;
 
 
 /**
@@ -16,7 +16,8 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ciudadanos", targetNamespace = "http://webservices.samples.jboss.org/")
+@WebService(name = "ciudadanos", targetNamespace = "http://services.tse.facultad/")
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -30,11 +31,10 @@ public interface Ciudadanos {
      *     returns plataformainteroperabilidad.Ciudadano
      */
     @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "obtPersonaPorDoc", targetNamespace = "http://webservices.samples.jboss.org/", className = "plataformainteroperabilidad.ObtPersonaPorDoc")
-    @ResponseWrapper(localName = "obtPersonaPorDocResponse", targetNamespace = "http://webservices.samples.jboss.org/", className = "plataformainteroperabilidad.ObtPersonaPorDocResponse")
+    @WebResult(partName = "return")
+    @Action(input = "http://services.tse.facultad/ciudadanos/obtPersonaPorDocRequest", output = "http://services.tse.facultad/ciudadanos/obtPersonaPorDocResponse")
     public Ciudadano obtPersonaPorDoc(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Integer arg0);
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0);
 
 }

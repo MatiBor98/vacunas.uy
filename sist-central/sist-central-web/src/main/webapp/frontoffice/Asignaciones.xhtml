@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplateVacunador.xhtml">
+	<ui:define name="titulo">
+		- Consulta de Asignaciones
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+		        <!-- presentacion -->
+	        <section id="hero" class="align-items-center" style="margin-top:-40px; background: url(#{resource['images/Asignaciones.jpg']}) top center; background-size: cover">
+	        	<h1 class="pb-2" style="margin-top:300px">ASIGNACIONES</h1>
+	            <h:form class="form-inline my-4 my-lg-0 mr-auto mx-auto" >
+	                <div class="ui-inputgroup" style="margin:auto">
+	                    <p:inputText
+					        value="#{AsignacionBean.busqueda}"
+							style="width:40vw"
+							type="search"
+							p:placeholder="Buscar asignacion (nombre de vacunatorio)"
+							aria-label="Search"
+							name="busquedaAsignacion"/>
+						<p:commandButton ajax="false" icon="pi pi-search" type="submit" class="btn btn-info"  style="background-color:#222938; border:#222938; color:white" action="#{AsignacionBean.setRealizarBusqueda(true)}"/>
+	                </div>
+				</h:form>
+	        </section><!-- End Hero -->
+	
+	        <div class="div-body" style="min-height: 0px">
+	            <div class="container">
+	                <section id="why-us" class="why-us" style="min-width: 700px;width: 60vw;">
+		                <div class="row pt-5 pb-2">
+		                    <div class="col-6 justify-content-center mx-auto" style="padding-top: 3%">
+		                        <div class="content" style="margin-left: 15px;
+		                                                    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.47);}">
+		                        <p class="pt-3" style="font-family: Open Sans; font-size: 1.2rem;"> Consulta la fecha y hora de tus asignaciones actuales en los distintos vacunatorios. </p>
+		                        </div>
+		                    </div>
+		                </div>
+	                </section>
+	
+	                <hr/>
+	            </div>
+	            <div class="container" style="margin:initial">					
+							<p></p>
+							
+							
+								<div id="busq" style="margin-top: 20px; display:#{AsignacionBean.hayBusqueda}">
+									<div class="alert alert-secondary">
+										Resultado de la busqueda "#{AsignacionBean.busqueda}"
+									</div>
+								</div>
+			
+								<div id="errores" style="margin-top: 20px; display:#{AsignacionBean.hayAsignaciones()}">
+									<div class="alert alert-danger">
+										No estas asignado a ningun vacunatorio.
+									</div>
+								</div>
+								
+								<p:datePicker style="display:none"></p:datePicker>
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{AsignacionBean.getAsignaciones()}" var="asig">
+									<h:panelGroup>
+									  <li class="list-group-item" style="background-color:#{AsignacionBean.getColor()}" >
+									  												
+										  <h2 style="color:#{AsignacionBean.colorSecundario}">#{asig.puestoVacunacion.vacunatorio.nombre}</h2>
+										  <p style="color:#{AsignacionBean.colorSecundario}"> Puesto: #{asig.puestoVacunacion.nombrePuesto}</p>
+										  <p style="color:#{AsignacionBean.colorSecundario}"> Desde: #{asig.fechaInicio}</p>
+										  <p style="color:#{AsignacionBean.colorSecundario}"> Hasta: #{asig.fechaFin}</p>
+										  <p:accordionPanel activeIndex="null" dynamic="true" cache="true" class="pb-3" >
+										  	<p:tab title="Mas informacion" selected="false" styleClass="accordion" id="tab">
+										  		<ul class="list-group list-group-flush">
+													  		<div class="card" style="width: 100%;">
+																<li class="list-group-item">Turno: #{asig.turno.nombre}</li>
+																<li class="list-group-item">Inicio del turrno: #{asig.turno.inicio}</li>
+																<li class="list-group-item">Fin del turno: #{asig.turno.fin}</li>
+															</div>
+												  </ul>
+										  	</p:tab>
+										  </p:accordionPanel>
+										  <p></p>
+									  </li>
+									</h:panelGroup>
+								</ui:repeat>
+			
+							</ul>
+					
+				</div>
+			</div>
+	     </div>
+		
+	</ui:define>
+</ui:composition>
+</html>

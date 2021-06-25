@@ -31,6 +31,8 @@
 		<class>datos.entidades.UsuarioBO</class>
 		<class>datos.entidades.Administrador</class>
 		<class>datos.entidades.Autoridad</class>
+		<class>datos.entidades.reporteStockDosis.DatosDosis</class>
+
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-source" value="metadata"/>

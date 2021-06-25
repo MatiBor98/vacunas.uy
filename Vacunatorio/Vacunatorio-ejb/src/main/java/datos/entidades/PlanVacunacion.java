@@ -7,6 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,9 +29,7 @@ public class PlanVacunacion implements Serializable {
 
     private LocalDate fin;
 
-    @ManyToOne
-    @JoinColumn(name="enfermedadNombre", nullable=false)
-    private Enfermedad enfermedad;
+    private String enfermedad;
     
     @OneToMany(mappedBy="planVacunacion")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -39,11 +38,12 @@ public class PlanVacunacion implements Serializable {
     public PlanVacunacion() {
     }
 
-    public PlanVacunacion(String nombre, LocalDate inicio, LocalDate fin, Enfermedad enfermedad) {
+    public PlanVacunacion(String nombre, LocalDate inicio, LocalDate fin, String enfermedad) {
         this.nombre = nombre;
         this.inicio = inicio;
         this.fin = fin;
         this.enfermedad = enfermedad;
+        this.etapas = new ArrayList<>();
     }
 
     public LocalDate getInicio() {
@@ -70,11 +70,11 @@ public class PlanVacunacion implements Serializable {
         this.nombre = nombre;
     }
 	
-	public Enfermedad getEnfermedad() {
+	public String getEnfermedad() {
         return this.enfermedad;
     }
 
-    public void setEnfermedad(Enfermedad enf) {
+    public void setEnfermedad(String enf) {
         this.enfermedad = enf;
     }
     

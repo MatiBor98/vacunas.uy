@@ -80,8 +80,8 @@ public class EnfermedadTest {
         
         enfermedadService.save("Dengue", "Altas ganas de vomitar y no te mueras pls", new ArrayList<Vacuna>(), new ArrayList<PlanVacunacion>());
         
-        //son 3 pq hay una enferemdada que se crea cuando inicia el sistema
-        assertEquals(3, enfermedadService.find().size());
+        //son 4 pq hay 2 enferemdades que se crea cuando inicia el sistema
+        assertEquals(4, enfermedadService.find().size());
         planVacunacionService.save("COVID-19-PLAN", LocalDate.of(2021, 6, 20), LocalDate.of(2021, 12, 20), enf);
         
         laboratorioService.save("PutinLabs", new ArrayList<Vacuna>());

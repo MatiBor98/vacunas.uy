@@ -11,16 +11,16 @@ public class LoteDTO implements Serializable{
 
 	private int dosisDisponibles;
 	private Integer numeroLote;
-	private Date fechaVencimiento;
+	private String fechaVencimiento;
 	private VacunaDTO vacuna;
-	private Date fechaEntrega;
-	private Date fechaDespacho;
+	private String fechaEntrega;
+	private String fechaDespacho;
 	private SocioLogisticoDTO socioLogistico;
     public LoteDTO() {
         super();
     }
     
-    public LoteDTO(int dosisDisponibles, int numeroLote, Date fechaVencimiento, VacunaDTO vacuna, SocioLogisticoDTO socioLogistico) {
+    public LoteDTO(int dosisDisponibles, int numeroLote, String fechaVencimiento, VacunaDTO vacuna, SocioLogisticoDTO socioLogistico) {
     	super();
     	this.dosisDisponibles = dosisDisponibles;
     	this.numeroLote = numeroLote;
@@ -31,6 +31,17 @@ public class LoteDTO implements Serializable{
     	this.fechaDespacho = null;
     }
     
+    public LoteDTO(int dosisDisponibles, int numeroLote, String fechaVencimiento, VacunaDTO vacuna, String fechaEntrega, String fechaDespacho) {
+    	super();
+    	this.dosisDisponibles = dosisDisponibles;
+    	this.numeroLote = numeroLote;
+    	this.fechaVencimiento = fechaVencimiento;
+    	this.vacuna = vacuna;
+    	this.socioLogistico = null;
+    	this.fechaEntrega = fechaEntrega;
+    	this.fechaDespacho = fechaDespacho;
+    }
+    
     public int getDosisDisponibles() {
     	return dosisDisponibles;
     }
@@ -39,7 +50,7 @@ public class LoteDTO implements Serializable{
     	return numeroLote;
     }
     
-    public Date getFechaVencimiento() {
+    public String getFechaVencimiento() {
     	return fechaVencimiento;
     }
 
@@ -48,11 +59,11 @@ public class LoteDTO implements Serializable{
     	return vacuna;
     }
 
-	public Date getFechaEntrega(){
+	public String getFechaEntrega(){
 		return fechaEntrega;
 	}
 
-	public Date getFechaDespacho(){
+	public String getFechaDespacho(){
 		return fechaDespacho;
 	}
 	
@@ -73,7 +84,7 @@ public class LoteDTO implements Serializable{
 		this.numeroLote = numeroLote;
 	}
 
-	public void setFechaVencimiento(Date fechaVencimiento) {
+	public void setFechaVencimiento(String fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
@@ -81,11 +92,11 @@ public class LoteDTO implements Serializable{
 		this.vacuna = vacuna;
 	}
 
-	public void setFechaEntrega(Date fechaEntrega) {
+	public void setFechaEntrega(String fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
 
-	public void setFechaDespacho(Date fechaDespacho) {
+	public void setFechaDespacho(String fechaDespacho) {
 		this.fechaDespacho = fechaDespacho;
 	}
 	

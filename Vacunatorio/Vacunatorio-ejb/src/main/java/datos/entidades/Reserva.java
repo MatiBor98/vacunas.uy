@@ -13,13 +13,11 @@ public class Reserva implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="reservaId")
-    @SequenceGenerator(name="reservaId",sequenceName="reservaId", allocationSize=1)
 	private int codigo;
 	
 	private Estado estado;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="ciCiudadano", nullable=false)
 	private Ciudadano ciudadano;
 
@@ -28,6 +26,7 @@ public class Reserva implements Serializable{
 	private Intervalo intervalo;
 
 	private Integer paraDosis;
+	private String lote;
 
 	public int getCodigo() {
 		return codigo;
@@ -69,16 +68,25 @@ public class Reserva implements Serializable{
 		this.paraDosis = paraDosis;
 	}
 
-	public Reserva(Estado estado, Ciudadano ciudadano, Intervalo intervalo, int paraDosis) {
+	public Reserva(Estado estado, Ciudadano ciudadano, Intervalo intervalo, int paraDosis, String lote) {
 		super();
 		this.estado = estado;
 		this.ciudadano = ciudadano;
 		this.intervalo = intervalo;
 		this.paraDosis = paraDosis;
+		this.lote = lote;
 	}
 
 	public Reserva() {
 		super();
+	}
+
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
 	}
 	
 	

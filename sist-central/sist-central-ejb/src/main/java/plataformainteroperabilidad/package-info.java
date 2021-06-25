@@ -1,2 +1,2 @@
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://webservices.samples.jboss.org/")
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://services.tse.facultad/")
 package plataformainteroperabilidad;

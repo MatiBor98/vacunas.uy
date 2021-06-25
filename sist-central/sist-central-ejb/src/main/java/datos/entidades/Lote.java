@@ -24,6 +24,7 @@ public class Lote implements Serializable{
 	@Column
 	private LocalDate fechaDespacho;
 	@ManyToOne
+	@JoinColumn(name="socioLogisticoId")
 	private SocioLogistico socioLogistico;
 	/*@ManyToOne
 	@JoinColumn(name="vacunatorioId", nullable=false)

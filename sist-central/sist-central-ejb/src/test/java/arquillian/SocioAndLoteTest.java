@@ -1,5 +1,6 @@
 package arquillian;
 
+import datos.dtos.LoteDTO;
 import datos.entidades.Departamento;
 import datos.entidades.Enfermedad;
 import datos.entidades.Laboratorio;
@@ -89,7 +90,7 @@ public class SocioAndLoteTest {
        List<Vacuna> vac = vacunaService.findByNombreVacuna("TheWall");
        assertEquals(1, vac.size());
        
-       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas, null);
+       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas/*, null*/);
        List<Vacunatorio> vacs = vacunatorioController.find();
        //se crean 3 al iniciar el sistema
        assertEquals(4, vacs.size());
@@ -138,8 +139,19 @@ public class SocioAndLoteTest {
        List<Lote> lotes = loteService.find();
        assertNotNull(lotes);
        //hay 2 creados al iniciar el sistema
-       assertEquals(4, lotes.size());
+       assertEquals(8, lotes.size());
+       Lote lote4000 = null;
+       for(Lote l: lotes) {
+    	   if(l.getNumeroLote().intValue() == 4000) {
+    		   lote4000 = l;
+    		   break;
+    	   }
+       }
        
+       assertNotNull(lote4000);
+       LoteDTO lotedto = loteService.getLoteDTO(lote4000);
+       assertEquals(4000, lotedto.getNumeroLote().intValue());
+       assertEquals("Gripevac", lotedto.getVacuna().getNombre());
     }
     
 }

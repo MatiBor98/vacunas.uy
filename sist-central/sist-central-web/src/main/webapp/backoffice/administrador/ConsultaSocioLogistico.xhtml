@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAdministrador.xhtml">
+	<ui:define name="titulo">
+		- Consulta Socio Logistico
+	</ui:define>
+	<ui:define name="content">
+		<div class="bodytype">
+			<div>
+				<h:graphicImage styleClass="mb-4"
+								name="LogoSocioLogistico.png"
+								p:alt="LogoSocioLogistico.png"
+								p:width="90"
+								p:height="90"
+				/>
+				<h1 class="h2 mb-3 font-weight-normal">Socio Logistico: #{ConsultaBean.consultaSocioLogistico}</h1>
+
+				<p></p>
+
+				<div class="row" style="display:block; padding-top: 0vh;">
+					<div class="col-sm-3"/>
+					<div class="col-sm-6">
+						<div class="card" style="background-color:#c6c6c6; width:1000px; border:0px">
+						  <div class="card-body text-center" style="background-color:#c6c6c6; border:0px">
+								<div class="bodytype"  id="lotes" style="display:block">
+									<div class="card-header" style="background-color:#222938; color:white">
+										<h2>Lotes</h2>
+									</div>
+									<h:form rendered="#{SocioLogisticoBean.getLotes(ConsultaBean.consultaSocioLogistico).isEmpty()}">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">No hay lotes asignados a este socio logistico.</li>
+										</ul>
+									</h:form>
+									<h:form rendered="#{!SocioLogisticoBean.getLotes(ConsultaBean.consultaSocioLogistico).isEmpty()}">
+										<ul class="list-group list-group-flush">
+											<ui:repeat value="#{SocioLogisticoBean.getLotes(ConsultaBean.consultaSocioLogistico)}" var="lote">
+												<div class="card-header" style="background-color:#222938; color:#222938">
+													<h4>
+														<li class="list-group-item">Numero de lote: #{lote.numeroLote}</li>
+													</h4>
+												</div>
+												<li class="list-group-item">Socio logistico: #{lote.socioLogistico.nombre}</li>
+												<li class="list-group-item">Fecha de vencimiento: #{lote.fechaVencimiento}</li>
+												<li class="list-group-item">Vacuna: #{lote.vacuna.nombre}</li>
+												<li class="list-group-item">Dosis Disponibles: #{lote.dosisDisponibles}</li>
+												<h:panelGroup rendered="#{lote.fechaDespacho == null}">
+													<li class="list-group-item">Fecha Despacho: Sin Despachar</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaDespacho != null}">
+													<li class="list-group-item">Fecha Despacho: #{lote.fechaDespacho}</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaEntrega == null}">
+													<li class="list-group-item">Fecha Entrega: Sin Entregar</li>
+												</h:panelGroup>
+												<h:panelGroup rendered="#{lote.fechaEntrega != null}">
+													<li class="list-group-item">Fecha Entrega: #{lote.fechaEntrega}</li>
+												</h:panelGroup>											</ui:repeat>
+										</ul>
+									</h:form>
+									<h:form>
+										<h:button value="Agregar lote" class="btn btn-success" style="padding: 5px 12px; display: inline; margin-top: 25px" outcome="/backoffice/autoridad/AgregarLote.xhtml" />
+									</h:form>
+								</div>
+						  </div>
+						</div>
+					</div>
+					<div class="col-sm-3"/>
+				</div>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>
+</html>

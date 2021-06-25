@@ -1,15 +1,12 @@
 package datos.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +24,9 @@ public class Vacuna implements Serializable{
 	@JoinColumn(name="enfermedadNombre", nullable=false)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Enfermedad> enfermedades;
+	@OneToMany(mappedBy = "vacuna")
+	private List<Etapa> etapas;
+
 	private int cantDosis;
 	private int inmunidadMeses;
 	private int dosisSeparacionDias;
@@ -73,7 +73,7 @@ public class Vacuna implements Serializable{
 	}
 
 	public int getDosisSeparacionDiasMultiploSemana() {
-		return 7 * ((this.dosisSeparacionDias/7) + (this.dosisSeparacionDias%7 > 0 ? 1 : 0));
+		return (int) (7 * Math.ceil(this.dosisSeparacionDias/7d));
 	}
 
 	public void setDosisSeparacionDias(int cantDias) {
@@ -88,9 +88,19 @@ public class Vacuna implements Serializable{
 		this.cantDosis = cantDosis;
 		this.inmunidadMeses = inmunidadMeses;
 		this.dosisSeparacionDias = dosisSeparacionDias;
+		this.etapas = new ArrayList<>();
 	}
 
 	public Vacuna() {
 		super();
+		this.etapas = new ArrayList<>();
+	}
+
+	public List<Etapa> getEtapas() {
+		return etapas;
+	}
+
+	public void setEtapas(List<Etapa> etapas) {
+		this.etapas = etapas;
 	}
 }

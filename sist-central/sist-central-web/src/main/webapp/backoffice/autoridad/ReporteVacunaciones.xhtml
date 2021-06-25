@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+>
+<ui:composition template="/WEB-INF/appTemplateAutoridad.xhtml">
+    <ui:define name="titulo">
+        - Home
+    </ui:define>
+    <ui:define name="content">
+
+        <h:outputScript name="js/monitor.js" target="head" />
+
+
+
+        <div class="div-body" style="min-height: 0px">
+
+            <!--Filtro-->
+            <div class="container">
+
+                <h:form>
+                    <div class="row">
+                        <div class="col-sm">
+                            <!--                     <p:outputLabel for="@next" value="Enfermedad"/>-->
+                            <p:selectOneMenu id="Enfermedad" value="#{ReporteVacunacionesBean.selEnfermedad}">
+                                <f:selectItem itemLabel="Todas las enfermedades" itemValue=""/>
+                                <f:selectItems value="#{ReporteVacunacionesBean.enfermedades}"/>
+
+                                <p:ajax event="valueChange" update="Vacuna Etapa"
+                                        listener="#{ReporteVacunacionesBean.initVacunas}"/>
+
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="col-sm">
+                            <!--                     <p:outputLabel for="@next" value="Vacuna"/>-->
+                            <p:selectOneMenu id="Vacuna" value="#{ReporteVacunacionesBean.selVacuna}">
+                                <f:selectItem itemLabel="Todas las vacunas" itemValue=""/>
+                                <f:selectItems value="#{ReporteVacunacionesBean.vacunas}"/>
+
+                                <p:ajax event="valueChange" update="Etapa"
+                                        listener="#{ReporteVacunacionesBean.initEtapas}" process="@this"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-sm">
+                            <!--                     <p:outputLabel for="@next" value="Etapa"/>-->
+                            <p:selectOneMenu id="Etapa" value="#{ReporteVacunacionesBean.selEtapa}">
+                                <f:selectItem itemLabel="Todas las etapas" itemValue=""/>
+                                <f:selectItems value="#{ReporteVacunacionesBean.etapas}"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p:outputLabel for="inicio" value="Inicio" style="margin-right: 20px"/>
+                            <p:datePicker id="inicio" value="#{ReporteVacunacionesBean.dateFechainicio}" >
+                                <p:ajax event="dateSelect" listener="#{ReporteVacunacionesBean.onDateSelectInicio}"
+                                        />
+                            </p:datePicker>
+
+                        </div>
+
+                        <div class="col-sm">
+                            <p:outputLabel for="fin" value="Fin" style="margin-right: 20px"/>
+                            <p:datePicker id="fin" value="#{ReporteVacunacionesBean.dateFechaFin}" >
+                                <p:ajax event="dateSelect" listener="#{ReporteVacunacionesBean.onDateSelectFin}"
+                                        />
+                            </p:datePicker>
+                        </div>
+                    </div>
+                </h:form>
+
+
+            </div>
+            <!-- -->
+
+            <!-- Mostrar -->
+
+            <h:form>
+                <p:commandButton type="button" value="Consultar">
+                    <p:ajax event="click" update="tablaUru pieChartSexo pieChartTrabajos" listener="#{ReporteVacunacionesBean.loadReporteData}" process="@this"/>
+                </p:commandButton>
+
+
+                <div class="container why-us" id="mapaUru">
+
+                    <o:importConstants type="datos.entidades.Departamento"/>
+
+
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="icon-boxes d-flex flex-column justify-content-center">
+                                <div class="icon-box mt-4 mt-xl-0" >
+                                    <div>
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" style="line-height: 6px;">
+                            <div class="icon-boxes d-flex flex-column justify-content-center">
+                                <div class="icon-box mt-4 mt-xl-0" style="padding: 0;padding-bottom: 13px;">
+                                    <p:dataTable var="dep" value="#{Departamento.values()}" id="tablaUru">
+                                        <p:column headerText="Departamento">
+                                            <h:outputText value="#{dep.toString()}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Dosis administradas">
+                                            <h:outputText
+                                                    value="#{ReporteVacunacionesBean.dosisDadasDepartamento.get(dep.name())}"/>
+                                        </p:column>
+
+
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="icon-boxes d-flex flex-column justify-content-center">
+                            <div class="icon-box mt-4 mt-xl-0" >
+                                <p:pieChart id="pieChartSexo" model="#{ReporteVacunacionesBean.pieChartSexo}" style="width: 100%; height: 500px;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="icon-boxes d-flex flex-column justify-content-center">
+                            <div class="icon-box mt-4 mt-xl-0" >
+                                <p:pieChart id="pieChartTrabajos" model="#{ReporteVacunacionesBean.pieChartTrabajos}" style="width: 100%; height: 500px;"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+            </h:form>
+        </div>
+
+
+        <script>
+            $('.count').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 800,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now).toLocaleString());
+                    }
+                });
+            });
+        </script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </ui:define>
+</ui:composition>
+</html>

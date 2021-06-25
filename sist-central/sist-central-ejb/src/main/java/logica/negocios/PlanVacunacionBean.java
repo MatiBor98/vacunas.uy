@@ -1,6 +1,7 @@
 package logica.negocios;
 
 import datos.dtos.PlanVacunacionDTO;
+import datos.dtos.PlanVacunacionDTO2;
 import datos.entidades.Enfermedad;
 import datos.entidades.PlanVacunacion;
 import datos.repositorios.PlanVacunacionRepository;
@@ -55,5 +56,17 @@ public class PlanVacunacionBean implements PlanVacunacionServiceLocal {
     	Date res = Date.from(fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant());
     	return res;
     }
+
+	@Override
+	public PlanVacunacionDTO getPVacDTO(PlanVacunacion planVacunacion) {
+		PlanVacunacionDTO res = new PlanVacunacionDTO(planVacunacion.getNombre(), planVacunacion.getInicio(), planVacunacion.getFin(), planVacunacion.getEnfermedad().getNombre());
+		return res;
+	}
+
+	@Override
+	public PlanVacunacionDTO2 getPVacDTO2(PlanVacunacion planVacunacion) {
+		PlanVacunacionDTO2 res = new PlanVacunacionDTO2(planVacunacion.getNombre(), planVacunacion.getInicio().toString(), planVacunacion.getFin().toString(), planVacunacion.getEnfermedad().getNombre());
+		return res;
+	}
 }
 

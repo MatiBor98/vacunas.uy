@@ -8,6 +8,7 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.mapping.Collection;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,14 +20,8 @@ public class Vacuna implements Serializable{
 	
 	@Id
 	private String nombre;
-	@ManyToMany
-	@JoinColumn(name="laboratorioNombre", nullable=false)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Laboratorio> laboratorios;
-	@ManyToMany
-	@JoinColumn(name="enfermedadNombre", nullable=false)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Enfermedad> enfermedades;
+	private Collection laboratorios;
+	private Collection enfermedades;
 	private int cantDosis;
 	private int inmunidadMeses;
 	private int dosisSeparacionDias;
@@ -39,19 +34,19 @@ public class Vacuna implements Serializable{
 		this.nombre = nombre;
 	}
 	
-	public List<Laboratorio> getLaboratorios() {
+	public Collection getLaboratorios() {
 		return laboratorios;
 	}
 
-	public void setLaboratorios(List<Laboratorio> laboratorios) {
+	public void setLaboratorios(Collection laboratorios) {
 		this.laboratorios = laboratorios;
 	}
 	
-	public List<Enfermedad> getEnfermedades() {
+	public Collection getEnfermedades() {
 		return this.enfermedades;
 	}
 
-	public void setEnfermedades(List<Enfermedad> enfermedades) {
+	public void setEnfermedades(Collection enfermedades) {
 		this.enfermedades = enfermedades;
 	}
 	
@@ -75,7 +70,7 @@ public class Vacuna implements Serializable{
 		this.dosisSeparacionDias = cantDias;
 	}
 
-	public Vacuna(List<Laboratorio> laboratorios, List<Enfermedad> enfermedades, String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacionDias) {
+	public Vacuna(Collection laboratorios, Collection enfermedades, String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacionDias) {
 		super();
 		this.nombre = nombre;
 		this.laboratorios = laboratorios;

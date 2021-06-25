@@ -88,13 +88,16 @@ public class VacunatorioControllerTest {
     	List<Vacunatorio> vacs = vacunatorioControllerLocal.find();
     	assertEquals(3, vacs.size());
     	
+    	vacs = vacunatorioControllerLocal.findByDepartamento(Departamento.Artigas);
+    	assertEquals(1, vacs.size());
+    	
     	//ahora si creamos uno
     	List<String> deps = vacunatorioControllerLocal.getNombresDepartamentos();
     	assertEquals(19, deps.size());
     	
-    	GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+    	//GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
     	
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas, geomFactory.createPoint(new Coordinate(-34.9181706,-56.1665725)));
+        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas/*, geomFactory.createPoint(new Coordinate(-34.9181706,-56.1665725))*/);
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);
@@ -218,7 +221,7 @@ public class VacunatorioControllerTest {
     	
     }
     
-    @Test
+    /*@Test
     @InSequence(6)
     public void should_find_vacunatorios_nearby() {
     	
@@ -231,7 +234,7 @@ public class VacunatorioControllerTest {
         assertEquals(2, vacCercanos.size());
         
         
-    }
+    }*/
     
     
 }

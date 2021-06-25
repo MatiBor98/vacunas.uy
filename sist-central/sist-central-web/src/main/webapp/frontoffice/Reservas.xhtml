@@ -12,9 +12,14 @@
         - Ver Mis Reservas
     </ui:define>
     <ui:define name="content">
+        <div id="fb-root"></div>
+        <script async="async" defer="defer" crossorigin="anonymous"
+                src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v11.0&amp;appId=215644573735604&amp;autoLogAppEvents=1"
+                nonce="9fdD0Fro"></script>
+
         <o:importConstants type="datos.entidades.Estado"/>
         <f:metadata>
-            <f:viewParam name="codigoReserva" value="#{ReservasBean.codigoReserva}" required="false" />
+            <f:viewParam name="codigoReserva" value="#{ReservasBean.codigoReserva}" required="false"/>
         </f:metadata>
         <div class="bodytype">
             <div class="content">
@@ -64,7 +69,8 @@
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Enfermedad: #{reserva.intervalo.agenda.etapa.planVacunacion.enfermedad.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Vacuna: #{reserva.intervalo.agenda.etapa.vacuna.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Dosis: #{reserva.paraDosis}</p>
-                                <p style="color:#{VacunatorioBean.colorSecundario}"> Estado: <span class="badge #{reserva.estado.cssClass}">#{reserva.estado}</span></p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Estado: <span
+                                        class="badge #{reserva.estado.cssClass}">#{reserva.estado}</span></p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> fecha y hora: #{of:formatDate(reserva.intervalo.fechayHora, 'dd-MM-yyyy HH:mm')}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Vacunatorio: #{reserva.intervalo.agenda.turno.vacunatorio.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Departamento: #{reserva.intervalo.agenda.turno.vacunatorio.departamento}</p>
@@ -73,9 +79,28 @@
                                 <h:form rendered="#{reserva.estado eq Estado.PENDIENTE}">
                                     <h:commandButton value="Cancelar" class="btn btn-danger"
                                                      style="padding: 2px 6px; display: inline; margin-left: 3px">
-                                        <f:param name="codigoReserva" value="#{reserva.codigo}" />
+                                        <f:param name="codigoReserva" value="#{reserva.codigo}"/>
                                     </h:commandButton>
                                 </h:form>
+                                <h:panelGroup rendered="#{reserva.estado eq Estado.VACUNADO and reserva.paraDosis eq reserva.intervalo.agenda.etapa.vacuna.cantDosis}">
+                                    <div id="shareBtn#{reserva.codigo}" class="btn btn-social-icon btn-facebook"
+                                         style="color: #fff; background-color:#2d4373;
+                                     border-color:rgba(0,0,0,0.2);">
+                                    <span style="font-family: 'Font Awesome 5 Brands',serif;"
+                                          class="fa-facebook"/> Compartir
+                                    </div>
+                                    <h:outputScript>
+                                        document.getElementById("shareBtn#{reserva.codigo}").onclick = function () {
+                                            FB.ui({
+                                                display: 'popup',
+                                                method: 'share',
+                                                hashtag: 'nosvacunamostodos',
+                                                quote: "Yo ya me vacuné contra la enfermedad #{reserva.intervalo.agenda.etapa.planVacunacion.enfermedad.nombre}. Vos tambien te podés vacunar.\nHace tu reserva online para protegerte contra esta y otras enfermedades en",
+                                                href: 'https://vacunas.web.elasticloud.uy/Home',
+                                            }, function (response) {});
+                                        }
+                                    </h:outputScript>
+                                </h:panelGroup>
                             </li>
                         </ui:repeat>
                     </ul>

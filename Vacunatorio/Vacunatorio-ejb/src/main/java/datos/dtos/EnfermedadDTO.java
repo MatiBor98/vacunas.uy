@@ -9,13 +9,13 @@ public class EnfermedadDTO implements Serializable {
 	private String nombre;
 	private String descripcion;
 	private List<VacunaDTO> vacunas;
-	private List<PlanVacunacionDTO> planesVacunacion;
+	private List<PlanVacunacionDTO2> planesVacunacion;
 	
 	public EnfermedadDTO() {
 		super();
 	}
 	
-	public EnfermedadDTO(String nombre, String descripcion, List<VacunaDTO> vacunas, List<PlanVacunacionDTO> planesVacunacion) {
+	public EnfermedadDTO(String nombre, String descripcion, List<VacunaDTO> vacunas, List<PlanVacunacionDTO2> planesVacunacion) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -47,11 +47,11 @@ public class EnfermedadDTO implements Serializable {
 		this.vacunas = vacunas;
 	}
 	
-	public List<PlanVacunacionDTO> getPlanesVacunacion() {
+	public List<PlanVacunacionDTO2> getPlanesVacunacion() {
 		return this.planesVacunacion;
 	}
 
-	public void setPlanesVacunacion(List<PlanVacunacionDTO> planesVacunacion) {
+	public void setPlanesVacunacion(List<PlanVacunacionDTO2> planesVacunacion) {
 		this.planesVacunacion = planesVacunacion;
 	}
 }

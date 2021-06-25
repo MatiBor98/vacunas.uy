@@ -1,5 +1,8 @@
 package datos.repositorios;
 
+import datos.dtos.TurnoDTO;
+import datos.entidades.Ciudadano;
+import datos.entidades.Etapa;
 import datos.entidades.Intervalo;
 import datos.entidades.Reserva;
 
@@ -13,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-@LocalBean
-public class IntervaloRepository {
+public class IntervaloRepository implements IntervaloRepositoryLocal, IntervaloRepositoryRemote{
     @PersistenceContext(unitName = "vacunatorioPersistenceUnit")
     private EntityManager entityManager;
 
@@ -42,11 +44,36 @@ public class IntervaloRepository {
                 .stream()
                 .findFirst();
     }
-
+    
+    public List<Intervalo> findByFecha(int agendaId, LocalDateTime inicio) {
+        return entityManager.createQuery(
+                "select distinct i from Intervalo i " +
+                        "where i.agenda.id = :agendaId " +
+                        "and i.fechayHora = :inicio ", Intervalo.class)
+                .setParameter("inicio", inicio)
+                .setParameter("agendaId", agendaId)
+                .getResultList();
+    }
+    
     public Intervalo findOrCreate(Intervalo intervalo) {
         return find(intervalo.getAgenda().getId(), intervalo.getFechayHora()).orElseGet(() -> {
             entityManager.persist(intervalo);
             return intervalo;
         });
     }
+
+	public List<Intervalo> find() {
+		return entityManager.createQuery("select i from Intervalo i", Intervalo.class)
+                .getResultList();
+	}
+	
+	public void save(Intervalo intervalo) {
+		entityManager.persist(intervalo);
+	}
+	
+	public void drop() {
+		entityManager.createQuery("delete from Intervalo").executeUpdate();	
+		
+	}
+
 }

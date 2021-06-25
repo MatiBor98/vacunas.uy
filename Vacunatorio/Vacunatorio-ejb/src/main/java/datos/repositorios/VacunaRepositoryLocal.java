@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import javax.ejb.Local;
 
-import datos.entidades.Enfermedad;
-import datos.entidades.Laboratorio;
+import org.hibernate.mapping.Collection;
+
 import datos.entidades.Vacuna;
 
 @Local
@@ -14,7 +14,8 @@ public interface VacunaRepositoryLocal {
 	 List<Vacuna> find();
 	 public Optional<Vacuna> find(String nombre);
 	 List<Vacuna> findByNombreVacuna(String nombreVac);
-	 void save(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs);
+	 void save(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, Collection labs, Collection enfs);
 	 void eliminar(String nombre);
-	 void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, List<Laboratorio>labs, List<Enfermedad>enfs);
+	 void modificarVacuna(String nombre, int cantDosis, int inmunidadMeses, int dosisSeparacion, Collection labs, Collection enfs);
+	 void drop();
 }

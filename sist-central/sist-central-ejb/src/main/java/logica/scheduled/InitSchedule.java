@@ -1,16 +1,17 @@
 package logica.scheduled;
 
-import datos.entidades.Reserva;
+import datos.entidades.*;
+import datos.entidades.reporteStockDosis.DatosDosis;
+import datos.repositorios.DosisReporteReporteBean;
 import datos.repositorios.ReservaRepository;
+import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.servicios.local.CiudadanoServiceLocal;
 
-import javax.ejb.EJB;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.List;
+import java.util.*;
 
 @Singleton
 @Startup
@@ -38,4 +39,40 @@ public class InitSchedule {
         }
     }
 
+    @EJB
+    VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+    @EJB
+    DosisReporteReporteBean dosisReporteReporteBean;
+
+    // 1 am, para el dia anterior
+    @Schedule(hour = "1", minute = "0", second = "0")
+    public void guardarDatosStockDosis(){
+        LocalDate hoy = LocalDate.now();
+        List<Vacunatorio> vacunatorios = vacunatorioRepositoryLocal.find();
+
+        List<DatosDosis> datosDosisList = new ArrayList<>();
+        //Calcular
+        for (Vacunatorio vac: vacunatorios){
+            Set<Lote> lotes = vac.getLotes();
+            Map<String, DatosDosis> datosVacunatorio = new HashMap<>();
+            for (Lote lot : lotes){
+                if (lot.getFechaEntrega() != null) {
+                    Vacuna vacunaActual = lot.getVacuna();
+                    String nomVacuna = vacunaActual.getNombre();
+                    //Primer vez de esta vacuna
+                    if (datosVacunatorio.get(nomVacuna) == null) {
+                        datosVacunatorio.put(nomVacuna, new DatosDosis(hoy, vac.getNombre(), nomVacuna, vac.getDepartamento(), lot.getDosisDisponibles()));
+                    }
+                    // ya existe en map
+                    else {
+                        Integer cantidadAntes = datosVacunatorio.get(nomVacuna).getCantidad();
+                        datosVacunatorio.get(nomVacuna).setCantidad(cantidadAntes + lot.getDosisDisponibles());
+                    }
+                }
+            }
+            datosDosisList.addAll(datosVacunatorio.values());
+        }
+        // Guardar
+        dosisReporteReporteBean.saveAll(datosDosisList);
+    }
 }

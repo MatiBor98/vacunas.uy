@@ -3,10 +3,11 @@ package datos.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
-
+@XmlRootElement
 public class AsignacionDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

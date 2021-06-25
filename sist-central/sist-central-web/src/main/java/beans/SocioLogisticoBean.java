@@ -2,7 +2,9 @@ package beans;
 
 
 
+import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
+import datos.entidades.Vacunatorio;
 
 
 import javax.ejb.EJB;
@@ -11,6 +13,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -172,5 +176,9 @@ public class SocioLogisticoBean implements Serializable{
 
 	public void setColorSecundario(String colorSecundario) {
 		this.colorSecundario = colorSecundario;
+	}
+
+	public List<Lote> getLotes(String nombre) {
+		return ContSocioLogistico.getLotes(nombre);
 	}
 }

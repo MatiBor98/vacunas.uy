@@ -10,28 +10,31 @@
 		- Home
 	</ui:define>
 	<ui:define name="content">
-		<div class="div-body">
+
+		<h:outputStylesheet value="css" name="css/backofficelista.css"/>
+
+		<div class="div-body hexagon-bckg">
 			<div class="container justify-content-center">
-			<!-- gestion de Enfermedades -->
+			<!-- gestión de Enfermedades -->
 				<div class="row">
-					<h3>Gestion</h3>
+					<h1>Gestión</h1>
 				</div>
 				<div class="row">
 					<div class="col-3 m-2">
 						<div class="card h-100">
 							<div class="card-title" >
-								<h4>Gestion de enfermedades</h4>
+								<h4>Gestión de enfermedades</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Alta de enfermedad</h5>
+										<h6>Alta de enfermedad</h6>
 										<a href="/backoffice/autoridad/AgregarEnfermedad.xhtml" class="stretched-link"></a>
 									</div>																		
 								</div>
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de enfermedades</h5>
+										<h6>Lista de enfermedades</h6>
 										<a href="/backoffice/autoridad/ConsultaEnfermedades.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
@@ -41,18 +44,18 @@
 					<div class="col-3 m-2">
 						<div class="card h-100">
 							<div class="card-title" >
-								<h4>Gestion de Vacunas</h4>
+								<h4>Gestión de Vacunas</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Alta de vacuna</h5>
+										<h6>Alta de vacuna</h6>
 										<a href="/backoffice/autoridad/AgregarVacuna.xhtml" class="stretched-link"></a>
 									</div>																		
 								</div>
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de vacunas</h5>
+										<h6>Lista de vacunas</h6>
 										<a href="/backoffice/autoridad/ConsultaVacunas.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
@@ -62,18 +65,18 @@
 					<div class="col-3 m-2">
 						<div class="card h-100">
 							<div class="card-title" >
-								<h4>Gestion de laboratorios</h4>
+								<h4>Gestión de laboratorios</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Alta de laboratorio</h5>
+										<h6>Alta de laboratorio</h6>
 										<a href="/backoffice/autoridad/AgregarLaboratorio.xhtml" class="stretched-link"></a>
 									</div>																		
 								</div>
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de laboratorios</h5>
+										<h6>Lista de laboratorios</h6>
 										<a href="/backoffice/autoridad/ConsultaLaboratorios.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
@@ -83,18 +86,18 @@
 					<div class="col-3 m-2">
 						<div class="card h-100">
 							<div class="card-title" >
-								<h4>Gestion de Planes de vacunacion</h4>
+								<h4>Gestión de Planes de vacunacion</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Alta de plan de vacunacion</h5>
+										<h6>Alta de plan de vacunacion</h6>
 										<a href="/backoffice/autoridad/AgregarPlanVacunacion.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de planes de vacunacion</h5>
+										<h6>Lista de planes de vacunacion</h6>
 										<a href="/backoffice/autoridad/ConsultaPlanesVacunacion.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
@@ -102,32 +105,54 @@
 							
 						</div>
 					</div>
+					<div class="col-3 m-2">
+						<div class="card h-100">
+							<div class="card-title" >
+								<h4>Gestión de Planes de vacunacion</h4>
+							</div>
+							<div class="card-body">
+								<div class="card" style="width: 100%;">
+									<div class="card-body">
+										<h6>Lista de agendas</h6>
+										<a href="/backoffice/autoridad/ConsultaAgenda.xhtml" class="stretched-link"></a>
+									</div>
+								</div>
+								<div class="card" style="width: 100%;">
+									<div class="card-body">
+										<h6>Agregar de agenda</h6>
+										<a href="/backoffice/autoridad/AgregarAgenda.xhtml" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
 				</div>
-				
+
 				<p:datePicker style="display:none"></p:datePicker>
-				
+
 				<hr/>
 				
-				<!-- gestion de dosis, tomalo con pinzas pq depende de como implementemos el socio logistico -->
+				<!-- gestión de dosis, tomalo con pinzas pq depende de como implementemos el socio logistico -->
 				<div>
-					<h3>Logistica</h3>
+					<h3>Logística</h3>
 				</div>
 				<div class="row">
 					<div class="col-4">
 						<div class="card h-100">
 							<div class="card-title">
-								<h3>Gestion logistica de dosis</h3>
+								<h4>Gestión logística de dosis</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Agregar lote</h5>
+										<h6>Agregar lote</h6>
 										<a href="/backoffice/autoridad/AgregarLote.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Registro de recepcion de vacunas</h5>
+										<h6>Registro de recepcion de vacunas</h6>
 										<a href="#" class="stretched-link"></a>
 									</div>
 								</div>
@@ -137,13 +162,13 @@
 					<div class="col-4">
 						<div class="card h-100">
 							<div class="card-title">
-								<h3>Gestion logistica de dosis</h3>
+								<h4>Reporte</h4>
 							</div>
 							<div class="card-body">
 								<div class="card" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de stock de vacunatorios</h5>
-										<a href="#" class="stretched-link"></a>
+										<h6>Lista de stock de vacunatorios</h6>
+										<a href="/backoffice/autoridad/ReporteStockDosis.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
 							</div>
@@ -152,9 +177,9 @@
 				</div>
 				<hr/>
 				
-				<!--  gestion de vacunatorios -->
+				<!--  gestión de vacunatorios -->
 				<div class="row">
-					<h3>Gestion de vacunatorios y asignacion de vacunadores</h3>
+					<h3>Gestión de vacunatorios y asignacion de vacunadores</h3>
 				</div>
 				<div class="row">
 					<div class="col-4">
@@ -162,8 +187,8 @@
 							<div class="card-body">
 								<div class="card h-100" style="width: 100%;">
 									<div class="card-body">
-										<h5>Lista de vacunatorios</h5>
-										<a href="/backoffice/ConsultaVacunatorios.xhtml?rol=autoridad" class="stretched-link"></a>
+										<h6>Lista de vacunatorios</h6>
+										<a href="/backoffice/autoridad/ConsultaVacunatorios.xhtml?rol=autoridad" class="stretched-link"></a>
 									</div>
 								</div>
 							</div>
@@ -181,7 +206,7 @@
 							<div class="card-body">
 								<div class="card h-100" style="width: 100%;">
 									<div class="card-body">
-										<h5>Notificar Usuarios</h5>
+										<h6>Notificar Usuarios</h6>
 										<a href="/backoffice/autoridad/NotificarUsuarios.xhtml" class="stretched-link"></a>										
 									</div>
 								</div>
@@ -190,7 +215,7 @@
 					</div>
 				</div>
 				<hr/>
-			<!-- gestion de Enfermedades -->
+			<!-- gestión de Enfermedades -->
 				<div class="row">
 					<h3>Actos vacunales</h3>
 				</div>
@@ -200,8 +225,8 @@
 							<div class="card-body">
 								<div class="card h-100" style="width: 100%;">
 									<div class="card-body">
-										<h5>Ver estadisticas</h5>
-										<a href="#" class="stretched-link"></a>										
+										<h6>Ver estadisticas</h6>
+										<a href="/backoffice/autoridad/ReporteVacunaciones.xhtml" class="stretched-link"></a>
 									</div>
 								</div>
 							</div>

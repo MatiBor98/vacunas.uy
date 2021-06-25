@@ -1,5 +1,7 @@
 package datos.repositorios;
 
+import datos.entidades.Etapa;
+import datos.entidades.Lote;
 import datos.entidades.SocioLogistico;
 
 import javax.ejb.Local;
@@ -13,4 +15,5 @@ public interface SocioLogisticoRepositoryLocal {
 	 Optional<SocioLogistico> find(String nombre);
 	 void save(SocioLogistico soc);
 	 void habilitar(String nombre);
+	List<Lote> getLotes(String nombreSocioLogistico);
 	}

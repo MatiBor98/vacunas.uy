@@ -19,11 +19,16 @@
                                 t:width="90"
                                 t:height="90"
                 />
-                <h1 class="h2 mb-3 font-weight-normal">Agregar un lote para #{ConsultaBean.consultaVacunatorio}</h1>
+                <h:panelGroup rendered="#{not empty ConsultaBean.consultaVacunatorio}">
+                    <h1 class="h2 mb-3 font-weight-normal">Agregar un lote para #{ConsultaBean.consultaVacunatorio}</h1>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{not empty ConsultaBean.consultaSocioLogistico}">
+                    <h1 class="h2 mb-3 font-weight-normal">Agregar un lote para #{ConsultaBean.consultaSocioLogistico}</h1>
+                </h:panelGroup>
 
                 <div id="errores" style="display:#{LoteBean.loteYaExiste}">
                     <div class="alert alert-danger">
-                        Ya existe un lote con ese nombre.
+                        Ya existe un lote con ese id.
                     </div>
                 </div>
 
@@ -34,15 +39,20 @@
                 </div>
 
                 <label class="form-label">Vacunatorio:</label>
-                <p:inputText
+                <p:inputText rendered="#{not empty ConsultaBean.consultaVacunatorio}"
                         stlyeClsss="text-input"
                         value="#{ConsultaBean.consultaVacunatorio}"
                         id="inputNombreVac"
                         class="form-control text-center"
-                        t:placeholder="Ingerse el nomrbe"
+                        t:placeholder="Ingrese el nombre"
                         required="true"
                         disabled="true"
                 />
+                <p:selectOneListbox rendered="#{ empty ConsultaBean.consultaVacunatorio}" value="#{LoteBean.vacunatorio}" required="true" class="form-control">
+                    <f:selectItems value="#{VacunatorioBean.getNombresVacunatorios()}"/>
+                </p:selectOneListbox>
+
+
 
                 <label class="form-label">Numero de Lote:</label>
                 <p:inputText
@@ -50,11 +60,20 @@
                         value="#{LoteBean.numLote}"
                         id="inputNumeroLote"
                         class="form-control text-center"
-                        t:placeholder="Ingerse el numero de lote"
+                        t:placeholder="Ingrese el numero de lote"
                         required="true"
                 />
                 <label class="form-label">Socio Logistico asociados:</label>
-                <p:selectOneListbox value="#{LoteBean.socLogistico}" required="true" class="form-control">
+                <p:inputText rendered="#{not empty ConsultaBean.consultaSocioLogistico}"
+                             stlyeClsss="text-input"
+                             value="#{ConsultaBean.consultaSocioLogistico}"
+                             class="form-control text-center"
+                             t:placeholder="Ingrese el nombre"
+                             required="true"
+                             disabled="true"
+                />
+
+                <p:selectOneListbox rendered="#{empty ConsultaBean.consultaSocioLogistico}" value="#{LoteBean.socLogistico}" required="true" class="form-control">
                     <f:selectItems value="#{SocioLogisticoBean.getNombresSociosLogisticosHabilitados()}"/>
                 </p:selectOneListbox>
 
@@ -69,14 +88,14 @@
                         value="#{LoteBean.dosisDisponibles}"
                         id="inputDosisDisponibles"
                         class="form-control text-center"
-                        t:placeholder="Ingerse las dosis disponibles"
+                        t:placeholder="Ingrese las dosis disponibles"
                         required="true"
                 />
 
                 <div class="ui-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-6">
                         <label class="form-label">Vencimiento:</label>
-                        <p:datePicker id="inputVencimiento" required="true" showIcon="true" value="#{LoteBean.fechaVencimiento}" t:placeholder="Ingerse la fecha de vencimiento"/>
+                        <p:datePicker id="inputVencimiento" required="true" showIcon="true" value="#{LoteBean.fechaVencimiento}" t:placeholder="Ingrese la fecha de vencimiento"/>
                     </div>
                 </div>
 
@@ -84,7 +103,7 @@
                                  class="btn btn-lg btn-primary btn-block"
                                  type="submit"
                                  style="background-color:#222938; border:#222938; margin-top: 30px"
-                                 action="#{LoteBean.agregarLote(ConsultaBean.consultaVacunatorio)}"
+                                 action="#{LoteBean.agregarLote(ConsultaBean.consultaVacunatorio, ConsultaBean.consultaSocioLogistico)}"
                 />
             </h:form>
         </div>

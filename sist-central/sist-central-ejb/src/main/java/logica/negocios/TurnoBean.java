@@ -23,7 +23,6 @@ import logica.servicios.local.TurnoServiceLocal;
  * Session Bean implementation class PuestoVacunacionBean
  */
 @Stateless
-@LocalBean
 public class TurnoBean implements  TurnoServiceLocal {
 
 	@EJB

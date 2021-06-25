@@ -70,7 +70,7 @@
                                 <h:panelGroup id="dropdown-menu">
                                     <div class="dropdown-menu #{AgendarBean.enfermedades.isEmpty() ? '' : 'show'}">
                                         <ui:repeat value="#{AgendarBean.enfermedades}" var="enfermedad">
-                                            <h:commandButton styleClass="dropdown-item"
+                                            <h:commandButton styleClass="dropdown-item" style="color: white;"
                                                              value="#{enfermedad.nombre} - #{enfermedad.descripcion}">
                                                 <f:ajax event="click" render="@form postEnfermedadSelect"
                                                         listener="#{AgendarBean.elegirEnfermedad(enfermedad)}"/>
@@ -152,7 +152,7 @@
                             </h:form>
                             <h:panelGroup rendered="#{empty AgendarBean.agendas}">
                                 <div class="alert alert-warning offset-md-3 col-md-6" role="alert">
-                                    No hay horarios disponibles para este departamento en ningun.
+                                    No hay horarios disponibles para este departamento en ningun vacunatorio.
                                 </div>
                             </h:panelGroup>
                             <!--                            SELECCIONAR INTERVALO-->
