@@ -39,14 +39,6 @@ insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) val
 insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982', ST_GeomFromText('POINT(-34.8913639 -56.1539307)', 4326));
 insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro', ST_GeomFromText('POINT(-30.4028157 -56.4608542)', 4326));
 
-/*
--- vacunatorio COSEM Punta Carretas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461'); 
--- vacunatorio Hospital de Clinicas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982'); 
--- vacunatorio Hospital de Artigas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro'); 
-*/
 
 --Turno 1, Matutino, 8:00-12:00, COSEM Punta Carretas
 insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino', 'COSEM Punta Carretas');
