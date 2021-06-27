@@ -245,7 +245,6 @@
 			    <groupId>com.vividsolutions</groupId>
 			    <artifactId>jts</artifactId>
 			    <version>1.13</version>
-			    <scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
