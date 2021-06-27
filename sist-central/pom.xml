@@ -246,6 +246,13 @@
 			    <artifactId>jts</artifactId>
 			    <version>1.13</version>
 			</dependency>
+			
+			<dependency>
+			    <groupId>net.postgis</groupId>
+			    <artifactId>postgis-jdbc</artifactId>
+			    <version>2.5.0</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 	<build>
