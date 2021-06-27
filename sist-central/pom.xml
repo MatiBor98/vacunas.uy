@@ -226,6 +226,12 @@
 	            <artifactId>hibernate-spatial</artifactId>
 	            <version>5.3.20.Final</version>
 	            <scope>provided</scope>
+	            <exclusions>
+	            	<exclusion>
+	            		<groupId>org.postgresql</groupId>
+                    	<artifactId>postgresql</artifactId>
+	            	</exclusion>
+	            </exclusions>
         	</dependency>
         	
         	<dependency>
