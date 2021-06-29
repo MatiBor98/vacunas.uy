@@ -65,9 +65,8 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
     public VacunatorioBean() {
     }
 
-    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento/*, Point ubicacion*/) {
-    	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento);
-    	//vac.setUbicacion(ubicacion);
+    public void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, String password) {
+    	Vacunatorio vac = new Vacunatorio(nombre, ciudad, direccion, departamento, password);
     	vacunatorioRepositoryLocal.save(vac);
     }
     
@@ -123,6 +122,11 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 			res.add(dep.toString());
 		}
 		return res;
+	}
+	
+	public Boolean passCorrecta(String nombreVacunatorio, String pass) {
+		Vacunatorio vac = find(nombreVacunatorio).get();
+		return vac.getPassword().equals(pass);
 	}
 
 	public DatosVacunatorio getDatosVacunatorio(String nombreVacunatorio) {

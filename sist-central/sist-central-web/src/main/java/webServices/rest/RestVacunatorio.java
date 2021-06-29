@@ -25,10 +25,14 @@ public class RestVacunatorio {
 	}
 	
 	@GET
-	@Path("/vacunatorio/{nombreVac}")
-	public DatosVacunatorio getDatosVacunatorio(@PathParam("nombreVac") String nombreVacunatorio) {
-		nombreVacunatorio = nombreVacunatorio.replace('_', ' ');
-		return vacControllerLocal.getDatosVacunatorio(nombreVacunatorio);
+	@Path("/vacunatorio/{nombreVac}/{pass}")
+	public DatosVacunatorio getDatosVacunatorio(@PathParam("nombreVac") String nombreVacunatorio, @PathParam("pass") String pass) {
+		DatosVacunatorio res = null;
+		nombreVacunatorio = nombreVacunatorio.replace("_", " ");
+		if (vacControllerLocal.passCorrecta(nombreVacunatorio, pass)) {
+			res = vacControllerLocal.getDatosVacunatorio(nombreVacunatorio);
+		}
+		return res;
 	}
 
 

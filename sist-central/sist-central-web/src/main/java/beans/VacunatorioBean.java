@@ -59,15 +59,16 @@ public class VacunatorioBean implements Serializable{
 			this.setVacunatorioYaExiste("none");
 			this.setVacunatorioAgregado("none");
 		} else {
+			String password = UUID.randomUUID().toString();
 			depVacunatorio = depVacunatorio.replaceAll("\\s", "");
 			Departamento dep = Departamento.valueOf(depVacunatorio);
 			if (ubicacion) {
 				GeometryFactory geomFactory = new GeometryFactory( new PrecisionModel(PrecisionModel.FLOATING), 4326);
 				double x = ubicacionX.doubleValue();
 				double y = ubicacionY.doubleValue();
-				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep/*, geomFactory.createPoint(new Coordinate(x,y))*/);
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, password);
 			}else {
-				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep/*, null*/);
+				ContVacunatorio.addVacunatorio(nomVacunatorio, ciudadVacunatorio, dirVacunatorio, dep, password);
 			}
 			this.setElegirDepartamento("none");
 			this.setVacunatorioYaExiste("none");

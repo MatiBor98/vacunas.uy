@@ -6,6 +6,8 @@ import datos.dtos.EtapaDTO;
 import datos.dtos.InformacionPosiblesIntervalosDTO;
 import datos.dtos.ReservaDTO;
 import datos.dtos.VacunatorioTieneAgendaDTO;
+import datos.dtos.VacunatorioTieneAgendaParaEtapaDTO;
+import datos.entidades.Agenda;
 import datos.entidades.Departamento;
 import datos.entidades.Estado;
 import datos.entidades.Intervalo;
@@ -339,5 +341,16 @@ public class AgendaTest {
     			assertEquals(0, vacunasDeps.get(dep).intValue());
     		}
     	}
+    }
+    
+    @Test
+    @InSequence(13)
+    public void find() {
+    	
+    	List<VacunatorioTieneAgendaParaEtapaDTO> agendas = agendaServiceLocal.find(0, 10);
+    	assertEquals(9, agendas.size());
+    	
+    	agendas = agendaServiceLocal.findByNombrePlan(0, 2, "Plan vacunacion covid 19");
+    	assertEquals(2, agendas.size());
     }
 }

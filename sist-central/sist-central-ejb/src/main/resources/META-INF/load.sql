@@ -11,14 +11,14 @@ insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) valu
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Astrazeneca', 1, 0, 8); -- Astrazeneca 1 dosis -> Coronavirus
 insert into vacuna (nombre, cantdosis, dosisseparaciondias, inmunidadmeses) values ('Gripevac', 1, 0, 8); -- Gripevac 1 dosis -> Gripe 2021
 insert into enfermedad (nombre, descripcion) values ('Coronavirus', 'COVID-19'); -- Coronavirus -> 3 vacunas
-insert into enfermedad (nombre, descripcion) values ('Gripe 2021', 'Gripe estacional'); -- Gripe 2021 ->  1 vacuna 
+insert into enfermedad (nombre, descripcion) values ('Gripe 2021', 'Gripe estacional'); -- Gripe 2021 ->  1 vacuna
 insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Coronavac', 'Coronavirus');
 insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Pfizer', 'Coronavirus');
 insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Astrazeneca', 'Coronavirus');
 insert into vacuna_enfermedad (vacunas_nombre, enfermedades_nombre) values ('Gripevac', 'Gripe 2021');
 
 --Plan vacunacion covid 19, 2020/1/1-2023/12/31, Coronavirus
-insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Plan vacunacion covid 19', date '2020-01-01', date '2023-12-31', 'Coronavirus'); 
+insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Plan vacunacion covid 19', date '2020-01-01', date '2023-12-31', 'Coronavirus');
 --Anti gripe,2021/1/1-2021/12/31, Gripe 2021
 insert into planvacunacion(nombre, inicio, fin, enfermedadnombre) values ( 'Anti gripe', date '2021-01-01', date '2021-12-31', 'Gripe 2021');
 -- etapa 1, Plan vacunacion covid 19, Pfizer, 2020/1/1-2023/12/31 (SALUD)
@@ -26,32 +26,21 @@ insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannomb
 -- etapa 2, Plan vacunacion covid 19, Astrazenecas, 2020/1/1-2023/12/31 (SALUD Y EDUCACION)
 insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion Personal de la Salud y Enseñanza', date '2020-01-01', date '2023-12-31', null, null, 'Plan vacunacion covid 19', 'Astrazeneca');
 -- etapa 3, Plan vacunacion covid 19, Coronavac, 2020/1/1-2023/12/31
-insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General', date '2020-01-01', date '2023-12-31', 20, 70, 'Plan vacunacion covid 19', 'Coronavac');
+insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General Coronavirus', date '2020-01-01', date '2023-12-31', 20, 70, 'Plan vacunacion covid 19', 'Coronavac');
 -- etapa 4, Anti gripe, Gripevac, 2021/1/1-2021/12/31
-insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General', date '2021-01-01', date '2021-12-31', 20, 70, 'Anti gripe', 'Gripevac');
+insert into etapa(id, descripcion, inicio, fin, mayorigual, menorigual, plannombre, vacuna_nombre) values (nextval('sequenciaetapaid'), 'Etapa vacunacion General Gripe', date '2021-01-01', date '2021-12-31', 20, 70, 'Anti gripe', 'Gripevac');
 
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
 
-/*
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461'
-, ST_GeomFromText('POINT(-34.9218912 -56.1583385)', 4326)
-);
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982'
-, ST_GeomFromText('POINT(-34.8913639 -56.1539307)', 4326)
-);
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro'
-, ST_GeomFromText('POINT(-30.4028157 -56.4608542)', 4326)
-);
-*/
 
 -- vacunatorio COSEM Punta Carretas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461'); 
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461', 'akfu27u8nvmsi28fnd8h');
 -- vacunatorio Hospital de Clinicas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982'); 
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982', '9sie74nghjoqz82kd9wc');
 -- vacunatorio Hospital de Artigas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro'); 
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro', 'skie82ncyr93lzjqu90s');
 
 
 --Turno 1, Matutino, 8:00-12:00, COSEM Punta Carretas
@@ -71,7 +60,7 @@ insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval(
 --Agenda 1, Turno 1(COSEM Punta Carretas), Etapa 3(Plan vacunacion covid 19, Coronavac)
 insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Matutino', 3, 1);
 --Turno matutino dia por medio
-insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 1); 
+insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 3);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 5);
 -- Intervalo 1, 2022/10/19, Agenda 1(COSEM PC, etapa3, Coronavac)
@@ -154,13 +143,13 @@ insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false');
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
 --Lote 1982, 1000 dosis, vence 2020/9/9, UPS, Pfizer
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (1982, 1000, date '2020-09-09', 'UPS', 'Pfizer');
---Lote 2000, 3000 dosis, vence 2021/9/9, UPS, Pfizer, entregada 
+--Lote 2000, 3000 dosis, vence 2021/9/9, UPS, Pfizer, entregada
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (2000, 3000, date '2021-05-19', date '2021-05-20', date '2021-09-09', 'UPS', 'Pfizer');
---Lote 2001, 500 dosis, vence 2021/9/9, UPS, Pfizer, entregada 
+--Lote 2001, 500 dosis, vence 2021/9/9, UPS, Pfizer, entregada
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (2001, 500, date '2021-06-02', date '2021-06-05', date '2021-09-09', 'UPS', 'Pfizer');
---Lote 4000, 1000 dosis, vence 2022/9/9, UPS, Gripevac, entregada 
+--Lote 4000, 1000 dosis, vence 2022/9/9, UPS, Gripevac, entregada
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (4000, 1000, date '2021-04-19', date '2021-04-20', date '2022-09-09', 'UPS', 'Gripevac');
---Lote 4001, 600 dosis, vence 2022/9/9, UPS, Gripevac, entregada 
+--Lote 4001, 600 dosis, vence 2022/9/9, UPS, Gripevac, entregada
 insert into lote (numerolote, dosisdisponibles, fechadespacho, fechaentrega, fechavencimiento, sociologisticoid, vacuna_nombre) values (4001, 600, date '2021-05-02', date '2021-05-05', date '2022-09-09', 'UPS', 'Gripevac');
 --Asignado lote 1982 a COSEM PC, Pfizer
 insert into vacunatorio_lote (vacunatorio_nombre, lotes_numerolote) values ('COSEM Punta Carretas',1982);

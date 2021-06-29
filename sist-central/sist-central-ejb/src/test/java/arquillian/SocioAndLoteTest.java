@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -90,7 +91,8 @@ public class SocioAndLoteTest {
        List<Vacuna> vac = vacunaService.findByNombreVacuna("TheWall");
        assertEquals(1, vac.size());
        
-       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas/*, null*/);
+       String password = UUID.randomUUID().toString();
+       vacunatorioController.addVacunatorio("CASMU", "Bella Union", "Pepe 644", Departamento.Artigas, password);
        List<Vacunatorio> vacs = vacunatorioController.find();
        //se crean 3 al iniciar el sistema
        assertEquals(4, vacs.size());
