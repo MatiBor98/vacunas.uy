@@ -190,6 +190,17 @@ public class RestMovil {
 
         return certificadoVacunacionCreator.create(ci);
     }
+
+
+
+    @GET
+    @Path("/ciudadanos/certificado-test/")
+    public CertificadoVacunacionDTO getCertificadoVacunacionTEST(@QueryParam("ci") Integer ci) {
+        System.out.println(ci);
+        return certificadoVacunacionCreator.create(ci);
+    }
+
+
     
 
     @GET
