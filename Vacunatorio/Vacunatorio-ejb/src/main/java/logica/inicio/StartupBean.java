@@ -370,7 +370,7 @@ public class StartupBean {
     }
     
     public DatosVacunatorio enviarPorHTTPS() throws GeneralSecurityException {
-		String urlOverHttps = "https://node1531-vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class);
+		String urlOverHttps = "https://node1531-vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class)+"/"+config.getValue("pass", String.class);
 		TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
 		SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
 		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
