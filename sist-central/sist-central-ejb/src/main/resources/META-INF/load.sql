@@ -34,24 +34,13 @@ insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (1, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'SALUD');
 insert into etapa_filtroempleoen (etapa_id, filtroempleoen) values (2, 'EDUCACION');
 
-/*
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461'
-, ST_GeomFromText('POINT(-34.9218912 -56.1583385)', 4326)
-);
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982'
-, ST_GeomFromText('POINT(-34.8913639 -56.1539307)', 4326)
-);
-insert into vacunatorio (nombre, ciudad, departamento, direccion, ubicacion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro'
-, ST_GeomFromText('POINT(-30.4028157 -56.4608542)', 4326)
-);
-*/
 
 -- vacunatorio COSEM Punta Carretas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461');
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('COSEM Punta Carretas', 'Montevideo', 'Montevideo', 'José Ellauri 461', 'akfu27u8nvmsi28fnd8h');
 -- vacunatorio Hospital de Clinicas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982');
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('Hospital De Clínicas', 'Montevideo', 'Montevideo', 'Av. Italia 2982', '9sie74nghjoqz82kd9wc');
 -- vacunatorio Hospital de Artigas
-insert into vacunatorio (nombre, ciudad, departamento, direccion) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro');
+insert into vacunatorio (nombre, ciudad, departamento, direccion, password) values ('Hospital de Artigas', 'Artigas', 'Artigas', 'Eduardo M. Castro', 'skie82ncyr93lzjqu90s');
 
 
 --Turno 1, Matutino, 8:00-12:00, COSEM Punta Carretas
