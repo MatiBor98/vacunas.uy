@@ -1,5 +1,7 @@
 package logica.negocios;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;

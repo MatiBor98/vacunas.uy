@@ -15,6 +15,8 @@ public class ReservaConfirmada implements Serializable{
 	@Id
 	private int codigo;	
 	
+	private String nombre;
+	
 	private String lote;
 	
 	private String estado;
@@ -27,11 +29,12 @@ public class ReservaConfirmada implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public ReservaConfirmada(int codigo, String lote, String estado) {
+	public ReservaConfirmada(int codigo, String lote, String estado, String nombre) {
 		super();
 		this.codigo = codigo;
 		this.lote = lote;
 		this.estado = estado;
+		this.nombre = nombre;
 	}
 
 	public ReservaConfirmada() {
@@ -52,6 +55,14 @@ public class ReservaConfirmada implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	

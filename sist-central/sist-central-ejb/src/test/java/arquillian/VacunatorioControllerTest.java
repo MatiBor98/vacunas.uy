@@ -5,6 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -99,7 +104,8 @@ public class VacunatorioControllerTest {
     	//GeometryFactory geomFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
     	
     	String password = UUID.randomUUID().toString();
-        vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas, password);
+		vacunatorioControllerLocal.addVacunatorio(nombreVacPrueba, "Mdeo", "Calle Facultad 3027", Departamento.Artigas, password);
+		
         Vacunatorio vac = vacunatorioControllerLocal.findWithEverything(nombreVacPrueba).get();
         assertEquals(vac.getCiudad(), "Mdeo");
         assertEquals(vac.getDepartamento(), Departamento.Artigas);

@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.ejb.Local;
 
 import datos.entidades.Departamento;
+import datos.entidades.Estado;
 import datos.entidades.Lote;
 import datos.entidades.Reserva;
 import datos.entidades.ReservaConfirmada;
@@ -29,4 +30,10 @@ public interface VacunatorioControllerLocal {
 	void saveReservaConfirmada(ReservaConfirmada resConf);
 	List<Lote> findLotes();
 	void actualizar();
+	List<Reserva> listarVacunados(int offset, int limit, String busqueda);
+	List<Reserva> listarPendientes(int offset, int limit, String busqueda);
+	List<Reserva> listarCancelados(int offset, int limit, String busqueda);
+	List<Reserva> listarConfirmados(int offset, int limit, String busqueda);
+	Long calcularCantidad(Estado vacunado);
+	Long calcularCantidadConfirmadas();
 }
