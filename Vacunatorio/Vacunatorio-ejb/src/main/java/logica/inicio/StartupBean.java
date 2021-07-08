@@ -1,6 +1,15 @@
 package logica.inicio;
 
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,6 +19,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Lock;
@@ -87,6 +100,7 @@ import datos.repositorios.TurnoRepositoryLocal;
 import datos.repositorios.VacunaRepositoryLocal;
 import datos.repositorios.VacunatorioRepositoryLocal;
 import logica.schedule.DatosVacunatorio;
+import android.util.Base64;
 
 @Singleton
 @Lock(LockType.WRITE)
@@ -146,13 +160,19 @@ public class StartupBean {
 		Response response = invocation.invoke();
 		datos = response.readEntity(DatosVacunatorio.class);*/
 
-		try {
+		/*KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+		     keyPairGen.initialize(2048);
+		     KeyPair pair = keyPairGen.generateKeyPair();   
+		     PublicKey publicKey = pair.getPublic();
+		     byte[] publicKeyByte = publicKey.getEncoded();
+		     String publicKeyString = Base64.encodeToString(publicKeyByte, Base64.NO_WRAP); 
+		     PrivateKey privateKey = pair.getPrivate();
+		     byte[] privateKeyByte = privateKey.getEncoded();
+		     String privateKeyString = Base64.encodeToString(privateKeyByte, Base64.NO_WRAP);*/
+		/*try {
+			
 			datos = enviarPorHTTPS();
 			
-			/*Properties props = new Properties();
-			props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-			props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-			props.put(Context.PROVIDER_URL, "https-remoting://node1531-vacunas.web.elasticloud.uy/rest/vacunatorios/vacunatorio/"+config.getValue("nombre", String.class));*/
 			reservaRepository.drop();
 			intervaloRepository.drop();
 			agendaRepository.drop();
@@ -283,7 +303,7 @@ public class StartupBean {
 		} catch (GeneralSecurityException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 	}
 
     Boolean existeVacunador(int ci, List<Vacunador> vacs) {
@@ -299,25 +319,11 @@ public class StartupBean {
     
     public void run2() {
 
-		/*final Properties env = new Properties();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://127.0.0.1:8080"));
-		env.put(Context.SECURITY_PRINCIPAL, userName);
-		env.put(Context.SECURITY_CREDENTIALS, password);
-		Context namingContext = null;
-		namingContext = new InitialContext(env);
-		String connectionFactoryString = System.getProperty("connection.factory", "jms/RemoteConnectionFactory");
-		ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
-		String destinationString = System.getProperty("destination", "topic/sist-central");
-		Destination destination = (Destination) namingContext.lookup(destinationString);
-		String content = System.getProperty("message.content", dosisDisponibles + "|" + numeroLote + "|" + nomVac + "|" + fechaVencimiento + "|" + vacunaNombre);
-		JMSContext context = connectionFactory.createContext(userName, password);
-		context.createProducer().send(destination, content);*/
 		String userName = "alta1";
 		String password = "alta1";
 		final Properties env = new Properties();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy:80"));
+		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://localhost:8080")); //"http-remoting://vacunas.web.elasticloud.uy:80"
 		env.put(Context.SECURITY_PRINCIPAL, userName);
 		env.put(Context.SECURITY_CREDENTIALS, password);
 		try {
@@ -357,14 +363,16 @@ public class StartupBean {
 				}
 			}
 			String res = reservasConfirmadas + "&" + reservasCaducadas;
-			try (JMSContext context = connectionFactory.createContext(userName, password)){
-				context.createProducer().send(destination, res);
-				for(ReservaConfirmada resConf:reservasConfPendientes) {
-					//le cambio el estado para que no se manden siempre todas
-					resConf.setEstado("enviado");
-				}
+			
+			//encriptado
+			byte[] text = encriptar(res);
+			JMSContext context = connectionFactory.createContext(userName, password);
+			context.createProducer().send(destination, text);
+			for(ReservaConfirmada resConf:reservasConfPendientes) {
+				//le cambio el estado para que no se manden siempre todas
+				resConf.setEstado("enviado");
 			}
-		} catch (NamingException e) {
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | NamingException | InvalidKeySpecException e) {
 			e.printStackTrace();
 		}
     }
@@ -385,5 +393,18 @@ public class StartupBean {
 				DatosVacunatorio.class);
 		return response.getBody();
 	}
+    
+    public byte[] encriptar(String datos) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException {
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding"); //accepts a String variable representing the required transformation and returns a Cipher object that implements the given transformation.
+		String key = config.getValue("key", String.class);
+    	byte[] keyByte = Base64.decode(key, Base64.NO_WRAP);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PublicKey publicKey = (PublicKey) keyFactory.generatePublic(new X509EncodedKeySpec(keyByte));
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey); //accepts two parameters an integer parameter representing the operation mode (encrypt/decrypt) and, a Key object representing the public key.
+		cipher.update(datos.getBytes()); //accepts a byte array representing the data to be encrypted and updates the current object with the data given.
+		byte[] cipherText = cipher.doFinal(); //completes the encryption operation
+		return cipherText;
+
+    }
 	
 }

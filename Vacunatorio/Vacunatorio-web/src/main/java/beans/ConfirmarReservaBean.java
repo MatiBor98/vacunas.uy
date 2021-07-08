@@ -36,7 +36,8 @@ public class ConfirmarReservaBean implements Serializable{
 			this.setReservaYaConfirmada("none");
 			this.setLote("");
 		}else if (ContVacunatorio.findReservaConfirmada(codigo) == null) {
-			ReservaConfirmada resConf = new ReservaConfirmada(codigo, lote, "pendiente");
+			String nombre = ConsultaBean.getConsultaReservaNombre();
+			ReservaConfirmada resConf = new ReservaConfirmada(codigo, lote, "pendiente", nombre);
 			ContVacunatorio.saveReservaConfirmada(resConf);
 			this.setElegirLote("none");
 			this.setReservaConfirmada("block");

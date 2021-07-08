@@ -1,5 +1,7 @@
 package logica.servicios.local;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;

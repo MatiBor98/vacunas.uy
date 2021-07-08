@@ -189,4 +189,51 @@ public class VacunatorioBean implements  VacunatorioControllerLocal {
 		//schMain.run();
 	}
 
+	@Override
+	public List<Reserva> listarVacunados(int offset, int limit, String busqueda) {
+		return reservaRepositoryLocal.listarVacunados(offset, limit, busqueda);
+	}
+	
+	public List<Reserva> listarPendientes(int offset, int limit, String busqueda) {
+		return reservaRepositoryLocal.listarPendientes(offset, limit, busqueda);
+	}
+
+	public List<Reserva> listarCancelados(int offset, int limit, String busqueda) {
+		return reservaRepositoryLocal.listarCancelados(offset, limit, busqueda);
+	}
+	
+	public List<Reserva> listarConfirmados(int offset, int limit, String busqueda) {
+		List<Reserva> res = new ArrayList<>();
+		List<ReservaConfirmada> resConfs = reservaRepositoryLocal.listarConfirmados(offset, limit, busqueda);
+		for(ReservaConfirmada resConf:resConfs) {
+			Reserva resAux = reservaRepositoryLocal.findReserva(resConf.getCodigo());
+			if(resAux != null) {	
+				res.add(resAux);
+			}
+		}
+		/*List<Reserva> pendientes = reservaRepositoryLocal.findByEstado(Estado.PENDIENTE);
+		List<Reserva> pendientesConfirmadas = new ArrayList<>();
+		for (Reserva res:pendientes) {
+			ReservaConfirmada resConf = reservaRepositoryLocal.findReservaConfirmada(res.getCodigo());
+			if (resConf != null && resConf.getEstado().equals("pendiente")) {
+				pendientesConfirmadas.add(res);
+			}
+		}*/
+		return res;
+	}
+	
+	@Override
+	public Long calcularCantidad(Estado vacunado) {
+		List<Reserva> res = reservaRepositoryLocal.findByEstado(vacunado);
+		return (long) res.size();
+	}
+
+	@Override
+	public Long calcularCantidadConfirmadas() {
+		List<ReservaConfirmada> res = reservaRepositoryLocal.findConfrimados();
+		return (long) res.size();
+	}
+
+
+
 }

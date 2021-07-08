@@ -20,6 +20,7 @@ public class ConsultaBean implements Serializable{
 	
 	private Reserva consultaReserva;
 	private static int consultaReservaCodigo;
+	private static String consultaReservaNombre;
 	
 	@EJB
 	logica.servicios.local.VacunatorioControllerLocal ContVacunatorio;
@@ -43,6 +44,14 @@ public class ConsultaBean implements Serializable{
 
 	public void setConsultaReservaCodigo(int consultaReservaCodigo) {
 		ConsultaBean.consultaReservaCodigo = consultaReservaCodigo;
+	}
+	
+	public void setConsultaReservaNombre(String nombre) {
+		ConsultaBean.consultaReservaNombre = nombre;
+	}
+	
+	public static String getConsultaReservaNombre() {
+		return consultaReservaNombre;
 	}
 	
 	public void actualizar() {
