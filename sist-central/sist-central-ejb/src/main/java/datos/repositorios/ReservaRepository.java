@@ -218,7 +218,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
                 + "join Etapa e on (a.etapa.id = e.id) "
                 + "join Vacuna v on (e.vacuna.nombre = v.nombre) "
                 + "join v.enfermedades enf "
-                + "where r.estado = 0 ";
+                + "where r.estado = :pendiente ";
         if (!enfermedad.equals(""))
             qlString += " and enf.nombre = :enfermedad ";
         if (!vacuna.equals(""))
@@ -228,7 +228,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
 
         Query query = entityManager.createQuery(
                 qlString)
-                //.setParameter("vacunado", Estado.PENDIENTE)
+                .setParameter("pendiente", Estado.PENDIENTE)
                 ;
 
         if (!enfermedad.equals(""))
