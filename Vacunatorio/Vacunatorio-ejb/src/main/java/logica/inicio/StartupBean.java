@@ -169,7 +169,7 @@ public class StartupBean {
 		     PrivateKey privateKey = pair.getPrivate();
 		     byte[] privateKeyByte = privateKey.getEncoded();
 		     String privateKeyString = Base64.encodeToString(privateKeyByte, Base64.NO_WRAP);*/
-		/*try {
+		try {
 			
 			datos = enviarPorHTTPS();
 			
@@ -303,7 +303,7 @@ public class StartupBean {
 		} catch (GeneralSecurityException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}*/
+		}
 	}
 
     Boolean existeVacunador(int ci, List<Vacunador> vacs) {
@@ -323,7 +323,7 @@ public class StartupBean {
 		String password = "alta1";
 		final Properties env = new Properties();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://localhost:8080")); //"http-remoting://vacunas.web.elasticloud.uy:80"
+		env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, "http-remoting://vacunas.web.elasticloud.uy:80"));
 		env.put(Context.SECURITY_PRINCIPAL, userName);
 		env.put(Context.SECURITY_CREDENTIALS, password);
 		try {
