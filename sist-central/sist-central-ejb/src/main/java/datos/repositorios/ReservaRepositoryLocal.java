@@ -19,8 +19,11 @@ public interface ReservaRepositoryLocal {
 	public List<Reserva> find();
 	public Reserva findByID(int codigo);
 	
-    public void saveReservaDomicilio(ReservaDomicilio reserva);
+	public List<Reserva> findReservasDomicilio(int offset, int limit);
+
+	
+    /*public void saveReservaDomicilio(ReservaDomicilio reserva);
     public List<ReservaDomicilio> findReservasADomicilioCiudadano(int offset, int limit, int ci);
     public List<ReservaDomicilio> findReservasADomicilio(int offset, int limit);
-
+	*/
 }

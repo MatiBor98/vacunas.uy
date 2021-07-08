@@ -25,7 +25,7 @@
 		<module>sist-central-ejb</module>
 		<module>sist-central-web</module>
 		<module>sist-central-ear</module>
-		<module>sist-central-test</module>
+		<!-- <module>sist-central-test</module> -->
 	</modules>
 
 	<properties>
@@ -148,13 +148,13 @@
 				<scope>compile</scope>
 			</dependency>
 
-			<dependency>
+			<!--<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>sist-central-test</artifactId>
 				<version>${project.version}</version>
 				<type>war</type>
 				<scope>compile</scope>
-			</dependency>
+			</dependency> -->
 
 			<!-- JBoss distributes a complete set of Jakarta EE 8 APIs including a 
 				Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or a 

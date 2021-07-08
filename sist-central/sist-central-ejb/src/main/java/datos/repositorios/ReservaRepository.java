@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -294,6 +295,7 @@ public class ReservaRepository implements ReservaRepositoryLocal{
     
     //aca va la parte de las reservas a domicilio
     
+    /*
     public void saveReservaDomicilio(ReservaDomicilio reserva) {
     	entityManager.persist(reserva);
     }
@@ -319,5 +321,26 @@ public class ReservaRepository implements ReservaRepositoryLocal{
                 .setMaxResults(limit)
                 .getResultList();
     }
-
+    
+    public Optional<ReservaDomicilio> findReservaADomicilio(int codigo){
+    	
+    	 return entityManager.createQuery(
+                 "select r from ReservaDomicilio r where r.codigo = :codigo", ReservaDomicilio.class)
+                 .setParameter("codigo", codigo)
+                 .getResultList()
+                 .stream()
+                 .findFirst();
+    }
+	*/
+    
+    @Override
+    public List<Reserva> findReservasDomicilio(int offset, int limit){
+    	return entityManager.createQuery(
+    			"select r from Reserva r"
+    			+ "where r.aDomicilio")
+    			.setFirstResult(offset)
+    			.setMaxResults(limit)
+    			.getResultList();
+    	
+    }
 }

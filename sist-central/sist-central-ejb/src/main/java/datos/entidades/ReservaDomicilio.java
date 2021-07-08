@@ -1,6 +1,7 @@
 package datos.entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 
@@ -33,7 +34,11 @@ public class ReservaDomicilio implements Serializable{
 	
 	private String direccion;
 
+	private String detalles;
+	
 	private Etapa etapa;
+	
+	private LocalDate fecha;
 	
 	public int getCodigo() {
 		return codigo;
@@ -107,17 +112,35 @@ public class ReservaDomicilio implements Serializable{
 		this.etapa = etapa;
 	}
 
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(String detalles) {
+		this.detalles = detalles;
+	}
+
 	public ReservaDomicilio(Estado estadoAprobacion, Estado estadoVacunacion,Ciudadano ciudadano, Intervalo intervalo, int paraDosis,
-			Departamento departamento, String localidad, String direccion, Etapa etapa) {
+			Departamento departamento, String localidad, String direccion, String detalles, Etapa etapa, LocalDate fecha) {
 		super();
 		this.estadoAprobacion = estadoAprobacion;
 		this.estadoVacunacion = estadoVacunacion;
 		this.ciudadano = ciudadano;
 		this.paraDosis = paraDosis;
 		this.departamento = departamento;
+		this.detalles = detalles;
 		this.direccion = direccion;
 		this.localidad = localidad;
 		this.etapa = etapa;
+		this.fecha = fecha;
 	}
 
 	public ReservaDomicilio() {

@@ -13,6 +13,7 @@ import logica.servicios.local.AgendaServiceLocal;
 import logica.servicios.local.EnfermedadServiceLocal;
 import logica.servicios.local.EtapaController;
 import logica.servicios.local.IntervaloServiceLocal;
+import lombok.Data;
 import plataformainteroperabilidad.Ciudadano;
 
 import javax.ejb.EJB;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 
 @Named("AgendarBean")
 @ViewScoped
+@Data
 public class AgendarBean implements Serializable {
     @EJB
     private EnfermedadServiceLocal enfermedadController;
@@ -74,6 +76,8 @@ public class AgendarBean implements Serializable {
     private final LocalDate fechaMin;
 
     private boolean procesando = false;
+    
+    private boolean domicilio = false;
 
     public AgendarBean() {
         WeekFields weekFields = WeekFields.of(Constantes.ES_UY);
@@ -161,7 +165,19 @@ public class AgendarBean implements Serializable {
         this.mostrarLista = mostrar;
     }
 
-    public void elegirEnfermedad(Enfermedad enfermedad) {
+    public boolean getDomicilio() {
+		return domicilio;
+	}
+
+    public boolean isDomicilio() {
+    	return domicilio;
+    }
+    
+	public void setDomicilio(boolean domicilio) {
+		this.domicilio = domicilio;
+	}
+
+	public void elegirEnfermedad(Enfermedad enfermedad) {
         Ciudadano ciudadano = usuarioLogueadoBean.getCiudadanoPlataforma();
         CiudadanoDTO ciudadanoDTO = usuarioLogueadoBean.getCiudadano();
         LocalDate fechaNac = LocalDate.parse(ciudadano.getFechaNacimiento());
@@ -208,6 +224,26 @@ public class AgendarBean implements Serializable {
             procesando = false;
         }
     }
+    
+    public void concretarAgendaDomicilio() {
+    	try {
+            CiudadanoDTO ciudadano = usuarioLogueadoBean.getCiudadano();
+            VacunatorioTieneAgendaDTO agenda = entrada.getVacunatorioAgneda();
+            WeekFields weekFields = WeekFields.of(Constantes.ES_UY);
+            LocalDate nextWeek = LocalDate.now().plusWeeks(1).with(weekFields.dayOfWeek(), 1);
+            List<Intervalo> intervalos = intervaloServiceLocal.getIntervalosByAgendaAndSemana(agenda.getAgenda().getId(), nextWeek);
+            Intervalo intervalo = intervalos.get(0);
+            String detalles = entrada.getDetalles();
+            String direccion = entrada.getDireccion();
+            String localidad = entrada.getLocalidad();
+            limpiarEntrada();
+            this.entrada.reservasRealizadas = reservaService.efectuarReservaDomicilio(intervalo, ciudadano.getCi(), localidad, direccion, detalles);
+        } catch (Exception e) {
+            System.out.println("No se puedo realizar la reserva!");
+        } finally {
+            procesando = false;
+        }
+    }
 
     public void limpiarEntrada() {
         this.entrada = new Entrada();
@@ -222,7 +258,7 @@ public class AgendarBean implements Serializable {
     public String getDiaConFormatoUy(DayOfWeek dia) {
         return dia.getDisplayName(TextStyle.SHORT, Constantes.ES_UY);
     }
-
+    
     public static class Entrada {
         private Enfermedad enfermedad = null;
 
@@ -231,6 +267,12 @@ public class AgendarBean implements Serializable {
         private VacunatorioTieneAgendaDTO vacunatorioAgneda = null;
 
         private Intervalo intervalo = null;
+                
+        private String Direccion = null;
+        
+        private String localidad = null;
+        
+        private String detalles = null;
 
         private List<Reserva> reservasRealizadas = Collections.emptyList();
 
@@ -253,6 +295,32 @@ public class AgendarBean implements Serializable {
         public Intervalo getIntervalo() {
             return intervalo;
         }
+
+		public String getDireccion() {
+			return Direccion;
+		}
+
+		public void setDireccion(String direccion) {
+			Direccion = direccion;
+		}
+
+		public String getLocalidad() {
+			return localidad;
+		}
+
+		public void setLocalidad(String localidad) {
+			this.localidad = localidad;
+		}
+
+		public String getDetalles() {
+			return detalles;
+		}
+
+		public void setDetalles(String detalles) {
+			this.detalles = detalles;
+		}
+        
+        
     }
 }
 
