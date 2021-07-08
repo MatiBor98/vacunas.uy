@@ -30,6 +30,10 @@ public class Ciudadano {
 	@MapKey(name = "codigo")
 	protected Map<String, Reserva> reservas;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")
+	@MapKey(name = "codigo")
+	protected Map<String, ReservaDomicilio> reservasDomicilio;
+	
 	private Sexo sexo;
 	private LocalDate fechaNacimiento;
 	private Trabajo trabajo;
@@ -119,5 +123,13 @@ public class Ciudadano {
 
 	public void setReservas(Map<String, Reserva> reservas) {
 		this.reservas = reservas;
+	}
+	
+	public Map<String, ReservaDomicilio> getReservasDomicilio() {
+		return reservasDomicilio;
+	}
+
+	public void setReservasDomicilio(Map<String, ReservaDomicilio> reservas) {
+		this.reservasDomicilio = reservas;
 	}
 }

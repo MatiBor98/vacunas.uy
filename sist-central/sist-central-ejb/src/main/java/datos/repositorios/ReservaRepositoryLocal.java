@@ -2,6 +2,7 @@ package datos.repositorios;
 
 import datos.dtos.ReservaDTO;
 import datos.entidades.Reserva;
+import datos.entidades.ReservaDomicilio;
 import datos.entidades.Vacunatorio;
 
 import java.util.List;
@@ -17,4 +18,9 @@ public interface ReservaRepositoryLocal {
 	public List<Reserva> findReservasVacunatorio(Vacunatorio vac);
 	public List<Reserva> find();
 	public Reserva findByID(int codigo);
+	
+    public void saveReservaDomicilio(ReservaDomicilio reserva);
+    public List<ReservaDomicilio> findReservasADomicilioCiudadano(int offset, int limit, int ci);
+    public List<ReservaDomicilio> findReservasADomicilio(int offset, int limit);
+
 }

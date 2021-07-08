@@ -7,6 +7,7 @@ import datos.entidades.Departamento;
 import datos.entidades.Estado;
 import datos.entidades.Lote;
 import datos.entidades.Reserva;
+import datos.entidades.ReservaDomicilio;
 import datos.entidades.Vacunatorio;
 import plataformainteroperabilidad.Sexo;
 
@@ -289,6 +290,34 @@ public class ReservaRepository implements ReservaRepositoryLocal{
             List<Reserva> resultList = query.getResultList();
             resultList.stream().map(Reserva::getCiudadano).map(Ciudadano::getSexo).collect(Collectors.toList());
             return resultList;
+    }
+    
+    //aca va la parte de las reservas a domicilio
+    
+    public void saveReservaDomicilio(ReservaDomicilio reserva) {
+    	entityManager.persist(reserva);
+    }
+    
+    public List<ReservaDomicilio> findReservasADomicilioCiudadano(int offset, int limit, int ci){
+    	
+    	return entityManager.createQuery(
+                "select r from ReservaDomicilio r " +
+                        "where r.ciudadano.ci = :ci "
+                		, ReservaDomicilio.class)
+                .setParameter("ci", ci)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+    
+    public List<ReservaDomicilio> findReservasADomicilio(int offset, int limit){
+    	
+    	return entityManager.createQuery(
+                "select r from ReservaDomicilio r "
+                		, ReservaDomicilio.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
 }

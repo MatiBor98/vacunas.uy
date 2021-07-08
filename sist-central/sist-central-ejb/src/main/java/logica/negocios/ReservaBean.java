@@ -49,6 +49,9 @@ public class ReservaBean implements ReservaServiceLocal {
 
 	@EJB
     private VacunatorioRepositoryLocal vacunatorioRepositoryLocal;
+	
+	@EJB
+	private EtapaRepositoryLocal etapaRepository;
 
     public List<Reserva> listar(int offset, int limit, int ci) {
         return reservaRepository.listar(offset, limit, ci);
@@ -191,4 +194,30 @@ public class ReservaBean implements ReservaServiceLocal {
     public List<Reserva> findAllDosisDadas(String enfermedad, String vacuna, int etapa, LocalDate comienzo, LocalDate fin) {
         return reservaRepository.findAllDosisDadas(enfermedad, vacuna, etapa, comienzo, fin);
     }
+    
+    
+    
+    public List<ReservaDomicilio> findReservasDomicilioCiudadano(int offset, int limit, int ci){
+    	return reservaRepository.findReservasADomicilioCiudadano(offset, limit, ci);
+    }
+    
+    public List<ReservaDomicilio> findReservasDomicilio(int offset, int limit){
+    	return reservaRepository.findReservasADomicilio(offset, limit);
+    }
+    
+    public void saveReservaDomicilio(int ci, Departamento dep, String direccion, String localidad, int paraDosis, int etapaId) {
+    	ReservaDomicilio nuevaReserva = new ReservaDomicilio();
+        Ciudadano ciudadano = ciudadanoRepository.find(ci).orElseThrow(RuntimeException::new);
+    	nuevaReserva.setCiudadano(ciudadano);
+    	Etapa etapa = etapaRepository.find(etapaId).orElseThrow(RuntimeException::new);
+    	nuevaReserva.setEtapa(etapa);
+    	nuevaReserva.setDepartamento(dep);
+    	nuevaReserva.setDireccion(direccion);
+    	nuevaReserva.setLocalidad(localidad);
+    	nuevaReserva.setEstadoAprobacion(Estado.PENDIENTE);
+    	nuevaReserva.setEstadoVacunacion(Estado.PENDIENTE);
+    	nuevaReserva.setParaDosis(paraDosis);
+    	reservaRepository.saveReservaDomicilio(nuevaReserva);
+    }
+    
 }
