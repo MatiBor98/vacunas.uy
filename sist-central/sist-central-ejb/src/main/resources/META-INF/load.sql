@@ -44,21 +44,21 @@ insert into vacunatorio (nombre, ciudad, departamento, direccion, password) valu
 
 
 --Turno 1, Matutino, 8:00-12:00, COSEM Punta Carretas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino', 'COSEM Punta Carretas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '08:00:00', time '12:00:00', 'Matutino 1', 'COSEM Punta Carretas');
 --Turno 2, Vespertino, 13:00-17:00, COSEM Punta Carretas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '13:00:00', time '17:00:00', 'Vespertino', 'COSEM Punta Carretas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '13:00:00', time '17:00:00', 'Vespertino 1', 'COSEM Punta Carretas');
 --Turno 3, Nocturno, 18:00-22:00, COSEM Punta Carretas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno', 'COSEM Punta Carretas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno 1', 'COSEM Punta Carretas');
 --Turno 4, Matutino, 18:00-22:00, Hospital de Artigas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Matutino', 'Hospital de Artigas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Matutino 2', 'Hospital de Artigas');
 --Turno 5, Vespertino, 18:00-22:00, Hospital de Artigas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Vespertino', 'Hospital de Artigas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Vespertino 2', 'Hospital de Artigas');
 --Turno 6, Nocturno, 18:00-22:00, Hospital de Artigas
-insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno', 'Hospital de Artigas');
+insert into turno (id, inicio, fin, nombre, vacunatorio_nombre) values (nextval('sequenciaTurnoId'), time '18:00:00', time '22:00:00', 'Nocturno 2', 'Hospital de Artigas');
 
 
 --Agenda 1, Turno 1(COSEM Punta Carretas), Etapa 3(Plan vacunacion covid 19, Coronavac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Matutino', 3, 1);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Matutino Coronavac', 3, 1);
 --Turno matutino dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (1, 5, time '08:00:00', time '12:00:00', 30, 3);
@@ -72,7 +72,7 @@ insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId')
 
 
 --Agenda 2, Turno 2(COSEM Punta Carretas), Etapa 3(Plan vacunacion covid 19, Coronavac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Vespertino', 3, 2);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Vespertino Coronavac', 3, 2);
 --Turno vespertino dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (2, 5, time '13:00:00', time '17:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (2, 5, time '13:00:00', time '17:00:00', 30, 3);
@@ -80,7 +80,7 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 
 
 --Agenda 3, Turno 3(COSEM Punta Carretas), Etapa 3(Plan vacunacion covid 19, Coronavac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Nocturno', 3, 3);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Nocturno Coronavac', 3, 3);
 --Turno nocturno dia por media
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (3, 5, time '18:00:00', time '22:00:00', 30, 3);
@@ -88,7 +88,7 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 
 
 --Agenda 4, Turno 3(COSEM Punta Carretas), Etapa 1(Plan vacunacion covid 19, Pfizer)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Matutino', 1, 3);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2020-01-01', null, 'Matutino Pfizer', 1, 3);
 --Turno matutino dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 0);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '18:00:00', time '22:00:00', 30, 2);
@@ -100,13 +100,13 @@ insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), 
 
 
 --Agenda 5, Turno 1(COSEM Punta Carretas), Etapa 4(Anti gripe, Gripevac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-02-01', null, 'Matutino', 4, 1);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-02-01', null, 'Matutino Gripevac', 4, 1);
 --Intervalo 6,  2021/6/7, Agenda 5(COSEM PC, etapa4,GripeVac)
 insert into intervalo(id, fechayhora, agendaid) values (nextval('intervaloid'), timestamp '2021-06-07 18:00:00.000000', 5);
 
 
 --Agenda 6, Turno 4(Hospital de Artigas), Etapa 4(Anti gripe, Gripevac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Matutino', 4, 4);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Matutino Gripevac 2', 4, 4);
 --turno matutino dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '8:00:00', time '12:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (4, 5, time '8:00:00', time '12:00:00', 30, 3);
@@ -114,7 +114,7 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 
 
 --Agenda 7, Turno 5(Hospital de Artigas), Etapa 4(Anti gripe, Gripevac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Vespertino', 4, 5);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Vespertino Gripevac', 4, 5);
 --turno vespertino dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (5, 5, time '13:00:00', time '17:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (5, 5, time '13:00:00', time '17:00:00', 30, 3);
@@ -122,10 +122,10 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 --Intervalo 7,  2021/8/19, Agenda 7(Artigas, etapa4,GripeVac)
 insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2021-8-19 17:30:00',7);
 --Intervalo 8,  2021/6/19, Agenda 7(Artigas, etapa4,GripeVac)
-insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2021-6-19 19:00:00',7);
+insert into intervalo (id, fechayHora, agendaid) VALUES  (nextval('intervaloId'),TIMESTAMP '2021-7-19 19:00:00',7);
 
 --Agenda 8, Turno 6(Hospital de Artigas), Etapa 4(Anti gripe, Gripevac)
-insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Nocturno', 4, 6);
+insert into agenda (id, inicio, fin, nombre, etapaid, turno_id) values (nextval('sequenciaAgendaId'), date '2021-01-01', null, 'Nocturno Gripevac', 4, 6);
 --turno nocturno dia por medio
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (6, 5, time '18:00:00', time '22:00:00', 30, 1);
 insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutosturno, dia) values (6, 5, time '18:00:00', time '22:00:00', 30, 3);
