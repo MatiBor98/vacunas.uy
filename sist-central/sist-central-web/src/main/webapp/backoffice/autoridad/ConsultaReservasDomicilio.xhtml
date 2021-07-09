@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:o="http://omnifaces.org/ui"
+
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../../WEB-INF/appTemplateAutoridad.xhtml">
+	<ui:define name="titulo">
+		- Consulta Laboratorios
+	</ui:define>
+	<ui:define name="content">
+		<o:importConstants type="datos.entidades.Estado"/>
+		<div class="bodytype">
+			<div class="content" style="margin:initial">
+				<h1 class="h2 mb-3 font-weight-normal">Reservas a domicilio</h1>
+				
+				<p></p>
+				<p:tabView activeIndex="1">
+						<p:tab title="Pendientes">
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{ReservaDomicilioViewBean.getReservasAutoridad()}" var="res">
+									
+									<h:panelGroup rendered="#{res.estadoAprobacion == Estado.PENDIENTE}"><!-- render si es pendiente en estado aprobacion -->
+										<li class="list-group-item">
+											<h2> Código: #{res.codigo}</h2>
+											<p> Cédula: #{res.ciudadano.ci}</p>
+											<p> Nombre: #{res.ciudadano.nombre}</p>
+
+											<p> Fecha: #{res.fecha}</p>
+											<p> Vacuna: #{res.vacuna.nombre}</p>
+											<p> Departamento: #{res.departamento.toString()}</p>
+											<p> Localidad: #{res.localidad}</p>
+											<p> Dirección: #{res.direccion}</p>
+											<p> Estado: #{res.estadoVacunacion.toString()}</p>
+
+										  <p></p>
+										</li>
+										<p:commandButton type="submit" value="Aprobar" action="#{ReservaDomicilioViewBean.aprobar(res.codigo)}"/>
+										<p:commandButton type="submit" value="Rechazar" action="#{ReservaDomicilioViewBean.rechazar(res.codigo)}"/>
+										<p></p>
+										<p></p>
+
+									</h:panelGroup>
+									  
+			
+								</ui:repeat>
+			
+							</ul>
+						</p:tab>
+						<p:tab title="Aceptadas">
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{ReservaDomicilioViewBean.getReservasAutoridad()}" var="res">
+								<h:panelGroup rendered="#{res.estadoAprobacion == Estado.VACUNADO}"><!-- render si es vacunado en estado aprobacion -->
+									<li class="list-group-item">
+										<h2> Código: #{res.codigo}</h2>
+										<p> Cédula: #{res.ciudadano.ci}</p>
+										<p> Nombre: #{res.ciudadano.nombre}</p>
+
+										<p> Fecha: #{res.fecha}</p>
+										<p> Vacuna: #{res.vacuna.nombre}</p>
+										<p> Departamento: #{res.departamento.toString()}</p>
+										<p> Localidad: #{res.localidad}</p>
+										<p> Dirección: #{res.direccion}</p>
+										<p> Estado: #{res.estadoVacunacion.toString()}</p>
+									  <p></p>
+									</li>
+									<h:panelGroup rendered="#{res.estadoVacunacion == Estado.PENDIENTE}"><!-- render si es vacunado en estado aprobacion -->
+										<p:commandButton type="submit" render="#{res.estadoVacunacion == Estado.PENDIENTE}" value="Confirmar Vacunación" action="#{ReservaDomicilioViewBean.vacunado(res.codigo)}"/>
+									</h:panelGroup>
+								</h:panelGroup>
+
+								</ui:repeat>
+							</ul>
+						</p:tab>
+						<p:tab title="Rechazadas">
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{ReservaDomicilioViewBean.getReservasAutoridad()}" var="res">
+								<h:panelGroup rendered="#{res.estadoAprobacion == Estado.CANCELADA}"><!-- render si es cancelada en estado aprobacion -->
+									<li class="list-group-item">
+										<h2> Código: #{res.codigo}</h2>
+										<p> Cédula: #{res.ciudadano.ci}</p>
+										<p> Nombre: #{res.ciudadano.nombre}</p>
+
+										<p> Fecha: #{res.fecha}</p>
+										<p> Vacuna: #{res.vacuna.nombre}</p>
+										<p> Departamento: #{res.departamento.toString()}</p>
+										<p> Localidad: #{res.localidad}</p>
+										<p> Dirección: #{res.direccion}</p>
+									  <p></p>
+									</li>
+								</h:panelGroup>
+								</ui:repeat>
+							</ul>
+						</p:tab>
+				</p:tabView>
+				
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+ 
+</html>

@@ -51,8 +51,32 @@
                     </h:panelGroup>
                     <h:panelGroup rendered="#{not empty UsuarioLogueadoBean.userName}">
 
-                        <li><a class="nav-link scrollto #{NavbarBean.esReservas()}" href="../frontoffice/Reservas.xhtml">Mis reservas</a></li>
-                        <li><a class="nav-link scrollto #{NavbarBean.esAgendar()}" href="../frontoffice/AgendarReserva.xhtml">Agendar</a></li>
+
+
+
+                        <li class="dropdown #{NavbarBean.esReservas()}"><a href="#"><span>Mis reservas</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a class="nav-link scrollto #{NavbarBean.esReservas()}" href="../frontoffice/Reservas.xhtml">Presenciales</a></li>
+                                <li><a class="nav-link scrollto " href="../frontoffice/ListarReservasADomicilio.xhtml"> A domicilio</a></li>
+                            </ul>
+
+
+                        </li>
+
+
+                        <li class="dropdown #{NavbarBean.esAgendar()}"><a href="#"><span>Agendar</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a class="nav-link scrollto #{NavbarBean.esAgendar()}" href="../frontoffice/AgendarReserva.xhtml">Presencial</a></li>
+                                <li><a class="nav-link scrollto " href="../frontoffice/ReservaDomicilio.xhtml">A domicilio</a></li>
+                            </ul>
+
+
+                        </li>
+
+
+
+
+
 
 
                         <h:panelGroup rendered="#{UsuarioLogueadoBean.ciudadano.vacunador == true}">

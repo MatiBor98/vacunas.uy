@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:o="http://omnifaces.org/ui"
+
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../WEB-INF/appTemplate.xhtml">
+	<ui:define name="titulo">
+		- Consulta Reservas a domicilio
+	</ui:define>
+	<ui:define name="content">
+		<o:importConstants type="datos.entidades.Estado"/>
+
+		<div class="bodytype">
+		        <!-- presentacion -->
+	        <section id="hero" class="align-items-center" style="margin-top:-40px; background: url(#{resource['images/planes.jpg']}) top center; background-size: cover">
+			   	<h1 class="pb-2" style="margin-top:250px">Reservas a domicilio</h1>
+	        </section><!-- End Hero -->
+	
+	        <div class="div-body" style="min-height: 0px">
+	            <div class="container">
+	                <section id="why-us" class="why-us" style="min-width: 700px;width: 60vw;">
+		                <div class="row pt-5 pb-2">
+		                    <div class="col-6 justify-content-center mx-auto" style="padding-top: 3%">
+		                        <div class="content" style="margin-left: 15px;
+		                                                    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.47);}">
+		                        <p class="pt-3" style="font-family: Open Sans; font-size: 1.2rem;"> Revisá si tus reservas fueron aceptadas o cancelalas tú mismo.</p>
+		                        </div>
+		                    </div>
+		                </div>
+	                </section>
+	
+	                <hr/>
+	            </div>
+	            <div class="container" style="margin:initial">
+							<h1 class="h2 mb-3 font-weight-normal">Reservas a domicilio</h1>
+					
+		
+							<ul class="list-group" style="margin-top: 30px">
+								<ui:repeat value="#{ReservaDomicilioViewBean.getReservas()}" var="reserva">
+									<h:panelGroup>
+									
+									  <li class="list-group-item">
+									  												
+										  <h2>#{reserva.codigo}</h2>
+										  <p> Fecha: #{reserva.fecha}</p>
+										  <p> Departamento: #{reserva.departamento.toString()}</p>
+										  <p> Localidad: #{reserva.localidad}</p>
+										  <p> Direccion: #{reserva.direccion}</p>
+										  <p> Vacuna: #{reserva.vacuna.nombre}</p>
+										  <p> Estado: #{reserva.estadoVacunacion} </p>
+										  <p> Confirmado: #{reserva.estadoAprobacion == Estado.VACUNADO ? "Si" : "No"} </p>
+
+
+										  <h:panelGroup rendered="#{reserva.estadoVacunacion == Estado.PENDIENTE}">
+										<h:form>
+											<p:commandButton action="#{ReservaDomicilioViewBean.cancelar(reserva.codigo)}"
+															 style="margin: 25px;"
+															 icon="pi pi-times"
+															 styleClass="rounded-button ui-button-outlined"
+											></p:commandButton>
+										</h:form>
+										  </h:panelGroup>
+									  </li>
+									</h:panelGroup>
+								</ui:repeat>
+			
+							</ul>
+					
+				</div>
+			</div>
+	     </div>
+		
+	</ui:define>
+</ui:composition>
+</html>
