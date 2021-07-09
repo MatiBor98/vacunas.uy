@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+<ui:composition template="../WEB-INF/appTemplateCiudadano.xhtml">
+   <ui:define name="content">
+      <o:importConstants type="datos.entidades.Departamento"/>
+      <div class="bodytype">
+         <div class="container">
+
+            <h:outputStylesheet name="css/backofficelista.css" />
+
+            <p:messages id="messages" showDetail="true" closable="true">
+               <p:autoUpdate/>
+            </p:messages>
+
+            <h:form>
+
+               <div class="row">
+                  <h3>
+                     Reserva a domicilio.
+                  </h3>
+               </div>
+
+               <div>
+
+                     <div class="row">
+                        <h6 style="width: 100%;">Departamento</h6>
+                        <p:selectOneMenu id="Departamento" value="#{ReservaDomicilioViewBean.departamento}">
+                           <f:selectItems value="#{ReservaDomicilioViewBean.departamentos}"/>
+                        </p:selectOneMenu>
+                     </div>
+
+
+                     <div class="row">
+                        <h6 style="width: 100%;">Enfermedad</h6>
+
+                        <p:selectOneMenu id="enfermedad" value="#{ReservaDomicilioViewBean.enfermedad}">
+                           <f:selectItems value="#{ReservaDomicilioViewBean.enfermedades}"/>
+                        </p:selectOneMenu>
+                     </div>
+
+
+
+
+
+
+                  <div class="row">
+                     <h6 style="width: 100%;">Fecha deseada</h6>
+                     <p:datePicker id="inicio" value="#{ReservaDomicilioViewBean.fecha}" >
+                        <p:ajax event="dateSelect" listener="#{ReservaDomicilioViewBean.onFecha()}"
+                        />
+                     </p:datePicker>
+
+                  </div>
+
+
+
+                  <div class="row">
+                     <h6 style="width: 100%;">Dirección</h6>
+
+
+                     <p:inputText id="dirección" value="#{ReservaDomicilioViewBean.direccion}" required="#{true}"/>
+
+                  </div>
+                  <div class="row">
+                     <h6 style="width: 100%;">Localidad</h6>
+
+                     <p:inputText id="localidad" value="#{ReservaDomicilioViewBean.localidad}"
+                                  required="#{true}"/>
+                  </div>
+               </div>
+
+               <p:commandButton
+                       style="margin: 25px;"
+                       icon="pi pi-paypal"
+                       styleClass="rounded-button ui-button-outlined"
+                       action="#{ReservaDomicilioViewBean.comprar()}" />
+               <h6> Pagar con PayPal (100 USD). </h6>
+
+
+            </h:form>
+
+
+
+
+
+            <form id="comprarPaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display: none">
+               <input type="hidden" name="cmd" value="_s-xclick"/>
+               <input type="hidden" name="hosted_button_id" value="CS5GP6PVM3A4W"/>
+               <input type="image" src="https://i2.wp.com/danabalicki.com/wp-content/uploads/2016/06/paypal-button-blue.png?ssl=1" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="height: 5vh"/>
+               <img alt="" border="0" src="https://www.sandbox.paypal.com/es_XC/i/scr/pixel.gif" width="1" height="1"/>
+            </form>
+
+
+
+
+
+
+
+
+
+         </div>
+      </div>
+   </ui:define>
+</ui:composition>
+</html>

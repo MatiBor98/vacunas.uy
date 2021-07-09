@@ -23,6 +23,7 @@
 		<class>datos.entidades.PlanVacunacion</class>
 		<class>datos.entidades.PuestoVacunacion</class>
 		<class>datos.entidades.Reserva</class>
+		<class>datos.entidades.ReservaDomicilio</class>
 		<class>datos.entidades.SocioLogistico</class>
 		<class>datos.entidades.Turno</class>
 		<class>datos.entidades.Vacuna</class>

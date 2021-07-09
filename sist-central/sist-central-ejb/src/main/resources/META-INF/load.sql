@@ -222,3 +222,6 @@ insert into datosdosis(fecha,nombreVacunatorio,nombreVacuna,cantidad) VALUES (da
 --autoridad 1@1
 insert into usuariobo(tipodeusuario, email, password) VALUES ('autoridad', '1@1', '$2a$10$ubTOrDZ6ufLdhoHQT7Hmtu9CQvxsR7YI6VNOH9ye40jdOXh7ubq1i');
 
+
+
+
