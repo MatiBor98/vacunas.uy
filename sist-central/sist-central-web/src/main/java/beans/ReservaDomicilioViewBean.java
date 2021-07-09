@@ -117,14 +117,32 @@ public class ReservaDomicilioViewBean implements Serializable {
 
     public void aprobar(int codigo){
         reservaDomicilioBeanServiceLocal.aceptarReservaDomicilio(codigo);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void rechazar(int codigo){
         reservaDomicilioBeanServiceLocal.rechazarReservaDomicilio(codigo);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void vacunado(int codigo){
         reservaDomicilioBeanServiceLocal.aceptarReservaDomicilioVacunacion(codigo);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
