@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="socio-logistico">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="socio-logistico-ejb.jar" deploy-path="/" handle="module:/resource/socio-logistico-ejb/socio-logistico-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-ejb-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/jboss-ejb-client/4.0.33.Final/jboss-ejb-client-4.0.33.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-marshalling.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/marshalling/jboss-marshalling/2.0.9.Final/jboss-marshalling-2.0.9.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-marshalling-river.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/marshalling/jboss-marshalling-river/2.0.9.Final/jboss-marshalling-river-2.0.9.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xnio-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/xnio/xnio-api/3.8.2.Final/xnio-api-3.8.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-threads.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/threads/jboss-threads/2.4.0.Final/jboss-threads-2.4.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xnio-nio.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/xnio/xnio-nio/3.8.2.Final/xnio-nio-3.8.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-remoting.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/remoting/jboss-remoting/5.0.19.Final/jboss-remoting-5.0.19.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-logging.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/logging/jboss-logging/3.4.1.Final/jboss-logging-3.4.1.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-ejb-api_3.2_spec.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/spec/javax/ejb/jboss-ejb-api_3.2_spec/2.0.0.Final/jboss-ejb-api_3.2_spec-2.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-client-config.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/client/wildfly-client-config/1.0.1.Final/wildfly-client-config-1.0.1.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-common.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/common/wildfly-common/1.5.4.Final/wildfly-common-1.5.4.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-discovery-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/discovery/wildfly-discovery-client/1.2.1.Final/wildfly-discovery-client-1.2.1.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-elytron.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/security/wildfly-elytron/1.13.1.Final/wildfly-elytron-1.13.1.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-transaction-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/transaction/wildfly-transaction-client/1.1.13.Final/wildfly-transaction-client-1.1.13.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-naming-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-naming-client/1.0.13.Final/wildfly-naming-client-1.0.13.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-ejb3-ext-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/ejb3/jboss-ejb3-ext-api/2.3.0.Final/jboss-ejb3-ext-api-2.3.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-connector-api_1.7_spec.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/spec/javax/resource/jboss-connector-api_1.7_spec/2.0.0.Final/jboss-connector-api_1.7_spec-2.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-transaction-api_1.3_spec.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/spec/javax/transaction/jboss-transaction-api_1.3_spec/2.0.0.Final/jboss-transaction-api_1.3_spec-2.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-http-ejb-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-http-client/wildfly-http-ejb-client/1.1.2.Final/wildfly-http-ejb-client-1.1.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="metainf-services.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/kohsuke/metainf-services/metainf-services/1.7/metainf-services-1.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="undertow-core.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/io/undertow/undertow-core/2.2.2.Final/undertow-core-2.2.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-http-client-common.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-http-client/wildfly-http-client-common/1.1.2.Final/wildfly-http-client-common-1.1.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-http-naming-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-http-client/wildfly-http-naming-client/1.1.2.Final/wildfly-http-naming-client-1.1.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-http-transaction-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-http-client/wildfly-http-transaction-client/1.1.2.Final/wildfly-http-transaction-client-1.1.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wildfly-client-properties.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/wildfly/wildfly-client-properties/21.0.0.Final/wildfly-client-properties-21.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="netty-all.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/io/netty/netty-all/4.1.51.Final/netty-all-4.1.51.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="artemis-hqclient-protocol.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/activemq/artemis-hqclient-protocol/2.10.1/artemis-hqclient-protocol-2.10.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="artemis-core-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/activemq/artemis-core-client/2.10.1/artemis-core-client-2.10.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jgroups.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jgroups/jgroups/4.2.5.Final/jgroups-4.2.5.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="artemis-commons.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/activemq/artemis-commons/2.10.1/artemis-commons-2.10.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-beanutils.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="artemis-jms-client.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/activemq/artemis-jms-client/2.10.1/artemis-jms-client-2.10.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="artemis-selector.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/activemq/artemis-selector/2.10.1/artemis-selector-2.10.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-jms-api_2.0_spec.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/spec/javax/jms/jboss-jms-api_2.0_spec/2.0.0.Final/jboss-jms-api_2.0_spec-2.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jakarta.json-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/jakarta/json/jakarta.json-api/1.1.6/jakarta.json-api-1.1.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jakarta.json.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/glassfish/jakarta.json/1.1.6/jakarta.json-1.1.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jcl-over-slf4j.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/slf4j/jcl-over-slf4j/1.7.30/jcl-over-slf4j-1.7.30.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

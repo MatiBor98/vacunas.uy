@@ -48,6 +48,7 @@
                             <p:selectOneMenu id="Etapa" value="#{MonitorBean.selEtapa}">
                                 <f:selectItem itemLabel="Todas las etapas" itemValue=""/>
                                 <f:selectItems value="#{MonitorBean.etapas}"/>
+                                <p:ajax event="valueChange" process="@this"/>
                             </p:selectOneMenu>
                         </div>
                     </div>

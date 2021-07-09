@@ -21,6 +21,7 @@ public class Vacunatorio implements Serializable {
 
 	@Id
 	private String nombre;
+	private String password;
 	private String ciudad;
 	private String direccion;
 	@Enumerated(EnumType.STRING)
@@ -109,9 +110,10 @@ public class Vacunatorio implements Serializable {
 		this.ubicacion = ubicacion;
 	}*/
 
-	public Vacunatorio(String nombre, String ciudad, String direccion, Departamento departamento) {
+	public Vacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, String pass) {
 		super();
 		this.nombre = nombre;
+		this.password = pass;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.departamento = departamento;
@@ -125,5 +127,14 @@ public class Vacunatorio implements Serializable {
 	public Vacunatorio() {
 		super();
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	
 }

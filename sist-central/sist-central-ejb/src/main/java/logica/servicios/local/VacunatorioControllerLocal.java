@@ -1,5 +1,7 @@
 package logica.servicios.local;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +17,7 @@ import logica.schedule.DatosVacunatorio;
 
 @Local
 public interface VacunatorioControllerLocal {
-	void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento/*, Point ubicacion*/);
+	void addVacunatorio(String nombre, String ciudad, String direccion, Departamento departamento, String pass);
 	Optional<Vacunatorio> find(String nombre);
 	Optional<Vacunatorio> findWithEverything(String nombre);
 	List<Vacunatorio> find();
@@ -24,5 +26,6 @@ public interface VacunatorioControllerLocal {
 	List<Vacunatorio> findByDepartamento(Departamento dep, int primerResultado, int maximosResultados); 
 	List<Vacunatorio> findByDepartamento(Departamento dep);
 	DatosVacunatorio getDatosVacunatorio(String nombrevac);
+	Boolean passCorrecta(String nombreVacunatorio, String pass);
 	//public List<Vacunatorio> getVacunatoriosCercanos(Double coordX, Double coordY);
 }

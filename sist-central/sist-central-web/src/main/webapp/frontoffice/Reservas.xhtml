@@ -69,8 +69,7 @@
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Enfermedad: #{reserva.intervalo.agenda.etapa.planVacunacion.enfermedad.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Vacuna: #{reserva.intervalo.agenda.etapa.vacuna.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Dosis: #{reserva.paraDosis}</p>
-                                <p style="color:#{VacunatorioBean.colorSecundario}"> Estado: <span
-                                        class="badge #{reserva.estado.cssClass}">#{reserva.estado}</span></p>
+                                <p style="color:#{VacunatorioBean.colorSecundario}"> Estado: <span class="badge #{reserva.estado.cssClass}">#{reserva.estado}</span></p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> fecha y hora: #{of:formatDate(reserva.intervalo.fechayHora, 'dd-MM-yyyy HH:mm')}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Vacunatorio: #{reserva.intervalo.agenda.turno.vacunatorio.nombre}</p>
                                 <p style="color:#{VacunatorioBean.colorSecundario}"> Departamento: #{reserva.intervalo.agenda.turno.vacunatorio.departamento}</p>

@@ -1,6 +1,7 @@
 package datos.repositorios;
 
 
+import datos.entidades.Estado;
 import datos.entidades.Reserva;
 import datos.entidades.ReservaConfirmada;
 
@@ -19,4 +20,11 @@ public interface ReservaRepositoryLocal {
 	void saveReservaConfrimada(ReservaConfirmada resConf);
 	void dropReservasConfirmadas();
 	List<ReservaConfirmada> findReservasConfirmadas();
+	List<Reserva> listarVacunados(int offset, int limit, String busqueda);
+	List<Reserva> findByEstado(Estado vacunado);
+	List<Reserva> listarPendientes(int offset, int limit, String busqueda);
+	List<Reserva> listarCancelados(int offset, int limit, String busqueda);
+	List<ReservaConfirmada> listarConfirmados(int offset, int limit, String busqueda);
+	List<ReservaConfirmada> findConfrimados();
+	Reserva findReserva(int codigo);
 	}

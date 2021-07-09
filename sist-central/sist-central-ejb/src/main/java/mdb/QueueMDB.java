@@ -1,17 +1,32 @@
 package mdb;
 
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
+import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import org.eclipse.microprofile.config.Config;
 
+import android.util.Base64;
 import logica.servicios.local.ReservaServiceLocal;
 
 
@@ -25,16 +40,23 @@ public class QueueMDB implements MessageListener {
 	
 	@EJB
     private ReservaServiceLocal reservaService;
+	@Inject
+	Config config;
 
     public QueueMDB() {
     }
 	
     public void onMessage(Message message) {
-        TextMessage msg = null;
-        if (message instanceof TextMessage) {
-        	msg = (TextMessage) message;
+        if (message instanceof BytesMessage) {
         	try {
-				String texto = msg.getText();
+        		BytesMessage msg = (BytesMessage) message;
+        		int TEXT_LENGTH = (int) msg.getBodyLength();
+        		byte[] textBytes = new byte[TEXT_LENGTH];
+        		msg.readBytes(textBytes, TEXT_LENGTH);
+				
+				//desencriptar
+				String texto = desencriptar(textBytes);				
+				
 				List<String> reservasFinalizadas = Pattern.compile("\\&").splitAsStream(texto).collect(Collectors.toList());
 				if(!reservasFinalizadas.get(0).equals("Confirmadas:")) {
 					String reservasConf = reservasFinalizadas.get(0);
@@ -53,10 +75,22 @@ public class QueueMDB implements MessageListener {
 						reservaService.cancelarVacuna(Integer.parseInt(reserva));
 					}
 				}
-			} catch (JMSException e) {
+			} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | JMSException | InvalidKeySpecException e) {
 				e.printStackTrace();
 			}
         }
+    }
+    
+    public String desencriptar(byte[] bytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException {
+    	Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+    	String key = config.getValue("privKey", String.class);
+    	byte[] keyByte = Base64.decode(key, Base64.NO_WRAP);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = (PrivateKey) keyFactory.generatePrivate(new X509EncodedKeySpec(keyByte));
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		byte[] decipheredText = cipher.doFinal(bytes);
+		String texto = new String(decipheredText);
+		return texto;
     }
 
 }

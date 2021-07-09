@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                                        
+                                                                
+    
+    
     
     
     
@@ -13,7 +15,9 @@
     
     
     <wb-module deploy-name="Vacunatorio">
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -27,7 +31,9 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -284,7 +290,33 @@
         <dependent-module archiveName="org.osgi.annotation.versioning.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/osgi/org.osgi.annotation.versioning/1.0.0/org.osgi.annotation.versioning-1.0.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-                                                                                                            
+        <dependent-module archiveName="spring-web.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-web/4.3.8.RELEASE/spring-web-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aop.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-aop/4.3.8.RELEASE/spring-aop-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-beans.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-beans/4.3.8.RELEASE/spring-beans-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-context/4.3.8.RELEASE/spring-context-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-expression.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-expression/4.3.8.RELEASE/spring-expression-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-core.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-core/4.3.8.RELEASE/spring-core-4.3.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.2/commons-logging-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="android-util.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/net/morimekta/utils/android-util/2.7.1/android-util-2.7.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                                                                                                            
+    
+    
     
     
     
@@ -298,7 +330,9 @@
     
     
     </wb-module>
-                                                    
+                                                            
+
+
 
 
 

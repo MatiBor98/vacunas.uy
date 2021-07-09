@@ -42,7 +42,8 @@
 	                    />
 	                    <h:commandButton value="Buscar" type="submit" class="btn btn-info my-2 my-sm-0"
 	                                     style="background-color:#222938; border:#222938; color:white"
-	                                     action="#{ReservaBean.setRealizarBusqueda(true)}"/>
+	                                     action="#{ReservaBean.setRealizarBusqueda(true)}">
+	                    </h:commandButton>
 	                </h:form>
 	                <p></p>
 	                <h:form>
@@ -66,10 +67,11 @@
 	             </div>   
                 <p:datePicker style="display:none"></p:datePicker>
                 
-	               		 <div id="vacunados" style="display:block">		
+                <h:panelGroup id="listados">
+	               		 <div id="vacunados" style="display:block">	
+	               		 	<h:panelGroup id="listadoVacunados">	
 		       			 	<ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
-                				<ui:repeat value="#{ReservaBean.getReservas()}" var="res">
-									<h:form rendered="#{ReservaBean.esVacunado(res)}">
+                				<ui:repeat value="#{ReservaBean.reservasVacunados}" var="res">
 			                       	 	<li class="list-group-item" style="background-color:#{ReservaBean.getColor()}">
 			                            <h2 style="color:#{ReservaBean.colorSecundario}">#{res.ciudadano.nombre} - #{res.ciudadano.ci}</h2>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Enfermedad: #{res.intervalo.agenda.etapa.planVacunacion.enfermedad}</p>
@@ -81,21 +83,41 @@
 			                            <h:form rendered="#{res.lote ne null}">
 			                               <p style="color:#{ReservaBean.colorSecundario}"> Lote de la vacuna: #{res.lote}</p>
 			                            </h:form>
-			                            <h:form rendered="#{ReservaBean.mostrarBoton(res)}">
-			                                <h:commandButton value="Confirmar" type="submit" class="btn btn-success"
-			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{ConsultaBean.setConsultaReserva(res)}"                                                 />
-			                            </h:form>
 			                            </li>
-		                   			 </h:form>
 		                   		</ui:repeat>
 		                   </ul>
+		                    </h:panelGroup>
+		                   <div class="row justify-content-center">
+		                        <h:form id="paginarVacunados">
+		                            <nav aria-label="Page navigation">
+		                                <ul class="pagination">
+		                                    <h:inputHidden value="#{ReservaBean.paginaActualVacunados}"/>
+		                                    <li class="page-item">
+		                                        <h:commandLink id="botonAnteriorVacunados" styleClass="page-link" aria-label="Anterior">
+		                                            <span aria-hidden="true">&laquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoVacunados"
+		                                                    listener="#{ReservaBean.anteriorVacunados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                    <li class="page-item">
+		                                        <h:commandLink styleClass="page-link" aria-label="Siguiente">
+		                                            <span aria-hidden="true">&raquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoVacunados"
+		                                                    listener="#{ReservaBean.siguienteVacunados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                </ul>
+		                            </nav>
+		                        </h:form>
+		                    </div>
 		            	</div>
 		            
-		            	<div id="pendientes" style="display:none">		
+		            	<div id="pendientes" style="display:none">
+		            		<h:panelGroup id="listadoPendientes">	
 		       			 	<ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
-                				<ui:repeat value="#{ReservaBean.getReservas()}" var="res">
-									<h:form rendered="#{ReservaBean.esPendiente(res)}">
+                				<ui:repeat value="#{ReservaBean.realizarBusquedaPendientes()}" var="res">
 			                       	 	<li class="list-group-item" style="background-color:#{ReservaBean.getColor()}">
 			                            <h2 style="color:#{ReservaBean.colorSecundario}">#{res.ciudadano.nombre} - #{res.ciudadano.ci}</h2>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Enfermedad: #{res.intervalo.agenda.etapa.planVacunacion.enfermedad}</p>
@@ -104,25 +126,49 @@
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Fecha y hora: #{res.intervalo.fechayHora}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Plan de Vacunacion: #{res.intervalo.agenda.etapa.planVacunacion.nombre}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Agenda para turno: #{res.intervalo.agenda.nombre}</p>
-			                            <h:form rendered="#{res.lote ne null}">
-			                               <p style="color:#{ReservaBean.colorSecundario}"> Lote de la vacuna: #{res.lote}</p>
-			                            </h:form>
 			                            <h:form rendered="#{ReservaBean.mostrarBoton(res)}">
 			                                <h:commandButton value="Confirmar" type="submit" class="btn btn-success"
 			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{ConsultaBean.setConsultaReserva(res)}"                                                 />
+			                                                 action="#{ConsultaBean.setConsultaReserva(res)}">     
+			                                                 
+			                                </h:commandButton>
 			                            </h:form>
 			                            </li>
-		                   			 </h:form>
 		                   		</ui:repeat>
 		                   </ul>
+		                    </h:panelGroup>
+		                   <div class="row justify-content-center">
+		                        <h:form id="paginarPendientes">
+		                            <nav aria-label="Page navigation">
+		                                <ul class="pagination">
+		                                    <h:inputHidden value="#{ReservaBean.paginaActualPendientes}"/>
+		                                    <li class="page-item">
+		                                        <h:commandLink id="botonAnteriorPendientes" styleClass="page-link" aria-label="Anterior">
+		                                            <span aria-hidden="true">&laquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoPendientes"
+		                                                    listener="#{ReservaBean.anteriorPendientes()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                    <li class="page-item">
+		                                        <h:commandLink styleClass="page-link" aria-label="Siguiente">
+		                                            <span aria-hidden="true">&raquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoPendientes"
+		                                                    listener="#{ReservaBean.siguientePendientes()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                </ul>
+		                            </nav>
+		                        </h:form>
+		                    </div>
 		            	</div>
 		            
 		            
-		            	<div id="confirmados" style="display:none">		
+		            	<div id="confirmados" style="display:none">	
+		            		<h:panelGroup id="listadoConfirmados">	
 		       			 	<ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
-                				<ui:repeat value="#{ReservaBean.getReservas()}" var="res">
-									<h:form rendered="#{ReservaBean.esConfirmado(res)}">
+                				<ui:repeat value="#{ReservaBean.reservasConfirmados}" var="res">
 			                       	 	<li class="list-group-item" style="background-color:#{ReservaBean.getColor()}">
 			                            <h2 style="color:#{ReservaBean.colorSecundario}">#{res.ciudadano.nombre} - #{res.ciudadano.ci}</h2>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Enfermedad: #{res.intervalo.agenda.etapa.planVacunacion.enfermedad}</p>
@@ -131,24 +177,41 @@
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Fecha y hora: #{res.intervalo.fechayHora}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Plan de Vacunacion: #{res.intervalo.agenda.etapa.planVacunacion.nombre}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Agenda para turno: #{res.intervalo.agenda.nombre}</p>
-			                            <h:form rendered="#{res.lote ne null}">
-			                               <p style="color:#{ReservaBean.colorSecundario}"> Lote de la vacuna: #{res.lote}</p>
-			                            </h:form>
-			                            <h:form rendered="#{ReservaBean.mostrarBoton(res)}">
-			                                <h:commandButton value="Confirmar" type="submit" class="btn btn-success"
-			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{ConsultaBean.setConsultaReserva(res)}"                                                 />
-			                            </h:form>
 			                            </li>
-		                   			 </h:form>
 		                   		</ui:repeat>
 		                   </ul>
+		                    </h:panelGroup>
+		                   <div class="row justify-content-center">
+		                        <h:form id="paginarConfirmados">
+		                            <nav aria-label="Page navigation">
+		                                <ul class="pagination">
+		                                    <h:inputHidden value="#{ReservaBean.paginaActualConfirmados}"/>
+		                                    <li class="page-item">
+		                                        <h:commandLink id="botonAnteriorConfirmados" styleClass="page-link" aria-label="Anterior">
+		                                            <span aria-hidden="true">&laquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoConfirmados"
+		                                                    listener="#{ReservaBean.anteriorConfirmados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                    <li class="page-item">
+		                                        <h:commandLink styleClass="page-link" aria-label="Siguiente">
+		                                            <span aria-hidden="true">&raquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoConfirmados"
+		                                                    listener="#{ReservaBean.siguienteConfirmados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                </ul>
+		                            </nav>
+		                        </h:form>
+		                    </div>
 		            	</div>
 		            
-		            	<div id="cancelados" style="display:none">		
+		            	<div id="cancelados" style="display:none">	
+		            		<h:panelGroup id="listadoCancelados">	
 		       			 	<ul class="list-group" style="width:800px; border:0px; margin: 0 auto; float: none; margin-bottom: 10px; margin-top:20px">
-                				<ui:repeat value="#{ReservaBean.getReservas()}" var="res">
-									<h:form rendered="#{ReservaBean.esCancelado(res)}">
+                				<ui:repeat value="#{ReservaBean.reservasCancelados}" var="res">
 			                       	 	<li class="list-group-item" style="background-color:#{ReservaBean.getColor()}">
 			                            <h2 style="color:#{ReservaBean.colorSecundario}">#{res.ciudadano.nombre} - #{res.ciudadano.ci}</h2>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Enfermedad: #{res.intervalo.agenda.etapa.planVacunacion.enfermedad}</p>
@@ -157,19 +220,37 @@
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Fecha y hora: #{res.intervalo.fechayHora}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Plan de Vacunacion: #{res.intervalo.agenda.etapa.planVacunacion.nombre}</p>
 			                            <p style="color:#{ReservaBean.colorSecundario}"> Agenda para turno: #{res.intervalo.agenda.nombre}</p>
-			                            <h:form rendered="#{res.lote ne null}">
-			                               <p style="color:#{ReservaBean.colorSecundario}"> Lote de la vacuna: #{res.lote}</p>
-			                            </h:form>
-			                            <h:form rendered="#{ReservaBean.mostrarBoton(res)}">
-			                                <h:commandButton value="Confirmar" type="submit" class="btn btn-success"
-			                                                 style="padding: 2px 6px; display: inline; margin-left: 3px"
-			                                                 action="#{ConsultaBean.setConsultaReserva(res)}"                                                 />
-			                            </h:form>
 			                            </li>
-		                   			 </h:form>
 		                   		</ui:repeat>
 		                   </ul>
+		                    </h:panelGroup>
+		                    <div class="row justify-content-center">
+		                        <h:form id="paginarCancelados">
+		                            <nav aria-label="Page navigation">
+		                                <ul class="pagination">
+		                                    <h:inputHidden value="#{ReservaBean.paginaActualCancelados}"/>
+		                                    <li class="page-item">
+		                                        <h:commandLink id="botonAnteriorCancelados" styleClass="page-link" aria-label="Anterior">
+		                                            <span aria-hidden="true">&laquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoCancelados"
+		                                                    listener="#{ReservaBean.anteriorCancelados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                    <li class="page-item">
+		                                        <h:commandLink styleClass="page-link" aria-label="Siguiente">
+		                                            <span aria-hidden="true">&raquo;</span>
+		                                            <f:ajax event="click"
+		                                                    render="listadoCancelados"
+		                                                    listener="#{ReservaBean.siguienteCancelados()}"/>
+		                                        </h:commandLink>
+		                                    </li>
+		                                </ul>
+		                            </nav>
+		                        </h:form>
+		                    </div>
 		            	</div>
+		            </h:panelGroup>
 				</div>
             </div>
 	    <scripts>
@@ -226,6 +307,12 @@
 				}
 			</script>
 	</scripts>
+	<h:outputScript>
+            $("#paginarVacunados\\:botonAnteriorVacunados").click()
+            $("#paginarPendientes\\:botonAnteriorPendientes").click()
+            $("#paginarCancelados\\:botonAnteriorCancelados").click()
+            $("#paginarConfirmados\\:botonAnteriorConfirmados").click()
+    </h:outputScript>
     </ui:define>
 </ui:composition>
 
