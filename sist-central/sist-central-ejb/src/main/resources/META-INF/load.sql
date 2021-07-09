@@ -138,6 +138,10 @@ insert into horariopordia (agenda_id, capacidadporturno, inicio, fin, minutostur
 
 --Socio logistico UPS
 insert into sociologistico (nombre, habilitado) values ('UPS', boolean 'false');
+--Socio logistico Fedex
+insert into sociologistico (nombre, habilitado) values ('Fedex', boolean 'false');
+
+
 
 --Lote 2143, 500 dosis, vence 2020/09/09, UPS, Pfizer
 insert into lote (numerolote, dosisdisponibles, fechavencimiento, sociologisticoid, vacuna_nombre) values (2143, 500, date '2020-09-09', 'UPS', 'Pfizer');
@@ -173,10 +177,10 @@ insert into ciudadano (rol, ci, email, fechanacimiento, nombre, sexo, trabajo) V
 -- Ciudadano 52667157, Ignacio, indefinido, indefinido
 insert into ciudadano (rol, ci, email, nombre) VALUES ('Ciudadano', 52667157,'nacho.ote@mail.com', 'Ignacio Otero');
 
---Reserva 1, Pendiente, 50550419(Nico), intervalo 1(COSEM PC, Coronavac)
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 0, 1, 50550419, 1);
---Reserva 2, Pendiente, 50550419(Nico), intervalo 2(COSEM PC, Coronavac)
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 0, 2, 50550419, 2);
+--Reserva 1, Vacunado, 50550419(Nico), intervalo 1(COSEM PC, Coronavac)
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid)  VALUES (nextval('reservaId'), 2, 1, 50550419, 1);
+--Reserva 2, Vacunado, 50550419(Nico), intervalo 2(COSEM PC, Coronavac)
+insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 2, 2, 50550419, 2);
 --Reserva 3, Vacunado, 52050756(Bruno), intervalo 4(COSEM PC, Pfizer)
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 52050756, 4);
 --Reserva 4, Vacunado, 52050756(Bruno), intervalo 5(COSEM PC, Pfizer)
@@ -184,7 +188,7 @@ insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES
 --Reserva 5, Vacunado, 12341234(Ana), intervalo 4(COSEM PC, Pfizer)
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 2, 1, 12341234, 4);
 --Reserva 6, Pendiente, 50550419(Nico), intervalo 3(COSEM PC, Coronavac)
-insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 0, 1, 50550419, 3);
+-- insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaId'), 0, 1, 50550419, 3);
 --Reserva 7, Pendiente, 50550419(Nico), intervalo 6(COSEM PC, Gripevac)
 insert into reserva (codigo, estado, paradosis, ciciudadano, intervaloid) VALUES (nextval('reservaid'), 0, 1, 50550419, 6);
 --Reserva 8, Vacunado, 52050756(Bruno), intervalo 6(COSEM PC, Gripevac)
