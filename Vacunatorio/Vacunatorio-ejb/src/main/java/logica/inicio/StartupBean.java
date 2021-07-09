@@ -280,7 +280,7 @@ public class StartupBean {
 				Intervalo intervalo = null;
 				List<Intervalo> intervalos = intervaloRepository.find();				
 				for (Intervalo interv:intervalos) {
-					if (interv.getFechayHora().isEqual(LocalDateTime.parse(reservaDTO.getIntervalo().getFechayHora()))) {
+					if (interv.getFechayHora().isEqual(LocalDateTime.parse(reservaDTO.getIntervalo().getFechayHora())) && interv.getAgenda().getId() == agenda.getId()) {
 						intervalo = interv;
 						break;
 					}

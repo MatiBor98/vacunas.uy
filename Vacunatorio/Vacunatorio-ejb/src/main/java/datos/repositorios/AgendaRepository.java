@@ -90,7 +90,7 @@ public class AgendaRepository implements AgendaRepositoryLocal, AgendaRepository
 		Agenda res = null;
 		List<Agenda> agendas = find();
 		for(Agenda agenda:agendas) {
-			if(agenda.getNombre().equals(nombre) && agenda.getTurno().getNombre().equals(nombre2)) {
+			if(agenda.getNombre().equals(nombre) && agenda.getTurno().getNombre().equals(nombre2) && etapa.getPlanVacunacion().getNombre().equals(agenda.getEtapa().getPlanVacunacion().getNombre())) {
 				res = agenda;
 				break;
 			}
